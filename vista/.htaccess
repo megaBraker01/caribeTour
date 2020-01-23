@@ -1,0 +1,19 @@
+# Do not remove this line, otherwise mod_rewrite rules will stop working
+#RewriteBase /
+
+Options +FollowSymlinks
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^caribetour.es [NC]
+RewriteRule ^(.*)$ http://www.caribetour.es/$1 [R=301,L]
+RewriteRule ^admin/.*$ - [PT]
+RewriteRule ^servicios/?$ servicios.php
+RewriteRule ^destinos/?$ destinos.php
+RewriteRule ^destinos/([a-z-]+)/?$ categorias.php?seoCat=$1
+RewriteRule ^destinos/([a-z-]+)/([a-z-]+)/?$ sub-categorias.php?seoCat=$2
+RewriteRule ^destinos/([a-z-]+)/([a-z-]+)/([a-z-]+)/?$ destino-datos.php?seoProd=$3
+RewriteRule ^blog/?$ blog.php
+RewriteRule ^blog/([a-z-]+)/?$ blog-datos.php?idBlog=$1
+RewriteRule ^galeria/?$ galeria.php
+RewriteRule ^contactos/?$ contacto.php
+RewriteRule ^legal/?$ legal-lista.php
+RewriteRule ^legal/([a-z-]+)/?$ legal-datos.php?idLegal=$1

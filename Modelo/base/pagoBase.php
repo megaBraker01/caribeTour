@@ -1,0 +1,66 @@
+<?php
+
+require_once 'AutoLoader/AutoLoader.php';
+
+abstract class PagoBase extends ModelBase {
+
+    protected $idPago;
+    protected $idReserva;
+    protected $importe;
+    protected $idPagoTipo;
+    protected $idEstado;
+    protected $fechaAlta;
+
+    public function __construct(
+        $idPago = 0,
+        $idReserva = 0,
+        $importe = 0,
+        $idPagoTipo = 0,
+        $idEstado = 0,
+        $fechaAlta = ''
+    ){
+        $this->setIdPago($idPago);
+        $this->setIdReserva($idReserva);
+        $this->setImporte($importe);
+        $this->setIdPagoTipo($idPagoTipo);
+        $this->setIdEstado($idEstado);
+        $this->setFechaAlta($fechaAlta);
+    }
+
+    public function getIdPago(){ return $this->idPago; }
+
+    public function getIdReserva(){ return $this->idReserva; }
+
+    public function getImporte(){ return $this->importe; }
+
+    public function getIdPagoTipo(){ return $this->idPagoTipo; }
+
+    public function getIdEstado(){ return $this->idEstado; }
+
+    public function getFechaAlta(){ return $this->fechaAlta; }
+
+    public function setIdPago($idPago = 0){
+        $this->idPago = (int) $idPago; return $this;
+    }
+
+    public function setIdReserva($idReserva = 0){
+        $this->idReserva = (int) $idReserva; return $this;
+    }
+
+    public function setImporte($importe = 0){
+        $this->importe = (float) $importe; return $this;
+    }
+
+    public function setIdPagoTipo($idPagoTipo = 0){
+        $this->idPagoTipo = (int) $idPagoTipo; return $this;
+    }
+
+    public function setIdEstado($idEstado = 0){
+        $this->idEstado = (int) $idEstado; return $this;
+    }
+
+    public function setFechaAlta($fechaAlta = ''){
+        $this->fechaAlta = (string) $fechaAlta; return $this;
+    }
+
+}

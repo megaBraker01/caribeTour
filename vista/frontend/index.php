@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es-ES">
     <head>
-        <?php include_once("vista/includes/metatag.php"); ?>
+        <?php include_once("includes/metatag.php"); ?>
         <meta property="og:title" content="Caribetour.es | Especialistas en el Caribe" />
         <meta name="title" content="CaribeTour.es: Especialistas en el Caribe" />
         <meta name="DC.title" content="CaribeTour.es: Especialistas en el Caribe" />
@@ -11,24 +11,24 @@
         <!--[if lt IE 9]>
             <script type="text/javascript" src="http://www.caribetour.es/js/jquery/html5.js"></script>
         <![endif]-->
-        <?php include_once("vista/includes/baselink.php"); ?>
+        <?php include_once("includes/baselink.php"); ?>
         <link rel="canonical" href="http://www.caribetour.es/" />
-	<?php include_once("vista/includes/icons.php"); ?>
-        <link rel='stylesheet' id='colorbox-css'  href='css/colorbox.css?ver=3.7.1' type='text/css' media='all' />
-        <link rel='stylesheet' id='jquery-ui-datepicker-css'  href='css/datepicker.css?ver=3.7.1' type='text/css' media='all' />
-        <link rel='stylesheet' id='general-css'  href='css/style.css?ver=3.7.1' type='text/css' media='all' />
+	<?php include_once("includes/icons.php"); ?>
+        <link rel='stylesheet' id='colorbox-css'  href='vista/frontend/css/colorbox.css?ver=3.7.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='jquery-ui-datepicker-css'  href='vista/frontend/css/datepicker.css?ver=3.7.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='general-css'  href='vista/frontend/css/style.css?ver=3.7.1' type='text/css' media='all' />
         <!-- DOTO: poner los js necesarios en un include -->
-        <script type='text/javascript' src='js/jquery.js?ver=1.10.2'></script>
-        <script type='text/javascript' src='js/jquery-migrate.min.js?ver=1.2.1'></script>
-        <script type='text/javascript' src='js/comment-reply.min.js?ver=3.7.11'></script>
-        <script type='text/javascript' src='js/jquery.hoverIntent.min.js?ver=3.7.11'></script>
-        <script type='text/javascript' src='js/jquery.ui.touchPunch.js?ver=3.7.11'></script>
-        <script type='text/javascript' src='js/jquery.colorbox.min.js?ver=3.7.11'></script>
-        <script type='text/javascript' src='js/jquery.placeholder.min.js?ver=3.7.11'></script>
-        <script type='text/javascript' src='js/jquery.themexSlider.js?ver=3.7.11'></script>
-        <script type='text/javascript' src='js/jquery.textPattern.js?ver=3.7.11'></script>
-        <script type='text/javascript' src='js/general.js?ver=3.7.11'></script>
-        <?php include_once("vista/includes/css.php");?>
+        <script type='text/javascript' src='vista/frontend/js/jquery.js?ver=1.10.2'></script>
+        <script type='text/javascript' src='vista/frontend/js/jquery-migrate.min.js?ver=1.2.1'></script>
+        <script type='text/javascript' src='vista/frontend/js/comment-reply.min.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='vista/frontend/js/jquery.hoverIntent.min.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='vista/frontend/js/jquery.ui.touchPunch.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='vista/frontend/js/jquery.colorbox.min.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='vista/frontend/js/jquery.placeholder.min.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='vista/frontend/js/jquery.themexSlider.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='vista/frontend/js/jquery.textPattern.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='vista/frontend/js/general.js?ver=3.7.11'></script>
+        <?php include_once("includes/css.php");?>
         <script type="text/javascript">
         WebFontConfig = {google: { families: [ "Signika:400,600","Open Sans:400,400italic,600" ] } };
         (function() {
@@ -49,15 +49,15 @@
             <!-- header -->
             <header class="container site-header">
                 <div class="substrate top-substrate">
-                    <img src="images/site_bg.jpg" class="fullwidth" alt="Imagen de fondo" />
+                    <img src="vista/frontend/images/site_bg.jpg" class="fullwidth" alt="Imagen de fondo" />
                 </div>
                 <!-- background -->
                 <!-- supheader -->
-                <?php include_once("vista/includes/header.php");?>                
+                <?php include_once("includes/header.php");?>                
                 <div class="row subheader">
                     <div class="threecol column subheader-block">
                         <!-- tour search form -->
-                        <?php include_once("vista/includes/buscador.php");?>	
+                        <?php include_once("includes/buscador.php");?>	
                         <!-- /tour search form -->	
                     </div>
                     <div class="ninecol column subheader-block last">
@@ -96,7 +96,7 @@
                 <div class="row">
                     <div class="eightcol column">
                         <div class="fivecol column">
-                            <img alt="CaribeTour.es | Explora el mundo" class="alignnone size-medium wp-image-21 demo-image" title="CaribeTour.es | Explora el mundo" src="images/explora.jpg" />
+                            <img alt="CaribeTour.es | Explora el mundo" class="alignnone size-medium wp-image-21 demo-image" title="CaribeTour.es | Explora el mundo" src="vista/frontend/images/explora.jpg" />
                         </div>
                         <div class="sevencol column last">
                             <div class="section-title">
@@ -152,7 +152,7 @@
             
             <section class="container content-section">
         	<div class="substrate section-substrate">
-                    <img src="images/background_1.jpg" class="fullwidth" alt="" />
+                    <img src="vista/frontend/images/background_1.jpg" class="fullwidth" alt="" />
                 </div>
                 <div class="row">
                     <div class="items-grid">
@@ -244,20 +244,20 @@
             <!-- /content -->
             
             <!-- footer -->
-            <?php include_once("vista/includes/footer.php");?>
+            <?php include_once("includes/footer.php");?>
             <!-- footer -->
             
             <div class="substrate bottom-substrate">
-                <img src="images/site_bg.jpg" class="fullwidth" alt="Imagen de fondo" />
+                <img src="vista/frontend/images/site_bg.jpg" class="fullwidth" alt="Imagen de fondo" />
             </div>
 	</div>
         <!-- /container -->
         
-	<script type='text/javascript' src='js/jquery.ui.core.min.js?ver=1.10.3'></script>
-        <script type='text/javascript' src='js/jquery.ui.widget.min.js?ver=1.10.3'></script>
-        <script type='text/javascript' src='js/jquery.ui.mouse.min.js?ver=1.10.3'></script>
-        <script type='text/javascript' src='js/jquery.ui.slider.min.js?ver=1.10.3'></script>
-        <script type='text/javascript' src='js/jquery.ui.datepicker.min.js?ver=1.10.3'></script>
+	<script type='text/javascript' src='vista/frontend/js/jquery.ui.core.min.js?ver=1.10.3'></script>
+        <script type='text/javascript' src='vista/frontend/js/jquery.ui.widget.min.js?ver=1.10.3'></script>
+        <script type='text/javascript' src='vista/frontend/js/jquery.ui.mouse.min.js?ver=1.10.3'></script>
+        <script type='text/javascript' src='vista/frontend/js/jquery.ui.slider.min.js?ver=1.10.3'></script>
+        <script type='text/javascript' src='vista/frontend/js/jquery.ui.datepicker.min.js?ver=1.10.3'></script>
     </body>
 </html>
 

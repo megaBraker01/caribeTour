@@ -6,14 +6,18 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^caribetour.es [NC]
 RewriteRule ^(.*)$ http://www.caribetour.es/$1 [R=301,L]
 RewriteRule ^admin/.*$ - [PT]
-RewriteRule ^servicios/?$ vista/servicios.php
-RewriteRule ^destinos/?$ vista/destinos.php
-RewriteRule ^destinos/([a-z-]+)/?$ vista/categorias.php?seoCat=$1
-RewriteRule ^destinos/([a-z-]+)/([a-z-]+)/?$ vista/sub-categorias.php?seoCat=$2
-RewriteRule ^destinos/([a-z-]+)/([a-z-]+)/([a-z-]+)/?$ vista/destino-datos.php?seoProd=$3
-RewriteRule ^blog/?$ vista/blog.php
-RewriteRule ^blog/([a-z-]+)/?$ vista/blog-datos.php?idBlog=$1
-RewriteRule ^galeria/?$ vista/galeria.php
-RewriteRule ^contactos/?$ vista/contacto.php
-RewriteRule ^legal/?$ vista/legal-lista.php
-RewriteRule ^legal/([a-z-]+)/?$ vista/legal-datos.php?idLegal=$1
+RewriteRule ^/?$ vista/frontend/index.php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^index.php/?$ vista/frontend/index.php
+RewriteRule ^servicios/?$ vista/frontend/servicios.php
+RewriteRule ^destinos/?$ vista/frontend/destinos.php
+RewriteRule ^destinos/([a-z-]+)/?$ vista/frontend/categorias.php?seoCat=$1
+RewriteRule ^destinos/([a-z-]+)/([a-z-]+)/?$ vista/frontend/sub-categorias.php?seoCat=$2
+RewriteRule ^destinos/([a-z-]+)/([a-z-]+)/([a-z-]+)/?$ vista/frontend/destino-datos.php?seoProd=$3
+RewriteRule ^blog/?$ vista/frontend/blog.php
+RewriteRule ^blog/([a-z-]+)/?$ vista/frontend/blog-datos.php?idBlog=$1
+RewriteRule ^galeria/?$ vista/frontend/galeria.php
+RewriteRule ^contactos/?$ vista/frontend/contacto.php
+RewriteRule ^legal/?$ vista/frontend/legal-lista.php
+RewriteRule ^legal/([a-z-]+)/?$ vista/frontend/legal-datos.php?idLegal=$1

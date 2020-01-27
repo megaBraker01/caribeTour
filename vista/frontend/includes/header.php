@@ -1,8 +1,8 @@
 <div class="row supheader">
     <!-- logo -->
     <div class="logo">
-        <a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="home">
-            <img src="images/logo.png" alt="Logo CaribeTour.es" title="CaribeTour.es" />
+        <a hreflang="es" type="text/html" charset="iso-8859-1" href="/" rel="home">
+            <img src="vista/frontend/images/logo.png" alt="Logo CaribeTour.es" title="CaribeTour.es" />
         </a>
     </div>
     <!-- /logo -->
@@ -15,7 +15,7 @@
     <nav class="header-menu">
         <div class="menu">
             <ul id="menu-main-menu" class="menu">
-                <li id="menu-item-97" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" title="Inicio">INICIO</a></li>
+                <li id="menu-item-97" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="/" title="Inicio">INICIO</a></li>
                 <li id="menu-item-306" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="servicios" title="Nuestros Servicios">SERVICIOS</a></li>
                 <li id="menu-item-122" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="destinos" title="Todos los Destinos">DESTINOS</a></li>
                 <li id="menu-item-120" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="blog" title="Nuestro Blog">BLOG</a></li>
@@ -36,8 +36,8 @@
     <!-- select menu-->
     <div class="select-menu select-field">
         <select>
-            <option value="index.php" id="menu"><label for="menu">Men&uacute;</label></option>
-            <option value="index.php" id="inicio"><label for="inicio">Inicio</label></option>
+            <option value="/" id="menu"><label for="menu">Men&uacute;</label></option>
+            <option value="/" id="inicio"><label for="inicio">Inicio</label></option>
             <option value="servicios" id="servicios"><label for="servicios">Servicios</label></option>
             <option value="destinos" id="destinos"><label for="destinos">Destinos</label></option>
             <option value="blog" id="blog"><label for="blog">Blog</label></option>

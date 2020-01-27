@@ -1,0 +1,9 @@
+ALIAS
+    añadir un alias
+    git config --global alias.nombreAlias 'nombreComando'
+
+    ver todos los alias
+    git config --global --get-regexp alias
+
+    eliminar alias
+    git config --global --unset alias.nombreAlias

@@ -1,4 +1,4 @@
-<?php include_once('pathFrontend.php') ?>
+<?php include_once('includes/pathFrontend.php') ?>
 <script type='text/javascript' src='<?=PATHFRONTEND?>js/jquery.js?ver=1.10.2'></script>
         <script type='text/javascript' src='<?=PATHFRONTEND?>js/jquery-migrate.min.js?ver=1.2.1'></script>
         <script type='text/javascript' src='<?=PATHFRONTEND?>js/comment-reply.min.js?ver=3.7.11'></script>

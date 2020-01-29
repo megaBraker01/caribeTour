@@ -41,7 +41,7 @@ include_once "includes/pathFrontend.php";
             <!-- header -->
             <header class="container site-header">
                 <div class="substrate top-substrate">
-                    <img src="<?=PATHFRONTEND?>images/site_bg.jpg" class="fullwidth" alt="Imagen de fondo" />
+                    <?php include('includes/imgSiteBg.php') ?>
                 </div>
                 <!-- background -->
                 <!-- supheader -->
@@ -52,10 +52,11 @@ include_once "includes/pathFrontend.php";
             <!-- /header -->
 
             <!-- content -->
-            
-
-            <h3>Tu contenido va aquí</h3>
-
+            <section class="container site-content">
+                <div class="row">
+                    <h3>Tu contenido va aquí</h3>
+                </div>
+            </section>
 
             <!-- /content -->
 
@@ -64,7 +65,7 @@ include_once "includes/pathFrontend.php";
             <!-- /footer -->
 
             <div class="substrate bottom-substrate">
-                <img src="<?=PATHFRONTEND?>images/site_bg.jpg" class="fullwidth" alt="Imagen de fondo" />
+                <?php include('includes/imgSiteBg.php') ?>
             </div>
         </div>
         <!-- /container -->

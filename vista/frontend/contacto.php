@@ -55,7 +55,7 @@
             <!-- header -->
             <header class="container site-header">
                 <div class="substrate top-substrate">
-                    <?php include_once('includes/imgSiteBg.php') ?>
+                    <?php include('includes/imgSiteBg.php') ?>
                 </div>
                 <!-- background -->
                 <!-- supheader -->
@@ -146,7 +146,7 @@
             <!-- /footer -->
 
             <div class="substrate bottom-substrate">
-                <?php include_once('includes/imgSiteBg.php') ?>
+                <?php include('includes/imgSiteBg.php') ?>
             </div>
         </div>
         <!-- /container -->

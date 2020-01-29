@@ -22,3 +22,4 @@ RewriteRule ^contactos/?$ vista/frontend/contacto.php
 RewriteRule ^legal/?$ vista/frontend/legal-lista.php
 RewriteRule ^legal/([a-z-]+)/?$ vista/frontend/legal-datos.php?idLegal=$1
 RewriteRule ^plantilla/?$ vista/frontend/plantilla.php
+RewriteRule ^resultado/?$ vista/frontend/resultado.php?$1

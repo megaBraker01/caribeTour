@@ -1,0 +1,11 @@
+<?php include_once('pathFrontend.php') ?>
+<script type='text/javascript' src='<?=PATHFRONTEND?>js/jquery.js?ver=1.10.2'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND?>js/jquery-migrate.min.js?ver=1.2.1'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND?>js/comment-reply.min.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND?>js/jquery.hoverIntent.min.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND?>js/jquery.ui.touchPunch.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND?>js/jquery.colorbox.min.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND?>js/jquery.placeholder.min.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND?>js/jquery.themexSlider.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND?>js/jquery.textPattern.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND?>js/general.js?ver=3.7.11'></script>

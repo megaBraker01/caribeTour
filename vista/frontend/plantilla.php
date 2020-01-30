@@ -53,6 +53,18 @@ include_once "includes/pathFrontend.php";
 
             <!-- content -->
             <section class="container site-content">
+					<!--inicio breadcrumb-->
+					<div class="miga" id="breadcrumb">
+						<div class="breadcrumb">
+							<a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
+						</div>
+						<div class="breadcrumb">
+							paginaActual
+						</div>
+               </div>
+				   <!--fin de breadcrumb-->            
+            
+            
                 <div class="row">
                     <h3>Tu contenido va aquí</h3>
                 </div>

@@ -11,10 +11,10 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^index.php/?$ vista/frontend/index.php
 RewriteRule ^servicios/?$ vista/frontend/servicios.php
-RewriteRule ^destinos/?$ vista/frontend/destinos.php
-RewriteRule ^destinos/([a-z-]+)/?$ vista/frontend/categorias.php?seoCat=$1
-RewriteRule ^destinos/([a-z-]+)/([a-z-]+)/?$ vista/frontend/sub-categorias.php?seoCat=$2
-RewriteRule ^destinos/([a-z-]+)/([a-z-]+)/([a-z-]+)/?$ vista/frontend/destino-datos.php?seoProd=$3
+RewriteRule ^paises/?$ vista/frontend/paises.php
+RewriteRule ^paises/([a-z-]+)/?$ vista/frontend/categorias.php?seoCat=$1
+RewriteRule ^paises/([a-z-]+)/([a-z-]+)/?$ vista/frontend/sub-categorias.php?seoCat=$2
+RewriteRule ^paises/([a-z-]+)/([a-z-]+)/([a-z-]+)/?$ vista/frontend/destino-datos.php?seoProd=$3
 RewriteRule ^blog/?$ vista/frontend/blog.php
 RewriteRule ^blog/([a-z-]+)/?$ vista/frontend/blog-datos.php?idBlog=$1
 RewriteRule ^galeria/?$ vista/frontend/galeria.php

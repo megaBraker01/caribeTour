@@ -18,9 +18,9 @@
         <?php include_once("includes/baselink.php"); ?>
         <link rel="canonical" href="http://www.caribetour.es/" />
 	    <?php include_once("includes/icons.php"); ?>
-        <link rel='stylesheet' id='colorbox-css'  href='vista/frontend/css/colorbox.css?ver=3.7.1' type='text/css' media='all' />
-        <link rel='stylesheet' id='jquery-ui-datepicker-css'  href='vista/frontend/css/datepicker.css?ver=3.7.1' type='text/css' media='all' />
-        <link rel='stylesheet' id='general-css'  href='vista/frontend/css/style.css?ver=3.7.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='colorbox-css'  href='<?=PATHFRONTEND ?>css/colorbox.css?ver=3.7.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='jquery-ui-datepicker-css'  href='<?=PATHFRONTEND ?>css/datepicker.css?ver=3.7.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='general-css'  href='<?=PATHFRONTEND ?>css/style.css?ver=3.7.1' type='text/css' media='all' />
         <?php include_once("includes/jsHead.php"); ?>
         <script type="text/javascript">
             function suscriptor (){

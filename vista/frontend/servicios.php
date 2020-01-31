@@ -17,9 +17,9 @@ include_once "includes/pathFrontend.php";
         <?php include_once("includes/baselink.php"); ?>
         <link rel="canonical" href="http://www.caribetour.es/" />
 	    <?php include_once("includes/icons.php"); ?>
-        <link rel='stylesheet' id='colorbox-css'  href='vista/frontend/css/colorbox.css?ver=3.7.1' type='text/css' media='all' />
-        <link rel='stylesheet' id='jquery-ui-datepicker-css'  href='vista/frontend/css/datepicker.css?ver=3.7.1' type='text/css' media='all' />
-        <link rel='stylesheet' id='general-css'  href='vista/frontend/css/style.css?ver=3.7.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='colorbox-css'  href='<?=PATHFRONTEND ?>css/colorbox.css?ver=3.7.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='jquery-ui-datepicker-css'  href='<?=PATHFRONTEND ?>css/datepicker.css?ver=3.7.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='general-css'  href='<?=PATHFRONTEND ?>css/style.css?ver=3.7.1' type='text/css' media='all' />
         <?php include_once("includes/jsHead.php"); ?>
         <?php include_once("includes/css.php"); ?>
         <script type="text/javascript">
@@ -84,7 +84,7 @@ include_once "includes/pathFrontend.php";
                                 <a hreflang="es" type="text/html" charset="iso-8859-1" href="css/prueba.html" target="_self" class="button medium primary">Reservar Billetes</a>
                             </div>
                             <div class="fivecol column last">
-	                            <img class="aligncenter" alt="Billetes de avion" title="Billetes de avi&oacute;n" src="vista/frontend/images/ticket_aereo.jpg" />
+	                            <img class="aligncenter" alt="Billetes de avion" title="Billetes de avi&oacute;n" src="<?=PATHFRONTEND ?>images/ticket_aereo.jpg" />
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -95,7 +95,7 @@ include_once "includes/pathFrontend.php";
                                 <p>Suspendisse luctus, felis at fringilla dictum, erat massa vehicula velit, id venenatis eros libero et lectus. Proin ullamcorper molestie lectus, sit amet condimentum dui tincidunt ut. In tempor faucibus eros, sed auctor orci ultricies non. Suspen lacinia enim vel nibh tincidunt vel consectetur est ullamcorper. Suspen orce.</p>
                                 <a hreflang="es" type="text/html" charset="iso-8859-1" href="contactos" target="_self" class="button medium primary">Ver Escursiones Disponibles</a>
                             </div>
-                            <div class="fivecol column last"><img class="aligncenter" alt="Excursiones en el Caribe" title="Excursiones en el Caribe" src="vista/frontend/images/excursiones.jpg" /></div>
+                            <div class="fivecol column last"><img class="aligncenter" alt="Excursiones en el Caribe" title="Excursiones en el Caribe" src="<?=PATHFRONTEND ?>images/excursiones.jpg" /></div>
                             <div class="clear"></div>
                         </div>
                         <div class="pane">
@@ -106,7 +106,7 @@ include_once "includes/pathFrontend.php";
                                 <a hreflang="es" type="text/html" charset="iso-8859-1" href="contactos" target="_self" class="button medium primary">Reservar Hotel</a>
                             </div>
                             <div class="fivecol column last">
-                            	<img class="aligncenter" alt="Los Mejores Hoteles" title="Los Mejores Hoteles" src="vista/frontend/images/hoteles.jpg" />
+                            	<img class="aligncenter" alt="Los Mejores Hoteles" title="Los Mejores Hoteles" src="<?=PATHFRONTEND ?>images/hoteles.jpg" />
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -118,7 +118,7 @@ include_once "includes/pathFrontend.php";
                                 <a hreflang="es" type="text/html" charset="iso-8859-1" href="contactos" target="_self" class="button medium primary">Reservar</a>
                             </div>
                             <div class="fivecol column last">
-	                            <img class="aligncenter" alt="Arquiler de Coches" title="Arquiler de Coches" src="vista/frontend/images/rent_a_car.jpg" />
+	                            <img class="aligncenter" alt="Arquiler de Coches" title="Arquiler de Coches" src="<?=PATHFRONTEND ?>images/rent_a_car.jpg" />
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -137,7 +137,7 @@ include_once "includes/pathFrontend.php";
 
                             </div>            
 
-                            <div class="fivecol column last"><img class="aligncenter" alt="Turismo Est&eacute;tico" title="Turismo Est&eacute;tico" src="vista/frontend/images/estetica3.jpg" /></div>
+                            <div class="fivecol column last"><img class="aligncenter" alt="Turismo Est&eacute;tico" title="Turismo Est&eacute;tico" src="<?=PATHFRONTEND ?>images/estetica3.jpg" /></div>
 
                             <div class="clear"></div>
 
@@ -152,7 +152,7 @@ include_once "includes/pathFrontend.php";
                     <div class="staff-block">
                         <div class="fourcol column">
                             <div class="featured-image">
-                                <img src="vista/frontend/images/teleoperadora.jpg" alt="Expertos en todo el Caribe" title="Expertos en todo el Caribe" />
+                                <img src="<?=PATHFRONTEND ?>images/teleoperadora.jpg" alt="Expertos en todo el Caribe" title="Expertos en todo el Caribe" />
                             </div>
                         </div>
                         <div class="eightcol column last">

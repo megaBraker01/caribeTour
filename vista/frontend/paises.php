@@ -9,17 +9,17 @@ include_once "includes/pathFrontend.php";
         <meta name="title" content="CaribeTour.es: Especialistas en el Caribe" />
         <meta name="DC.title" content="CaribeTour.es: Especialistas en el Caribe" />
         <title>Plantilla| Especialistas en el Caribe</title>        
-        <meta name="description" content="CaribeTour.es | Agencia especializada en el Caribe y sus destinos" />
-        <meta name="keywords" content="CaribeTour.es | Agencia especializada en el Caribe y sus destinos" />
+        <meta name="description" content="CaribeTour.es | Agencia especializada en el Caribe y sus paises" />
+        <meta name="keywords" content="CaribeTour.es | Agencia especializada en el Caribe y sus paises" />
         <!--[if lt IE 9]>
             <script type="text/javascript" src="http://www.caribetour.es/js/jquery/html5.js"></script>
         <![endif]-->
         <?php include_once("includes/baselink.php"); ?>
         <link rel="canonical" href="http://www.caribetour.es/" />
 	    <?php include_once("includes/icons.php"); ?>
-        <link rel='stylesheet' id='colorbox-css'  href='vista/frontend/css/colorbox.css?ver=3.7.1' type='text/css' media='all' />
-        <link rel='stylesheet' id='jquery-ui-datepicker-css'  href='vista/frontend/css/datepicker.css?ver=3.7.1' type='text/css' media='all' />
-        <link rel='stylesheet' id='general-css'  href='vista/frontend/css/style.css?ver=3.7.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='colorbox-css'  href='<?=PATHFRONTEND ?>css/colorbox.css?ver=3.7.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='jquery-ui-datepicker-css'  href='<?=PATHFRONTEND ?>css/datepicker.css?ver=3.7.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='general-css'  href='<?=PATHFRONTEND ?>css/style.css?ver=3.7.1' type='text/css' media='all' />
         <?php include_once("includes/jsHead.php"); ?>
         <?php include_once("includes/css.php"); ?>
         <script type="text/javascript">
@@ -70,11 +70,11 @@ include_once "includes/pathFrontend.php";
                         <div class="featured-blog">
                             <article class="post-112 post type-post status-publish format-standard hentry category-guides tag-amet tag-dolor tag-lorem post">
                                 <div class="featured-image">
-                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="destinos/categoria"><img width="440" height="299" src="img/<?php echo "imagen.png"; ?>" class="attachment-normal wp-post-image" alt="<?php echo "categoria"; ?>" title="<?php echo "categoria"; ?>" /></a>
+                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/categoria"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?php echo "imagen.png"; ?>" class="attachment-normal wp-post-image" alt="<?php echo "categoria"; ?>" title="<?php echo "categoria"; ?>" /></a>
                                 </div>
                                 <div class="post-content">
                                     <h2 class="post-title">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="destinos/categoria" title="categoria">categoria desde <?php echo (800.54); ?>&euro;</a>
+                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/categoria" title="categoria">categoria desde <?php echo (800.54); ?>&euro;</a>
                                     </h2>
                                     <p>descripcion</p>
                                     <p>&nbsp;</p>

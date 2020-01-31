@@ -17,9 +17,9 @@ include_once "includes/pathFrontend.php";
         <?php include_once("includes/baselink.php"); ?>
         <link rel="canonical" href="http://www.caribetour.es/" />
 	    <?php include_once("includes/icons.php"); ?>
-        <link rel='stylesheet' id='colorbox-css'  href='vista/frontend/css/colorbox.css?ver=3.7.1' type='text/css' media='all' />
-        <link rel='stylesheet' id='jquery-ui-datepicker-css'  href='vista/frontend/css/datepicker.css?ver=3.7.1' type='text/css' media='all' />
-        <link rel='stylesheet' id='general-css'  href='vista/frontend/css/style.css?ver=3.7.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='colorbox-css'  href='<?=PATHFRONTEND ?>css/colorbox.css?ver=3.7.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='jquery-ui-datepicker-css'  href='<?=PATHFRONTEND ?>css/datepicker.css?ver=3.7.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='general-css'  href='<?=PATHFRONTEND ?>css/style.css?ver=3.7.1' type='text/css' media='all' />
         <?php include_once("includes/jsHead.php"); ?>
         <?php include_once("includes/css.php"); ?>
         <script type="text/javascript">
@@ -53,21 +53,24 @@ include_once "includes/pathFrontend.php";
 
             <!-- content -->
             <section class="container site-content">
-					<!--inicio breadcrumb-->
-					<div class="miga" id="breadcrumb">
-						<div class="breadcrumb">
-							<a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
-						</div>
-						<div class="breadcrumb">
-							paginaActual
-						</div>
-               </div>
-				   <!--fin de breadcrumb-->            
+                <!-- breadcrumb-->
+                <div class="miga" id="breadcrumb">
+                    <div class="breadcrumb">
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
+                    </div>
+                    <div class="breadcrumb">
+                        paginaActual
+                    </div>
+                </div>
+                <!-- /breadcrumb-->            
             
             
                 <div class="row">
                     <h3>Tu contenido va aquí</h3>
                 </div>
+                
+                
+                
             </section>
 
             <!-- /content -->

@@ -14,20 +14,20 @@
         <?php include_once("includes/baselink.php"); ?>
         <link rel="canonical" href="http://www.caribetour.es/" />
 	    <?php include_once("includes/icons.php"); ?>
-        <link rel='stylesheet' id='colorbox-css'  href='vista/frontend/css/colorbox.css?ver=3.7.1' type='text/css' media='all' />
-        <link rel='stylesheet' id='jquery-ui-datepicker-css'  href='vista/frontend/css/datepicker.css?ver=3.7.1' type='text/css' media='all' />
-        <link rel='stylesheet' id='general-css'  href='vista/frontend/css/style.css?ver=3.7.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='colorbox-css'  href='<?=PATHFRONTEND ?>css/colorbox.css?ver=3.7.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='jquery-ui-datepicker-css'  href='<?=PATHFRONTEND ?>css/datepicker.css?ver=3.7.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='general-css'  href='<?=PATHFRONTEND ?>css/style.css?ver=3.7.1' type='text/css' media='all' />
         <!-- DOTO: poner los js necesarios en un include -->
-        <script type='text/javascript' src='vista/frontend/js/jquery.js?ver=1.10.2'></script>
-        <script type='text/javascript' src='vista/frontend/js/jquery-migrate.min.js?ver=1.2.1'></script>
-        <script type='text/javascript' src='vista/frontend/js/comment-reply.min.js?ver=3.7.11'></script>
-        <script type='text/javascript' src='vista/frontend/js/jquery.hoverIntent.min.js?ver=3.7.11'></script>
-        <script type='text/javascript' src='vista/frontend/js/jquery.ui.touchPunch.js?ver=3.7.11'></script>
-        <script type='text/javascript' src='vista/frontend/js/jquery.colorbox.min.js?ver=3.7.11'></script>
-        <script type='text/javascript' src='vista/frontend/js/jquery.placeholder.min.js?ver=3.7.11'></script>
-        <script type='text/javascript' src='vista/frontend/js/jquery.themexSlider.js?ver=3.7.11'></script>
-        <script type='text/javascript' src='vista/frontend/js/jquery.textPattern.js?ver=3.7.11'></script>
-        <script type='text/javascript' src='vista/frontend/js/general.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND ?>js/jquery.js?ver=1.10.2'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND ?>js/jquery-migrate.min.js?ver=1.2.1'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND ?>js/comment-reply.min.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND ?>js/jquery.hoverIntent.min.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND ?>js/jquery.ui.touchPunch.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND ?>js/jquery.colorbox.min.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND ?>js/jquery.placeholder.min.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND ?>js/jquery.themexSlider.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND ?>js/jquery.textPattern.js?ver=3.7.11'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND ?>js/general.js?ver=3.7.11'></script>
         <?php include_once("includes/css.php");?>
         <script type="text/javascript">
         WebFontConfig = {google: { families: [ "Signika:400,600","Open Sans:400,400italic,600" ] } };
@@ -49,7 +49,7 @@
         <!-- header -->
         <header class="container site-header">
             <div class="substrate top-substrate">
-                <img src="vista/frontend/images/site_bg.jpg" class="fullwidth" alt="Imagen de fondo" />
+                <img src="<?=PATHFRONTEND ?>images/site_bg.jpg" class="fullwidth" alt="Imagen de fondo" />
             </div>
             <!-- background -->
             <!-- supheader -->
@@ -96,7 +96,7 @@
             <div class="row">
                 <div class="eightcol column">
                     <div class="fivecol column">
-                        <img alt="CaribeTour.es | Explora el mundo" class="alignnone size-medium wp-image-21 demo-image" title="CaribeTour.es | Explora el mundo" src="vista/frontend/images/explora.jpg" />
+                        <img alt="CaribeTour.es | Explora el mundo" class="alignnone size-medium wp-image-21 demo-image" title="CaribeTour.es | Explora el mundo" src="<?=PATHFRONTEND ?>images/explora.jpg" />
                     </div>
                     <div class="sevencol column last">
                         <div class="section-title">
@@ -152,7 +152,7 @@
         
         <section class="container content-section">
             <div class="substrate section-substrate">
-                <img src="vista/frontend/images/background_1.jpg" class="fullwidth" alt="" />
+                <img src="<?=PATHFRONTEND ?>images/background_1.jpg" class="fullwidth" alt="" />
             </div>
             <div class="row">
                 <div class="items-grid">
@@ -248,15 +248,15 @@
         <!-- footer -->
         
         <div class="substrate bottom-substrate">
-            <img src="vista/frontend/images/site_bg.jpg" class="fullwidth" alt="Imagen de fondo" />
+            <img src="<?=PATHFRONTEND ?>images/site_bg.jpg" class="fullwidth" alt="Imagen de fondo" />
         </div>
 	</div>
         <!-- /container -->
         
-	<script type='text/javascript' src='vista/frontend/js/jquery.ui.core.min.js?ver=1.10.3'></script>
-        <script type='text/javascript' src='vista/frontend/js/jquery.ui.widget.min.js?ver=1.10.3'></script>
-        <script type='text/javascript' src='vista/frontend/js/jquery.ui.mouse.min.js?ver=1.10.3'></script>
-        <script type='text/javascript' src='vista/frontend/js/jquery.ui.slider.min.js?ver=1.10.3'></script>
-        <script type='text/javascript' src='vista/frontend/js/jquery.ui.datepicker.min.js?ver=1.10.3'></script>
+	<script type='text/javascript' src='<?=PATHFRONTEND ?>js/jquery.ui.core.min.js?ver=1.10.3'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND ?>js/jquery.ui.widget.min.js?ver=1.10.3'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND ?>js/jquery.ui.mouse.min.js?ver=1.10.3'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND ?>js/jquery.ui.slider.min.js?ver=1.10.3'></script>
+        <script type='text/javascript' src='<?=PATHFRONTEND ?>js/jquery.ui.datepicker.min.js?ver=1.10.3'></script>
     </body>
 </html>

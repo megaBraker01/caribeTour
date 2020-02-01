@@ -1,5 +1,14 @@
 <?php
-include_once "includes/pathFrontend.php";
+require_once '../../config.php';
+require_once SITE_ROOT ."/AutoLoader/autoLoaderController.php";
+
+$categoriaC = new CategoriaController();
+$filtro = [
+    ['idCategoriaPadre', '=', 0],
+    ['idEstado', '=', 1],
+    ['idCategoria', '!=', 14] // != seguros
+];
+$paisesList = $categoriaC->select($filtro);
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -8,7 +17,7 @@ include_once "includes/pathFrontend.php";
         <meta property="og:title" content="Caribetour.es | Especialistas en el Caribe" />
         <meta name="title" content="CaribeTour.es: Especialistas en el Caribe" />
         <meta name="DC.title" content="CaribeTour.es: Especialistas en el Caribe" />
-        <title>Plantilla| Especialistas en el Caribe</title>        
+        <title>Paises en CaribeTour.es | Especialistas en el Caribe</title>        
         <meta name="description" content="CaribeTour.es | Agencia especializada en el Caribe y sus paises" />
         <meta name="keywords" content="CaribeTour.es | Agencia especializada en el Caribe y sus paises" />
         <!--[if lt IE 9]>
@@ -40,12 +49,15 @@ include_once "includes/pathFrontend.php";
         <div class="container site-container">
             <!-- header -->
             <header class="container site-header">
+                <!-- background -->
                 <div class="substrate top-substrate">
                     <?php include('includes/imgSiteBg.php') ?>
                 </div>
-                <!-- background -->
+                <!-- /background -->
                 <!-- supheader -->
+                
                 <?php include("includes/header.php");?>
+                
                 <!-- /supheader -->
                 <div class="block-background header-background"></div>
             </header>
@@ -53,35 +65,46 @@ include_once "includes/pathFrontend.php";
 
             <!-- content -->
             <section class="container site-content">
-					<!--inicio breadcrumb-->
-					<div class="miga" id="breadcrumb">
-						<div class="breadcrumb">
-							<a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
-						</div>
-						<div class="breadcrumb">
-							paginaActual
-						</div>
-               </div>
-				   <!--fin de breadcrumb-->            
+                <!--inicio breadcrumb-->
+                <div class="miga" id="breadcrumb">
+                    <div class="breadcrumb">
+                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
+                    </div>
+                    <div class="breadcrumb">
+                            Paises
+                    </div>
+                </div>
+                <!--fin de breadcrumb-->            
             
             
                 <div class="row">
-                    <div class="fourcol column">
+                    <?php $i = 1; foreach($paisesList as $categoria){ ?>
+                    
+                    <div class="fourcol column <?php if ($i % 3==0){ echo 'last'; } ?>">
                         <div class="featured-blog">
-                            <article class="post-112 post type-post status-publish format-standard hentry category-guides tag-amet tag-dolor tag-lorem post">
+                            <article class="post type-post status-publish format-standard category-<?= $categoria->getSlug() ?> tag-<?= $categoria->getSlug() ?> tag-caribe">
                                 <div class="featured-image">
-                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/categoria"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?php echo "imagen.png"; ?>" class="attachment-normal wp-post-image" alt="<?php echo "categoria"; ?>" title="<?php echo "categoria"; ?>" /></a>
+                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoria->getSlug() ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $categoria->getSrcImagen() ?>" class="attachment-normal wp-post-image" alt="<?php echo "categoria"; ?>" title="<?= $categoria->getNombre() ?>" /></a>
                                 </div>
                                 <div class="post-content">
                                     <h2 class="post-title">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/categoria" title="categoria">categoria desde <?php echo (800.54); ?>&euro;</a>
+                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoria->getSlug() ?>" title="<?= $categoria->getNombre() ?>"><?= $categoria->getNombre() ?> desde <?php echo (800.54); ?>&euro;</a>
                                     </h2>
-                                    <p>descripcion</p>
                                     <p>&nbsp;</p>
                                 </div>
                             </article>
                         </div>
                     </div>
+                    <?php if ($i % 3==0){ echo '<div class="clear"></div>'; } $i++; ?>
+                    
+                    <?php } ?>
+                    
+                    <?php if(empty($paisesList)){ ?>
+                    <h3>Sin Resultados...</h3>
+                        <h4>Lo sentimos, <strong>NO</strong> tenemos paises de destinos disponibles en estos momentos... Disculpen las molestias.</h4>
+                        <img  width="50%" src="<?=PATHFRONTEND ?>images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados...">
+                    <?php } ?>
+                    
                 </div>
             </section>
 
@@ -89,6 +112,7 @@ include_once "includes/pathFrontend.php";
 
             <!-- footer -->
             <?php include("includes/footer.php");?>
+            
             <!-- /footer -->
 
             <div class="substrate bottom-substrate">

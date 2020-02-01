@@ -1,1 +1,1 @@
-        <base href="http://localhost/caribetour/"><!-- vista/frontend/ -->
+<base href="http://localhost/caribetour/">

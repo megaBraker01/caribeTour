@@ -1,0 +1,5 @@
+// los siguiente fue ejecutado desde paises.php en D:\wamp\www\caribetour\vista\frontend\paises.php
+//var_dump( $_SERVER['DOCUMENT_ROOT']); // 'D:/wamp/www'
+//var_dump(__DIR__); // 'D:\wamp\www\caribetour\vista\frontend'
+//var_dump(__FILE__); // 'D:\wamp\www\caribetour\vista\frontend\paises.php'
+//var_dump(getcwd()); // 'D:\wamp\www\caribetour\vista\frontend'

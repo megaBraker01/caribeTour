@@ -1,5 +1,28 @@
 <?php
-include_once "includes/pathFrontend.php";
+require_once '../../config.php';
+require_once SITE_ROOT ."/AutoLoader/autoLoaderController.php";
+
+$productoList = [];
+$slugCatPadre = $_GET['slugCat'];
+$catPadreNombre = ucfirst($slugCatPadre);
+if(isset($slugCatPadre) and $slugCatPadre != ""){
+    $categoriaC = new CategoriaController();
+    $filtro = [
+        ['slug', '=', $slugCatPadre]
+    ];
+    $catList = $categoriaC->select($filtro);
+    
+    if(!empty($catList)){
+        $catPadre = $catList[0];
+        $catPadreNombre = $catPadre->getNombre();
+        $filtroCat = [
+            ['idCategoria', '=', $catList[0]->getIdCategoria()],
+            ['idEstado', '=', 1],
+        ];
+        $productoC = new ProductoController();
+        $productoList = $productoC->select($filtroCat);
+    }    
+}
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -8,7 +31,7 @@ include_once "includes/pathFrontend.php";
         <meta property="og:title" content="Caribetour.es | Especialistas en el Caribe" />
         <meta name="title" content="CaribeTour.es: Especialistas en el Caribe" />
         <meta name="DC.title" content="CaribeTour.es: Especialistas en el Caribe" />
-        <title>Plantilla| Especialistas en el Caribe</title>        
+        <title><?= $catPadreNombre ?> | Caribetour.es Especialistas en el Caribe</title>        
         <meta name="description" content="CaribeTour.es | Agencia especializada en el Caribe y sus paises" />
         <meta name="keywords" content="CaribeTour.es | Agencia especializada en el Caribe y sus paises" />
         <!--[if lt IE 9]>
@@ -67,34 +90,69 @@ include_once "includes/pathFrontend.php";
             
                 <div class="row">
                     <div class="column ninecol">
-					<?php echo "<h1>Por favor rellene todos los campos del formulario.</h1><br>";?><?php 
-				echo "<h1>Gracias por su consulta, los datos se han enviado correctamente.</h1><br>"; ?><?php echo "<h1 style='color:red'>Error al enviar los datos del formulario, por favor int&eacute;ntelo de nuevo.</h1><br>"; ?><?php // Show if recordset not empty ?>
+			<?php echo "<h1>Por favor rellene todos los campos del formulario.</h1><br>";?>
+                        <?php echo "<h1>Gracias por su consulta, los datos se han enviado correctamente.</h1><br>"; ?>
+                        <?php echo "<h1 style='color:red'>Error al enviar los datos del formulario, por favor int&eacute;ntelo de nuevo.</h1><br>"; ?>
+                        <?php // Show if recordset not empty ?>
                         <div class="items-list clearfix">
+                            
+                            <?php $i = 1; foreach ($productoList as $producto){ ?>
                             <div class="full-tour clearfix">
+                                
                                 <div class="fivecol column">
                                     <div class="content-slider-container tour-slider-container">
                                         <div class="featured-image">
-                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/categoria/subcategoria/seoProducto"><img width="550" height="413" src="<?=PATHFRONTEND ?>img/nombreImagen" class="attachment-extended wp-post-image" alt="nombreProducto" title="nombreProducto" /></a>
+                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/seoCategoria/<?=$catPadre->getSlug() ?>/<?=$producto->getSlug() ?>">
+                                                <img width="550" height="413" src="<?php echo PATHFRONTEND."img/{$producto->getImagen()}"; ?>" class="attachment-extended wp-post-image" alt="<?=$producto->getNombre() ?>" title="<?=$producto->getNombre() ?>" />
+                                            </a>
                                         </div>
                                         <div class="block-background layer-2"></div>
                                     </div>
                                 </div>
+                                
                                 <div class="sevencol column last">
                                     <div class="section-title">
-                                        <h1><a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/categoria/subcategoria/seoProducto" title="nombreProducto">nombreProducto</a></h1>
+                                        <h1>
+                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/seoCategoria/<?=$catPadre->getSlug() ?>/<?=$producto->getSlug() ?>" title="<?=$producto->getNombre() ?>"><?=$producto->getNombre() ?></a>
+                                        </h1>
                                     </div>
                                     <ul class="tour-meta">
-                                        <li><div class="colored-icon icon-2"></div><strong>paises:</strong> <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/seoCategoria/seoSubCategoria" title="Ver todos los paises de subCategoria" rel="tag">subCategoria</a></li>
-                                        <li><div class="colored-icon icon-1"><span></span></div><strong>Duraci&oacute;n:</strong> <?php $duracion=strtotime("20/01/2020") - strtotime("27/01/2020"); echo date('d',$duracion)*1; ?> D&iacute;as</li>
-                                        <li style="font-size:1.8em;"><div class="colored-icon icon-3"><span></span></div><strong>Desde:</strong> 6545&euro;</li>
+                                        <li>
+                                            <div class="colored-icon icon-2"></div>
+                                            <strong>paises:</strong>
+                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/seoCategoria/<?=$catPadre->getSlug() ?>" title="Ver todos los paises de subCategoria" rel="tag">
+                                                subCategoria
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="colored-icon icon-1">
+                                                <span></span>
+                                            </div>
+                                            <strong>Duraci&oacute;n:</strong> <?php $duracion=strtotime("20/01/2020") - strtotime("27/01/2020"); echo date('d',$duracion)*1; ?> D&iacute;as
+                                        </li>
+                                        <li style="font-size:1.8em;">
+                                            <div class="colored-icon icon-3"><span></span></div>
+                                            <strong>Desde:</strong> 6545&euro;
+                                        </li>
                                     </ul>
-                                    <p>descripcion.[...]</p>
+                                    <p><?= substr($producto->getDescripcion(),0,261); ?>.[...]</p>
                                     <footer class="tour-footer">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/seoCategoria/seoSubCategoria/seoProducto" class="button small" title="Saber m&aacute;s sobre nombreProducto"><span>Saber M&aacute;s</span></a> <a href="#question-form" data-id="nombreProducto" data-title="nombreProducto" class="button grey small colorbox inline" title="Hacer una consulta"><span>Consultar</span></a>
+                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/seoCategoria/<?=$catPadre->getSlug() ?>/<?=$producto->getSlug() ?>" class="button small" title="Saber m&aacute;s sobre nombreProducto">
+                                            <span>Saber M&aacute;s</span>
+                                        </a>
+                                        <a href="#question-form" data-id="<?=$producto->getNombre() ?>" data-title="<?=$producto->getNombre() ?>" class="button grey small colorbox inline" title="Hacer una consulta">
+                                            <span>Consultar</span>
+                                        </a>
                                     </footer>
                                 </div>
+                                
                             </div>
-                        </div><?php  // Show if recordset not empty ?><?php // Show if recordset empty ?>
+                            <?php } ?>
+                            
+                        </div>
+                        <?php  // Show if recordset not empty ?><?php // Show if recordset empty ?>
+                        
+                        
                         <div class="column ninecol">
                             <div class="items-list clearfix">
                                 <h3>Sin Resultados...</h3>
@@ -102,6 +160,7 @@ include_once "includes/pathFrontend.php";
                                 <img src="<?php echo PATHFRONTEND ?>/images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados..."><br>
                             </div>
                         </div><?php // Show if recordset empty ?>
+                        
                         <nav class="pagination">
                         <?php for ($cont=0;$cont<=2;$cont++){
                             $numPagina=$cont+1;
@@ -111,7 +170,11 @@ include_once "includes/pathFrontend.php";
                                 echo "<a class='page-numbers' href='1?pageNum_producto=".$cont."'>".$numPagina."</a>";
                             } ?>
                         </nav>
+                        
+                        
                     </div>
+                    
+                    
                     <aside class="column threecol last">
                         <div class="widget widget_text">
                             <div class="textwidget">
@@ -120,15 +183,22 @@ include_once "includes/pathFrontend.php";
                                 <!-- /tour search form -->
                             </div>
                         </div>
+                        
                         <div class="widget widget_text">
                             <div class="textwidget">
-                                <div class="featured-image"><a hreflang="es" type="text/html" charset="iso-8859-1" href=""><img src="<?php echo PATHFRONTEND ?>images/image_18.jpg" alt="" /></a></div>
+                                <div class="featured-image">
+                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="">
+                                        <img src="<?php echo PATHFRONTEND ?>images/image_18.jpg" alt="" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </aside>
+                    
                     <!-- question form -->
                     <?php include("includes/mailconsulta.php"); ?>
-                     <!-- /question form -->
+                    <!-- /question form -->
+                    
                 </div>
                 
                 

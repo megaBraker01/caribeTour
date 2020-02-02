@@ -17,7 +17,7 @@ $paisesList = $categoriaC->select($filtro);
         <meta property="og:title" content="Caribetour.es | Especialistas en el Caribe" />
         <meta name="title" content="CaribeTour.es: Especialistas en el Caribe" />
         <meta name="DC.title" content="CaribeTour.es: Especialistas en el Caribe" />
-        <title>Paises en CaribeTour.es | Especialistas en el Caribe</title>        
+        <title>Paises en CaribeTour.es | Caribetour.es Especialistas en el Caribe</title>        
         <meta name="description" content="CaribeTour.es | Agencia especializada en el Caribe y sus paises" />
         <meta name="keywords" content="CaribeTour.es | Agencia especializada en el Caribe y sus paises" />
         <!--[if lt IE 9]>
@@ -84,7 +84,9 @@ $paisesList = $categoriaC->select($filtro);
                         <div class="featured-blog">
                             <article class="post type-post status-publish format-standard category-<?= $categoria->getSlug() ?> tag-<?= $categoria->getSlug() ?> tag-caribe">
                                 <div class="featured-image">
-                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoria->getSlug() ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $categoria->getSrcImagen() ?>" class="attachment-normal wp-post-image" alt="<?php echo "categoria"; ?>" title="<?= $categoria->getNombre() ?>" /></a>
+                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoria->getSlug() ?>">
+                                        <img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $categoria->getSrcImagen() ?>" class="attachment-normal wp-post-image" alt="<?= $categoria->getNombre() ?>" title="<?= $categoria->getNombre() ?>" />
+                                    </a>
                                 </div>
                                 <div class="post-content">
                                     <h2 class="post-title">
@@ -101,8 +103,8 @@ $paisesList = $categoriaC->select($filtro);
                     
                     <?php if(empty($paisesList)){ ?>
                     <h3>Sin Resultados...</h3>
-                        <h4>Lo sentimos, <strong>NO</strong> tenemos paises de destinos disponibles en estos momentos... Disculpen las molestias.</h4>
-                        <img  width="50%" src="<?=PATHFRONTEND ?>images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados...">
+                    <h4>Lo sentimos, <strong>NO</strong> tenemos paises de destinos disponibles en estos momentos... Disculpe las molestias.</h4>
+                    <img  width="50%" src="<?=PATHFRONTEND ?>images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados...">
                     <?php } ?>
                     
                 </div>
@@ -117,9 +119,11 @@ $paisesList = $categoriaC->select($filtro);
 
             <div class="substrate bottom-substrate">
                 <?php include('includes/imgSiteBg.php') ?>
+                
             </div>
         </div>
         <!-- /container -->
 	    <?php include_once('includes/jsFoot.php'); ?>
+        
     </body>
 </html>

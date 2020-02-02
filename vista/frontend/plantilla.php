@@ -72,18 +72,22 @@ include_once "includes/pathFrontend.php";
                 
                 
             </section>
-
+      
             <!-- /content -->
 
             <!-- footer -->
             <?php include("includes/footer.php");?>
+            
             <!-- /footer -->
 
             <div class="substrate bottom-substrate">
                 <?php include('includes/imgSiteBg.php') ?>
+                
             </div>
         </div>
         <!-- /container -->
 	    <?php include_once('includes/jsFoot.php'); ?>
+  
+        
     </body>
 </html>

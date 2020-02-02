@@ -1,5 +1,26 @@
 <?php
-include_once "includes/pathFrontend.php";
+require_once '../../config.php';
+require_once SITE_ROOT ."/AutoLoader/autoLoaderController.php";
+
+$categoriaList = [];
+$slugCatPadre = $_GET['slugCat'];
+$catPadreNombre = ucfirst($slugCatPadre);
+if(isset($slugCatPadre) and $slugCatPadre != ""){
+    $categoriaC = new CategoriaController();
+    $filtro = [
+        ['slug', '=', $slugCatPadre]
+    ];
+    $catPadreList = $categoriaC->select($filtro);
+    
+    if(!empty($catPadreList)){
+        $catPadreNombre = $catPadreList[0]->getNombre();    
+        $filtroCat = [
+            ['idCategoriaPadre', '=', $catPadreList[0]->getIdCategoria()],
+            ['idEstado', '=', 1],
+        ];
+        $categoriaList = $categoriaC->select($filtroCat);
+    }    
+}
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -8,7 +29,7 @@ include_once "includes/pathFrontend.php";
         <meta property="og:title" content="Caribetour.es | Especialistas en el Caribe" />
         <meta name="title" content="CaribeTour.es: Especialistas en el Caribe" />
         <meta name="DC.title" content="CaribeTour.es: Especialistas en el Caribe" />
-        <title>Plantilla| Especialistas en el Caribe</title>        
+        <title><?= $catPadreNombre ?> | Caribetour.es Especialistas en el Caribe</title>        
         <meta name="description" content="CaribeTour.es | Agencia especializada en el Caribe y sus paises" />
         <meta name="keywords" content="CaribeTour.es | Agencia especializada en el Caribe y sus paises" />
         <!--[if lt IE 9]>
@@ -59,34 +80,47 @@ include_once "includes/pathFrontend.php";
                         <a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
-                        paginaActual
+                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises" rel="tag" title="Paises">Paises</a>
+                    </div>
+                    <div class="breadcrumb">
+                        <?= $catPadreNombre ?>
                     </div>
                 </div>
                 <!-- /breadcrumb-->            
             
             
                 <div class="row">
-                    <div class="fourcol column"><!-- last cuando sea modulo de 3-->
+                    <?php $i = 1; foreach($categoriaList as $categoria){ ?>
+                    
+                    <div class="fourcol column <?php if ($i % 3==0){ echo 'last'; } ?>">
                         <div class="featured-blog">
-                            <article class="post-112 post type-post status-publish format-standard hentry category-guides tag-amet tag-dolor tag-lorem post">
+                            <article class="post type-post status-publish format-standard category-<?= $categoria->getSlug() ?> tag-<?= $categoria->getSlug() ?> tag-caribe">
                                 <div class="featured-image">
-                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/categoria/subcategoria"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/nombreimagen" class="attachment-normal wp-post-image" alt="Imagen de descripcion categoria" title="descripcion" /></a>
+                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $slugCatPadre ?>/<?= $categoria->getSlug() ?>">
+                                        <img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $categoria->getSrcImagen() ?>" class="attachment-normal wp-post-image" alt="<?= $categoria->getNombre() ?>" title="<?= $categoria->getNombre() ?>" />
+                                    </a>
                                 </div>
                                 <div class="post-content">
                                     <h2 class="post-title">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/categoria/subcategoria" title="descripcion">descripcion desde 998.65&euro;</a>
+                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $slugCatPadre ?>/<?= $categoria->getSlug() ?>" title="<?= $categoria->getNombre() ?>">
+                                            <?= $categoria->getNombre() ?> desde <?php echo (800.54); ?>&euro;
+                                        </a>
                                     </h2>
-                                    <p>texto</p>
                                     <p>&nbsp;</p>
                                 </div>
                             </article>
                         </div>
                     </div>
-				<?php  // Show if recordset empty ?>
-                <h3>Sin Resultados...</h3>
-                <p>Lo sentimos, subCategoria <strong>NO</strong> se encuentra disponible en estos momentos, Puedes echar un vistazo a los productos relacionados.. Disculpen las molestias.</p>
-                <img src="<?=PATHFRONTEND ?>images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados...">
-                <?php  // Show if recordset empty ?>
+                    <?php if ($i % 3==0){ echo '<div class="clear"></div>'; } $i++; ?>
+                    
+                    <?php } ?>
+                
+                    <?php if(empty($categoriaList)){ ?>
+                    <h3>Sin Resultados...</h3>
+                    <h4><p>Lo sentimos, <?= $catPadreNombre ?> <strong>NO</strong> se encuentra disponible en estos momentos. </p><p>Puedes echar un vistazo a los productos relacionados... Disculpe las molestias.</p></h4>
+                    <img  width="50%" src="<?=PATHFRONTEND ?>images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados...">
+                    <?php } ?>                
+                
                 </div>
             </section>
 

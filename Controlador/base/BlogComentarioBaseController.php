@@ -1,23 +1,20 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
-abstract class BlogcomentarioBaseController extends baseController {
+abstract class BlogComentarioBaseController extends baseController {
 
 
 
-    public function insert(Blogcomentario $Blogcomentario): int {
+    public function insert(Blog_comentario $Blog_comentario): int {
         try{
-            $sql = "INSERT INTO blogcomentarios (idBlog, idEstado, nombre, email, comentario, fechaAlta) 
-            VALUES (:idBlog, :idEstado, :nombre, :email, :comentario, :fechaAlta);";
+            $sql = "INSERT INTO blog_comentarios (idBlog, idEstado, nombre, email, comentario) 
+            VALUES (:idBlog, :idEstado, :nombre, :email, :comentario);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":idBlog", $Blogcomentario->getIdBlog());
-$statement->bindValue(":idEstado", $Blogcomentario->getIdEstado());
-$statement->bindValue(":nombre", $Blogcomentario->getNombre());
-$statement->bindValue(":email", $Blogcomentario->getEmail());
-$statement->bindValue(":comentario", $Blogcomentario->getComentario());
-$statement->bindValue(":fechaAlta", $Blogcomentario->getFechaAlta());
+            $statement->bindValue(":idBlog", $Blog_comentario->getIdBlog());
+$statement->bindValue(":idEstado", $Blog_comentario->getIdEstado());
+$statement->bindValue(":nombre", $Blog_comentario->getNombre());
+$statement->bindValue(":email", $Blog_comentario->getEmail());
+$statement->bindValue(":comentario", $Blog_comentario->getComentario());
 
             $ret = 0;
             if($statement->execute()){
@@ -32,18 +29,17 @@ $statement->bindValue(":fechaAlta", $Blogcomentario->getFechaAlta());
         }
     }
 
-    public function update(Blogcomentario $Blogcomentario): int {
+    public function update(Blog_comentario $Blog_comentario): int {
         try{
-            $sql = "UPDATE blogcomentarios SET idBlog = :idBlog, idEstado = :idEstado, nombre = :nombre, email = :email, comentario = :comentario, fechaAlta = :fechaAlta WHERE idBlogComentario = :idBlogComentario LIMIT 1;";
+            $sql = "UPDATE blog_comentarios SET idBlog = :idBlog, idEstado = :idEstado, nombre = :nombre, email = :email, comentario = :comentario WHERE idBlogComentario = :idBlogComentario LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":idBlogComentario", $Blogcomentario->getIdBlogComentario());
-$statement->bindValue(":idBlog", $Blogcomentario->getIdBlog());
-$statement->bindValue(":idEstado", $Blogcomentario->getIdEstado());
-$statement->bindValue(":nombre", $Blogcomentario->getNombre());
-$statement->bindValue(":email", $Blogcomentario->getEmail());
-$statement->bindValue(":comentario", $Blogcomentario->getComentario());
-$statement->bindValue(":fechaAlta", $Blogcomentario->getFechaAlta());
+            $statement->bindValue(":idBlogComentario", $Blog_comentario->getIdBlogComentario());
+$statement->bindValue(":idBlog", $Blog_comentario->getIdBlog());
+$statement->bindValue(":idEstado", $Blog_comentario->getIdEstado());
+$statement->bindValue(":nombre", $Blog_comentario->getNombre());
+$statement->bindValue(":email", $Blog_comentario->getEmail());
+$statement->bindValue(":comentario", $Blog_comentario->getComentario());
 
             $ret = 0;
             if($statement->execute()){
@@ -61,7 +57,7 @@ $statement->bindValue(":fechaAlta", $Blogcomentario->getFechaAlta());
     public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
         try{
             $sql = "SELECT idBlogComentario, idBlog, idEstado, nombre, email, comentario, fechaAlta 
-            FROM blogcomentarios
+            FROM blog_comentarios
             WHERE TRUE";
             $sql .= $this->filterSqlPrepare($filtros);
             $sql .= $this->orderSqlPrepare($ordenados);
@@ -82,7 +78,7 @@ $statement->bindValue(":fechaAlta", $Blogcomentario->getFechaAlta());
             $ret = [];
             if($statement->execute() and $statement->rowCount() > 0){
                 while ($row = $statement->fetch(PDO::FETCH_OBJ)) {
-                    $ret[] = new Blogcomentario($row->idBlogComentario, $row->idBlog, $row->idEstado, $row->nombre, $row->email, $row->comentario, $row->fechaAlta);
+                    $ret[] = new Blog_comentario($row->idBlogComentario, $row->idBlog, $row->idEstado, $row->nombre, $row->email, $row->comentario, $row->fechaAlta);
                 }
                 $conexion = NULL;
                 $statement->closeCursor();
@@ -99,7 +95,7 @@ $statement->bindValue(":fechaAlta", $Blogcomentario->getFechaAlta());
             if(!isset($ids['idBlogComentario'])){
                 throw new Exception('Para eliminar un registro, se tiene que especificar sus ids');
             }
-            $sql = "DELETE FROM blogcomentarios";
+            $sql = "DELETE FROM blog_comentarios";
             $sql .= " WHERE idBlogComentario = :idBlogComentario LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);

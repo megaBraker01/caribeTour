@@ -1,15 +1,13 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class PasajeroBaseController extends baseController {
 
 
 
     public function insert(Pasajero $Pasajero): int {
         try{
-            $sql = "INSERT INTO pasajeros (nombre, apellidos, NIFoPasaporte, nacionalidad, fechaNacimiento, fechaAlta) 
-            VALUES (:nombre, :apellidos, :NIFoPasaporte, :nacionalidad, :fechaNacimiento, :fechaAlta);";
+            $sql = "INSERT INTO pasajeros (nombre, apellidos, NIFoPasaporte, nacionalidad, fechaNacimiento) 
+            VALUES (:nombre, :apellidos, :NIFoPasaporte, :nacionalidad, :fechaNacimiento);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":nombre", $Pasajero->getNombre());
@@ -17,7 +15,6 @@ $statement->bindValue(":apellidos", $Pasajero->getApellidos());
 $statement->bindValue(":NIFoPasaporte", $Pasajero->getNIFoPasaporte());
 $statement->bindValue(":nacionalidad", $Pasajero->getNacionalidad());
 $statement->bindValue(":fechaNacimiento", $Pasajero->getFechaNacimiento());
-$statement->bindValue(":fechaAlta", $Pasajero->getFechaAlta());
 
             $ret = 0;
             if($statement->execute()){
@@ -34,7 +31,7 @@ $statement->bindValue(":fechaAlta", $Pasajero->getFechaAlta());
 
     public function update(Pasajero $Pasajero): int {
         try{
-            $sql = "UPDATE pasajeros SET nombre = :nombre, apellidos = :apellidos, NIFoPasaporte = :NIFoPasaporte, nacionalidad = :nacionalidad, fechaNacimiento = :fechaNacimiento, fechaAlta = :fechaAlta WHERE idPasajero = :idPasajero LIMIT 1;";
+            $sql = "UPDATE pasajeros SET nombre = :nombre, apellidos = :apellidos, NIFoPasaporte = :NIFoPasaporte, nacionalidad = :nacionalidad, fechaNacimiento = :fechaNacimiento WHERE idPasajero = :idPasajero LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idPasajero", $Pasajero->getIdPasajero());
@@ -43,7 +40,6 @@ $statement->bindValue(":apellidos", $Pasajero->getApellidos());
 $statement->bindValue(":NIFoPasaporte", $Pasajero->getNIFoPasaporte());
 $statement->bindValue(":nacionalidad", $Pasajero->getNacionalidad());
 $statement->bindValue(":fechaNacimiento", $Pasajero->getFechaNacimiento());
-$statement->bindValue(":fechaAlta", $Pasajero->getFechaAlta());
 
             $ret = 0;
             if($statement->execute()){

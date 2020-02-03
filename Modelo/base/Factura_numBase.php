@@ -1,8 +1,6 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
-abstract class FacturanumBase extends ModelBase {
+abstract class Factura_numBase extends ModelBase {
 
     protected $facturaNum;
     protected $fechaAlta;

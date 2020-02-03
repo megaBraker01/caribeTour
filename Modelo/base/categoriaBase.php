@@ -1,7 +1,5 @@
 <?php
 
-require_once SITE_ROOT ."/AutoLoader/autoLoaderModelo.php";
-
 abstract class CategoriaBase extends ModelBase {
 
     protected $idCategoria;
@@ -47,6 +45,20 @@ abstract class CategoriaBase extends ModelBase {
     public function getIdEstado(){ return $this->idEstado; }
 
     public function getSrcImagen(){ return $this->srcImagen; }
+
+    public function getCategoriaPadre(){
+        $CategoriaPadreController = new CategoriaPadreController();
+        $idCategoriaPadre = $this->getIdCategoriaPadre();
+        $CategoriaPadreList = $CategoriaPadreController->select([['idCategoriaPadre', '=', $idCategoriaPadre]]);
+        return $CategoriaPadreList[0];
+    }
+
+    public function getEstado(){
+        $EstadoController = new EstadoController();
+        $idEstado = $this->getIdEstado();
+        $EstadoList = $EstadoController->select([['idEstado', '=', $idEstado]]);
+        return $EstadoList[0];
+    }
 
     public function setIdCategoria($idCategoria = 0){
         $this->idCategoria = (int) $idCategoria; return $this;

@@ -1,7 +1,5 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class FechaBase extends ModelBase {
 
     protected $idFecha;

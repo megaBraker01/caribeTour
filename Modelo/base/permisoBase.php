@@ -1,7 +1,5 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class PermisoBase extends ModelBase {
 
     protected $idPermiso;

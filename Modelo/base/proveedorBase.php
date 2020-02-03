@@ -1,7 +1,5 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class ProveedorBase extends ModelBase {
 
     protected $idProveedor;
@@ -67,6 +65,13 @@ abstract class ProveedorBase extends ModelBase {
     public function getFechaAlta(){ return $this->fechaAlta; }
 
     public function getFehaUpdate(){ return $this->fehaUpdate; }
+
+    public function getEstado(){
+        $EstadoController = new EstadoController();
+        $idEstado = $this->getIdEstado();
+        $EstadoList = $EstadoController->select([['idEstado', '=', $idEstado]]);
+        return $EstadoList[0];
+    }
 
     public function setIdProveedor($idProveedor = 0){
         $this->idProveedor = (int) $idProveedor; return $this;

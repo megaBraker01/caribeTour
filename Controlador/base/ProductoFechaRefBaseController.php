@@ -1,20 +1,20 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
-abstract class ClientepasajeroreservarefBaseController extends baseController {
+abstract class ProductoFechaRefBaseController extends baseController {
 
 
 
-    public function insert(Clientepasajeroreservaref $Clientepasajeroreservaref): int {
+    public function insert(Producto_fecha_ref $Producto_fecha_ref): int {
         try{
-            $sql = "INSERT INTO clientepasajeroreservaref (idCliente, idPasajero, idReserva) 
-            VALUES (:idCliente, :idPasajero, :idReserva);";
+            $sql = "INSERT INTO producto_fecha_ref (idProducto, idFechaSalida, idFechaVuelta, precioProveedor, comision) 
+            VALUES (:idProducto, :idFechaSalida, :idFechaVuelta, :precioProveedor, :comision);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":idCliente", $Clientepasajeroreservaref->getIdCliente());
-$statement->bindValue(":idPasajero", $Clientepasajeroreservaref->getIdPasajero());
-$statement->bindValue(":idReserva", $Clientepasajeroreservaref->getIdReserva());
+            $statement->bindValue(":idProducto", $Producto_fecha_ref->getIdProducto());
+$statement->bindValue(":idFechaSalida", $Producto_fecha_ref->getIdFechaSalida());
+$statement->bindValue(":idFechaVuelta", $Producto_fecha_ref->getIdFechaVuelta());
+$statement->bindValue(":precioProveedor", $Producto_fecha_ref->getPrecioProveedor());
+$statement->bindValue(":comision", $Producto_fecha_ref->getComision());
 
             $ret = 0;
             if($statement->execute()){
@@ -29,14 +29,17 @@ $statement->bindValue(":idReserva", $Clientepasajeroreservaref->getIdReserva());
         }
     }
 
-    public function update(Clientepasajeroreservaref $Clientepasajeroreservaref): int {
+    public function update(Producto_fecha_ref $Producto_fecha_ref): int {
         try{
-            $sql = "UPDATE clientepasajeroreservaref SET idCliente = :idCliente, idPasajero = :idPasajero, idReserva = :idReserva WHERE idCliente = :idCliente AND idPasajero = :idPasajero AND idReserva = :idReserva LIMIT 1;";
+            $sql = "UPDATE producto_fecha_ref SET idProducto = :idProducto, idFechaSalida = :idFechaSalida, idFechaVuelta = :idFechaVuelta, precioProveedor = :precioProveedor, comision = :comision WHERE idProductoFechaRef = :idProductoFechaRef LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":idCliente", $Clientepasajeroreservaref->getIdCliente());
-$statement->bindValue(":idPasajero", $Clientepasajeroreservaref->getIdPasajero());
-$statement->bindValue(":idReserva", $Clientepasajeroreservaref->getIdReserva());
+            $statement->bindValue(":idProductoFechaRef", $Producto_fecha_ref->getIdProductoFechaRef());
+$statement->bindValue(":idProducto", $Producto_fecha_ref->getIdProducto());
+$statement->bindValue(":idFechaSalida", $Producto_fecha_ref->getIdFechaSalida());
+$statement->bindValue(":idFechaVuelta", $Producto_fecha_ref->getIdFechaVuelta());
+$statement->bindValue(":precioProveedor", $Producto_fecha_ref->getPrecioProveedor());
+$statement->bindValue(":comision", $Producto_fecha_ref->getComision());
 
             $ret = 0;
             if($statement->execute()){
@@ -53,8 +56,8 @@ $statement->bindValue(":idReserva", $Clientepasajeroreservaref->getIdReserva());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
         try{
-            $sql = "SELECT idCliente, idPasajero, idReserva 
-            FROM clientepasajeroreservaref
+            $sql = "SELECT idProductoFechaRef, idProducto, idFechaSalida, idFechaVuelta, precioProveedor, comision 
+            FROM producto_fecha_ref
             WHERE TRUE";
             $sql .= $this->filterSqlPrepare($filtros);
             $sql .= $this->orderSqlPrepare($ordenados);
@@ -75,7 +78,7 @@ $statement->bindValue(":idReserva", $Clientepasajeroreservaref->getIdReserva());
             $ret = [];
             if($statement->execute() and $statement->rowCount() > 0){
                 while ($row = $statement->fetch(PDO::FETCH_OBJ)) {
-                    $ret[] = new Clientepasajeroreservaref($row->idCliente, $row->idPasajero, $row->idReserva);
+                    $ret[] = new Producto_fecha_ref($row->idProductoFechaRef, $row->idProducto, $row->idFechaSalida, $row->idFechaVuelta, $row->precioProveedor, $row->comision);
                 }
                 $conexion = NULL;
                 $statement->closeCursor();
@@ -89,11 +92,11 @@ $statement->bindValue(":idReserva", $Clientepasajeroreservaref->getIdReserva());
 
     public function deleteByIds(array $ids = []): int {
         try{
-            if(!isset($ids['idCliente']) or !isset($ids['idPasajero']) or !isset($ids['idReserva'])){
+            if(!isset($ids['idProductoFechaRef'])){
                 throw new Exception('Para eliminar un registro, se tiene que especificar sus ids');
             }
-            $sql = "DELETE FROM clientepasajeroreservaref";
-            $sql .= " WHERE idCliente = :idCliente AND idPasajero = :idPasajero AND idReserva = :idReserva LIMIT 1;";
+            $sql = "DELETE FROM producto_fecha_ref";
+            $sql .= " WHERE idProductoFechaRef = :idProductoFechaRef LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             

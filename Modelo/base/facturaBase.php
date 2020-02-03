@@ -1,7 +1,5 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class FacturaBase extends ModelBase {
 
     protected $idFactura;
@@ -57,6 +55,20 @@ abstract class FacturaBase extends ModelBase {
     public function getFechaAlta(){ return $this->fechaAlta; }
 
     public function getFehaUpdate(){ return $this->fehaUpdate; }
+
+    public function getReserva(){
+        $ReservaController = new ReservaController();
+        $idReserva = $this->getIdReserva();
+        $ReservaList = $ReservaController->select([['idReserva', '=', $idReserva]]);
+        return $ReservaList[0];
+    }
+
+    public function getFacturaTitular(){
+        $FacturaTitularController = new FacturaTitularController();
+        $idFacturaTitular = $this->getIdFacturaTitular();
+        $FacturaTitularList = $FacturaTitularController->select([['idFacturaTitular', '=', $idFacturaTitular]]);
+        return $FacturaTitularList[0];
+    }
 
     public function setIdFactura($idFactura = 0){
         $this->idFactura = (int) $idFactura; return $this;

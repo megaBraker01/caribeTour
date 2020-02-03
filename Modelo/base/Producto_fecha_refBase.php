@@ -1,8 +1,6 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
-abstract class ProductofecharefBase extends ModelBase {
+abstract class Producto_fecha_refBase extends ModelBase {
 
     protected $idProductoFechaRef;
     protected $idProducto;
@@ -38,6 +36,27 @@ abstract class ProductofecharefBase extends ModelBase {
     public function getPrecioProveedor(){ return $this->precioProveedor; }
 
     public function getComision(){ return $this->comision; }
+
+    public function getProducto(){
+        $ProductoController = new ProductoController();
+        $idProducto = $this->getIdProducto();
+        $ProductoList = $ProductoController->select([['idProducto', '=', $idProducto]]);
+        return $ProductoList[0];
+    }
+
+    public function getFechaSalida(){
+        $FechaSalidaController = new FechaSalidaController();
+        $idFechaSalida = $this->getIdFechaSalida();
+        $FechaSalidaList = $FechaSalidaController->select([['idFechaSalida', '=', $idFechaSalida]]);
+        return $FechaSalidaList[0];
+    }
+
+    public function getFechaVuelta(){
+        $FechaVueltaController = new FechaVueltaController();
+        $idFechaVuelta = $this->getIdFechaVuelta();
+        $FechaVueltaList = $FechaVueltaController->select([['idFechaVuelta', '=', $idFechaVuelta]]);
+        return $FechaVueltaList[0];
+    }
 
     public function setIdProductoFechaRef($idProductoFechaRef = 0){
         $this->idProductoFechaRef = (int) $idProductoFechaRef; return $this;

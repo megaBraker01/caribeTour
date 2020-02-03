@@ -1,18 +1,19 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class TipoBaseController extends baseController {
 
 
 
     public function insert(Tipo $Tipo): int {
         try{
-            $sql = "INSERT INTO tipos (nombre) 
-            VALUES (:nombre);";
+            $sql = "INSERT INTO tipos (nombre, productos, contactos, pagos) 
+            VALUES (:nombre, :productos, :contactos, :pagos);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":nombre", $Tipo->getNombre());
+$statement->bindValue(":productos", $Tipo->getProductos());
+$statement->bindValue(":contactos", $Tipo->getContactos());
+$statement->bindValue(":pagos", $Tipo->getPagos());
 
             $ret = 0;
             if($statement->execute()){
@@ -29,11 +30,14 @@ abstract class TipoBaseController extends baseController {
 
     public function update(Tipo $Tipo): int {
         try{
-            $sql = "UPDATE tipos SET nombre = :nombre WHERE idTipo = :idTipo LIMIT 1;";
+            $sql = "UPDATE tipos SET nombre = :nombre, productos = :productos, contactos = :contactos, pagos = :pagos WHERE idTipo = :idTipo LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idTipo", $Tipo->getIdTipo());
 $statement->bindValue(":nombre", $Tipo->getNombre());
+$statement->bindValue(":productos", $Tipo->getProductos());
+$statement->bindValue(":contactos", $Tipo->getContactos());
+$statement->bindValue(":pagos", $Tipo->getPagos());
 
             $ret = 0;
             if($statement->execute()){
@@ -50,7 +54,7 @@ $statement->bindValue(":nombre", $Tipo->getNombre());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
         try{
-            $sql = "SELECT idTipo, nombre 
+            $sql = "SELECT idTipo, nombre, productos, contactos, pagos 
             FROM tipos
             WHERE TRUE";
             $sql .= $this->filterSqlPrepare($filtros);
@@ -72,7 +76,7 @@ $statement->bindValue(":nombre", $Tipo->getNombre());
             $ret = [];
             if($statement->execute() and $statement->rowCount() > 0){
                 while ($row = $statement->fetch(PDO::FETCH_OBJ)) {
-                    $ret[] = new Tipo($row->idTipo, $row->nombre);
+                    $ret[] = new Tipo($row->idTipo, $row->nombre, $row->productos, $row->contactos, $row->pagos);
                 }
                 $conexion = NULL;
                 $statement->closeCursor();

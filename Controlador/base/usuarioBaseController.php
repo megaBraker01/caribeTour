@@ -1,15 +1,13 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class UsuarioBaseController extends baseController {
 
 
 
     public function insert(Usuario $Usuario): int {
         try{
-            $sql = "INSERT INTO usuarios (nombre, apellidos, DNI, email, password, telefono, perfil, imagen, idEstado, idPermiso, fechaAlta) 
-            VALUES (:nombre, :apellidos, :DNI, :email, :password, :telefono, :perfil, :imagen, :idEstado, :idPermiso, :fechaAlta);";
+            $sql = "INSERT INTO usuarios (nombre, apellidos, DNI, email, password, telefono, perfil, imagen, idEstado, idPermiso) 
+            VALUES (:nombre, :apellidos, :DNI, :email, :password, :telefono, :perfil, :imagen, :idEstado, :idPermiso);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":nombre", $Usuario->getNombre());
@@ -22,7 +20,6 @@ $statement->bindValue(":perfil", $Usuario->getPerfil());
 $statement->bindValue(":imagen", $Usuario->getImagen());
 $statement->bindValue(":idEstado", $Usuario->getIdEstado());
 $statement->bindValue(":idPermiso", $Usuario->getIdPermiso());
-$statement->bindValue(":fechaAlta", $Usuario->getFechaAlta());
 
             $ret = 0;
             if($statement->execute()){
@@ -39,7 +36,7 @@ $statement->bindValue(":fechaAlta", $Usuario->getFechaAlta());
 
     public function update(Usuario $Usuario): int {
         try{
-            $sql = "UPDATE usuarios SET nombre = :nombre, apellidos = :apellidos, DNI = :DNI, email = :email, password = :password, telefono = :telefono, perfil = :perfil, imagen = :imagen, idEstado = :idEstado, idPermiso = :idPermiso, fechaAlta = :fechaAlta WHERE idUsuario = :idUsuario LIMIT 1;";
+            $sql = "UPDATE usuarios SET nombre = :nombre, apellidos = :apellidos, DNI = :DNI, email = :email, password = :password, telefono = :telefono, perfil = :perfil, imagen = :imagen, idEstado = :idEstado, idPermiso = :idPermiso WHERE idUsuario = :idUsuario LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idUsuario", $Usuario->getIdUsuario());
@@ -53,7 +50,6 @@ $statement->bindValue(":perfil", $Usuario->getPerfil());
 $statement->bindValue(":imagen", $Usuario->getImagen());
 $statement->bindValue(":idEstado", $Usuario->getIdEstado());
 $statement->bindValue(":idPermiso", $Usuario->getIdPermiso());
-$statement->bindValue(":fechaAlta", $Usuario->getFechaAlta());
 
             $ret = 0;
             if($statement->execute()){

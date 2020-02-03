@@ -1,15 +1,13 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class BlogBaseController extends baseController {
 
 
 
     public function insert(Blog $Blog): int {
         try{
-            $sql = "INSERT INTO blogs (nombre, slug, metaDescripcion, metaKeyWords, descripcion, srcImagen, idUsuario, fechaAlta) 
-            VALUES (:nombre, :slug, :metaDescripcion, :metaKeyWords, :descripcion, :srcImagen, :idUsuario, :fechaAlta);";
+            $sql = "INSERT INTO blogs (nombre, slug, metaDescripcion, metaKeyWords, descripcion, srcImagen, idUsuario) 
+            VALUES (:nombre, :slug, :metaDescripcion, :metaKeyWords, :descripcion, :srcImagen, :idUsuario);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":nombre", $Blog->getNombre());
@@ -19,7 +17,6 @@ $statement->bindValue(":metaKeyWords", $Blog->getMetaKeyWords());
 $statement->bindValue(":descripcion", $Blog->getDescripcion());
 $statement->bindValue(":srcImagen", $Blog->getSrcImagen());
 $statement->bindValue(":idUsuario", $Blog->getIdUsuario());
-$statement->bindValue(":fechaAlta", $Blog->getFechaAlta());
 
             $ret = 0;
             if($statement->execute()){
@@ -36,7 +33,7 @@ $statement->bindValue(":fechaAlta", $Blog->getFechaAlta());
 
     public function update(Blog $Blog): int {
         try{
-            $sql = "UPDATE blogs SET nombre = :nombre, slug = :slug, metaDescripcion = :metaDescripcion, metaKeyWords = :metaKeyWords, descripcion = :descripcion, srcImagen = :srcImagen, idUsuario = :idUsuario, fechaAlta = :fechaAlta WHERE idblog = :idblog LIMIT 1;";
+            $sql = "UPDATE blogs SET nombre = :nombre, slug = :slug, metaDescripcion = :metaDescripcion, metaKeyWords = :metaKeyWords, descripcion = :descripcion, srcImagen = :srcImagen, idUsuario = :idUsuario WHERE idblog = :idblog LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idblog", $Blog->getIdblog());
@@ -47,7 +44,6 @@ $statement->bindValue(":metaKeyWords", $Blog->getMetaKeyWords());
 $statement->bindValue(":descripcion", $Blog->getDescripcion());
 $statement->bindValue(":srcImagen", $Blog->getSrcImagen());
 $statement->bindValue(":idUsuario", $Blog->getIdUsuario());
-$statement->bindValue(":fechaAlta", $Blog->getFechaAlta());
 
             $ret = 0;
             if($statement->execute()){

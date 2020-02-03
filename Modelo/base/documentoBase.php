@@ -1,7 +1,5 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class DocumentoBase extends ModelBase {
 
     protected $idDocumento;
@@ -31,7 +29,7 @@ abstract class DocumentoBase extends ModelBase {
     }
 
     public function __toString(){
-        return $this->nombre;
+        return $this->nombreTabla;
     }
 
     public function getIdDocumento(){ return $this->idDocumento; }
@@ -47,6 +45,20 @@ abstract class DocumentoBase extends ModelBase {
     public function getIdUsuario(){ return $this->idUsuario; }
 
     public function getFechaAlta(){ return $this->fechaAlta; }
+
+    public function getTabla(){
+        $TablaController = new TablaController();
+        $idTabla = $this->getIdTabla();
+        $TablaList = $TablaController->select([['idTabla', '=', $idTabla]]);
+        return $TablaList[0];
+    }
+
+    public function getUsuario(){
+        $UsuarioController = new UsuarioController();
+        $idUsuario = $this->getIdUsuario();
+        $UsuarioList = $UsuarioController->select([['idUsuario', '=', $idUsuario]]);
+        return $UsuarioList[0];
+    }
 
     public function setIdDocumento($idDocumento = 0){
         $this->idDocumento = (int) $idDocumento; return $this;

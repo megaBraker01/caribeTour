@@ -1,8 +1,6 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
-abstract class BlogcomentarioBase extends ModelBase {
+abstract class Blog_comentarioBase extends ModelBase {
 
     protected $idBlogComentario;
     protected $idBlog;
@@ -47,6 +45,20 @@ abstract class BlogcomentarioBase extends ModelBase {
     public function getComentario(){ return $this->comentario; }
 
     public function getFechaAlta(){ return $this->fechaAlta; }
+
+    public function getBlog(){
+        $BlogController = new BlogController();
+        $idBlog = $this->getIdBlog();
+        $BlogList = $BlogController->select([['idBlog', '=', $idBlog]]);
+        return $BlogList[0];
+    }
+
+    public function getEstado(){
+        $EstadoController = new EstadoController();
+        $idEstado = $this->getIdEstado();
+        $EstadoList = $EstadoController->select([['idEstado', '=', $idEstado]]);
+        return $EstadoList[0];
+    }
 
     public function setIdBlogComentario($idBlogComentario = 0){
         $this->idBlogComentario = (int) $idBlogComentario; return $this;

@@ -1,7 +1,5 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class ImagenBase extends ModelBase {
 
     protected $idImagen;
@@ -37,6 +35,13 @@ abstract class ImagenBase extends ModelBase {
     public function getFechaAlta(){ return $this->fechaAlta; }
 
     public function getFehaUpdate(){ return $this->fehaUpdate; }
+
+    public function getProducto(){
+        $ProductoController = new ProductoController();
+        $idProducto = $this->getIdProducto();
+        $ProductoList = $ProductoController->select([['idProducto', '=', $idProducto]]);
+        return $ProductoList[0];
+    }
 
     public function setIdImagen($idImagen = 0){
         $this->idImagen = (int) $idImagen; return $this;

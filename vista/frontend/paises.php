@@ -1,6 +1,6 @@
 <?php
 require_once '../../config.php';
-require_once SITE_ROOT ."/AutoLoader/autoLoaderController.php";
+require_once "../../AutoLoader/autoLoader.php";
 
 $categoriaC = new CategoriaController();
 $filtro = [

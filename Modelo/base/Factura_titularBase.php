@@ -1,8 +1,6 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
-abstract class FacturatitularBase extends ModelBase {
+abstract class Factura_titularBase extends ModelBase {
 
     protected $idFacturaTitular;
     protected $idCliente;
@@ -62,6 +60,13 @@ abstract class FacturatitularBase extends ModelBase {
     public function getProvincia(){ return $this->provincia; }
 
     public function getPais(){ return $this->pais; }
+
+    public function getCliente(){
+        $ClienteController = new ClienteController();
+        $idCliente = $this->getIdCliente();
+        $ClienteList = $ClienteController->select([['idCliente', '=', $idCliente]]);
+        return $ClienteList[0];
+    }
 
     public function setIdFacturaTitular($idFacturaTitular = 0){
         $this->idFacturaTitular = (int) $idFacturaTitular; return $this;

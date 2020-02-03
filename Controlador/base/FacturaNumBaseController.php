@@ -1,23 +1,16 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
-abstract class ProductofecharefBaseController extends baseController {
+abstract class FacturaNumBaseController extends baseController {
 
 
 
-    public function insert(Productofecharef $Productofecharef): int {
+    public function insert(Factura_num $Factura_num): int {
         try{
-            $sql = "INSERT INTO productofecharef (idProducto, idFechaSalida, idFechaVuelta, precioProveedor, comision) 
-            VALUES (:idProducto, :idFechaSalida, :idFechaVuelta, :precioProveedor, :comision);";
+            $sql = "INSERT INTO factura_num () 
+            VALUES (:);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":idProducto", $Productofecharef->getIdProducto());
-$statement->bindValue(":idFechaSalida", $Productofecharef->getIdFechaSalida());
-$statement->bindValue(":idFechaVuelta", $Productofecharef->getIdFechaVuelta());
-$statement->bindValue(":precioProveedor", $Productofecharef->getPrecioProveedor());
-$statement->bindValue(":comision", $Productofecharef->getComision());
-
+            
             $ret = 0;
             if($statement->execute()){
                 $ret = $conexion->pdo()->lastInsertId();
@@ -31,17 +24,12 @@ $statement->bindValue(":comision", $Productofecharef->getComision());
         }
     }
 
-    public function update(Productofecharef $Productofecharef): int {
+    public function update(Factura_num $Factura_num): int {
         try{
-            $sql = "UPDATE productofecharef SET idProducto = :idProducto, idFechaSalida = :idFechaSalida, idFechaVuelta = :idFechaVuelta, precioProveedor = :precioProveedor, comision = :comision WHERE idProductoFechaRef = :idProductoFechaRef LIMIT 1;";
+            $sql = "UPDATE factura_num SET  WHERE facturaNum = :facturaNum LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":idProductoFechaRef", $Productofecharef->getIdProductoFechaRef());
-$statement->bindValue(":idProducto", $Productofecharef->getIdProducto());
-$statement->bindValue(":idFechaSalida", $Productofecharef->getIdFechaSalida());
-$statement->bindValue(":idFechaVuelta", $Productofecharef->getIdFechaVuelta());
-$statement->bindValue(":precioProveedor", $Productofecharef->getPrecioProveedor());
-$statement->bindValue(":comision", $Productofecharef->getComision());
+            $statement->bindValue(":facturaNum", $Factura_num->getFacturaNum());
 
             $ret = 0;
             if($statement->execute()){
@@ -58,8 +46,8 @@ $statement->bindValue(":comision", $Productofecharef->getComision());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
         try{
-            $sql = "SELECT idProductoFechaRef, idProducto, idFechaSalida, idFechaVuelta, precioProveedor, comision 
-            FROM productofecharef
+            $sql = "SELECT facturaNum, fechaAlta 
+            FROM factura_num
             WHERE TRUE";
             $sql .= $this->filterSqlPrepare($filtros);
             $sql .= $this->orderSqlPrepare($ordenados);
@@ -80,7 +68,7 @@ $statement->bindValue(":comision", $Productofecharef->getComision());
             $ret = [];
             if($statement->execute() and $statement->rowCount() > 0){
                 while ($row = $statement->fetch(PDO::FETCH_OBJ)) {
-                    $ret[] = new Productofecharef($row->idProductoFechaRef, $row->idProducto, $row->idFechaSalida, $row->idFechaVuelta, $row->precioProveedor, $row->comision);
+                    $ret[] = new Factura_num($row->facturaNum, $row->fechaAlta);
                 }
                 $conexion = NULL;
                 $statement->closeCursor();
@@ -94,11 +82,11 @@ $statement->bindValue(":comision", $Productofecharef->getComision());
 
     public function deleteByIds(array $ids = []): int {
         try{
-            if(!isset($ids['idProductoFechaRef'])){
+            if(!isset($ids['facturaNum'])){
                 throw new Exception('Para eliminar un registro, se tiene que especificar sus ids');
             }
-            $sql = "DELETE FROM productofecharef";
-            $sql .= " WHERE idProductoFechaRef = :idProductoFechaRef LIMIT 1;";
+            $sql = "DELETE FROM factura_num";
+            $sql .= " WHERE facturaNum = :facturaNum LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             

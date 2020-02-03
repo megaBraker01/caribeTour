@@ -1,7 +1,5 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class ReservaBase extends ModelBase {
 
     protected $idReserva;
@@ -33,6 +31,20 @@ abstract class ReservaBase extends ModelBase {
     public function getImporte(){ return $this->importe; }
 
     public function getFechaAlta(){ return $this->fechaAlta; }
+
+    public function getProductoFechaRef(){
+        $ProductoFechaRefController = new ProductoFechaRefController();
+        $idProductoFechaRef = $this->getIdProductoFechaRef();
+        $ProductoFechaRefList = $ProductoFechaRefController->select([['idProductoFechaRef', '=', $idProductoFechaRef]]);
+        return $ProductoFechaRefList[0];
+    }
+
+    public function getEstado(){
+        $EstadoController = new EstadoController();
+        $idEstado = $this->getIdEstado();
+        $EstadoList = $EstadoController->select([['idEstado', '=', $idEstado]]);
+        return $EstadoList[0];
+    }
 
     public function setIdReserva($idReserva = 0){
         $this->idReserva = (int) $idReserva; return $this;

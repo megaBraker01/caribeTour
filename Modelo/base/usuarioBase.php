@@ -1,7 +1,5 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class UsuarioBase extends ModelBase {
 
     protected $idUsuario;
@@ -77,6 +75,20 @@ abstract class UsuarioBase extends ModelBase {
     public function getFechaAlta(){ return $this->fechaAlta; }
 
     public function getFechaUpdate(){ return $this->fechaUpdate; }
+
+    public function getEstado(){
+        $EstadoController = new EstadoController();
+        $idEstado = $this->getIdEstado();
+        $EstadoList = $EstadoController->select([['idEstado', '=', $idEstado]]);
+        return $EstadoList[0];
+    }
+
+    public function getPermiso(){
+        $PermisoController = new PermisoController();
+        $idPermiso = $this->getIdPermiso();
+        $PermisoList = $PermisoController->select([['idPermiso', '=', $idPermiso]]);
+        return $PermisoList[0];
+    }
 
     public function setIdUsuario($idUsuario = 0){
         $this->idUsuario = (int) $idUsuario; return $this;

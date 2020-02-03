@@ -1,15 +1,13 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class DocumentoBaseController extends baseController {
 
 
 
     public function insert(Documento $Documento): int {
         try{
-            $sql = "INSERT INTO documentos (nombre, path, nombreTabla, idTabla, idUsuario, fechaAlta) 
-            VALUES (:nombre, :path, :nombreTabla, :idTabla, :idUsuario, :fechaAlta);";
+            $sql = "INSERT INTO documentos (nombre, path, nombreTabla, idTabla, idUsuario) 
+            VALUES (:nombre, :path, :nombreTabla, :idTabla, :idUsuario);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":nombre", $Documento->getNombre());
@@ -17,7 +15,6 @@ $statement->bindValue(":path", $Documento->getPath());
 $statement->bindValue(":nombreTabla", $Documento->getNombreTabla());
 $statement->bindValue(":idTabla", $Documento->getIdTabla());
 $statement->bindValue(":idUsuario", $Documento->getIdUsuario());
-$statement->bindValue(":fechaAlta", $Documento->getFechaAlta());
 
             $ret = 0;
             if($statement->execute()){
@@ -34,7 +31,7 @@ $statement->bindValue(":fechaAlta", $Documento->getFechaAlta());
 
     public function update(Documento $Documento): int {
         try{
-            $sql = "UPDATE documentos SET nombre = :nombre, path = :path, nombreTabla = :nombreTabla, idTabla = :idTabla, idUsuario = :idUsuario, fechaAlta = :fechaAlta WHERE idDocumento = :idDocumento LIMIT 1;";
+            $sql = "UPDATE documentos SET nombre = :nombre, path = :path, nombreTabla = :nombreTabla, idTabla = :idTabla, idUsuario = :idUsuario WHERE idDocumento = :idDocumento LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idDocumento", $Documento->getIdDocumento());
@@ -43,7 +40,6 @@ $statement->bindValue(":path", $Documento->getPath());
 $statement->bindValue(":nombreTabla", $Documento->getNombreTabla());
 $statement->bindValue(":idTabla", $Documento->getIdTabla());
 $statement->bindValue(":idUsuario", $Documento->getIdUsuario());
-$statement->bindValue(":fechaAlta", $Documento->getFechaAlta());
 
             $ret = 0;
             if($statement->execute()){

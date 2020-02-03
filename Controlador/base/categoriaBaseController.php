@@ -1,9 +1,5 @@
 <?php
 
-require_once SITE_ROOT ."/AutoLoader/autoLoaderController.php";
-require_once SITE_ROOT ."/AutoLoader/autoLoaderConexion.php";
-require_once SITE_ROOT ."/AutoLoader/autoLoaderModelo.php";
-
 abstract class CategoriaBaseController extends baseController {
 
 
@@ -14,7 +10,7 @@ abstract class CategoriaBaseController extends baseController {
             VALUES (:idCategoriaPadre, :nombre, :slug, :descripcion, :idEstado, :srcImagen);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-$statement->bindValue(":idCategoriaPadre", $Categoria->getIdCategoriaPadre());
+            $statement->bindValue(":idCategoriaPadre", $Categoria->getIdCategoriaPadre());
 $statement->bindValue(":nombre", $Categoria->getNombre());
 $statement->bindValue(":slug", $Categoria->getSlug());
 $statement->bindValue(":descripcion", $Categoria->getDescripcion());
@@ -36,7 +32,7 @@ $statement->bindValue(":srcImagen", $Categoria->getSrcImagen());
 
     public function update(Categoria $Categoria): int {
         try{
-            $sql = "UPDATE categorias SET idCategoria = :idCategoria, idCategoriaPadre = :idCategoriaPadre, nombre = :nombre, slug = :slug, descripcion = :descripcion, idEstado = :idEstado, srcImagen = :srcImagen WHERE idCategoria = :idCategoria LIMIT 1;";
+            $sql = "UPDATE categorias SET idCategoriaPadre = :idCategoriaPadre, nombre = :nombre, slug = :slug, descripcion = :descripcion, idEstado = :idEstado, srcImagen = :srcImagen WHERE idCategoria = :idCategoria LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idCategoria", $Categoria->getIdCategoria());

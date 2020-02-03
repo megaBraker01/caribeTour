@@ -1,18 +1,18 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
-abstract class FacturanumBaseController extends baseController {
+abstract class ClientePasajeroReservaRefBaseController extends baseController {
 
 
 
-    public function insert(Facturanum $Facturanum): int {
+    public function insert(Cliente_pasajero_reserva_ref $Cliente_pasajero_reserva_ref): int {
         try{
-            $sql = "INSERT INTO facturanum (fechaAlta) 
-            VALUES (:fechaAlta);";
+            $sql = "INSERT INTO cliente_pasajero_reserva_ref (idCliente, idPasajero, idReserva) 
+            VALUES (:idCliente, :idPasajero, :idReserva);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":fechaAlta", $Facturanum->getFechaAlta());
+            $statement->bindValue(":idCliente", $Cliente_pasajero_reserva_ref->getIdCliente());
+$statement->bindValue(":idPasajero", $Cliente_pasajero_reserva_ref->getIdPasajero());
+$statement->bindValue(":idReserva", $Cliente_pasajero_reserva_ref->getIdReserva());
 
             $ret = 0;
             if($statement->execute()){
@@ -27,13 +27,14 @@ abstract class FacturanumBaseController extends baseController {
         }
     }
 
-    public function update(Facturanum $Facturanum): int {
+    public function update(Cliente_pasajero_reserva_ref $Cliente_pasajero_reserva_ref): int {
         try{
-            $sql = "UPDATE facturanum SET fechaAlta = :fechaAlta WHERE facturaNum = :facturaNum LIMIT 1;";
+            $sql = "UPDATE cliente_pasajero_reserva_ref SET idCliente = :idCliente, idPasajero = :idPasajero, idReserva = :idReserva WHERE idCliente = :idCliente AND idPasajero = :idPasajero AND idReserva = :idReserva LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":facturaNum", $Facturanum->getFacturaNum());
-$statement->bindValue(":fechaAlta", $Facturanum->getFechaAlta());
+            $statement->bindValue(":idCliente", $Cliente_pasajero_reserva_ref->getIdCliente());
+$statement->bindValue(":idPasajero", $Cliente_pasajero_reserva_ref->getIdPasajero());
+$statement->bindValue(":idReserva", $Cliente_pasajero_reserva_ref->getIdReserva());
 
             $ret = 0;
             if($statement->execute()){
@@ -50,8 +51,8 @@ $statement->bindValue(":fechaAlta", $Facturanum->getFechaAlta());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
         try{
-            $sql = "SELECT facturaNum, fechaAlta 
-            FROM facturanum
+            $sql = "SELECT idCliente, idPasajero, idReserva 
+            FROM cliente_pasajero_reserva_ref
             WHERE TRUE";
             $sql .= $this->filterSqlPrepare($filtros);
             $sql .= $this->orderSqlPrepare($ordenados);
@@ -72,7 +73,7 @@ $statement->bindValue(":fechaAlta", $Facturanum->getFechaAlta());
             $ret = [];
             if($statement->execute() and $statement->rowCount() > 0){
                 while ($row = $statement->fetch(PDO::FETCH_OBJ)) {
-                    $ret[] = new Facturanum($row->facturaNum, $row->fechaAlta);
+                    $ret[] = new Cliente_pasajero_reserva_ref($row->idCliente, $row->idPasajero, $row->idReserva);
                 }
                 $conexion = NULL;
                 $statement->closeCursor();
@@ -86,11 +87,11 @@ $statement->bindValue(":fechaAlta", $Facturanum->getFechaAlta());
 
     public function deleteByIds(array $ids = []): int {
         try{
-            if(!isset($ids['facturaNum'])){
+            if(!isset($ids['idCliente']) or !isset($ids['idPasajero']) or !isset($ids['idReserva'])){
                 throw new Exception('Para eliminar un registro, se tiene que especificar sus ids');
             }
-            $sql = "DELETE FROM facturanum";
-            $sql .= " WHERE facturaNum = :facturaNum LIMIT 1;";
+            $sql = "DELETE FROM cliente_pasajero_reserva_ref";
+            $sql .= " WHERE idCliente = :idCliente AND idPasajero = :idPasajero AND idReserva = :idReserva LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             

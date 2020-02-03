@@ -1,7 +1,5 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class NotaBase extends ModelBase {
 
     protected $idNota;
@@ -31,7 +29,7 @@ abstract class NotaBase extends ModelBase {
     }
 
     public function __toString(){
-        return $this->nota;
+        return $this->nombreTabla;
     }
 
     public function getIdNota(){ return $this->idNota; }
@@ -47,6 +45,20 @@ abstract class NotaBase extends ModelBase {
     public function getFechaAlta(){ return $this->fechaAlta; }
 
     public function getFechaUpdate(){ return $this->fechaUpdate; }
+
+    public function getTabla(){
+        $TablaController = new TablaController();
+        $idTabla = $this->getIdTabla();
+        $TablaList = $TablaController->select([['idTabla', '=', $idTabla]]);
+        return $TablaList[0];
+    }
+
+    public function getUsuario(){
+        $UsuarioController = new UsuarioController();
+        $idUsuario = $this->getIdUsuario();
+        $UsuarioList = $UsuarioController->select([['idUsuario', '=', $idUsuario]]);
+        return $UsuarioList[0];
+    }
 
     public function setIdNota($idNota = 0){
         $this->idNota = (int) $idNota; return $this;

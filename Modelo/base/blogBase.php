@@ -1,7 +1,5 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class BlogBase extends ModelBase {
 
     protected $idblog;
@@ -62,6 +60,13 @@ abstract class BlogBase extends ModelBase {
     public function getFechaAlta(){ return $this->fechaAlta; }
 
     public function getFechaUpdate(){ return $this->fechaUpdate; }
+
+    public function getUsuario(){
+        $UsuarioController = new UsuarioController();
+        $idUsuario = $this->getIdUsuario();
+        $UsuarioList = $UsuarioController->select([['idUsuario', '=', $idUsuario]]);
+        return $UsuarioList[0];
+    }
 
     public function setIdblog($idblog = 0){
         $this->idblog = (int) $idblog; return $this;

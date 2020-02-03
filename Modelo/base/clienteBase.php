@@ -1,7 +1,5 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class ClienteBase extends ModelBase {
 
     protected $idCliente;
@@ -82,6 +80,13 @@ abstract class ClienteBase extends ModelBase {
     public function getFechaAlta(){ return $this->fechaAlta; }
 
     public function getFechaUpdate(){ return $this->fechaUpdate; }
+
+    public function getEstado(){
+        $EstadoController = new EstadoController();
+        $idEstado = $this->getIdEstado();
+        $EstadoList = $EstadoController->select([['idEstado', '=', $idEstado]]);
+        return $EstadoList[0];
+    }
 
     public function setIdCliente($idCliente = 0){
         $this->idCliente = (int) $idCliente; return $this;

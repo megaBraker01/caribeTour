@@ -1,21 +1,18 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class ReservaBaseController extends baseController {
 
 
 
     public function insert(Reserva $Reserva): int {
         try{
-            $sql = "INSERT INTO reservas (idProductoFechaRef, idEstado, importe, fechaAlta) 
-            VALUES (:idProductoFechaRef, :idEstado, :importe, :fechaAlta);";
+            $sql = "INSERT INTO reservas (idProductoFechaRef, idEstado, importe) 
+            VALUES (:idProductoFechaRef, :idEstado, :importe);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idProductoFechaRef", $Reserva->getIdProductoFechaRef());
 $statement->bindValue(":idEstado", $Reserva->getIdEstado());
 $statement->bindValue(":importe", $Reserva->getImporte());
-$statement->bindValue(":fechaAlta", $Reserva->getFechaAlta());
 
             $ret = 0;
             if($statement->execute()){
@@ -32,14 +29,13 @@ $statement->bindValue(":fechaAlta", $Reserva->getFechaAlta());
 
     public function update(Reserva $Reserva): int {
         try{
-            $sql = "UPDATE reservas SET idProductoFechaRef = :idProductoFechaRef, idEstado = :idEstado, importe = :importe, fechaAlta = :fechaAlta WHERE idReserva = :idReserva LIMIT 1;";
+            $sql = "UPDATE reservas SET idProductoFechaRef = :idProductoFechaRef, idEstado = :idEstado, importe = :importe WHERE idReserva = :idReserva LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idReserva", $Reserva->getIdReserva());
 $statement->bindValue(":idProductoFechaRef", $Reserva->getIdProductoFechaRef());
 $statement->bindValue(":idEstado", $Reserva->getIdEstado());
 $statement->bindValue(":importe", $Reserva->getImporte());
-$statement->bindValue(":fechaAlta", $Reserva->getFechaAlta());
 
             $ret = 0;
             if($statement->execute()){

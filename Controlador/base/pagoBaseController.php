@@ -1,22 +1,19 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class PagoBaseController extends baseController {
 
 
 
     public function insert(Pago $Pago): int {
         try{
-            $sql = "INSERT INTO pagos (idReserva, importe, idPagoTipo, idEstado, fechaAlta) 
-            VALUES (:idReserva, :importe, :idPagoTipo, :idEstado, :fechaAlta);";
+            $sql = "INSERT INTO pagos (idReserva, importe, idPagoTipo, idEstado) 
+            VALUES (:idReserva, :importe, :idPagoTipo, :idEstado);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idReserva", $Pago->getIdReserva());
 $statement->bindValue(":importe", $Pago->getImporte());
 $statement->bindValue(":idPagoTipo", $Pago->getIdPagoTipo());
 $statement->bindValue(":idEstado", $Pago->getIdEstado());
-$statement->bindValue(":fechaAlta", $Pago->getFechaAlta());
 
             $ret = 0;
             if($statement->execute()){
@@ -33,7 +30,7 @@ $statement->bindValue(":fechaAlta", $Pago->getFechaAlta());
 
     public function update(Pago $Pago): int {
         try{
-            $sql = "UPDATE pagos SET idReserva = :idReserva, importe = :importe, idPagoTipo = :idPagoTipo, idEstado = :idEstado, fechaAlta = :fechaAlta WHERE idPago = :idPago LIMIT 1;";
+            $sql = "UPDATE pagos SET idReserva = :idReserva, importe = :importe, idPagoTipo = :idPagoTipo, idEstado = :idEstado WHERE idPago = :idPago LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idPago", $Pago->getIdPago());
@@ -41,7 +38,6 @@ $statement->bindValue(":idReserva", $Pago->getIdReserva());
 $statement->bindValue(":importe", $Pago->getImporte());
 $statement->bindValue(":idPagoTipo", $Pago->getIdPagoTipo());
 $statement->bindValue(":idEstado", $Pago->getIdEstado());
-$statement->bindValue(":fechaAlta", $Pago->getFechaAlta());
 
             $ret = 0;
             if($statement->execute()){

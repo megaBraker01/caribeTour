@@ -1,7 +1,5 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class LegalBase extends ModelBase {
 
     protected $idLegal;
@@ -37,6 +35,20 @@ abstract class LegalBase extends ModelBase {
     public function getDescripcion(){ return $this->descripcion; }
 
     public function getIdEstado(){ return $this->idEstado; }
+
+    public function getLegal(){
+        $LegalController = new LegalController();
+        $idLegal = $this->getIdLegal();
+        $LegalList = $LegalController->select([['idLegal', '=', $idLegal]]);
+        return $LegalList[0];
+    }
+
+    public function getEstado(){
+        $EstadoController = new EstadoController();
+        $idEstado = $this->getIdEstado();
+        $EstadoList = $EstadoController->select([['idEstado', '=', $idEstado]]);
+        return $EstadoList[0];
+    }
 
     public function setIdLegal($idLegal = 0){
         $this->idLegal = (int) $idLegal; return $this;

@@ -1,7 +1,5 @@
 <?php
 
-require_once 'AutoLoader/AutoLoader.php';
-
 abstract class ContactoBase extends ModelBase {
 
     protected $idContacto;
@@ -52,6 +50,20 @@ abstract class ContactoBase extends ModelBase {
     public function getFechaAlta(){ return $this->fechaAlta; }
 
     public function getFechaUpdate(){ return $this->fechaUpdate; }
+
+    public function getTipo(){
+        $TipoController = new TipoController();
+        $idTipo = $this->getIdTipo();
+        $TipoList = $TipoController->select([['idTipo', '=', $idTipo]]);
+        return $TipoList[0];
+    }
+
+    public function getTabla(){
+        $TablaController = new TablaController();
+        $idTabla = $this->getIdTabla();
+        $TablaList = $TablaController->select([['idTabla', '=', $idTabla]]);
+        return $TablaList[0];
+    }
 
     public function setIdContacto($idContacto = 0){
         $this->idContacto = (int) $idContacto; return $this;

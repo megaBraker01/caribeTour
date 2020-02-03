@@ -1,9 +1,5 @@
 <?php
 
-require_once SITE_ROOT ."/AutoLoader/autoLoaderController.php";
-require_once SITE_ROOT ."/AutoLoader/autoLoaderConexion.php";
-require_once SITE_ROOT ."/AutoLoader/autoLoaderModelo.php";
-
 abstract class ProductoBaseController extends baseController {
 
 

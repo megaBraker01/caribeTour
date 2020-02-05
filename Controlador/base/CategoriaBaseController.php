@@ -1,6 +1,6 @@
 <?php
 
-abstract class CategoriaBaseController extends baseController {
+abstract class CategoriaBaseController extends BaseController {
 
 
 

@@ -4,7 +4,9 @@ require_once "../../AutoLoader/autoLoader.php";
 
 $productoList = [];
 $slugCatPadre = $_GET['slugCat'];
-$catPadreNombre = ucfirst($slugCatPadre);
+$catNombre = ucfirst($slugCatPadre);
+$mostrarDesde = $pagActual = $pagTotal = 1;
+
 if(isset($slugCatPadre) and $slugCatPadre != ""){
     $categoriaC = new CategoriaController();
     $filtro = [
@@ -13,14 +15,23 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
     $catList = $categoriaC->select($filtro);
     
     if(!empty($catList)){
-        $catPadre = $catList[0];
-        $catPadreNombre = $catPadre->getNombre();
+        $categoria = $catList[0];
+        $catNombre = $categoria->getNombre();
+	$catPadre = $categoria->getCategoriaPadre();
         $filtroCat = [
             ['idCategoria', '=', $catList[0]->getIdCategoria()],
             ['idEstado', '=', 1],
         ];
         $productoC = new ProductoController();
         $productoList = $productoC->select($filtroCat);
+
+	// PAGINACION
+	$productoTotales = count($productoList);
+	$mostrarItems = 2;
+	$pagTotal = ceil($productoTotales / $mostrarItems);
+	$pagActual = $_GET['pag'] ?? 1;
+	$mostrarDesde = ($pagActual - 1) * $mostrarItems;
+	
     }    
 }
 ?>
@@ -31,7 +42,7 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
         <meta property="og:title" content="Caribetour.es | Especialistas en el Caribe" />
         <meta name="title" content="CaribeTour.es: Especialistas en el Caribe" />
         <meta name="DC.title" content="CaribeTour.es: Especialistas en el Caribe" />
-        <title><?= $catPadreNombre ?> | Caribetour.es Especialistas en el Caribe</title>        
+        <title><?= $catNombre ?> | Caribetour.es Especialistas en el Caribe</title>        
         <meta name="description" content="CaribeTour.es | Agencia especializada en el Caribe y sus paises" />
         <meta name="keywords" content="CaribeTour.es | Agencia especializada en el Caribe y sus paises" />
         <!--[if lt IE 9]>
@@ -82,7 +93,13 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
                         <a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
-                        paginaActual
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises" rel="tag" title="Inicio">Paises</a>
+                    </div>
+                    <div class="breadcrumb">
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?=$catPadre->getSlug() ?>" rel="tag" title="Inicio"><?=$catPadre ?></a>
+                    </div>
+                    <div class="breadcrumb">
+                        <?=$categoria ?>
                     </div>
                 </div>
                 <!-- /breadcrumb-->            
@@ -96,13 +113,13 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
                         <?php // Show if recordset not empty ?>
                         <div class="items-list clearfix">
                             
-                            <?php $i = 1; foreach ($productoList as $producto){ ?>
+                            <?php $i = 1; foreach (array_slice($productoList, $mostrarDesde, $mostrarItems) as $producto){ ?>
                             <div class="full-tour clearfix">
                                 
                                 <div class="fivecol column">
                                     <div class="content-slider-container tour-slider-container">
                                         <div class="featured-image">
-                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/seoCategoria/<?=$catPadre->getSlug() ?>/<?=$producto->getSlug() ?>">
+                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>/<?=$producto->getSlug() ?>">
                                                 <img width="550" height="413" src="<?php echo PATHFRONTEND."img/{$producto->getImagen()}"; ?>" class="attachment-extended wp-post-image" alt="<?=$producto->getNombre() ?>" title="<?=$producto->getNombre() ?>" />
                                             </a>
                                         </div>
@@ -113,15 +130,15 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
                                 <div class="sevencol column last">
                                     <div class="section-title">
                                         <h1>
-                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/seoCategoria/<?=$catPadre->getSlug() ?>/<?=$producto->getSlug() ?>" title="<?=$producto->getNombre() ?>"><?=$producto->getNombre() ?></a>
+                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>/<?=$producto->getSlug() ?>" title="<?=$producto->getNombre() ?>"><?=$producto->getNombre() ?></a>
                                         </h1>
                                     </div>
                                     <ul class="tour-meta">
                                         <li>
                                             <div class="colored-icon icon-2"></div>
-                                            <strong>paises:</strong>
-                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/seoCategoria/<?=$catPadre->getSlug() ?>" title="Ver todos los paises de subCategoria" rel="tag">
-                                                subCategoria
+                                            <strong>Destino:</strong>
+                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>" title="Ver todos los destinos de <?=$catPadre ?>" rel="tag">
+                                                <?=$categoria->getNombre() ?>
                                             </a>
                                         </li>
                                         <li>
@@ -137,7 +154,7 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
                                     </ul>
                                     <p><?= substr($producto->getDescripcion(),0,261); ?>.[...]</p>
                                     <footer class="tour-footer">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/seoCategoria/<?=$catPadre->getSlug() ?>/<?=$producto->getSlug() ?>" class="button small" title="Saber m&aacute;s sobre nombreProducto">
+                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>/<?=$producto->getSlug() ?>" class="button small" title="Saber m&aacute;s sobre <?=$producto->getNombre() ?>">
                                             <span>Saber M&aacute;s</span>
                                         </a>
                                         <a href="#question-form" data-id="<?=$producto->getNombre() ?>" data-title="<?=$producto->getNombre() ?>" class="button grey small colorbox inline" title="Hacer una consulta">
@@ -150,25 +167,27 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
                             <?php } ?>
                             
                         </div>
-                        <?php  // Show if recordset not empty ?><?php // Show if recordset empty ?>
                         
                         
+                        <?php if(empty($catList)){ ?>
                         <div class="column ninecol">
                             <div class="items-list clearfix">
                                 <h3>Sin Resultados...</h3>
-                                <p>Lo sentimos, no hemos encontrado Destinos con estas caracter&iacute;sticas, puedes intentar buscando en el men&uacute; superior<a hreflang="es" type="text/html" charset="iso-8859-1" href="paises"> Destinos</a> o trata cambiando los parametros de b&uacute;squeda.</p>
+                                <p>Lo sentimos, no hemos encontrado Destinos con estas caracter&iacute;sticas, puedes intentar buscando en el men&uacute; superior<a hreflang="es" type="text/html" charset="iso-8859-1" href="paises"> Paises</a> o trata cambiando los parametros de b&uacute;squeda.</p>
                                 <img src="<?php echo PATHFRONTEND ?>/images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados..."><br>
                             </div>
-                        </div><?php // Show if recordset empty ?>
+                        </div>
+			<?php } ?>
                         
                         <nav class="pagination">
-                        <?php for ($cont=0;$cont<=2;$cont++){
-                            $numPagina=$cont+1;
-                            if ($cont==2)
-                                echo "<span class='page-numbers current'>".$numPagina."</span>";
+                        <?php 
+			for ($i = 1; $i <= $pagTotal; $i++){
+                            if ($i == $pagActual)
+                                echo "<span class='page-numbers current'>".$i."</span>";
                             else
-                                echo "<a class='page-numbers' href='1?pageNum_producto=".$cont."'>".$numPagina."</a>";
-                            } ?>
+				echo "<a hreflang='es' type='text/html' charset='iso-8859-1' href='paises/{$catPadre->getSlug()}/{$categoria->getSlug()}/?pag=$i' class='page-numbers' title='Pasar a la pagina $i'>$i</a>";
+			} 
+			?>
                         </nav>
                         
                         

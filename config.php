@@ -6,4 +6,8 @@
  * and open the template in the editor.
  */
 
-define('SITE_ROOT', __DIR__);
+if(!defined("SITE_ROOT"))
+    define('SITE_ROOT', __DIR__);
+
+if(!defined("PATHFRONTEND"))
+    define("PATHFRONTEND", "vista/frontend/");

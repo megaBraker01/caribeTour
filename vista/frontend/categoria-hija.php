@@ -27,7 +27,7 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
 
 	// PAGINACION
 	$productoTotales = count($productoList);
-	$mostrarItems = 2;
+	$mostrarItems = 1;
 	$pagTotal = ceil($productoTotales / $mostrarItems);
 	$pagActual = $_GET['pag'] ?? 1;
 	$mostrarDesde = ($pagActual - 1) * $mostrarItems;
@@ -185,7 +185,7 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
                             if ($i == $pagActual)
                                 echo "<span class='page-numbers current'>".$i."</span>";
                             else
-				echo "<a hreflang='es' type='text/html' charset='iso-8859-1' href='paises/{$catPadre->getSlug()}/{$categoria->getSlug()}/?pag=$i' class='page-numbers' title='Pasar a la pagina $i'>$i</a>";
+				echo "<a hreflang='es' type='text/html' charset='iso-8859-1' href='paises/{$catPadre->getSlug()}/{$categoria->getSlug()}/pag=$i' class='page-numbers' title='Pasar a la pagina $i'>$i</a>";
 			} 
 			?>
                         </nav>

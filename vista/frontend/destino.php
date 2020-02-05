@@ -1,5 +1,17 @@
 <?php
-include_once "includes/pathFrontend.php";
+require_once '../../config.php';
+require_once "../../AutoLoader/autoLoader.php";
+$producto = null;
+$slugProduc = null ?? $_GET['slugProduc'];
+if(isset($slugProduc) and $slugProduc != ""){
+    $productoC = new ProductoController;
+    $filtro = [['slug', '=', $slugProduc]];
+    $productoList = $productoC->select($filtro);
+    if(isset($productoList[0])){
+        $producto = $productoList[0];
+    }
+    
+}
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -8,7 +20,7 @@ include_once "includes/pathFrontend.php";
         <meta property="og:title" content="Caribetour.es | Especialistas en el Caribe" />
         <meta name="title" content="CaribeTour.es: Especialistas en el Caribe" />
         <meta name="DC.title" content="CaribeTour.es: Especialistas en el Caribe" />
-        <title>Plantilla| Especialistas en el Caribe</title>        
+        <title><?= $producto ?> | Especialistas en el Caribe</title>        
         <meta name="description" content="CaribeTour.es | Agencia especializada en el Caribe y sus paises" />
         <meta name="keywords" content="CaribeTour.es | Agencia especializada en el Caribe y sus paises" />
         <!--[if lt IE 9]>
@@ -16,7 +28,7 @@ include_once "includes/pathFrontend.php";
         <![endif]-->
         <?php include_once("includes/baselink.php"); ?>
         <link rel="canonical" href="http://www.caribetour.es/" />
-	    <?php include_once("includes/icons.php"); ?>
+	<?php include_once("includes/icons.php"); ?>
         <link rel='stylesheet' id='colorbox-css'  href='<?=PATHFRONTEND ?>css/colorbox.css?ver=3.7.1' type='text/css' media='all' />
         <link rel='stylesheet' id='jquery-ui-datepicker-css'  href='<?=PATHFRONTEND ?>css/datepicker.css?ver=3.7.1' type='text/css' media='all' />
         <link rel='stylesheet' id='general-css'  href='<?=PATHFRONTEND ?>css/style.css?ver=3.7.1' type='text/css' media='all' />
@@ -65,15 +77,19 @@ include_once "includes/pathFrontend.php";
                 <!-- /breadcrumb-->            
             
             
-                <div class="row"><?php echo "<h1>Por favor rellene todos los campos del formulario.</h1><br>";?><?php echo "<h1>Gracias por su consulta, los datos se han enviado correctamente.</h1><br>"; ?><?php echo "<h1 style='color:red'>Error al enviar los datos del formulario, por favor int&eacute;ntelo de nuevo.</h1><br>";?><?php // Show if recordset not empty ?>
+                <div class="row">
+                <?php echo "<h1>Por favor rellene todos los campos del formulario.</h1><br>";?>
+                <?php echo "<h1>Gracias por su consulta, los datos se han enviado correctamente.</h1><br>"; ?>
+                <?php echo "<h1 style='color:red'>Error al enviar los datos del formulario, por favor int&eacute;ntelo de nuevo.</h1><br>";?>
+                <?php // Show if recordset not empty ?>
                 <div class="full-tour clearfix">
                     <div class="sixcol column">
                         <div class="content-slider-container tour-slider-container">
                             <div class="content-slider tour-slider">
                                 <ul>
-                                <li><img src="<?=PATHFRONTEND ?>img/nombreImagen" alt="Imagen de nombreProducto" title="nombreProducto" /></li>
+                                <li><img src="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" alt="Imagen de <?= $producto ?>" title="<?= $producto ?>" /></li>
                                 <?php if (1 > 0) { // Show if recordset not empty ?><?php do { ?>
-                                <li><img src="<?=PATHFRONTEND ?>img/nombreImagen" alt="Imagen de nombreProducto" title="nombreProducto" /></li>
+                                <li><img src="<?=PATHFRONTEND ?>img/nombreImagen" alt="Imagen de <?= $producto ?>" title="<?= $producto ?>" /></li>
                                 <?php } while (false); ?><?php } // Show if recordset not empty ?>
                                 </ul>
                                 <div class="arrow arrow-left content-slider-arrow"></div>
@@ -87,27 +103,34 @@ include_once "includes/pathFrontend.php";
                     </div>
                     <div class="sixcol column last">
                         <div class="section-title">
-                            <h1>nombreProducto</h1>
+                            <h1><?= $producto ?></h1>
                         </div>
                         <ul class="tour-meta">
                             <li>
                             <div class="colored-icon icon-2"></div>
-                            <strong>Destino:</strong> <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/categoria/subCategoria" rel="tag" title="Ver paises en subCategoria">subCategoria</a></li>
+                            <strong>Destino:</strong> <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/categoria/subCategoria" rel="tag" title="Ver paises en subCategoria"><?= $producto->getCategoria() ?></a></li>
                             <li>
-                            <div class="colored-icon icon-1"><span></span></div>
-                            <strong>Duracion:</strong> <?php $duracion=strtotime("01/02/2020") - strtotime("25/01/2020"); echo date('d',$duracion)*1; ?> D&iacute;as</li>
+                                <div class="colored-icon icon-1"><span></span></div>
+                                <strong>Duracion:</strong> <?php $duracion=strtotime("01/02/2020") - strtotime("25/01/2020"); echo date('d',$duracion)*1; ?> D&iacute;as
+                            </li>
                             <li>
-                            <div class="colored-icon icon-6"><span></span></div>
-                            <strong>Salida:</strong> 25/01/2020</li>
+                                <div class="colored-icon icon-6"><span></span></div>
+                                <strong>Salida:</strong> 25/01/2020
+                            </li>
                             <li>
-                            <div class="colored-icon icon-7"><span></span></div>
-                            <strong>Regreso:</strong> 02/02/2020</li>
+                                <div class="colored-icon icon-7"><span></span></div>
+                                <strong>Regreso:</strong> 02/02/2020
+                            </li>
                             <li style="font-size:1.8em;">
-                            <div class="colored-icon icon-3"><span></span></div>
-                            <strong>Precio:</strong> 965&euro;</li>
+                                <div class="colored-icon icon-3"><span></span></div>
+                                <strong>Precio:</strong> 965&euro;
+                            </li>
                         </ul>
-                        <p>descripcion</p>
-                        <footer class="tour-footer"> <a hreflang="es" type="text/html" charset="iso-8859-1" href="cliente-datos.php?idproducto=idProducto&amp;idFecha=idFecha" title="Solicitar la reserva de nombreProducto" class="button small"><span>Reservar Ahora</span></a> <a href="#question-form" data-id="nombreProducto" data-title="nombreProducto" class="button grey small colorbox inline"><span>Consultar</span></a> </footer>
+                        <p><?= $producto->getDescripcion() ?></p>
+                        <footer class="tour-footer"> 
+                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="cliente-datos.php?idproducto=idProducto&amp;idFecha=idFecha" title="Solicitar la reserva de <?= $producto ?>" class="button small"><span>Reservar Ahora</span></a> 
+                            <a href="#question-form" data-id="<?= $producto ?>" data-title="<?= $producto ?>" class="button grey small colorbox inline"><span>Consultar</span></a> 
+                        </footer>
                     </div>
                 </div>
                <!-- question form -->
@@ -124,9 +147,8 @@ include_once "includes/pathFrontend.php";
                                 <div class="bubble-corner"></div>
                                 <div class="bubble-text">
                                     <div class="column twelvecol last">
-                                        <h5>nombreProducto</h5>
-                                        <p>muestra el itinerario
-                                        </p>
+                                        <h5><?= $producto ?></h5>
+                                        <p><?= $producto->getItinerario() ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -139,8 +161,8 @@ include_once "includes/pathFrontend.php";
                                 <div class="bubble-corner"></div>
                                 <div class="bubble-text">
                                     <div class="column twelvecol last">
-                                        <h5>nombreProducto</h5>
-                                        <p>incluye</p>
+                                        <h5><?= $producto ?></h5>
+                                        <p><?= $producto->getIncluye() ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -149,7 +171,7 @@ include_once "includes/pathFrontend.php";
                 </div>
                 <div class="sixcol column last">
                     <div class="calendario">        
-                        <table summary="Calendario con las fechas de salida para el tour nombreProducto">
+                        <table summary="Calendario con las fechas de salida para el tour <?= $producto ?>">
                             <caption><h3>El&iacute;ge la fecha de salida</h3></caption>
                             <colgroup span="7" style="width:14.29%; text-align:left; vertical-align:top; height:39px;" />
                             <thead>

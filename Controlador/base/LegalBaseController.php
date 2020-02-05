@@ -1,6 +1,6 @@
 <?php
 
-abstract class LegalBaseController extends baseController {
+abstract class LegalBaseController extends BaseController {
 
 
 

@@ -1,6 +1,6 @@
 <?php
 
-abstract class TipoBaseController extends baseController {
+abstract class TipoBaseController extends BaseController {
 
 
 

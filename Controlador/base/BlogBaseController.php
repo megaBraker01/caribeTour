@@ -1,6 +1,6 @@
 <?php
 
-abstract class BlogBaseController extends baseController {
+abstract class BlogBaseController extends BaseController {
 
 
 

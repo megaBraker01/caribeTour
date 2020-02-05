@@ -1,6 +1,6 @@
 <?php
 
-abstract class ClientePasajeroReservaRefBaseController extends baseController {
+abstract class ClientePasajeroReservaRefBaseController extends BaseController {
 
 
 

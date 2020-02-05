@@ -1,6 +1,6 @@
 <?php
 
-abstract class ProveedorBaseController extends baseController {
+abstract class ProveedorBaseController extends BaseController {
 
 
 

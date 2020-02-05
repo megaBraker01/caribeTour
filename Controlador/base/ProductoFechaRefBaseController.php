@@ -1,6 +1,6 @@
 <?php
 
-abstract class ProductoFechaRefBaseController extends baseController {
+abstract class ProductoFechaRefBaseController extends BaseController {
 
 
 

@@ -1,6 +1,6 @@
 <?php
 
-abstract class ReservaBaseController extends baseController {
+abstract class ReservaBaseController extends BaseController {
 
 
 

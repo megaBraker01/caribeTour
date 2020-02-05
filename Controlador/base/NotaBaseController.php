@@ -1,6 +1,6 @@
 <?php
 
-abstract class NotaBaseController extends baseController {
+abstract class NotaBaseController extends BaseController {
 
 
 

@@ -1,6 +1,6 @@
 <?php
 
-abstract class PasajeroBaseController extends baseController {
+abstract class PasajeroBaseController extends BaseController {
 
 
 

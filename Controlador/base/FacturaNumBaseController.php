@@ -1,6 +1,6 @@
 <?php
 
-abstract class FacturaNumBaseController extends baseController {
+abstract class FacturaNumBaseController extends BaseController {
 
 
 

@@ -1,6 +1,6 @@
 <?php
 
-abstract class PermisoBaseController extends baseController {
+abstract class PermisoBaseController extends BaseController {
 
 
 

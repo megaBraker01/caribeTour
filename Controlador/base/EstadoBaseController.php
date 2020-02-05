@@ -1,6 +1,6 @@
 <?php
 
-abstract class EstadoBaseController extends baseController {
+abstract class EstadoBaseController extends BaseController {
 
 
 

@@ -1,6 +1,6 @@
 <?php
 
-abstract class PagoBaseController extends baseController {
+abstract class PagoBaseController extends BaseController {
 
 
 

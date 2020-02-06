@@ -8,7 +8,7 @@ require_once '../../config.php';
         <meta property="og:title" content="Caribetour.es | Especialistas en el Caribe" />
         <meta name="title" content="CaribeTour.es: Especialistas en el Caribe" />
         <meta name="DC.title" content="CaribeTour.es: Especialistas en el Caribe" />
-        <title>Plantilla| Especialistas en el Caribe</title>        
+        <title>Servicios | Especialistas en el Caribe</title>        
         <meta name="description" content="CaribeTour.es | Agencia especializada en el Caribe y sus destinos" />
         <meta name="keywords" content="CaribeTour.es | Agencia especializada en el Caribe y sus destinos" />
         <!--[if lt IE 9]>
@@ -54,13 +54,13 @@ require_once '../../config.php';
             <!-- content -->
             <section class="container site-content">
             	<!--inicio breadcrumb-->
-					<div class="miga" id="breadcrumb">
-						<div class="breadcrumb">
-							<a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
-						</div>
-						<div class="breadcrumb">
-							Servicios
-						</div>
+	        <div class="miga" id="breadcrumb">
+	                <div class="breadcrumb">
+		                <a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
+	                </div>
+	                <div class="breadcrumb">
+		                Servicios
+	                </div>
                </div>
 
 				<!--fin de breadcrumb-->

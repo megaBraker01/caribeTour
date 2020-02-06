@@ -18,7 +18,7 @@
                             <li id="menu-item-97" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="/" title="Inicio">INICIO</a></li>
                             <li id="menu-item-306" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="servicios" title="Nuestros Servicios">SERVICIOS</a></li>
                             <li id="menu-item-122" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="paises" title="Todos los Paises">PAISES</a></li>
-                            <li id="menu-item-120" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="blog" title="Nuestro Blog">BLOG</a></li>
+                            <li id="menu-item-120" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs" title="Nuestros Blogs">BLOGS</a></li>
                             <li id="menu-item-121" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-121"><a hreflang="es" type="text/html" charset="iso-8859-1" href="galeria" title="Galer&iacute;a de Imagenes">GALERIA</a></li>
                             <li id="menu-item-100" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="contactos" title="Contacta con Nosotros">CONTACTOS</a></li>
                         </ul>
@@ -40,7 +40,7 @@
                         <option value="/" id="inicio"><label for="inicio">Inicio</label></option>
                         <option value="servicios" id="servicios"><label for="servicios">Servicios</label></option>
                         <option value="destinos" id="destinos"><label for="destinos">Destinos</label></option>
-                        <option value="blog" id="blog"><label for="blog">Blog</label></option>
+                        <option value="blogs" id="blogs"><label for="blogs">Blogs</label></option>
                         <option value="galeria" id="galeria"><label for="galeria">Galer&iacute;a</label></option>
                         <option value="contactos" id="contacto"><label for="contacto">Contactos</label></option>
                     </select>

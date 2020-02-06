@@ -9,21 +9,22 @@ $mostrarDesde = $pagActual = $pagTotal = 1;
 
 if(isset($slugCatPadre) and $slugCatPadre != ""){
     $categoriaC = new CategoriaController();
-    $filtro = [
+    $catFiltro = [
         ['slug', '=', $slugCatPadre]
     ];
-    $catList = $categoriaC->select($filtro);
+    $catList = $categoriaC->select($catFiltro);
     
     if(!empty($catList)){
         $categoria = $catList[0];
         $catNombre = $categoria->getNombre();
 	$catPadre = $categoria->getCategoriaPadre();
-        $filtroCat = [
-            ['idCategoria', '=', $catList[0]->getIdCategoria()],
+        $productoFiltro = [
+            ['idCategoria', '=', $categoria->getIdCategoria()],
             ['idEstado', '=', 1],
+            ['stock', '>', 0]
         ];
         $productoC = new ProductoController();
-        $productoList = $productoC->select($filtroCat);
+        $productoList = $productoC->select($productoFiltro);
 
 	// PAGINACION
 	$productoTotales = count($productoList);

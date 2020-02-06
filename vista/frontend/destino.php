@@ -1,17 +1,50 @@
 <?php
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
+
 $producto = null;
-$slugProduc = null ?? $_GET['slugProduc'];
-if(isset($slugProduc) and $slugProduc != ""){
+$producSlug = null ?? $_GET['slugProduc'];
+$url = explode("/", trim($_SERVER['REDIRECT_URL'], "/"));
+$catPadreSlug = $url[2];
+$catSlug = $url[3];
+
+$categoriaC = new CategoriaController;
+$catList = $categoriaC->select([['slug', '=', $catSlug]]);
+$categoria = $catList[0];
+$catPadre = $categoria->getCategoriaPadre();
+
+if(isset($producSlug) and $producSlug != ""){
     $productoC = new ProductoController;
-    $filtro = [['slug', '=', $slugProduc]];
+    $filtro = [
+    	['slug', '=', $producSlug],
+    	['idEstado', '=', 1],
+    	['stock', '>', 0]
+    ];
+    
     $productoList = $productoC->select($filtro);
+    
     if(isset($productoList[0])){
         $producto = $productoList[0];
+        
+        // IMAGENES DEL PRODUCTO
+        $imagenC = new ImagenController;
+        $imagenList = $imagenC->select([['idProducto', '=', $producto->getIdProducto()]]);
     }
-    
 }
+
+
+// PRODUCTOS RELACIONADOS
+$productoRelFiltro = [
+    ['idCategoria', '=', $categoria->getIdCategoria()],
+    ['idEstado', '=', 1],
+    ['stock', '>', 0]
+];
+
+if($producto){
+    $productoRelFiltro[] = ['idProducto', '!=', $producto->getIdProducto()];
+}
+
+$productoRelList = $productoC->select($productoRelFiltro);
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -71,7 +104,13 @@ if(isset($slugProduc) and $slugProduc != ""){
                         <a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
-                        paginaActual
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadre->getSlug() ?>"  rel="tag" title="<?= $catPadre ?>"><?= $catPadre ?></a>
+                    </div>
+                    <div class="breadcrumb">
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadre->getSlug() ?>/<?= $categoria->getSlug() ?>" rel="tag" title="<?= $categoria ?>"><?= $categoria ?></a>
+                    </div>
+                    <div class="breadcrumb">
+                        <?= $producto ?>
                     </div>
                 </div>
                 <!-- /breadcrumb-->            
@@ -81,16 +120,18 @@ if(isset($slugProduc) and $slugProduc != ""){
                 <?php echo "<h1>Por favor rellene todos los campos del formulario.</h1><br>";?>
                 <?php echo "<h1>Gracias por su consulta, los datos se han enviado correctamente.</h1><br>"; ?>
                 <?php echo "<h1 style='color:red'>Error al enviar los datos del formulario, por favor int&eacute;ntelo de nuevo.</h1><br>";?>
-                <?php // Show if recordset not empty ?>
+                
+                <?php if(!is_null($producto)){ ?>
+                
                 <div class="full-tour clearfix">
                     <div class="sixcol column">
                         <div class="content-slider-container tour-slider-container">
                             <div class="content-slider tour-slider">
                                 <ul>
                                 <li><img src="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" alt="Imagen de <?= $producto ?>" title="<?= $producto ?>" /></li>
-                                <?php if (1 > 0) { // Show if recordset not empty ?><?php do { ?>
-                                <li><img src="<?=PATHFRONTEND ?>img/nombreImagen" alt="Imagen de <?= $producto ?>" title="<?= $producto ?>" /></li>
-                                <?php } while (false); ?><?php } // Show if recordset not empty ?>
+                                <?php foreach ($imagenList as $imagen) {?>
+                                <li><img src="<?=PATHFRONTEND ?>img/<?= $imagen->getSrcImagen() ?>" alt="Imagen de <?= $producto ?>" title="<?= $producto ?>" /></li>
+                                <?php } ?>
                                 </ul>
                                 <div class="arrow arrow-left content-slider-arrow"></div>
                                 <div class="arrow arrow-right content-slider-arrow"></div>
@@ -107,8 +148,9 @@ if(isset($slugProduc) and $slugProduc != ""){
                         </div>
                         <ul class="tour-meta">
                             <li>
-                            <div class="colored-icon icon-2"></div>
-                            <strong>Destino:</strong> <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/categoria/subCategoria" rel="tag" title="Ver paises en subCategoria"><?= $producto->getCategoria() ?></a></li>
+                                <div class="colored-icon icon-2"></div>
+                                <strong>Destino:</strong> <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/categoria/subCategoria" rel="tag" title="Ver paises en subCategoria"><?= $producto->getCategoria() ?></a>
+                            </li>
                             <li>
                                 <div class="colored-icon icon-1"><span></span></div>
                                 <strong>Duracion:</strong> <?php $duracion=strtotime("01/02/2020") - strtotime("25/01/2020"); echo date('d',$duracion)*1; ?> D&iacute;as
@@ -133,6 +175,9 @@ if(isset($slugProduc) and $slugProduc != ""){
                         </footer>
                     </div>
                 </div>
+                
+                
+                
                <!-- question form -->
                 <?php include("includes/mailconsulta.php"); ?>
                 <!-- /question form -->
@@ -189,28 +234,39 @@ if(isset($slugProduc) and $slugProduc != ""){
                             </tbody>
                         </table>
                     </div>
-                </div><?php  // Show if recordset not empty ?>
-				<?php  // Show if recordset empty ?>
+                </div>
+                <?php } ?>
+		
+		<?php if(is_null($producto)){ ?>
+				
                 <h3>Sin Resultados...</h3>
                 <p>Lo sentimos, el destino elegido <strong>NO</strong> se encuentra disponible en estos momentos, Puedes echar un vistazo a los paises relacionados.. Disculpen las molestias.</p>
-                <img src="images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados...">
-                <?php // Show if recordset empty ?>
+                <img src="<?=PATHFRONTEND ?>images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados...">
+                
+                <?php } ?>
+                
                 <div class="clear"></div>
-                <?php // Show if recordset not empty ?>
+                
+                <!-- related tours -->
+                <?php if(!empty($productoRelList)) { ?>
                 <div class="related-tours clearfix">
                     <div class="section-title">
                     	<h2>Destinos Relacionados</h2>
                     </div>
-                    <div class="items-grid"><?php do { ?>
+                    <div class="items-grid">
+                    
+                        <?php foreach($productoRelList as $productoRel) { ?>
                         <div class="column threecol ">
                             <div class="tour-thumb-container">
-                                <div class="tour-thumb"> <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/categoria/subCategoria/subProducto" title="nombreProducto"><img width="440" height="330" src="<?=PATHFRONTEND ?>img/nombreImagen" class="attachment-preview wp-post-image" alt="nombreProducto" /></a>
+                                <div class="tour-thumb"> <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadre->getSlug() ?>/<?= $categoria->getSlug() ?>/<?= $productoRel->getSlug() ?>" title="<?= $productoRel ?>"><img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $productoRel->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $productoRel ?>" /></a>
                                     <div class="tour-caption">
-                                        <h5 class="tour-title"><a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/categoria/subCategoria/subProducto">nombreProducto</a></h5>
+                                        <h5 class="tour-title">
+                                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadre->getSlug() ?>/<?= $categoria->getSlug() ?>/<?= $productoRel->getSlug() ?>" title="<?= $productoRel ?>"> <?= $productoRel ?> </a>
+                                        </h5>
                                         <div class="tour-meta">
                                             <div class="tour-destination">
                                                 <div class="colored-icon icon-2"></div>
-                                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/categoria/subCategoria" rel="tag">subCategoria</a>
+                                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadre->getSlug() ?>/<?= $categoria->getSlug() ?>" rel="tag" title="<?= $categoria ?>"><?= $categoria ?></a>
                                             </div>
                                             <div class="colored-icon icon-3"></div>654&euro;
                                         </div>
@@ -218,12 +274,15 @@ if(isset($slugProduc) and $slugProduc != ""){
                                 </div>
                                 <div class="block-background"></div>
                             </div>
-                        </div><?php } while (false); ?>
+                        </div>
+                        <?php }  ?>
+                        
                         <div class="clear"></div>
                     </div>
                 </div>
-                <!-- related tours -->
-                <?php // Show if recordset not empty ?>
+                <?php } ?>
+                <!-- /related tours -->
+                
             </div>
                 
                 

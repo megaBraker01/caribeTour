@@ -1,5 +1,9 @@
 <?php
 require_once '../../config.php';
+require_once "../../AutoLoader/autoLoader.php";
+
+$blogC = new BlogController;
+$blogList = $blogC->select();
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -8,7 +12,7 @@ require_once '../../config.php';
         <meta property="og:title" content="Caribetour.es | Especialistas en el Caribe" />
         <meta name="title" content="CaribeTour.es: Especialistas en el Caribe" />
         <meta name="DC.title" content="CaribeTour.es: Especialistas en el Caribe" />
-        <title>Plantilla| Especialistas en el Caribe</title>        
+        <title>Blogs| Especialistas en el Caribe</title>        
         <meta name="description" content="CaribeTour.es | Agencia especializada en el Caribe y sus destinos" />
         <meta name="keywords" content="CaribeTour.es | Agencia especializada en el Caribe y sus destinos" />
         <!--[if lt IE 9]>
@@ -67,27 +71,33 @@ require_once '../../config.php';
             
                 <div class="row">
                     <div class="column eightcol">
-                        <div class="blog-listing"><?php do { ?>
-                            <article class="post-112 post type-post status-publish format-standard hentry category-guides post clearfix">
+                        <div class="blog-listing">
+                            
+                            <?php foreach ($blogList as $blog) { ?>
+                            <article class="post type-post status-publish format-standard hentry category-guides post clearfix">
                                 <div class="column fivecol post-featured-image">
                                     <div class="featured-image">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/<?php echo 'seo'; ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?php echo 'imagen'; ?>" alt="<?php echo ucwords('nombre'); ?>" title="<?php echo ucwords('nombre'); ?>" /></a>
+                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" alt="<?= $blog ?>" title="<?= $blog ?>" /></a>
                                     </div>
                                 </div>
                                 <div class="column sevencol last">
                                     <div class="post-content">
                                         <div class="section-title">
-                                            <h1><a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/<?php echo 'nombre'; ?>" title="<?php echo ucwords('nombre'); ?>"><?php echo ucwords('nombre'); ?></a></h1>
+                                            <h1>
+                                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><?= $blog ?></a>
+                                            </h1>
                                         </div>
-                                        <p><?php echo substr('descripcion ',0,400); ?>.[...]</p>
+                                        <p><?php echo substr($blog->getDescripcion(), 0, 400); ?>.[...]</p>
                                         <footer class="post-footer clearfix">
-                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/<?php echo 'seo'; ?>" class="button small"><span>Leer M&aacute;s</span></a>
-                                            <div class="post-comment-count"><?php echo 'comentarios'; ?></div>
-                                            <div class="post-info"><time datetime="2012-11-24"><?php echo '25/01/2020'; ?></time></div>
+                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>" class="button small"><span>Leer M&aacute;s</span></a>
+                                            <div class="post-comment-count"><?php echo '1'; ?></div>
+                                            <div class="post-info"><time datetime="25/01/2020"><?php echo '25/01/2020'; ?></time></div>
                                         </footer>
                                     </div>
                                 </div>
-                            </article><?php } while (false); ?>
+                            </article>
+                            <?php } ?>
+                            
                         </div>
                         <nav class="pagination">
                             <?php for ($cont=0;$cont<=3;$cont++){
@@ -95,7 +105,7 @@ require_once '../../config.php';
                                 if ($cont==2)
                                     echo "<span class='page-numbers current'>".$numPagina."</span>";
                                 else
-                                    echo "<a class='page-numbers' href='blog.php?pageNum_blogs=".$cont."'>".$numPagina."</a>";
+                                    echo "<a class='page-numbers' href='blogs.php?pageNum_blogs=".$cont."'>".$numPagina."</a>";
                                 } ?>
                         </nav>
                     </div>
@@ -108,11 +118,11 @@ require_once '../../config.php';
                             <article class="post clearfix">
                                 <div class="post-featured-image">
                                     <div class="featured-image">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/<?php echo 'seo'; ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?php echo 'imagen'; ?>" class="attachment-normal wp-post-image" alt="<?php echo ucwords('nombre'); ?>" title="<?php echo ucwords('nombre'); ?>" /></a>
+                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?php echo 'seo'; ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?php echo 'imagen'; ?>" class="attachment-normal wp-post-image" alt="<?php echo ucwords('nombre'); ?>" title="<?php echo ucwords('nombre'); ?>" /></a>
                                     </div>
                                 </div>
                                 <div class="post-content">
-                                    <h6 class="post-title"><a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/<?php echo 'seo'; ?>" title="<?php echo ucwords('nombre'); ?>"><?php echo ucwords('nombre'); ?></a></h6>
+                                    <h6 class="post-title"><a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?php echo 'seo'; ?>" title="<?php echo ucwords('nombre'); ?>"><?php echo ucwords('nombre'); ?></a></h6>
                                     <footer class="post-footer clearfix">
                                         <div class="post-comment-count"><?php echo 'comentario'; ?></div>
                                         <div class="post-info">
@@ -125,7 +135,7 @@ require_once '../../config.php';
                         <div class="widget widget_recent_comments">
                             <div class="section-title"><h4>Comentarios Recientes</h4></div>
                             <ul id="recentcomments"><?php do { ?>
-                                <li class="recentcomments"><?php echo 'nombre'; ?> en <a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/<?php echo 'seo'; ?>#comment-<?php echo 'idcoment'; ?>"><?php echo ucwords('blog'); ?></a></li><?php } while (false); ?>
+                                <li class="recentcomments"><?php echo 'nombre'; ?> en <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?php echo 'seo'; ?>#comment-<?php echo 'idcoment'; ?>"><?php echo ucwords('blog'); ?></a></li><?php } while (false); ?>
                             </ul>
                         </div>
                         <div class="widget widget_text">

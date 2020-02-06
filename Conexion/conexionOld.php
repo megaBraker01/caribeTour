@@ -5,7 +5,7 @@ class ConexionOld {
     const HOSTNAME = 'localhost';
     const USER = 'root';
     const PASSWORD = '';
-    const DATABASE = 'caribetour';
+    const DATABASE = 'caribetourold';
 
     protected $conexion;
 

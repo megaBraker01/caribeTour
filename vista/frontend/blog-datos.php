@@ -1,5 +1,21 @@
 <?php
 require_once '../../config.php';
+require_once "../../AutoLoader/autoLoader.php";
+
+
+$blog = null;
+$blogSlug = $_GET['slugBlog'] ?? null;
+
+if(isset($blogSlug) and $blogSlug != ""){
+        $blogC = new BlogController;
+        $filtro = [['slug', '=', $blogSlug]];
+        $blogList = $blogC->select($filtro);
+        if(isset($productoList[0])){
+                $blog = $productoList[0];
+        }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">

@@ -3,7 +3,7 @@ require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
 $producto = null;
-$producSlug = null ?? $_GET['slugProduc'];
+$producSlug = $_GET['slugProduc'] ?? null;
 $url = explode("/", trim($_SERVER['REDIRECT_URL'], "/"));
 $catPadreSlug = $url[2];
 $catSlug = $url[3];

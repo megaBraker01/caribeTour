@@ -32,6 +32,7 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
 	$pagTotal = ceil($productoTotales / $mostrarItems);
 	$pagActual = $_GET['pag'] ?? 1;
 	$mostrarDesde = ($pagActual - 1) * $mostrarItems;
+	$mostrarProductos = array_slice($productoList, $mostrarDesde, $mostrarItems);
 	
     }    
 }
@@ -114,7 +115,7 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
                         <?php // Show if recordset not empty ?>
                         <div class="items-list clearfix">
                             
-                            <?php $i = 1; foreach (array_slice($productoList, $mostrarDesde, $mostrarItems) as $producto){ ?>
+                            <?php $i = 1; foreach ($mostrarProductos as $producto){ ?>
                             <div class="full-tour clearfix">
                                 
                                 <div class="fivecol column">

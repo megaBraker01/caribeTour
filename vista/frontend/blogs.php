@@ -2,8 +2,19 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
+$filtro = [
+        ['idEstado', '=', 2]
+];
 $blogC = new BlogController;
-$blogList = $blogC->select();
+$blogList = $blogC->select($filtro);
+
+// PAGINACION
+$blogTotales = count($blogList);
+$mostrarItems = 1;
+$pagTotal = ceil($blogTotales / $mostrarItems);
+$pagActual = $_GET['pag'] ?? 1;
+$mostrarDesde = ($pagActual - 1) * $mostrarItems;
+$mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -12,7 +23,7 @@ $blogList = $blogC->select();
         <meta property="og:title" content="Caribetour.es | Especialistas en el Caribe" />
         <meta name="title" content="CaribeTour.es: Especialistas en el Caribe" />
         <meta name="DC.title" content="CaribeTour.es: Especialistas en el Caribe" />
-        <title>Blogs| Especialistas en el Caribe</title>        
+        <title>Blogs | Especialistas en el Caribe</title>        
         <meta name="description" content="CaribeTour.es | Agencia especializada en el Caribe y sus destinos" />
         <meta name="keywords" content="CaribeTour.es | Agencia especializada en el Caribe y sus destinos" />
         <!--[if lt IE 9]>
@@ -73,7 +84,7 @@ $blogList = $blogC->select();
                     <div class="column eightcol">
                         <div class="blog-listing">
                             
-                            <?php foreach ($blogList as $blog) { ?>
+                            <?php foreach ($mostrarBlogs as $blog) { ?>
                             <article class="post type-post status-publish format-standard hentry category-guides post clearfix">
                                 <div class="column fivecol post-featured-image">
                                     <div class="featured-image">
@@ -99,15 +110,18 @@ $blogList = $blogC->select();
                             <?php } ?>
                             
                         </div>
+                        
                         <nav class="pagination">
-                            <?php for ($cont=0;$cont<=3;$cont++){
-                                $numPagina=$cont+1;
-                                if ($cont==2)
-                                    echo "<span class='page-numbers current'>".$numPagina."</span>";
-                                else
-                                    echo "<a class='page-numbers' href='blogs.php?pageNum_blogs=".$cont."'>".$numPagina."</a>";
-                                } ?>
+                        <?php 
+			for ($i = 1; $i <= $pagTotal; $i++){
+                            if ($i == $pagActual)
+                                echo "<span class='page-numbers current'>".$i."</span>";
+                            else
+				echo "<a hreflang='es' type='text/html' charset='iso-8859-1' href='blogs/pag=$i' class='page-numbers' title='Pasar a la pagina $i'>$i</a>";
+			} 
+			?>
                         </nav>
+                        
                     </div>
                     <!--/column eightcol-->
                     <aside class="column fourcol last">

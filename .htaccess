@@ -17,7 +17,8 @@ RewriteRule ^paises/([a-z-]+)/([a-z-]+)/?$ vista/frontend/categoria-hija.php?slu
 RewriteRule ^paises/([a-z-]+)/([a-z-]+)/pag=([0-9]+)?$ vista/frontend/categoria-hija.php?slugCat=$2&pag=$3
 RewriteRule ^paises/([a-z-]+)/([a-z-]+)/([a-z-]+)/?$ vista/frontend/destino.php?slugProduc=$3
 RewriteRule ^blogs/?$ vista/frontend/blogs.php
-RewriteRule ^blogs/([a-z-]+)/?$ vista/frontend/blog-datos.php?idBlog=$1
+RewriteRule ^blogs/pag=([0-9]+)?$ vista/frontend/blogs.php?pag=$1
+RewriteRule ^blogs/([a-z-]+)/?$ vista/frontend/blog-datos.php?slugBlog=$1
 RewriteRule ^galeria/?$ vista/frontend/galeria.php
 RewriteRule ^contactos/?$ vista/frontend/contacto.php
 RewriteRule ^legal/?$ vista/frontend/legal-lista.php

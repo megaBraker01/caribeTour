@@ -56,32 +56,16 @@ $statement->bindValue(":idEstado", $Legal->getIdEstado());
     public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
         try{
             $sql = "SELECT idLegal, nombre, slug, descripcion, idEstado 
-            FROM legales
-            WHERE TRUE";
-            $sql .= $this->filterSqlPrepare($filtros);
-            $sql .= $this->orderSqlPrepare($ordenados);
-            $sql .= $this->limitSqlPrepare($limitar);
-            
-            $conexion = new Conexion();
-            $statement = $conexion->pdo()->prepare($sql);
-            
-            $i = 1;
-            foreach($filtros as $filtro){
-                if(strtolower($filtro[1]) == "like"){
-                    $filtro[2] = "%{$filtro[2]}%";
-                }
-                $statement->bindValue(":p{$i}", $filtro[2]);
-                $i++;
-            }
-            
+            FROM legales";                        
             $ret = [];
-            if($statement->execute() and $statement->rowCount() > 0){
-                while ($row = $statement->fetch(PDO::FETCH_OBJ)) {
+            $rows = $this->query($sql, $filtros, $ordenados, $limitar);
+            
+            if(count($rows) > 0){
+                foreach($rows as $row){
                     $ret[] = new Legal($row->idLegal, $row->nombre, $row->slug, $row->descripcion, $row->idEstado);
                 }
-                $conexion = NULL;
-                $statement->closeCursor();
             }
+            
             return $ret;
 
         } catch (Exception $ex){

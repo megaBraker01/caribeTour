@@ -55,8 +55,9 @@ abstract class BaseController {
         }
         return $sql;
     }
-    
-    public function query(string $sql, array $filtros = [], array $ordenados = [], array $limitar = []){
+
+
+    protected function query(string $sql, array $filtros = [], array $ordenados = [], array $limitar = []): array {
         try{
             $sql .= " WHERE TRUE";
             $sql .= $this->filterSqlPrepare($filtros);
@@ -91,5 +92,4 @@ abstract class BaseController {
             echo "[ERROR] -> {$ex->getMessage()} [ERROR CODE] -> {$ex->getCode()}";
         }
     }
-
 }

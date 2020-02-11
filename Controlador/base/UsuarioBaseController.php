@@ -67,32 +67,16 @@ $statement->bindValue(":idPermiso", $Usuario->getIdPermiso());
     public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
         try{
             $sql = "SELECT idUsuario, nombre, apellidos, DNI, email, password, telefono, perfil, imagen, idEstado, idPermiso, fechaAlta, fechaUpdate 
-            FROM usuarios
-            WHERE TRUE";
-            $sql .= $this->filterSqlPrepare($filtros);
-            $sql .= $this->orderSqlPrepare($ordenados);
-            $sql .= $this->limitSqlPrepare($limitar);
-            
-            $conexion = new Conexion();
-            $statement = $conexion->pdo()->prepare($sql);
-            
-            $i = 1;
-            foreach($filtros as $filtro){
-                if(strtolower($filtro[1]) == "like"){
-                    $filtro[2] = "%{$filtro[2]}%";
-                }
-                $statement->bindValue(":p{$i}", $filtro[2]);
-                $i++;
-            }
-            
+            FROM usuarios";                        
             $ret = [];
-            if($statement->execute() and $statement->rowCount() > 0){
-                while ($row = $statement->fetch(PDO::FETCH_OBJ)) {
+            $rows = $this->query($sql, $filtros, $ordenados, $limitar);
+            
+            if(count($rows) > 0){
+                foreach($rows as $row){
                     $ret[] = new Usuario($row->idUsuario, $row->nombre, $row->apellidos, $row->DNI, $row->email, $row->password, $row->telefono, $row->perfil, $row->imagen, $row->idEstado, $row->idPermiso, $row->fechaAlta, $row->fechaUpdate);
                 }
-                $conexion = NULL;
-                $statement->closeCursor();
             }
+            
             return $ret;
 
         } catch (Exception $ex){

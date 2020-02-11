@@ -6,8 +6,8 @@ abstract class BlogBaseController extends BaseController {
 
     public function insert(Blog $Blog): int {
         try{
-            $sql = "INSERT INTO blogs (nombre, slug, metaDescripcion, metaKeyWords, descripcion, srcImagen, idUsuario) 
-            VALUES (:nombre, :slug, :metaDescripcion, :metaKeyWords, :descripcion, :srcImagen, :idUsuario);";
+            $sql = "INSERT INTO blogs (nombre, slug, metaDescripcion, metaKeyWords, descripcion, srcImagen, idUsuario, idEstado) 
+            VALUES (:nombre, :slug, :metaDescripcion, :metaKeyWords, :descripcion, :srcImagen, :idUsuario, :idEstado);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":nombre", $Blog->getNombre());
@@ -17,6 +17,7 @@ $statement->bindValue(":metaKeyWords", $Blog->getMetaKeyWords());
 $statement->bindValue(":descripcion", $Blog->getDescripcion());
 $statement->bindValue(":srcImagen", $Blog->getSrcImagen());
 $statement->bindValue(":idUsuario", $Blog->getIdUsuario());
+$statement->bindValue(":idEstado", $Blog->getIdEstado());
 
             $ret = 0;
             if($statement->execute()){
@@ -33,7 +34,7 @@ $statement->bindValue(":idUsuario", $Blog->getIdUsuario());
 
     public function update(Blog $Blog): int {
         try{
-            $sql = "UPDATE blogs SET nombre = :nombre, slug = :slug, metaDescripcion = :metaDescripcion, metaKeyWords = :metaKeyWords, descripcion = :descripcion, srcImagen = :srcImagen, idUsuario = :idUsuario WHERE idblog = :idblog LIMIT 1;";
+            $sql = "UPDATE blogs SET nombre = :nombre, slug = :slug, metaDescripcion = :metaDescripcion, metaKeyWords = :metaKeyWords, descripcion = :descripcion, srcImagen = :srcImagen, idUsuario = :idUsuario, idEstado = :idEstado WHERE idblog = :idblog LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idblog", $Blog->getIdblog());
@@ -44,6 +45,7 @@ $statement->bindValue(":metaKeyWords", $Blog->getMetaKeyWords());
 $statement->bindValue(":descripcion", $Blog->getDescripcion());
 $statement->bindValue(":srcImagen", $Blog->getSrcImagen());
 $statement->bindValue(":idUsuario", $Blog->getIdUsuario());
+$statement->bindValue(":idEstado", $Blog->getIdEstado());
 
             $ret = 0;
             if($statement->execute()){
@@ -60,33 +62,17 @@ $statement->bindValue(":idUsuario", $Blog->getIdUsuario());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
         try{
-            $sql = "SELECT idblog, nombre, slug, metaDescripcion, metaKeyWords, descripcion, srcImagen, idUsuario, fechaAlta, fechaUpdate 
-            FROM blogs
-            WHERE TRUE";
-            $sql .= $this->filterSqlPrepare($filtros);
-            $sql .= $this->orderSqlPrepare($ordenados);
-            $sql .= $this->limitSqlPrepare($limitar);
-            
-            $conexion = new Conexion();
-            $statement = $conexion->pdo()->prepare($sql);
-            
-            $i = 1;
-            foreach($filtros as $filtro){
-                if(strtolower($filtro[1]) == "like"){
-                    $filtro[2] = "%{$filtro[2]}%";
-                }
-                $statement->bindValue(":p{$i}", $filtro[2]);
-                $i++;
-            }
-            
+            $sql = "SELECT idblog, nombre, slug, metaDescripcion, metaKeyWords, descripcion, srcImagen, idUsuario, idEstado, fechaAlta, fechaUpdate 
+            FROM blogs";                        
             $ret = [];
-            if($statement->execute() and $statement->rowCount() > 0){
-                while ($row = $statement->fetch(PDO::FETCH_OBJ)) {
-                    $ret[] = new Blog($row->idblog, $row->nombre, $row->slug, $row->metaDescripcion, $row->metaKeyWords, $row->descripcion, $row->srcImagen, $row->idUsuario, $row->fechaAlta, $row->fechaUpdate);
+            $rows = $this->query($sql, $filtros, $ordenados, $limitar);
+            
+            if(count($rows) > 0){
+                foreach($rows as $row){
+                    $ret[] = new Blog($row->idblog, $row->nombre, $row->slug, $row->metaDescripcion, $row->metaKeyWords, $row->descripcion, $row->srcImagen, $row->idUsuario, $row->idEstado, $row->fechaAlta, $row->fechaUpdate);
                 }
-                $conexion = NULL;
-                $statement->closeCursor();
             }
+            
             return $ret;
 
         } catch (Exception $ex){

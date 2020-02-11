@@ -55,32 +55,16 @@ $statement->bindValue(":pagos", $Tipo->getPagos());
     public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
         try{
             $sql = "SELECT idTipo, nombre, productos, contactos, pagos 
-            FROM tipos
-            WHERE TRUE";
-            $sql .= $this->filterSqlPrepare($filtros);
-            $sql .= $this->orderSqlPrepare($ordenados);
-            $sql .= $this->limitSqlPrepare($limitar);
-            
-            $conexion = new Conexion();
-            $statement = $conexion->pdo()->prepare($sql);
-            
-            $i = 1;
-            foreach($filtros as $filtro){
-                if(strtolower($filtro[1]) == "like"){
-                    $filtro[2] = "%{$filtro[2]}%";
-                }
-                $statement->bindValue(":p{$i}", $filtro[2]);
-                $i++;
-            }
-            
+            FROM tipos";                        
             $ret = [];
-            if($statement->execute() and $statement->rowCount() > 0){
-                while ($row = $statement->fetch(PDO::FETCH_OBJ)) {
+            $rows = $this->query($sql, $filtros, $ordenados, $limitar);
+            
+            if(count($rows) > 0){
+                foreach($rows as $row){
                     $ret[] = new Tipo($row->idTipo, $row->nombre, $row->productos, $row->contactos, $row->pagos);
                 }
-                $conexion = NULL;
-                $statement->closeCursor();
             }
+            
             return $ret;
 
         } catch (Exception $ex){

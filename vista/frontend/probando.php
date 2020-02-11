@@ -5,7 +5,7 @@ require_once "../../AutoLoader/autoLoader.php";
 
 $query = "select * from blogs";
 $blogC = new BlogController;
-$lista = $blogC->query($query);
+$lista = $blogC->select();
 var_dump($lista);
 
 ?>

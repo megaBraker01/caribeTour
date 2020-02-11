@@ -53,32 +53,16 @@ $statement->bindValue(":importe", $Reserva->getImporte());
     public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
         try{
             $sql = "SELECT idReserva, idProductoFechaRef, idEstado, importe, fechaAlta 
-            FROM reservas
-            WHERE TRUE";
-            $sql .= $this->filterSqlPrepare($filtros);
-            $sql .= $this->orderSqlPrepare($ordenados);
-            $sql .= $this->limitSqlPrepare($limitar);
-            
-            $conexion = new Conexion();
-            $statement = $conexion->pdo()->prepare($sql);
-            
-            $i = 1;
-            foreach($filtros as $filtro){
-                if(strtolower($filtro[1]) == "like"){
-                    $filtro[2] = "%{$filtro[2]}%";
-                }
-                $statement->bindValue(":p{$i}", $filtro[2]);
-                $i++;
-            }
-            
+            FROM reservas";                        
             $ret = [];
-            if($statement->execute() and $statement->rowCount() > 0){
-                while ($row = $statement->fetch(PDO::FETCH_OBJ)) {
+            $rows = $this->query($sql, $filtros, $ordenados, $limitar);
+            
+            if(count($rows) > 0){
+                foreach($rows as $row){
                     $ret[] = new Reserva($row->idReserva, $row->idProductoFechaRef, $row->idEstado, $row->importe, $row->fechaAlta);
                 }
-                $conexion = NULL;
-                $statement->closeCursor();
             }
+            
             return $ret;
 
         } catch (Exception $ex){

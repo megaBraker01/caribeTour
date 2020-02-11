@@ -59,32 +59,16 @@ $statement->bindValue(":descuento", $Factura->getDescuento());
     public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
         try{
             $sql = "SELECT idFactura, facturaNum, idReserva, idFacturaTitular, importeBruto, IVA, descuento, fechaAlta, fehaUpdate 
-            FROM facturas
-            WHERE TRUE";
-            $sql .= $this->filterSqlPrepare($filtros);
-            $sql .= $this->orderSqlPrepare($ordenados);
-            $sql .= $this->limitSqlPrepare($limitar);
-            
-            $conexion = new Conexion();
-            $statement = $conexion->pdo()->prepare($sql);
-            
-            $i = 1;
-            foreach($filtros as $filtro){
-                if(strtolower($filtro[1]) == "like"){
-                    $filtro[2] = "%{$filtro[2]}%";
-                }
-                $statement->bindValue(":p{$i}", $filtro[2]);
-                $i++;
-            }
-            
+            FROM facturas";                        
             $ret = [];
-            if($statement->execute() and $statement->rowCount() > 0){
-                while ($row = $statement->fetch(PDO::FETCH_OBJ)) {
+            $rows = $this->query($sql, $filtros, $ordenados, $limitar);
+            
+            if(count($rows) > 0){
+                foreach($rows as $row){
                     $ret[] = new Factura($row->idFactura, $row->facturaNum, $row->idReserva, $row->idFacturaTitular, $row->importeBruto, $row->IVA, $row->descuento, $row->fechaAlta, $row->fehaUpdate);
                 }
-                $conexion = NULL;
-                $statement->closeCursor();
             }
+            
             return $ret;
 
         } catch (Exception $ex){

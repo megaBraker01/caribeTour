@@ -6,15 +6,15 @@ abstract class EstadoBaseController extends BaseController {
 
     public function insert(Estado $Estado): int {
         try{
-            $sql = "INSERT INTO estados (nombre, productos, categorias, blogComentarios, blos, proveedores, pagos, reservas, clientes, usuarios, legales) 
-            VALUES (:nombre, :productos, :categorias, :blogComentarios, :blos, :proveedores, :pagos, :reservas, :clientes, :usuarios, :legales);";
+            $sql = "INSERT INTO estados (nombre, productos, categorias, blogComentarios, blogs, proveedores, pagos, reservas, clientes, usuarios, legales) 
+            VALUES (:nombre, :productos, :categorias, :blogComentarios, :blogs, :proveedores, :pagos, :reservas, :clientes, :usuarios, :legales);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":nombre", $Estado->getNombre());
 $statement->bindValue(":productos", $Estado->getProductos());
 $statement->bindValue(":categorias", $Estado->getCategorias());
 $statement->bindValue(":blogComentarios", $Estado->getBlogComentarios());
-$statement->bindValue(":blos", $Estado->getBlos());
+$statement->bindValue(":blogs", $Estado->getBlogs());
 $statement->bindValue(":proveedores", $Estado->getProveedores());
 $statement->bindValue(":pagos", $Estado->getPagos());
 $statement->bindValue(":reservas", $Estado->getReservas());
@@ -37,7 +37,7 @@ $statement->bindValue(":legales", $Estado->getLegales());
 
     public function update(Estado $Estado): int {
         try{
-            $sql = "UPDATE estados SET nombre = :nombre, productos = :productos, categorias = :categorias, blogComentarios = :blogComentarios, blos = :blos, proveedores = :proveedores, pagos = :pagos, reservas = :reservas, clientes = :clientes, usuarios = :usuarios, legales = :legales WHERE idEstado = :idEstado LIMIT 1;";
+            $sql = "UPDATE estados SET nombre = :nombre, productos = :productos, categorias = :categorias, blogComentarios = :blogComentarios, blogs = :blogs, proveedores = :proveedores, pagos = :pagos, reservas = :reservas, clientes = :clientes, usuarios = :usuarios, legales = :legales WHERE idEstado = :idEstado LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idEstado", $Estado->getIdEstado());
@@ -45,7 +45,7 @@ $statement->bindValue(":nombre", $Estado->getNombre());
 $statement->bindValue(":productos", $Estado->getProductos());
 $statement->bindValue(":categorias", $Estado->getCategorias());
 $statement->bindValue(":blogComentarios", $Estado->getBlogComentarios());
-$statement->bindValue(":blos", $Estado->getBlos());
+$statement->bindValue(":blogs", $Estado->getBlogs());
 $statement->bindValue(":proveedores", $Estado->getProveedores());
 $statement->bindValue(":pagos", $Estado->getPagos());
 $statement->bindValue(":reservas", $Estado->getReservas());
@@ -68,33 +68,17 @@ $statement->bindValue(":legales", $Estado->getLegales());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
         try{
-            $sql = "SELECT idEstado, nombre, productos, categorias, blogComentarios, blos, proveedores, pagos, reservas, clientes, usuarios, legales 
-            FROM estados
-            WHERE TRUE";
-            $sql .= $this->filterSqlPrepare($filtros);
-            $sql .= $this->orderSqlPrepare($ordenados);
-            $sql .= $this->limitSqlPrepare($limitar);
-            
-            $conexion = new Conexion();
-            $statement = $conexion->pdo()->prepare($sql);
-            
-            $i = 1;
-            foreach($filtros as $filtro){
-                if(strtolower($filtro[1]) == "like"){
-                    $filtro[2] = "%{$filtro[2]}%";
-                }
-                $statement->bindValue(":p{$i}", $filtro[2]);
-                $i++;
-            }
-            
+            $sql = "SELECT idEstado, nombre, productos, categorias, blogComentarios, blogs, proveedores, pagos, reservas, clientes, usuarios, legales 
+            FROM estados";                        
             $ret = [];
-            if($statement->execute() and $statement->rowCount() > 0){
-                while ($row = $statement->fetch(PDO::FETCH_OBJ)) {
-                    $ret[] = new Estado($row->idEstado, $row->nombre, $row->productos, $row->categorias, $row->blogComentarios, $row->blos, $row->proveedores, $row->pagos, $row->reservas, $row->clientes, $row->usuarios, $row->legales);
+            $rows = $this->query($sql, $filtros, $ordenados, $limitar);
+            
+            if(count($rows) > 0){
+                foreach($rows as $row){
+                    $ret[] = new Estado($row->idEstado, $row->nombre, $row->productos, $row->categorias, $row->blogComentarios, $row->blogs, $row->proveedores, $row->pagos, $row->reservas, $row->clientes, $row->usuarios, $row->legales);
                 }
-                $conexion = NULL;
-                $statement->closeCursor();
             }
+            
             return $ret;
 
         } catch (Exception $ex){

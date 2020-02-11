@@ -74,7 +74,7 @@ $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
                         <a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
-                        paginaActual
+                        Blogs
                     </div>
                 </div>
                 <!-- /breadcrumb-->            

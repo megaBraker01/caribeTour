@@ -7,12 +7,12 @@ $blog = null;
 $blogSlug = $_GET['slugBlog'] ?? null;
 
 if(isset($blogSlug) and $blogSlug != ""){
-        $blogC = new BlogController;
-        $filtro = [['slug', '=', $blogSlug]];
-        $blogList = $blogC->select($filtro);
-        if(isset($productoList[0])){
-                $blog = $productoList[0];
-        }
+    $blogC = new BlogController;
+    $filtro = [['slug', '=', $blogSlug]];
+    $blogList = $blogC->select($filtro);
+    if(isset($blogList[0])){
+        $blog = $blogList[0];
+    }
 }
 
 
@@ -24,7 +24,7 @@ if(isset($blogSlug) and $blogSlug != ""){
         <meta property="og:title" content="Caribetour.es | Especialistas en el Caribe" />
         <meta name="title" content="CaribeTour.es: Especialistas en el Caribe" />
         <meta name="DC.title" content="CaribeTour.es: Especialistas en el Caribe" />
-        <title>Plantilla| Especialistas en el Caribe</title>        
+        <title><?= $blog ?> | Especialistas en el Caribe</title>        
         <meta name="description" content="CaribeTour.es | Agencia especializada en el Caribe y sus destinos" />
         <meta name="keywords" content="CaribeTour.es | Agencia especializada en el Caribe y sus destinos" />
         <!--[if lt IE 9]>
@@ -75,7 +75,10 @@ if(isset($blogSlug) and $blogSlug != ""){
                         <a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
-                        paginaActual
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs" rel="tag" title="Blogs">Blogs</a>
+                    </div>
+                    <div class="breadcrumb">
+                        <?= $blog ?>
                     </div>
                 </div>
                 <!-- /breadcrumb-->            
@@ -86,18 +89,18 @@ if(isset($blogSlug) and $blogSlug != ""){
                         <article class="post-112 post type-post status-publish format-standard hentry category-guides tag-amet tag-dolor tag-lorem post full-post">
                             <div class="post-featured-image">
                                 <div class="featured-image">
-                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/<?php echo 'strSEO' ?>" title="<?php echo 'strNombre' ?>"><img width="768" height="522" src="img/<?php echo 'strImagen' ?>" class="attachment-wide wp-post-image" alt="<?php echo 'strNombre' ?>" /></a>
+                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><img width="768" height="522" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" class="attachment-wide wp-post-image" alt="<?= $blog ?>" /></a>
                                 </div>
                             </div>
                             <div class="post-content">
                                 <div class="section-title">
-                                    <h1><a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/<?php echo 'strSEO' ?>"><?php echo 'strNombre' ?></a></h1>
+                                    <h1><a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/<?= $blog->getSlug() ?>"><?= $blog ?></a></h1>
                                 </div>
-                                <?php echo nl2br(ucfirst('strDescripcion')); ?>			
+                                <?= nl2br($blog->getDescripcion()) ?>			
                             </div>
                             <footer class="post-footer clearfix">
-                                <div class="post-comment-count"><?php echo 'comentarios' ?></div>
-                                <div class="post-info">Por <strong><?php echo 'strAutor' ?></strong> el <?php echo ('fchFecha'); ?></div>
+                                <div class="post-comment-count">2</div>
+                                <div class="post-info">Por <strong><?= $blog->getUsuario() ?></strong> el <?= $blog->getFechaAlta() ?></div>
                             </footer>
                         </article>
                         <div class="post-comments clearfix">
@@ -127,7 +130,7 @@ if(isset($blogSlug) and $blogSlug != ""){
                                     </div>
                                     <p class="form-submit">
                                         <input name="submit" type="submit" id="submit" value="Comentar" />
-                                        <input type="hidden" name="idArticulo" value="<?php echo 'idBlog' ?>" />
+                                        <input type="hidden" name="idArticulo" value="<?= $blog->getIdBlog() ?>" />
                                         <input type="hidden" name="blogSeo" value="<?php echo $_SERVER["REQUEST_URI"]; ?>" />
                                         <input type="hidden" name="MM_insert" value="comentarios" />
                                     </p><br>

@@ -1,5 +1,9 @@
 <?php
 require_once '../../config.php';
+require_once "../../AutoLoader/autoLoader.php";
+
+$imagenC = new ImagenController;
+$imagenLista = $imagenC->select();
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -8,7 +12,7 @@ require_once '../../config.php';
         <meta property="og:title" content="Caribetour.es | Especialistas en el Caribe" />
         <meta name="title" content="CaribeTour.es: Especialistas en el Caribe" />
         <meta name="DC.title" content="CaribeTour.es: Especialistas en el Caribe" />
-        <title>Plantilla| Especialistas en el Caribe</title>        
+        <title>Galeria | Especialistas en el Caribe</title>        
         <meta name="description" content="CaribeTour.es | Agencia especializada en el Caribe y sus destinos" />
         <meta name="keywords" content="CaribeTour.es | Agencia especializada en el Caribe y sus destinos" />
         <!--[if lt IE 9]>
@@ -59,25 +63,35 @@ require_once '../../config.php';
                         <a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
-                        paginaActual
+                        Galeria
                     </div>
                 </div>
                 <!-- /breadcrumb-->            
             
             
                 <div class="row">
-                    <div class="items-grid"><?php $i=1; do { ?>
+                
+                    
+                    <div class="items-grid">
+                    
+                        <?php $i=1; foreach($imagenLista as $imagen) { ?>
                         <div class="column gallery-item threecol <?php if ($i % 4==0){ echo 'last'; }?>">
                             <div class="featured-image">
-                                <a href="<?=PATHFRONTEND ?>img/<?php echo 'imagen'; ?>" class="colorbox " data-group="gallery-111" title="<?php echo 'productoNombre'; ?>">
-                                    <img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?php echo 'imagen'; ?>" class="attachment-preview wp-post-image" alt="<?php echo 'productoNombre'; ?>" />
+                                <a href="<?=PATHFRONTEND ?>img/<?= $imagen ?>" class="colorbox " data-group="gallery-111" title="<?= $imagen->getProducto() ?>">
+                                    <img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $imagen ?>" class="attachment-preview wp-post-image" alt="<?= $imagen->getProducto() ?>" />
                                 </a>
-                                <a class="featured-image-caption visible-caption" href="#"><h6><?php echo 'productoNombre'; ?></h6></a>
+                                <a class="featured-image-caption visible-caption" href="#"><h6><?= $imagen->getProducto() ?></h6></a>
                             </div>
                             <div class="block-background"></div>
-                        </div><?php if ($i % 4==0){ echo '<div class="clear"></div>'; }?><?php $i++; } while (false); ?>
+                        </div>
+                        <?php $i++;  } ?>
+                        <?php if ($i % 4==0){ echo '<div class="clear"></div>'; }?>
+                        
+                        
                         <div class="clear"></div>
-                    </div>
+                    </div>                 
+                    
+                    
                     <nav class="pagination">
                             <?php for ($cont=0;$cont<=2;$cont++){
                                 $numPagina=$cont+1;

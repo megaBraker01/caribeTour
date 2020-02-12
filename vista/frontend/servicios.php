@@ -56,7 +56,7 @@ require_once '../../config.php';
             	<!--inicio breadcrumb-->
 	        <div class="miga" id="breadcrumb">
 	                <div class="breadcrumb">
-		                <a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
+		                <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="Inicio">Inicio</a>
 	                </div>
 	                <div class="breadcrumb">
 		                Servicios
@@ -133,7 +133,7 @@ require_once '../../config.php';
 
                                 <p>Fusce a justo non dui imperdiet ultricies. Donec consectetur metus sed velit placerat pulvinar. Nam neque libero, tristique eu placerat sed, consectetur mattis leo. Aliquam sapien nulla, mattis ac luctus tincidunt, gravida eu quam. Praesent sem nisl, scelerisque venenatis euismod nec, interdum nec neque. </p>
 
-                                <a href="contactos.php" target="_self" class="button medium primary">Inf&oacute;rmate</a>
+                                <a href="contactos" target="_self" class="button medium primary">Inf&oacute;rmate</a>
 
                             </div>            
 

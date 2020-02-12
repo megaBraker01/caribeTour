@@ -11,7 +11,7 @@
                     </div>
                     <div class="menu">
                         <ul id="menu-footer-menu" class="menu">
-                            <li id="menu-item-inicio" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" title="Inicio">INICIO</a></li>
+                            <li id="menu-item-inicio" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" title="Inicio">INICIO</a></li>
                             <li id="menu-item-servicios" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="servicios" title="Nuestros Servicios">SERVICIOS</a></li>
                             <li id="menu-item-paises" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="paises" title="Todos los Paises">PAISES</a></li>
                             <li id="menu-item-blogs" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs" title="Nuestros Blogs">BLOGS</a></li>

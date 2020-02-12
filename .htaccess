@@ -10,6 +10,7 @@ RewriteRule ^/?$ vista/frontend/index.php
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^index.php/?$ vista/frontend/index.php
+RewriteRule ^inicio/?$ vista/frontend/index.php
 RewriteRule ^servicios/?$ vista/frontend/servicios.php
 RewriteRule ^paises/?$ vista/frontend/paises.php
 RewriteRule ^paises/([a-z-]+)/?$ vista/frontend/categorias.php?slugCat=$1
@@ -20,6 +21,7 @@ RewriteRule ^blogs/?$ vista/frontend/blogs.php
 RewriteRule ^blogs/pag=([0-9]+)?$ vista/frontend/blogs.php?pag=$1
 RewriteRule ^blogs/([a-z-]+)/?$ vista/frontend/blog-datos.php?slugBlog=$1
 RewriteRule ^galeria/?$ vista/frontend/galeria.php
+RewriteRule ^galeria/pag=([0-9]+)?$ vista/frontend/galeria.php?pag=$1
 RewriteRule ^contactos/?$ vista/frontend/contacto.php
 RewriteRule ^legal/?$ vista/frontend/legal-lista.php
 RewriteRule ^legal/([a-z-]+)/?$ vista/frontend/legal-datos.php?idLegal=$1

@@ -92,7 +92,7 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
                 <!-- breadcrumb-->
                 <div class="miga" id="breadcrumb">
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
                         <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises" rel="tag" title="Inicio">Paises</a>

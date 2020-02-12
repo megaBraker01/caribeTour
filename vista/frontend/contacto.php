@@ -71,17 +71,16 @@ require_once '../../config.php';
 
             <section class="container site-content">
             
-            <!--inicio breadcrumb-->
-					<div class="miga" id="breadcrumb">
-						<div class="breadcrumb">
-							<a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
-						</div>
-						<div class="breadcrumb">
-							Contactos
-						</div>
-               </div>
-
-				<!--fin de breadcrumb-->
+                <!-- breadcrumb-->
+                <div class="miga" id="breadcrumb">
+                    <div class="breadcrumb">
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="Inicio">Inicio</a>
+                    </div>
+                    <div class="breadcrumb">
+                        Contactos
+                    </div>
+                </div>
+                <!-- /breadcrumb--> 
 
 
                 <div class="row">
@@ -102,7 +101,7 @@ require_once '../../config.php';
                         <p></p>
                             <div class="sixcol column ">
                                 <div class="field-container">
-                                    <input type="text" id="nombre" name="nombre" title="Introduzca su Nombtre Completo." maxlength="50" placeholder="Nombre Completo" value="<?php if (isset($_SESSION['nombre']) && $_SESSION['enviado']!=1) { echo $_SESSION['nombre']; } ?>" required />
+                                    <input type="text" id="nombre" name="nombre" title="Nombtre Completo (s&oacute;lo letras)" maxlength="50" placeholder="Nombre Completo" value="<?php if (isset($_SESSION['nombre']) && $_SESSION['enviado']!=1) { echo $_SESSION['nombre']; } ?>" required pattern="[A-Za-z]"/>
                                 </div>
                             </div>
                             <div class="sixcol column last">

@@ -1,5 +1,46 @@
 <?php
 require_once '../../config.php';
+require_once "../../AutoLoader/autoLoader.php";
+
+$productoC = new ProductoController;
+$productoFechaC = new ProductoFechaRefController;
+
+// CATEGORIAS (SLIDER)
+$productoFechaSlider = $productoFechaC->select();
+$productoSliderFiltered = [];
+if(count($productoFechaSlider) > 0){
+    foreach ($productoFechaSlider as $productoFecha){
+        $producto = $productoFecha->getProducto();
+        if($producto->getIdEstado() == 1 && $producto->getStock() > 0)
+        $productoSliderFiltered[] = $productoFecha;
+    }
+}
+
+
+// PRODUCTOS
+$productoFiltro = [
+    ['idEstado', '=', 1],
+    ['stock', '>', 0]
+];
+$productoList = $productoC->select($productoFiltro,[],[6]);
+
+
+// BLOG
+$blogC = new BlogController();
+$blogFiltro = [
+    ['idEstado', '=', 1]
+];
+$blogOrder = [['fechaAlta', 'DESC']];
+$blogLimit = [1];
+$blogLista = $blogC->select($blogFiltro, $blogOrder, $blogLimit);
+$blog = null;
+if(count($blogLista) > 0){
+    $blog = $blogLista[0];
+}
+
+
+// GALERIA
+$productoGaleriaList = $productoC->select([],[],[6]);
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -67,16 +108,25 @@ require_once '../../config.php';
                     <div class="main-slider-container content-slider-container">
                         <div class="content-slider main-slider" id="slider" style="position:relative">
                             <ul>
+                                <?php foreach ($productoSliderFiltered as $productoFecha){ ?>
+                                <?php
+                                $producto = $productoFecha->getProducto();
+                                $categoria = $producto->getCategoria();
+                                $categoriaPadre = $categoria->getCategoriaPadre();
+                                $precio = $productoFecha->getPrecioProveedor();
+                                $precio += ($productoFecha->getPrecioProveedor() * $productoFecha->getComision()) / 100;
+                                ?>
                                 <li>
                                     <div class="featured-image">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="destinos/categoria/subcategoria">
+                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoriaPadre->getSlug() ?>/<?= $categoria->getSlug() ?>">
                                             <div class="etiqueta-categoria" id="etiqueta">
-                                                        subcategoria desde precio&euro;
+                                                <?= $categoria ?> desde <?= $precio ?>&euro;
                                             </div>
-                                            <img width="824" height="370" src="img/imagen" class="attachment-large wp-post-image" alt="subcategoria" title="Ver Todos Los destinos de subcategoria"/>
+                                            <img width="824" height="370" src="<?=PATHFRONTEND ?>img/<?= $categoria->getSrcImagen() ?>" class="attachment-large wp-post-image" alt="<?= $categoria ?>" title="Ver Todos Los destinos de <?= $categoria ?>"/>
                                         </a>
                                     </div>
                                 </li>
+                                <?php } ?>
                             </ul>
                             <div class="arrow arrow-left content-slider-arrow"></div>
                             <div class="arrow arrow-right content-slider-arrow"></div>
@@ -158,20 +208,30 @@ require_once '../../config.php';
                 <img src="<?=PATHFRONTEND ?>images/background_1.jpg" class="fullwidth" alt="" />
             </div>
             <div class="row">
+                
+                <!-- producto -->
                 <div class="items-grid">
-                <?php $i=1; do { ?>
+                    
+                    <?php $i=1; foreach ($productoList as $producto) { ?>
+                    <?php
+                    $categoria = $producto->getCategoria();
+                    $categoriPadre = $categoria->getCategoriaPadre();
+                    ?>
+                    
                     <div class="column threecol <?php if ($i % 4==0){ echo 'last'; }?>">
                         <div class="tour-thumb-container">
                             <div class="tour-thumb">
-                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="destinos/slugCategoria/slugSubCategoria/slugProducto"><img width="440" height="330" src="img/nombreImagen" class="attachment-preview wp-post-image" alt="nombreProducto" title="nombreProducto" /></a>
+                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoriPadre->getSlug() ?>/<?= $categoria->getSlug() ?>/<?= $producto->getSlug() ?>">
+                                    <img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $producto ?>" title="<?= $producto ?>" />
+                                </a>
                                 <div class="tour-caption">
                                     <h5 class="tour-title">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="destinos/slugCategoria/slugSubCategoria/slugProducto" title="nombreProducto">nombreProducto</a>
+                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoriPadre->getSlug() ?>/<?= $categoria->getSlug() ?>/<?= $producto->getSlug() ?>" title="<?= $producto ?>"><?= $producto ?></a>
                                     </h5>
                                     <div class="tour-meta">
                                         <div class="tour-destination">
                                             <div class="colored-icon icon-2"></div>
-                                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="destinos/slugCategoria/slugSubCategoria" rel="tag" title="Ver todos los destinos de subCategoria">subCategoriaNombre</a>
+                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoriPadre->getSlug() ?>/<?= $categoria->getSlug() ?>" rel="tag" title="Ver todos los destinos de <?= $categoria ?>"><?= $categoria ?></a>
                                         </div>
                                         <div class="colored-icon icon-3"></div>precio&euro;
                                     </div>
@@ -180,56 +240,84 @@ require_once '../../config.php';
                             <div class="block-background"></div>
                         </div>
                     </div>
+                    
                     <?php if ($i % 4==0){ echo '<div class="clear"></div>'; }?>
-                    <?php $i++; } while (false); ?>
+                    <?php $i++; } ?>
+                    
                     <div class="clear"></div>
                 </div>
+                <!-- producto -->
             </div>
         </section>
         
         <section class="container site-content">
             <div class="row">
+                
+                
+                <!-- blog -->
                 <div class="threecol column">
                     <div class="section-title">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blog.php" title="Blogs de Viajes"><h2>Blogs de Viajes</h2></a>
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs" title="Blogs de Viajes"><h2>Blogs de Viajes</h2></a>
                     </div>
+                    
                     <div class="featured-blog">
-                        <article class="post-112 post type-post status-publish format-standard hentry category-guides tag-amet tag-dolor tag-lorem post">
+                        <?php if($blog) { ?>
+                        <article class="post type-post status-publish format-standard hentry category-guides post">
                             <div class="featured-image">
-                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/bogSlug"><img width="440" height="299" src="img/nombreImagen" class="attachment-normal wp-post-image" alt="Imagen de blogNombre" title="blogNombre" /></a>
+                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" class="attachment-normal wp-post-image" alt="Imagen de <?= $blog ?>" title="<?= $blog ?>" /></a>
                             </div>
                             <div class="post-content">
                                 <h5 class="post-title">
-                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/blogSlug" title="blogNombre">blogNombre</a>
+                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><?= $blog ?></a>
                                 </h5>
-                                <p><?php echo ""; //substr($row_blog['strDescripcion'], 0, 121); ?>.[...]</p>
+                                <p><?php echo substr(nl2br($blog->getDescripcion()), 0, 400); ?>.[...]</p>
                             </div>
                             <footer class="post-footer clearfix">
-                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/blogSlug" class="button small" title="Leer M&aacute;s sobre blogNombre">Leer M&aacute;s</a>
-                                <div class="post-comment-count">comentarios</div>
+                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>" class="button small" title="Leer m&aacute;s">Leer M&aacute;s</a>
+                                <div class="post-comment-count">1</div>
                                 <div class="post-info">
-                                    <time datetime="fechaCortaBlog">fechaCortaBlog</time>
+                                    <time datetime="<?= $blog->getFechaAlta() ?>"><?= $blog->getFechaAlta() ?></time>
                                 </div>
                             </footer>
                         </article>
+                        <?php } else { ?>
+                        <h3>Por el momento No hay articulos publicados</h3>
+                        <?php } ?>
                     </div>
+                    
                 </div>
+                <!-- /blog -->
+                
+                
+                <!-- galeria -->
                 <div class="sixcol column">
                     <div class="section-title">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="galeria.php" title="Ver la Galer&iacute;a Completa"><h2>Galer&iacute;a</h2></a>
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="galeria" title="Ver la Galer&iacute;a Completa"><h2>Galer&iacute;a</h2></a>
                     </div>
-                    <div class="items-grid"><?php $x=1; do { ?>
-                        <div class="column gallery-item fourcol <?php if ($x % 3==0){ echo 'last'; }?>">
+                    <div class="items-grid">
+                        
+                        <?php $i=1; foreach($productoGaleriaList as $producto) { ?>
+                        <div class="column gallery-item fourcol <?php if ($i % 3==0){ echo 'last'; }?>">
                             <div class="featured-image">
-                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="img/imagenNombre" class="colorbox " data-group="gallery-111" title="imagenNombre"><img width="440" height="330" src="img/imagenNombre" class="attachment-preview wp-post-image" alt="Imagen de imagenNombre" /></a>
-                                <a class="featured-image-caption hidden-caption" href="#"><h6>imagenNombre</h6></a>
+                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="colorbox " data-group="gallery-<?= $producto->getIdProducto() ?>" title="<?= $producto ?>">
+                                    <img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $producto ?>" />
+                                </a>                                
+                                <?php foreach ($producto->getImagenes() as $imagen) { ?>
+                                <a href="<?=PATHFRONTEND ?>img/<?= $imagen ?>" class="colorbox " data-group="gallery-<?= $imagen->getIdProducto() ?>" title="<?= $producto ?>"></a>
+                                <?php } ?>
+                                <a class="featured-image-caption visible-caption" href="#"><h6><?= $producto ?></h6></a>
                             </div>
                             <div class="block-background"></div>
                         </div>
-                        <?php if ($x % 3==0){ echo '<div class="clear"></div>'; }?><?php $x++; } while (false); ?>
+                        <?php if ($i % 3 == 0){ echo '<div class="clear"></div>'; }?>
+                        <?php $i++;  } ?>
+                        
                         <div class="clear"></div>
                     </div>
                 </div>
+                <!-- /galeria -->
+                
+                <!-- twitter -->
                 <div class="threecol column last">
                     <div class="widget widget-twitter">
                         <div class="section-title">
@@ -241,6 +329,8 @@ require_once '../../config.php';
                         </div>
                     </div>
                 </div>
+                <!-- /twitter -->
+                
                 <div class="clear"></div>
             </div>		
         </section>

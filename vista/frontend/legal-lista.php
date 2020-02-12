@@ -114,7 +114,7 @@ $totalRows_legales = mysql_num_rows($legales);
           	<!--inicio breadcrumb-->
                 <div class="miga" >
                     <div class="breadcrumb">	
-                        <a href="index.php" rel="tag" title="Inicio">Inicio</a>
+                        <a href="inicio" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">Legal</div>
                 </div>

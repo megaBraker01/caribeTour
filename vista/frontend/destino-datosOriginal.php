@@ -190,7 +190,7 @@ $totalRows_fechas = mysql_num_rows($fechas);
         <section class="container site-content">
             <!--inicio breadcrumb-->
             <div class="miga" id="breadcrumb">
-                <div class="breadcrumb"> <a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="ir al Inicio">Inicio</a> </div>
+                <div class="breadcrumb"> <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="ir al Inicio">Inicio</a> </div>
                 <div class="breadcrumb"> <a hreflang="es" type="text/html" charset="iso-8859-1" href="destinos" rel="tag" title="Ver todos los destinos">Destinos</a> </div>
                 <div class="breadcrumb"> <a hreflang="es" type="text/html" charset="iso-8859-1" href="destinos/<?php echo $row_seo['seoCategoria']; ?>" rel="tag" title="Ver destinos en <?php echo $row_seo['categoria']; ?>"><?php echo $row_seo['categoria']; ?></a> </div>
                 <div class="breadcrumb"> <a hreflang="es" type="text/html" charset="iso-8859-1" href="destinos/<?php echo $row_seo['seoCategoria']; ?>/<?php echo $row_seo['seoSubCategoria']; ?>" rel="tag" title="Ver destinos en <?php echo $row_seo['subCategoria']; ?>"><?php echo $row_seo['subCategoria']; ?></a> </div>

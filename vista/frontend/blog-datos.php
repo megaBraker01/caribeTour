@@ -72,7 +72,7 @@ if(isset($blogSlug) and $blogSlug != ""){
                 <!-- breadcrumb-->
                 <div class="miga" id="breadcrumb">
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
                         <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs" rel="tag" title="Blogs">Blogs</a>
@@ -89,12 +89,12 @@ if(isset($blogSlug) and $blogSlug != ""){
                         <article class="post-112 post type-post status-publish format-standard hentry category-guides tag-amet tag-dolor tag-lorem post full-post">
                             <div class="post-featured-image">
                                 <div class="featured-image">
-                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><img width="768" height="522" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" class="attachment-wide wp-post-image" alt="<?= $blog ?>" /></a>
+                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><img width="768" height="522" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" class="attachment-wide wp-post-image" alt="<?= $blog ?>" /></a>
                                 </div>
                             </div>
                             <div class="post-content">
                                 <div class="section-title">
-                                    <h1><a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/<?= $blog->getSlug() ?>"><?= $blog ?></a></h1>
+                                    <h1><a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>"><?= $blog ?></a></h1>
                                 </div>
                                 <?= nl2br($blog->getDescripcion()) ?>			
                             </div>
@@ -165,11 +165,11 @@ if(isset($blogSlug) and $blogSlug != ""){
                             <article class="post-112 post type-post status-publish format-standard hentry category-guides tag-amet tag-dolor tag-lorem post clearfix">
                                 <div class="post-featured-image">
                                     <div class="featured-image">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/<?php echo "seoBlog"; ?>"><img width="440" height="299" src="img/<?php echo 'strImagen' ?>" class="attachment-normal wp-post-image" alt="image_7" /></a>
+                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?php echo "seoBlog"; ?>"><img width="440" height="299" src="img/<?php echo 'strImagen' ?>" class="attachment-normal wp-post-image" alt="image_7" /></a>
                                     </div>
                                 </div>
                                 <div class="post-content">
-                                    <h6 class="post-title"><a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/<?php echo "seoBlog"; ?>"><?php echo 'strNombre'; ?></a></h6>
+                                    <h6 class="post-title"><a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?php echo "seoBlog"; ?>"><?php echo 'strNombre'; ?></a></h6>
                                     <footer class="post-footer clearfix">
                                         <div class="post-comment-count"><?php echo 'comentarios'; ?></div>
                                         <div class="post-info">
@@ -182,7 +182,7 @@ if(isset($blogSlug) and $blogSlug != ""){
                         <div class="widget widget_recent_comments">
                             <div class="section-title"><h4>Comentarios Recientes</h4></div>
                             <ul id="recentcomments"><?php do { ?>
-                                <li class="recentcomments"><?php echo "nombreComentario"; ?> en <a hreflang="es" type="text/html" charset="iso-8859-1" href="blog/<?php echo "seoComentario"; ?>#comment-<?php echo "idcomentario"; ?>"><?php echo "nombreBlog"; ?></a></li><?php } while (false); ?>
+                                <li class="recentcomments"><?php echo "nombreComentario"; ?> en <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?php echo "seoComentario"; ?>#comment-<?php echo "idcomentario"; ?>"><?php echo "nombreBlog"; ?></a></li><?php } while (false); ?>
                             </ul>
                         </div><?php } ?>
                         <div class="widget widget_text">

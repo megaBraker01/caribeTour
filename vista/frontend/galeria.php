@@ -2,8 +2,16 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
-$imagenC = new ImagenController;
-$imagenLista = $imagenC->select();
+$productoC = new ProductoController;
+$productoList = $productoC->select();
+
+// PAGINACION
+$productoTotales = count($productoList);
+$mostrarItems = 16;
+$pagTotal = ceil($productoTotales / $mostrarItems);
+$pagActual = $_GET['pag'] ?? 1;
+$mostrarDesde = ($pagActual - 1) * $mostrarItems;
+$mostrarproductos = array_slice($productoList, $mostrarDesde, $mostrarItems);
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -60,7 +68,7 @@ $imagenLista = $imagenC->select();
                 <!-- breadcrumb-->
                 <div class="miga" id="breadcrumb">
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="index.php" rel="tag" title="Inicio">Inicio</a>
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
                         Galeria
@@ -74,33 +82,38 @@ $imagenLista = $imagenC->select();
                     
                     <div class="items-grid">
                     
-                        <?php $i=1; foreach($imagenLista as $imagen) { ?>
+                        <?php $i=1; foreach($mostrarproductos as $producto) { ?>
                         <div class="column gallery-item threecol <?php if ($i % 4==0){ echo 'last'; }?>">
                             <div class="featured-image">
-                                <a href="<?=PATHFRONTEND ?>img/<?= $imagen ?>" class="colorbox " data-group="gallery-111" title="<?= $imagen->getProducto() ?>">
-                                    <img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $imagen ?>" class="attachment-preview wp-post-image" alt="<?= $imagen->getProducto() ?>" />
-                                </a>
-                                <a class="featured-image-caption visible-caption" href="#"><h6><?= $imagen->getProducto() ?></h6></a>
+                                <a href="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="colorbox " data-group="gallery-<?= $producto->getIdProducto() ?>" title="<?= $producto ?>">
+                                    <img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $producto ?>" />
+                                </a>                                
+                                <?php foreach ($producto->getImagenes() as $imagen) { ?>
+                                <a href="<?=PATHFRONTEND ?>img/<?= $imagen ?>" class="colorbox " data-group="gallery-<?= $imagen->getIdProducto() ?>" title="<?= $producto ?>"></a>
+                                <?php } ?>
+                                <a class="featured-image-caption visible-caption" href="#"><h6><?= $producto ?></h6></a>
                             </div>
                             <div class="block-background"></div>
                         </div>
+                        <?php if ($i % 4 == 0){ echo '<div class="clear"></div>'; }?>
                         <?php $i++;  } ?>
-                        <?php if ($i % 4==0){ echo '<div class="clear"></div>'; }?>
+                        
                         
                         
                         <div class="clear"></div>
                     </div>                 
-                    
-                    
+
                     <nav class="pagination">
-                            <?php for ($cont=0;$cont<=2;$cont++){
-                                $numPagina=$cont+1;
-                                if ($cont==1)
-                                    echo "<span class='page-numbers current'>".$numPagina."</span>";
-                                else
-                                    echo "<a class='page-numbers' href='galeria.php?pageNum_imagenes=".$cont."'>".$numPagina."</a>";
-                                } ?>
-                        </nav>
+                        <?php 
+			for ($i = 1; $i <= $pagTotal; $i++){
+                            if ($i == $pagActual)
+                                echo "<span class='page-numbers current'>".$i."</span>";
+                            else
+				echo "<a hreflang='es' type='text/html' charset='iso-8859-1' href='galeria/pag=$i' class='page-numbers' title='Pasar a la pagina $i'>$i</a>";
+			} 
+			?>
+                    </nav>
+                    
                 </div>                
                 
                 

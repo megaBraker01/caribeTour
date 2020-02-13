@@ -54,12 +54,12 @@ $statement->bindValue(":idTabla", $Contacto->getIdTabla());
         }
     }
 
-    public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
+    public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
             $sql = "SELECT idContacto, idTipo, contacto, personaContacto, srcTabla, idTabla, fechaAlta, fechaUpdate 
             FROM contactos";                        
             $ret = [];
-            $rows = $this->query($sql, $filtros, $ordenados, $limitar);
+            $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(count($rows) > 0){
                 foreach($rows as $row){

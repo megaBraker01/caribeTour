@@ -54,12 +54,12 @@ $statement->bindValue(":fechaNacimiento", $Pasajero->getFechaNacimiento());
         }
     }
 
-    public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
+    public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
             $sql = "SELECT idPasajero, nombre, apellidos, NIFoPasaporte, nacionalidad, fechaNacimiento, fechaAlta, fechaUpdate 
             FROM pasajeros";                        
             $ret = [];
-            $rows = $this->query($sql, $filtros, $ordenados, $limitar);
+            $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(count($rows) > 0){
                 foreach($rows as $row){

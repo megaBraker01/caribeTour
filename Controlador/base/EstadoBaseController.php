@@ -66,12 +66,12 @@ $statement->bindValue(":legales", $Estado->getLegales());
         }
     }
 
-    public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
+    public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
             $sql = "SELECT idEstado, nombre, productos, categorias, blogComentarios, blogs, proveedores, pagos, reservas, clientes, usuarios, legales 
             FROM estados";                        
             $ret = [];
-            $rows = $this->query($sql, $filtros, $ordenados, $limitar);
+            $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(count($rows) > 0){
                 foreach($rows as $row){

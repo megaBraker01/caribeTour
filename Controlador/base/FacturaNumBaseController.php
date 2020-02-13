@@ -44,12 +44,12 @@ abstract class FacturaNumBaseController extends BaseController {
         }
     }
 
-    public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
+    public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
             $sql = "SELECT facturaNum, fechaAlta 
             FROM factura_num";                        
             $ret = [];
-            $rows = $this->query($sql, $filtros, $ordenados, $limitar);
+            $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(count($rows) > 0){
                 foreach($rows as $row){

@@ -2,21 +2,21 @@
 
 
 abstract class BaseController {
-	
-	protected $parameters = [];
 
+   protected $parameters = [];
 
-    /* pasamos los parametros para condicionar el WHERE de la consulta
-    * el aparametro debe de ser un array de arrays, cada array elemento tiene que ser de la forma:
-    * ['campo_a_comparar', 'sigo_comparacion', 'valor_a_comparar', (opcional 'and | or')]
-    * ejemplo: $filters = [['idEstado', '=', 1], ['idTipo', '!=', 3, 'or'], ['marNombre', 'like', 'merce']];
-    * @param array $filters
-    * @return string    
-    */
+    /**
+     * pasamos los parametros para condicionar el WHERE de la consulta
+     * el aparametro debe de ser un array de arrays, cada array elemento tiene que ser de la forma:
+     * ['campo_a_comparar', 'sigo_comparacion', 'valor_a_comparar', (opcional 'and | or')]
+     * ejemplo: $filters = [['idEstado', '=', 1], ['idTipo', '!=', 3, 'or'], ['marNombre', 'like', 'merce'], ['idBlog', 'in', '1, 5, 8']];
+     * @param array $filters
+     * @return string
+     */
     protected function filterSqlPrepare(array $filters): string {
         $sql = "";
         if(!empty($filters)){
-        		$sql .= " WHERE TRUE";
+            $sql .= " WHERE TRUE";
             $i = 1;
             $p = 'p';
             foreach($filters as $filter){
@@ -26,47 +26,48 @@ abstract class BaseController {
                 $united = (isset($filter[3]) && is_string($filter[3])) ? strtoupper($filter[3]) : 'AND';
                 
                 if('IN' == $comparator) {
-                		$values = explode(", ", $value);
-                		$paramIN = [];
-                		foreach($values as $val){
-                				$binParam = $p.$i;
-                				$paramIN[]= ":{$binParam}";
-                				$this->parameters[$binParam] = $val;
-                				$i++;
-                		}
-                		$finalParam = implode(", ", $paramIN);
-                		$sql .= " $united {$field} {$comparator} ({$finalParam})";
+                    $values = explode(", ", $value);
+                    $paramIN = [];
+                    foreach($values as $val){
+                        $binParam = $p.$i;
+                        $paramIN[]= ":{$binParam}";
+                        $this->parameters[$binParam] = $val;
+                        $i++;
+                    }
+                    $finalParam = implode(", ", $paramIN);
+                    $sql .= " $united {$field} {$comparator} ({$finalParam})";
                 		
                 } else {
-                		$binParam = $p.$i;
-                		$sql .= " $united {$field} {$comparator} :{$binParam}";
-                		$this->parameters[$binParam] = $value;
+                    $binParam = $p.$i;
+                    $sql .= " $united {$field} {$comparator} :{$binParam}";
+                    $this->parameters[$binParam] = $value;
                 }
                 $i++;
             }
         }
         return $sql;
     }
-    
-    /* Preparamos para agrupar la consulta por los campos indicados
-    * ejemplo: $groupList = ['idCategoria', 'precio'];
-    * @param array $groupList
-    * @return string
-    */
+
+    /**
+     * Preparamos para agrupar la consulta por los campos indicados
+     * ejemplo: $groupList = ['idCategoria', 'precio'];
+     * @param array $groupList
+     * @return string
+     */
     protected function groupSqlPrepare(array $groupList){
         $ret = "";
         if(!empty($groupList)){
-        		$ret .=" GROUP BY ".implode(', ', $groupList);
+            $ret .=" GROUP BY ".implode(', ', $groupList);
         }
         return $ret;
     }
-    
 
-    /* preparamos para ordenas la consulta
-    * ejemplo: $ordenados = [['idTipo', 'desc'], ['fechaAlta']];
-    * @param array $orderList
-    * @return string
-    */
+    /**
+     * preparamos para ordenas la consulta
+     * ejemplo: $ordenados = [['idTipo', 'desc'], ['fechaAlta']];
+     * @param array $orderList
+     * @return string
+     */
     protected function orderSqlPrepare(array $orderList): string {
        $ret = "";
        if(!empty($orderList)){
@@ -79,11 +80,12 @@ abstract class BaseController {
        return $ret;
     }
 
-    /* preparamos para limitar la consulta
-    * ejemplo: $limitar = [2, 5] o $limitar = [3];
-    * @param array $limit
-    * @return string
-    */
+    /**
+     * preparamos para limitar la consulta
+     * ejemplo: $limitar = [2, 5] o $limitar = [3];
+     * @param array $limit
+     * @return string
+     */
     protected function limitSqlPrepare(array $limit): string {
         $sql = "";
         if(!empty($limit)){
@@ -94,6 +96,15 @@ abstract class BaseController {
     }
 
 
+    /**
+     * Para realizar querys personalizadas
+     * @param string $sql
+     * @param array $filtros
+     * @param array $ordenados
+     * @param array $limitar
+     * @param array $agrupar
+     * @return array
+     */
     protected function query(string $sql, array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
             $sql .= $this->filterSqlPrepare($filtros);
@@ -104,27 +115,11 @@ abstract class BaseController {
             $statement = $conexion->pdo()->prepare($sql);
             
             foreach($this->parameters as $key => $val){
-						$statement->bindValue($key, $val);
+		$statement->bindValue($key, $val);
             }
-            
-            /*
-            $i = 1;
-            foreach($filtros as $filtro){
-                if(strtolower($filtro[1]) == "like"){
-                    $filtro[2] = "%{$filtro[2]}%";
-                }
-                $statement->bindValue(":p{$i}", $filtro[2]);
-                $i++;
-            }
-            */
-            
+                        
             $ret = [];
             if($statement->execute() and $statement->rowCount() > 0){
-                /*
-                while ($row = $statement->fetch(PDO::FETCH_OBJ)) {
-                    $ret[] = $row;
-                }
-                */
                 $ret = $statement->fetchAll(PDO::FETCH_OBJ);
             }
             

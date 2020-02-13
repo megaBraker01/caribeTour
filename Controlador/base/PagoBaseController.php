@@ -52,12 +52,12 @@ $statement->bindValue(":idEstado", $Pago->getIdEstado());
         }
     }
 
-    public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
+    public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
             $sql = "SELECT idPago, idReserva, importe, idPagoTipo, idEstado, fechaAlta 
             FROM pagos";                        
             $ret = [];
-            $rows = $this->query($sql, $filtros, $ordenados, $limitar);
+            $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(count($rows) > 0){
                 foreach($rows as $row){

@@ -56,12 +56,12 @@ $statement->bindValue(":descuento", $Factura->getDescuento());
         }
     }
 
-    public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
+    public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
             $sql = "SELECT idFactura, facturaNum, idReserva, idFacturaTitular, importeBruto, IVA, descuento, fechaAlta, fehaUpdate 
             FROM facturas";                        
             $ret = [];
-            $rows = $this->query($sql, $filtros, $ordenados, $limitar);
+            $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(count($rows) > 0){
                 foreach($rows as $row){

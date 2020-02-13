@@ -62,12 +62,12 @@ $statement->bindValue(":pais", $FacturaTitular->getPais());
         }
     }
 
-    public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
+    public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
             $sql = "SELECT idFacturaTitular, idCliente, nombre, apellidos, NIF, direccion, codigoPostal, ciudad, provincia, pais 
             FROM factura_titular";                        
             $ret = [];
-            $rows = $this->query($sql, $filtros, $ordenados, $limitar);
+            $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(count($rows) > 0){
                 foreach($rows as $row){

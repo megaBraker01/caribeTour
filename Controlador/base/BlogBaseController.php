@@ -60,12 +60,12 @@ $statement->bindValue(":idEstado", $Blog->getIdEstado());
         }
     }
 
-    public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
+    public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
             $sql = "SELECT idblog, nombre, slug, metaDescripcion, metaKeyWords, descripcion, srcImagen, idUsuario, idEstado, fechaAlta, fechaUpdate 
             FROM blogs";                        
             $ret = [];
-            $rows = $this->query($sql, $filtros, $ordenados, $limitar);
+            $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(count($rows) > 0){
                 foreach($rows as $row){

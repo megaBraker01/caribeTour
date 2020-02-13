@@ -72,12 +72,12 @@ $statement->bindValue(":esOferta", $Producto->getEsOferta());
         }
     }
 
-    public function select(array $filtros = [], array $ordenados = [], array $limitar = []): array {
+    public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
             $sql = "SELECT idproducto, nombre, imagen, descripcion, slug, itinerario, incluye, metaDescripcion, metaKeyWords, idCategoria, idTipo, idEstado, idProveedor, stock, esOferta, fechaAlta, fehaUpdate 
             FROM productos";                        
             $ret = [];
-            $rows = $this->query($sql, $filtros, $ordenados, $limitar);
+            $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(count($rows) > 0){
                 foreach($rows as $row){

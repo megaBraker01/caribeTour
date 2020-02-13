@@ -2,6 +2,8 @@
 
 
 abstract class BaseController {
+	
+	protected $parameters = [];
 
 
     /* pasamos los parametros para condicionar el WHERE de la consulta
@@ -12,18 +14,53 @@ abstract class BaseController {
     * @return string    
     */
     protected function filterSqlPrepare(array $filters): string {
-        $sql = '';
+        $sql = "";
         if(!empty($filters)){
+        		$sql .= " WHERE TRUE";
             $i = 1;
+            $p = 'p';
             foreach($filters as $filter){
+            	$field = $filter[0];
+            	$comparator = strtoupper(trim($filter[1]));
+            	$value = "LIKE" == $comparator ? "%{$filter[2]}%" : $filter[2];
                 $united = (isset($filter[3]) && is_string($filter[3])) ? strtoupper($filter[3]) : 'AND';
-                $param = 'p'.$i++;
-                $filter[1] = strtoupper($filter[1]);
-                $sql .= " $united {$filter[0]} {$filter[1]} :{$param}";
+                
+                if('IN' == $comparator) {
+                		$values = explode(", ", $value);
+                		$paramIN = [];
+                		foreach($values as $val){
+                				$binParam = $p.$i;
+                				$paramIN[]= ":{$binParam}";
+                				$this->parameters[$binParam] = $val;
+                				$i++;
+                		}
+                		$finalParam = implode(", ", $paramIN);
+                		$sql .= " $united {$field} {$comparator} ({$finalParam})";
+                		
+                } else {
+                		$binParam = $p.$i;
+                		$sql .= " $united {$field} {$comparator} :{$binParam}";
+                		$this->parameters[$binParam] = $value;
+                }
+                $i++;
             }
         }
         return $sql;
     }
+    
+    /* Preparamos para agrupar la consulta por los campos indicados
+    * ejemplo: $groupList = ['idCategoria', 'precio'];
+    * @param array $groupList
+    * @return string
+    */
+    protected function groupSqlPrepare(array $groupList){
+        $ret = "";
+        if(!empty($groupList)){
+        		$ret .=" GROUP BY ".implode(', ', $groupList);
+        }
+        return $ret;
+    }
+    
 
     /* preparamos para ordenas la consulta
     * ejemplo: $ordenados = [['idTipo', 'desc'], ['fechaAlta']];
@@ -57,16 +94,20 @@ abstract class BaseController {
     }
 
 
-    protected function query(string $sql, array $filtros = [], array $ordenados = [], array $limitar = []): array {
+    protected function query(string $sql, array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
-            $sql .= " WHERE TRUE";
             $sql .= $this->filterSqlPrepare($filtros);
+            $sql .= $this->groupSqlPrepare($agrupar);
             $sql .= $this->orderSqlPrepare($ordenados);
             $sql .= $this->limitSqlPrepare($limitar);
-            
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             
+            foreach($this->parameters as $key => $val){
+						$statement->bindValue($key, $val);
+            }
+            
+            /*
             $i = 1;
             foreach($filtros as $filtro){
                 if(strtolower($filtro[1]) == "like"){
@@ -75,12 +116,16 @@ abstract class BaseController {
                 $statement->bindValue(":p{$i}", $filtro[2]);
                 $i++;
             }
+            */
             
             $ret = [];
             if($statement->execute() and $statement->rowCount() > 0){
+                /*
                 while ($row = $statement->fetch(PDO::FETCH_OBJ)) {
                     $ret[] = $row;
-                }                
+                }
+                */
+                $ret = $statement->fetchAll(PDO::FETCH_OBJ);
             }
             
             $conexion = NULL;

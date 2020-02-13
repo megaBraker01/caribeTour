@@ -6,22 +6,23 @@ $productoC = new ProductoController;
 $productoFechaC = new ProductoFechaRefController;
 
 // CATEGORIAS (SLIDER)
-$productoFechaSlider = $productoFechaC->select();
-$productoSliderFiltered = [];
-if(count($productoFechaSlider) > 0){
-    foreach ($productoFechaSlider as $productoFecha){
-        $producto = $productoFecha->getProducto();
-        if($producto->getIdEstado() == 1 && $producto->getStock() > 0)
-        $productoSliderFiltered[] = $productoFecha;
-    }
-}
-
-
-// PRODUCTOS
 $productoFiltro = [
     ['idEstado', '=', 1],
     ['stock', '>', 0]
 ];
+$productoLista = $productoC->select($productoFiltro, [], [], ['idCategoria']);
+$productoIds = [];
+
+foreach($productoLista as $producto){
+	$productoIds[] = $producto->getIdproducto();
+}
+
+$showProductoIds = implode(', ', $productoIds);
+$productoFechaOrder = [['precioProveedor']];
+$productoFechaSlider = $productoFechaC->select([['idProducto', 'in', $showProductoIds]], $productoFechaOrder);
+
+
+// PRODUCTOS
 $productoList = $productoC->select($productoFiltro,[],[6]);
 
 
@@ -108,7 +109,7 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                     <div class="main-slider-container content-slider-container">
                         <div class="content-slider main-slider" id="slider" style="position:relative">
                             <ul>
-                                <?php foreach ($productoSliderFiltered as $productoFecha){ ?>
+                                <?php foreach ($productoFechaSlider as $productoFecha){ ?>
                                 <?php
                                 $producto = $productoFecha->getProducto();
                                 $categoria = $producto->getCategoria();

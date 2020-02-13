@@ -3,10 +3,28 @@ require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
 
-$query = "select * from blogs";
-$blogC = new BlogController;
-$lista = $blogC->select();
-var_dump($lista);
+// CATEGORIAS (SLIDER)
+
+$productoC = new ProductoController;
+$productoFechaC = new ProductoFechaRefController;
+
+$productoFiltro = [
+    ['idEstado', '=', 1],
+    ['stock', '>', 0]
+];
+$productoLista = $productoC->select($productoFiltro, [], [], ['idCategoria']);
+$productoIds = [];
+
+foreach($productoLista as $producto){
+	$productoIds[] = $producto->getIdproducto();
+}
+
+$showProductoIds = implode(', ', $productoIds);
+$productoFechaSlider = $productoFechaC->select([['idProducto', 'in', $showProductoIds]]);
+
+$productoSliderFiltered = [];
+$vista = $productoFechaSlider;
+
 
 ?>
 <!DOCTYPE html>
@@ -75,6 +93,7 @@ var_dump($lista);
             
                 <div class="row">
                     <h3>Tu contenido va aquí</h3>
+                    <?php var_dump($vista); ?>
                 </div>
                 
                 

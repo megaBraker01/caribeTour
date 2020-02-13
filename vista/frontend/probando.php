@@ -12,7 +12,7 @@ $productoFiltro = [
     ['idEstado', '=', 1],
     ['stock', '>', 0]
 ];
-$productoLista = $productoC->select($productoFiltro, [], [], ['idCategoria']);
+$productoLista = $productoC->select($productoFiltro);
 $productoIds = [];
 
 foreach($productoLista as $producto){
@@ -20,7 +20,8 @@ foreach($productoLista as $producto){
 }
 
 $showProductoIds = implode(', ', $productoIds);
-$productoFechaSlider = $productoFechaC->select([['idProducto', 'in', $showProductoIds]]);
+$productoFechaOrder = [['precioProveedor']];
+$productoFechaSlider = $productoFechaC->select([['idProducto', 'in', $showProductoIds]], $productoFechaOrder);
 
 $productoSliderFiltered = [];
 $vista = $productoFechaSlider;
@@ -93,7 +94,7 @@ $vista = $productoFechaSlider;
             
                 <div class="row">
                     <h3>Tu contenido va aquí</h3>
-                    <?php var_dump($vista); ?>
+                    <?php var_export($vista); ?>
                 </div>
                 
                 

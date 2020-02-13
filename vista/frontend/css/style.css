@@ -87,6 +87,10 @@ Tags: travel, trip, tour, journal, nature, ecological, cruise, holiday, booking
 	background:url(../images/transparent.png);
 	border-radius: 4px;
 }
+.precio {
+	font-size: 18px;
+	font-weight: bold;
+}
 .debug {
 	background-color:#FFFF00;
 	z-index:10;

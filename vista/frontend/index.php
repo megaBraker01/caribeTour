@@ -10,13 +10,16 @@ $productoFiltro = [
     ['idEstado', '=', 1],
     ['stock', '>', 0]
 ];
+// 1ro- obtenemos los productos disponibles y que agrupamos por categoria
 $productoLista = $productoC->select($productoFiltro, [], [], ['idCategoria']);
 $productoIds = [];
 
+// 2do- solo nos quedamos con los ids para luego filtrar las fechas
 foreach($productoLista as $producto){
 	$productoIds[] = $producto->getIdproducto();
 }
 
+// 3ro- filtramos las fechas de los productos obtenidos y las organizamos por precio
 $showProductoIds = implode(', ', $productoIds);
 $productoFechaOrder = [['precioProveedor']];
 $productoFechaSlider = $productoFechaC->select([['idProducto', 'in', $showProductoIds]], $productoFechaOrder);
@@ -24,6 +27,12 @@ $productoFechaSlider = $productoFechaC->select([['idProducto', 'in', $showProduc
 
 // PRODUCTOS
 $productoList = $productoC->select($productoFiltro,[],[6]);
+foreach($productoList as $producto){
+	$productoIds[] = $producto->getIdproducto();
+}
+$showProductoIds = implode(', ', $productoIds);
+$productosMostrarList = $productoFechaC->select([['idProducto', 'in', $showProductoIds]], $productoFechaOrder);
+
 
 
 // BLOG
@@ -213,10 +222,13 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                 <!-- producto -->
                 <div class="items-grid">
                     
-                    <?php $i=1; foreach ($productoList as $producto) { ?>
+                    <?php $i=1; foreach ($productosMostrarList as $productoFecha) { ?>
                     <?php
+                    $producto = $productoFecha->getProducto();
                     $categoria = $producto->getCategoria();
                     $categoriPadre = $categoria->getCategoriaPadre();
+                    $precio = $productoFecha->getPrecioProveedor();
+                    $precio += ($productoFecha->getPrecioProveedor() * $productoFecha->getComision()) / 100;                    
                     ?>
                     
                     <div class="column threecol <?php if ($i % 4==0){ echo 'last'; }?>">
@@ -234,9 +246,9 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                                             <div class="colored-icon icon-2"></div>
                                             <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoriPadre->getSlug() ?>/<?= $categoria->getSlug() ?>" rel="tag" title="Ver todos los destinos de <?= $categoria ?>"><?= $categoria ?></a>
                                         </div>
-                                        <div class="colored-icon icon-3"></div>precio&euro;
+                                        <div class="colored-icon icon-3"></div><div class="precio"><?= $precio ?>&euro;</div>
                                     </div>
-                                </div>			
+                                </div>
                             </div>
                             <div class="block-background"></div>
                         </div>

@@ -3,3 +3,28 @@
 //var_dump(__DIR__); // 'D:\wamp\www\caribetour\vista\frontend'
 //var_dump(__FILE__); // 'D:\wamp\www\caribetour\vista\frontend\paises.php'
 //var_dump(getcwd()); // 'D:\wamp\www\caribetour\vista\frontend'
+
+
+consulta para el objeto DTO de fechas 
+
+
+SELECT  
+pfr.idProductoFechaRef,
+pfr.idProducto,
+pfr.idFechaSalida,
+pfr.precioProveedor,
+pfr.comision,
+fs.fecha as fsalida,
+fs.terminalSalida,
+fs.terminalDestino,
+fs.tasasSalida,
+fs.tasasDestino,
+pfr.idFechaVuelta,
+fv.fecha as fvuelta,
+fv.terminalSalida,
+fv.terminalDestino,
+fv.tasasSalida,
+fv.tasasDestino
+FROM  producto_fecha_ref pfr
+left join fechas as fs on pfr.idFechaSalida = fs.idFecha 
+left join fechas as fv on pfr.idFechaVuelta  = fv.idFecha

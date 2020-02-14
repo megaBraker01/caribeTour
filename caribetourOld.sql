@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 06-02-2020 a las 23:02:07
+-- Tiempo de generación: 12-02-2020 a las 22:59:07
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 7.0.23
 
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `blogs` (
 --
 
 INSERT INTO `blogs` (`idblog`, `nombre`, `slug`, `metaDescripcion`, `metaKeyWords`, `descripcion`, `srcImagen`, `idUsuario`, `idEstado`, `fechaAlta`, `fechaUpdate`) VALUES
-(1, 'Bienvenidos A La Republica Dominicana', 'bienvenidos-a-la-republica-dominicana', 'Es un pai&acirc;&shy;s que se destaca por la calidez de su clima y la hospitalidad de su gente. rep&atilde;&pound;&acirc;&pound;&atilde;&cent;&acirc;&ordm;blica dominicana es un destino sin igual que cuenta con una naturaleza extraordinaria, fascinante hi', 'Bienvenidos a la republica dominicana', '<p>Rep&uacute;blica Dominicana es el segundo pa&iacute;s m&aacute;s grande y m&aacute;s diverso del Caribe. Con vuelos directos desde las principales ciudades de Latinoam&eacute;rica, Estados Unidos, Canad&aacute; y Europa es un pa&iacute;s que se destaca por la calidez de su clima y la hospitalidad de su gente. Rep&uacute;blica Dominicana es un destino sin igual que cuenta con una naturaleza extraordinaria, fascinante historia y gran riqueza cultural.<br />\r\nRodeada por el Oc&eacute;ano Atl&aacute;ntico hacia el Norte y el Mar Caribe hacia el Sur, Rep&uacute;blica Dominicana se enorgullece de contar con m&aacute;s de 1,600 Km. de costa y 400 Km. de las mejores playas del mundo, magn&iacute;ficos hoteles y resorts, e infinidad de opciones en deportes, entretenimiento y recreaci&oacute;n. Aqu&iacute; puedes bailar al ritmo contagioso del merengue, renovarte en nuestros lujosos y variados hoteles, explorar antiguas ruinas,&nbsp; deleitarte con la mejor gastronom&iacute;a dominicana, o vivir aventuras ecotur&iacute;sticas en nuestros magn&iacute;ficos parques naturales, cordilleras, r&iacute;os y playas.<br />\r\nDescubierta en 1492 por Crist&oacute;bal Col&oacute;n, Rep&uacute;blica Dominicana cuenta con una fascinante historia, apasionantes museos y experiencias culturales como m&uacute;sica, arte y festivales; adem&aacute;s de una gran variedad de especialidades dominicanas como cigarros, ron, chocolate, caf&eacute;, merengue, &aacute;mbar y larimar.<br />\r\nEl destino n&uacute;mero uno de golf del Caribe y Latinoam&eacute;rica, Rep&uacute;blica Dominicana, deleita a sus visitantes con sus veinticinco campos de golf de renombrados dise&ntilde;adores, rodeados de impresionantes costas, con majestuosas monta&ntilde;as de fondo, y &ldquo;fairways&rdquo; de un verdor exuberante. Adem&aacute;s de escenarios naturales como cascadas rom&aacute;nticas, costas espectaculares y relajantes hoteles y resorts, Rep&uacute;blica Dominicana es el mejor destino para bodas y escapadas rom&aacute;nticas. Tambi&eacute;n ofrece las condiciones ideales para que grupos de ejecutivos de todas partes del mundo se motiven a realizar sus reuniones en el pa&iacute;s.</p>\r\n', 'bienvenidos-a-la-republica-dominicana.jpg', 1, 1, '2020-02-06 22:45:21', NULL);
+(1, 'Bienvenidos a La Republica Dominicana', 'bienvenidos-a-la-republica-dominicana', 'Es un pai&acirc;&shy;s que se destaca por la calidez de su clima y la hospitalidad de su gente. rep&atilde;&pound;&acirc;&pound;&atilde;&cent;&acirc;&ordm;blica dominicana es un destino sin igual que cuenta con una naturaleza extraordinaria, fascinante hi', 'Bienvenidos a la republica dominicana', '<p>Rep&uacute;blica Dominicana es el segundo pa&iacute;s m&aacute;s grande y m&aacute;s diverso del Caribe. Con vuelos directos desde las principales ciudades de Latinoam&eacute;rica, Estados Unidos, Canad&aacute; y Europa. Es un pa&iacute;s que se destaca por la calidez de su clima y la hospitalidad de su gente. Rep&uacute;blica Dominicana es un destino sin igual que cuenta con una naturaleza extraordinaria, fascinante historia y gran riqueza cultural.<br />\r\nRodeada por el Oc&eacute;ano Atl&aacute;ntico hacia el Norte y el Mar Caribe hacia el Sur, Rep&uacute;blica Dominicana se enorgullece de contar con m&aacute;s de 1,600 Km. de costa y 400 Km. de las mejores playas del mundo, magn&iacute;ficos hoteles y resorts, e infinidad de opciones en deportes, entretenimiento y recreaci&oacute;n. Aqu&iacute; puedes bailar al ritmo contagioso del merengue, renovarte en nuestros lujosos y variados hoteles, explorar antiguas ruinas,&nbsp; deleitarte con la mejor gastronom&iacute;a dominicana, o vivir aventuras ecotur&iacute;sticas en nuestros magn&iacute;ficos parques naturales, cordilleras, r&iacute;os y playas.<br />\r\nDescubierta en 1492 por Crist&oacute;bal Col&oacute;n, Rep&uacute;blica Dominicana cuenta con una fascinante historia, apasionantes museos y experiencias culturales como m&uacute;sica, arte y festivales; adem&aacute;s de una gran variedad de especialidades dominicanas como cigarros, ron, chocolate, caf&eacute;, merengue, &aacute;mbar y larimar.<br />\r\nEl destino n&uacute;mero uno de golf del Caribe y Latinoam&eacute;rica, Rep&uacute;blica Dominicana, deleita a sus visitantes con sus veinticinco campos de golf de renombrados dise&ntilde;adores, rodeados de impresionantes costas, con majestuosas monta&ntilde;as de fondo, y &ldquo;fairways&rdquo; de un verdor exuberante. Adem&aacute;s de escenarios naturales como cascadas rom&aacute;nticas, costas espectaculares y relajantes hoteles y resorts, Rep&uacute;blica Dominicana es el mejor destino para bodas y escapadas rom&aacute;nticas. Tambi&eacute;n ofrece las condiciones ideales para que grupos de ejecutivos de todas partes del mundo se motiven a realizar sus reuniones en el pa&iacute;s.</p>\r\n', 'bienvenidos-a-la-republica-dominicana.jpg', 1, 1, '2020-02-06 22:45:21', '2020-02-12 21:04:25');
 
 -- --------------------------------------------------------
 
@@ -98,11 +98,11 @@ INSERT INTO `categorias` (`idCategoria`, `idCategoriaPadre`, `nombre`, `slug`, `
 (4, 1, 'Santo Domingo', 'santo-domingo', 'Es la ciudad primada de ameria\r\n', 1, 'santo-domingo.jpg'),
 (5, 2, 'Rivera Maya', 'rivera-maya', '...', 1, 'rivera-maya.jpg'),
 (6, 1, 'Punta Cana', 'punta-cana', '...', 1, 'paradisuspalmareal.jpg'),
-(7, 3, 'Varadero', 'varadero', '...', 1, 'paradisuspal.jpg'),
+(7, 3, 'Varadero', 'varadero', '...', 1, 'varadero.jpg'),
 (8, 2, 'Yucatan', 'yucatan', '...', 1, 'yucatan.jpg'),
 (9, 2, 'Canc&uacute;n', 'cancun', '...', 1, 'cancun.jpg'),
 (10, 1, 'La Romana', 'la-romana', '...', 1, 'portada.jpg'),
-(11, 1, 'Puerto Plata', 'puerto-plata', 'Es Un Lugar Precioso Con Grandes Monta&ntilde;as Y Ricas Playas En Las Que Podras Encontrar Un Sin Numero De Especies Marinas ', 1, 'paradisuspal.jpg'),
+(11, 1, 'Puerto Plata', 'puerto-plata', 'Es Un Lugar Precioso Con Grandes Monta&ntilde;as Y Ricas Playas En Las Que Podras Encontrar Un Sin Numero De Especies Marinas ', 1, 'paradisuspalmareal.jpg'),
 (12, 0, 'Puerto Rico', 'puerto-rico', '', 3, 'puerto-rico.jpg'),
 (13, 13, 'San Juan', 'san-juan', '....', 1, 'san-juan.jpg'),
 (14, 0, 'Seguros', 'seguros', 'Todos Los Seguros Que Pueden Contratar Los Pasajeros', 1, ''),
@@ -382,7 +382,23 @@ CREATE TABLE IF NOT EXISTS `fechas` (
   `tasasSalida` double DEFAULT NULL,
   `tasasDestino` double DEFAULT NULL,
   PRIMARY KEY (`idFecha`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `fechas`
+--
+
+INSERT INTO `fechas` (`idFecha`, `fecha`, `terminalSalida`, `terminalDestino`, `tasasSalida`, `tasasDestino`) VALUES
+(1, '2020-02-16 00:00:00', 'T2', 'T1', 60, 0),
+(2, '2020-02-23 00:00:00', 'T1', 'T2', 20, 0),
+(3, '2020-02-16 00:00:00', 'T2', 'T1', 60, 0),
+(4, '2020-02-23 00:00:00', 'T1', 'T2', 20, 0),
+(5, '2020-02-16 00:00:00', 'T2', 'T1', 60, 0),
+(6, '2020-02-23 00:00:00', 'T1', 'T2', 20, 0),
+(7, '2020-02-16 00:00:00', 'T2', 'T1', 60, 0),
+(8, '2020-02-23 00:00:00', 'T1', 'T2', 20, 0),
+(9, '2020-02-16 00:00:00', 'T2', 'T1', 60, 0),
+(10, '2020-02-23 00:00:00', 'T1', 'T2', 20, 0);
 
 -- --------------------------------------------------------
 
@@ -396,9 +412,111 @@ CREATE TABLE IF NOT EXISTS `imagenes` (
   `idProducto` int(11) NOT NULL,
   `srcImagen` varchar(255) NOT NULL,
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `fehaUpdate` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `fehaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idImagen`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=97 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `imagenes`
+--
+
+INSERT INTO `imagenes` (`idImagen`, `idProducto`, `srcImagen`, `fechaAlta`, `fehaUpdate`) VALUES
+(1, 1, 'vik-hotel-arena-blanca_14609041621.jpg', '2020-02-12 18:51:07', NULL),
+(2, 1, 'vik-hotel-arena-blanca_14609041622.jpg', '2020-02-12 18:51:07', NULL),
+(3, 1, 'vik-hotel-arena-blanca_14609041623.jpg', '2020-02-12 18:51:07', NULL),
+(4, 1, 'vik-hotel-arena-blanca_14609041624.jpg', '2020-02-12 18:51:07', NULL),
+(5, 1, 'vik-hotel-arena-blanca_14609041635.jpg', '2020-02-12 18:51:07', NULL),
+(6, 1, 'vik-hotel-arena-blanca_14609041638.jpg', '2020-02-12 18:51:07', NULL),
+(7, 1, 'vik-hotel-arena-blanca_146090416310.jpg', '2020-02-12 18:51:07', NULL),
+(8, 1, 'vik-hotel-arena-blanca_146090416311.jpg', '2020-02-12 18:51:07', NULL),
+(9, 1, 'vik-hotel-arena-blanca_146090416312.jpg', '2020-02-12 18:51:07', NULL),
+(10, 1, 'vik-hotel-arena-blanca_146090416313.jpg', '2020-02-12 18:51:07', NULL),
+(11, 1, 'vik-hotel-arena-blanca_146090416314.jpg', '2020-02-12 18:51:07', NULL),
+(12, 1, 'vik-hotel-arena-blanca_146090416315.jpg', '2020-02-12 18:51:07', NULL),
+(13, 1, 'vik-hotel-arena-blanca_146090416316.jpg', '2020-02-12 18:51:07', NULL),
+(14, 1, 'vik-hotel-arena-blanca_146090416317.jpg', '2020-02-12 18:51:07', NULL),
+(15, 1, 'vik-hotel-arena-blanca_146090416318.jpg', '2020-02-12 18:51:07', NULL),
+(16, 1, 'vik-hotel-arena-blanca_146090416320.jpg', '2020-02-12 18:51:07', NULL),
+(17, 2, 'natura-park-beach-eco-resort-y-spa_14694525191.jpg', '2020-02-12 18:51:27', NULL),
+(18, 2, 'natura-park-beach-eco-resort-y-spa_14694525192.jpg', '2020-02-12 18:51:27', NULL),
+(19, 2, 'natura-park-beach-eco-resort-y-spa_14694525193.jpg', '2020-02-12 18:51:27', NULL),
+(20, 3, 'caribe-club-princess-beach-resort-y-spa_14695362591.jpg', '2020-02-12 18:51:27', NULL),
+(21, 3, 'caribe-club-princess-beach-resort-y-spa_14695362592.jpg', '2020-02-12 18:51:27', NULL),
+(22, 3, 'caribe-club-princess-beach-resort-y-spa_14695362593.jpg', '2020-02-12 18:51:27', NULL),
+(23, 3, 'caribe-club-princess-beach-resort-y-spa_14695362594.jpg', '2020-02-12 18:51:27', NULL),
+(24, 3, 'caribe-club-princess-beach-resort-y-spa_14695362595.jpg', '2020-02-12 18:51:27', NULL),
+(25, 3, 'caribe-club-princess-beach-resort-y-spa_14695362596.jpg', '2020-02-12 18:51:27', NULL),
+(26, 3, 'caribe-club-princess-beach-resort-y-spa_14695362607.jpg', '2020-02-12 18:51:27', NULL),
+(27, 3, 'caribe-club-princess-beach-resort-y-spa_14695362608.jpg', '2020-02-12 18:51:27', NULL),
+(28, 3, 'caribe-club-princess-beach-resort-y-spa_14695362609.jpg', '2020-02-12 18:51:27', NULL),
+(29, 3, 'caribe-club-princess-beach-resort-y-spa_146953626010.jpg', '2020-02-12 18:51:27', NULL),
+(30, 3, 'caribe-club-princess-beach-resort-y-spa_146953626011.jpg', '2020-02-12 18:51:27', NULL),
+(31, 3, 'caribe-club-princess-beach-resort-y-spa_146953626012.jpg', '2020-02-12 18:51:27', NULL),
+(32, 3, 'caribe-club-princess-beach-resort-y-spa_146953626013.jpg', '2020-02-12 18:51:27', NULL),
+(33, 3, 'caribe-club-princess-beach-resort-y-spa_146953626014.jpg', '2020-02-12 18:51:27', NULL),
+(34, 3, 'caribe-club-princess-beach-resort-y-spa_146953626015.jpg', '2020-02-12 18:51:27', NULL),
+(35, 3, 'caribe-club-princess-beach-resort-y-spa_146953626016.jpg', '2020-02-12 18:51:27', NULL),
+(36, 3, 'caribe-club-princess-beach-resort-y-spa_146953626017.jpg', '2020-02-12 18:51:27', NULL),
+(37, 3, 'caribe-club-princess-beach-resort-y-spa_146953626018.jpg', '2020-02-12 18:51:27', NULL),
+(38, 3, 'caribe-club-princess-beach-resort-y-spa_146953626119.jpg', '2020-02-12 18:51:27', NULL),
+(39, 3, 'caribe-club-princess-beach-resort-y-spa_146953626120.jpg', '2020-02-12 18:51:27', NULL),
+(40, 3, 'caribe-club-princess-beach-resort-y-spa_14695366111.jpg', '2020-02-12 18:51:27', NULL),
+(41, 3, 'caribe-club-princess-beach-resort-y-spa_14695366112.jpg', '2020-02-12 18:51:27', NULL),
+(42, 3, 'caribe-club-princess-beach-resort-y-spa_14695366113.jpg', '2020-02-12 18:51:27', NULL),
+(43, 3, 'caribe-club-princess-beach-resort-y-spa_14695366114.jpg', '2020-02-12 18:51:27', NULL),
+(44, 3, 'caribe-club-princess-beach-resort-y-spa_14695366115.jpg', '2020-02-12 18:51:27', NULL),
+(45, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695409561.jpg', '2020-02-12 18:51:27', NULL),
+(46, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695409562.jpg', '2020-02-12 18:51:27', NULL),
+(47, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695409563.jpg', '2020-02-12 18:51:27', NULL),
+(48, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695409564.jpg', '2020-02-12 18:51:27', NULL),
+(49, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695409565.jpg', '2020-02-12 18:51:27', NULL),
+(50, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695409576.jpg', '2020-02-12 18:51:27', NULL),
+(51, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695409577.jpg', '2020-02-12 18:51:27', NULL),
+(52, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695409578.jpg', '2020-02-12 18:51:27', NULL),
+(53, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695409579.jpg', '2020-02-12 18:51:27', NULL),
+(54, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_146954095710.jpg', '2020-02-12 18:51:27', NULL),
+(55, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_146954095711.jpg', '2020-02-12 18:51:27', NULL),
+(56, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_146954095812.jpg', '2020-02-12 18:51:27', NULL),
+(57, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695410191.jpg', '2020-02-12 18:51:27', NULL),
+(58, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695410192.jpg', '2020-02-12 18:51:27', NULL),
+(59, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695411151.jpg', '2020-02-12 18:51:27', NULL),
+(60, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695411152.jpg', '2020-02-12 18:51:27', NULL),
+(61, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695411153.jpg', '2020-02-12 18:51:27', NULL),
+(62, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695414441.jpg', '2020-02-12 18:51:27', NULL),
+(63, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695414442.jpg', '2020-02-12 18:51:27', NULL),
+(64, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695414443.jpg', '2020-02-12 18:51:27', NULL),
+(65, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695414444.jpg', '2020-02-12 18:51:27', NULL),
+(66, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695414445.jpg', '2020-02-12 18:51:27', NULL),
+(67, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695414456.jpg', '2020-02-12 18:51:27', NULL),
+(68, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695416611.jpg', '2020-02-12 18:51:27', NULL),
+(69, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695416612.jpg', '2020-02-12 18:51:27', NULL),
+(70, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695416613.jpg', '2020-02-12 18:51:27', NULL),
+(71, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695416614.jpg', '2020-02-12 18:51:27', NULL),
+(72, 4, 'sirenis-punta-cana-resort-casino-y-aquagames_14695416615.jpg', '2020-02-12 18:51:27', NULL),
+(73, 5, 'riu-lupita_14699142181.jpg', '2020-02-12 18:51:27', NULL),
+(74, 5, 'riu-lupita_14699142182.jpg', '2020-02-12 18:51:27', NULL),
+(75, 5, 'riu-lupita_14699142183.jpg', '2020-02-12 18:51:27', NULL),
+(76, 5, 'riu-lupita_14699142184.jpg', '2020-02-12 18:51:27', NULL),
+(77, 5, 'riu-lupita_14699142185.jpg', '2020-02-12 18:51:27', NULL),
+(78, 5, 'riu-lupita_14699142186.jpg', '2020-02-12 18:51:27', NULL),
+(79, 5, 'riu-lupita_14699164741.jpg', '2020-02-12 18:51:27', NULL),
+(80, 6, 'catalonia-riviera-maya-resort-y-spa_14700557781.jpg', '2020-02-12 18:51:27', NULL),
+(81, 6, 'catalonia-riviera-maya-resort-y-spa_14700557782.jpg', '2020-02-12 18:51:27', NULL),
+(82, 6, 'catalonia-riviera-maya-resort-y-spa_14700557783.jpg', '2020-02-12 18:51:27', NULL),
+(83, 6, 'catalonia-riviera-maya-resort-y-spa_14700557784.jpg', '2020-02-12 18:51:27', NULL),
+(84, 6, 'catalonia-riviera-maya-resort-y-spa_14700557795.jpg', '2020-02-12 18:51:27', NULL),
+(85, 6, 'catalonia-riviera-maya-resort-y-spa_14700557796.jpg', '2020-02-12 18:51:27', NULL),
+(86, 6, 'catalonia-riviera-maya-resort-y-spa_14700557797.jpg', '2020-02-12 18:51:27', NULL),
+(87, 6, 'catalonia-riviera-maya-resort-y-spa_14700557798.jpg', '2020-02-12 18:51:27', NULL),
+(88, 6, 'catalonia-riviera-maya-resort-y-spa_14700557799.jpg', '2020-02-12 18:51:27', NULL),
+(89, 6, 'catalonia-riviera-maya-resort-y-spa_147005577910.jpg', '2020-02-12 18:51:27', NULL),
+(90, 6, 'catalonia-riviera-maya-resort-y-spa_147005577911.jpg', '2020-02-12 18:51:27', NULL),
+(91, 6, 'catalonia-riviera-maya-resort-y-spa_147005577912.jpg', '2020-02-12 18:51:27', NULL),
+(92, 6, 'catalonia-riviera-maya-resort-y-spa_147005577913.jpg', '2020-02-12 18:51:27', NULL),
+(93, 6, 'catalonia-riviera-maya-resort-y-spa_147005577914.jpg', '2020-02-12 18:51:27', NULL),
+(94, 6, 'catalonia-riviera-maya-resort-y-spa_147005577915.jpg', '2020-02-12 18:51:27', NULL),
+(95, 6, 'catalonia-riviera-maya-resort-y-spa_147005578016.jpg', '2020-02-12 18:51:27', NULL),
+(96, 6, 'catalonia-riviera-maya-resort-y-spa_147005578017.jpg', '2020-02-12 18:51:27', NULL);
 
 -- --------------------------------------------------------
 
@@ -563,7 +681,18 @@ CREATE TABLE IF NOT EXISTS `producto_fecha_ref` (
   `precioProveedor` double DEFAULT NULL,
   `comision` int(11) DEFAULT NULL,
   PRIMARY KEY (`idProductoFechaRef`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `producto_fecha_ref`
+--
+
+INSERT INTO `producto_fecha_ref` (`idProductoFechaRef`, `idProducto`, `idFechaSalida`, `idFechaVuelta`, `precioProveedor`, `comision`) VALUES
+(1, 5, 1, 2, 800, 10),
+(2, 3, 3, 4, 900, 9),
+(3, 4, 5, 6, 700, 10),
+(4, 2, 7, 8, 900, 10),
+(5, 1, 9, 10, 100, 10);
 
 -- --------------------------------------------------------
 
@@ -693,7 +822,14 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idUsuario`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`idUsuario`, `nombre`, `apellidos`, `DNI`, `email`, `password`, `telefono`, `perfil`, `imagen`, `idEstado`, `idPermiso`, `fechaAlta`, `fechaUpdate`) VALUES
+(1, 'sistema', '-', '-', '-', '-', '-', '-', '-', 1, 1, '2020-02-11 22:21:15', '2020-02-11 22:22:28');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

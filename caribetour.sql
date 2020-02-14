@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 14-02-2020 a las 15:15:04
--- Versión del servidor: 5.7.29-0ubuntu0.18.04.1
--- Versión de PHP: 7.2.24-0ubuntu0.18.04.2
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 14-02-2020 a las 21:39:11
+-- Versión del servidor: 5.7.19
+-- Versión de PHP: 7.0.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -26,8 +28,9 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `blogs`
 --
 
-CREATE TABLE `blogs` (
-  `idblog` int(11) NOT NULL,
+DROP TABLE IF EXISTS `blogs`;
+CREATE TABLE IF NOT EXISTS `blogs` (
+  `idblog` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
   `slug` varchar(50) NOT NULL,
   `metaDescripcion` varchar(255) DEFAULT NULL,
@@ -37,8 +40,9 @@ CREATE TABLE `blogs` (
   `idUsuario` int(11) NOT NULL COMMENT 'el autor del post',
   `idEstado` int(11) NOT NULL DEFAULT '1',
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idblog`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `blogs`
@@ -53,14 +57,16 @@ INSERT INTO `blogs` (`idblog`, `nombre`, `slug`, `metaDescripcion`, `metaKeyWord
 -- Estructura de tabla para la tabla `blog_comentarios`
 --
 
-CREATE TABLE `blog_comentarios` (
-  `idBlogComentario` int(11) NOT NULL,
+DROP TABLE IF EXISTS `blog_comentarios`;
+CREATE TABLE IF NOT EXISTS `blog_comentarios` (
+  `idBlogComentario` int(11) NOT NULL AUTO_INCREMENT,
   `idBlog` int(11) NOT NULL,
   `idEstado` int(11) NOT NULL,
   `nombre` varchar(20) NOT NULL,
   `email` varchar(30) NOT NULL,
   `comentario` varchar(255) NOT NULL,
-  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idBlogComentario`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -69,15 +75,17 @@ CREATE TABLE `blog_comentarios` (
 -- Estructura de tabla para la tabla `categorias`
 --
 
-CREATE TABLE `categorias` (
-  `idCategoria` int(11) NOT NULL,
+DROP TABLE IF EXISTS `categorias`;
+CREATE TABLE IF NOT EXISTS `categorias` (
+  `idCategoria` int(11) NOT NULL AUTO_INCREMENT,
   `idCategoriaPadre` int(11) NOT NULL DEFAULT '0',
   `nombre` varchar(50) NOT NULL,
   `slug` varchar(50) NOT NULL,
   `descripcion` text,
   `idEstado` int(11) NOT NULL,
-  `srcImagen` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `srcImagen` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`idCategoria`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `categorias`
@@ -108,7 +116,8 @@ INSERT INTO `categorias` (`idCategoria`, `idCategoriaPadre`, `nombre`, `slug`, `
 -- Estructura de tabla para la tabla `cias`
 --
 
-CREATE TABLE `cias` (
+DROP TABLE IF EXISTS `cias`;
+CREATE TABLE IF NOT EXISTS `cias` (
   `idCia` int(11) NOT NULL,
   `nombre` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `codigo` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL
@@ -127,8 +136,9 @@ INSERT INTO `cias` (`idCia`, `nombre`, `codigo`) VALUES
 -- Estructura de tabla para la tabla `clientes`
 --
 
-CREATE TABLE `clientes` (
-  `idCliente` int(11) NOT NULL,
+DROP TABLE IF EXISTS `clientes`;
+CREATE TABLE IF NOT EXISTS `clientes` (
+  `idCliente` int(11) NOT NULL AUTO_INCREMENT,
   `idEstado` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellidos` varchar(70) DEFAULT NULL,
@@ -141,8 +151,9 @@ CREATE TABLE `clientes` (
   `provincia` varchar(20) DEFAULT NULL,
   `pais` varchar(20) DEFAULT NULL,
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idCliente`)
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `clientes`
@@ -168,10 +179,12 @@ INSERT INTO `clientes` (`idCliente`, `idEstado`, `nombre`, `apellidos`, `NIFoPas
 -- Estructura de tabla para la tabla `cliente_pasajero_reserva_ref`
 --
 
-CREATE TABLE `cliente_pasajero_reserva_ref` (
+DROP TABLE IF EXISTS `cliente_pasajero_reserva_ref`;
+CREATE TABLE IF NOT EXISTS `cliente_pasajero_reserva_ref` (
   `idCliente` int(11) NOT NULL,
   `idPasajero` int(11) NOT NULL,
-  `idReserva` int(11) NOT NULL
+  `idReserva` int(11) NOT NULL,
+  PRIMARY KEY (`idCliente`,`idPasajero`,`idReserva`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -180,16 +193,18 @@ CREATE TABLE `cliente_pasajero_reserva_ref` (
 -- Estructura de tabla para la tabla `contactos`
 --
 
-CREATE TABLE `contactos` (
-  `idContacto` int(11) NOT NULL,
+DROP TABLE IF EXISTS `contactos`;
+CREATE TABLE IF NOT EXISTS `contactos` (
+  `idContacto` int(11) NOT NULL AUTO_INCREMENT,
   `idTipo` int(11) NOT NULL,
   `contacto` varchar(255) NOT NULL,
   `personaContacto` varchar(255) DEFAULT NULL,
   `srcTabla` varchar(255) NOT NULL,
   `idTabla` int(11) NOT NULL,
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idContacto`)
+) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `contactos`
@@ -269,14 +284,16 @@ INSERT INTO `contactos` (`idContacto`, `idTipo`, `contacto`, `personaContacto`, 
 -- Estructura de tabla para la tabla `documentos`
 --
 
-CREATE TABLE `documentos` (
-  `idDocumento` int(11) NOT NULL,
+DROP TABLE IF EXISTS `documentos`;
+CREATE TABLE IF NOT EXISTS `documentos` (
+  `idDocumento` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
   `path` varchar(40) NOT NULL COMMENT 'el path es el sha1_file del documento, con esto comprobamos si ya se ha subido el mismo documento con distinto nombre',
   `nombreTabla` varchar(255) NOT NULL,
   `idTabla` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
-  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idDocumento`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -285,8 +302,9 @@ CREATE TABLE `documentos` (
 -- Estructura de tabla para la tabla `estados`
 --
 
-CREATE TABLE `estados` (
-  `idEstado` int(11) NOT NULL,
+DROP TABLE IF EXISTS `estados`;
+CREATE TABLE IF NOT EXISTS `estados` (
+  `idEstado` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
   `productos` tinyint(4) NOT NULL DEFAULT '0',
   `categorias` tinyint(4) NOT NULL DEFAULT '0',
@@ -297,8 +315,9 @@ CREATE TABLE `estados` (
   `reservas` tinyint(4) NOT NULL DEFAULT '0',
   `clientes` tinyint(4) NOT NULL DEFAULT '0',
   `usuarios` tinyint(4) NOT NULL DEFAULT '0',
-  `legales` tinyint(4) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `legales` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idEstado`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `estados`
@@ -320,8 +339,9 @@ INSERT INTO `estados` (`idEstado`, `nombre`, `productos`, `categorias`, `blogCom
 -- Estructura de tabla para la tabla `facturas`
 --
 
-CREATE TABLE `facturas` (
-  `idFactura` int(11) NOT NULL,
+DROP TABLE IF EXISTS `facturas`;
+CREATE TABLE IF NOT EXISTS `facturas` (
+  `idFactura` int(11) NOT NULL AUTO_INCREMENT,
   `facturaNum` varchar(10) NOT NULL,
   `idReserva` int(11) NOT NULL,
   `idFacturaTitular` int(11) NOT NULL,
@@ -329,7 +349,8 @@ CREATE TABLE `facturas` (
   `IVA` int(11) NOT NULL COMMENT 'Indica el IVA en porcentaje 0 - 100',
   `descuento` int(11) DEFAULT NULL COMMENT 'indica el descuento en porcentaje 0 - 100',
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `fehaUpdate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
+  `fehaUpdate` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idFactura`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -338,9 +359,11 @@ CREATE TABLE `facturas` (
 -- Estructura de tabla para la tabla `factura_num`
 --
 
-CREATE TABLE `factura_num` (
-  `facturaNum` int(11) NOT NULL COMMENT 'este campo genera el numero visible de la factura, cada año vuelve a contar desde cero',
-  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+DROP TABLE IF EXISTS `factura_num`;
+CREATE TABLE IF NOT EXISTS `factura_num` (
+  `facturaNum` int(11) NOT NULL AUTO_INCREMENT COMMENT 'este campo genera el numero visible de la factura, cada año vuelve a contar desde cero',
+  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`facturaNum`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -349,8 +372,9 @@ CREATE TABLE `factura_num` (
 -- Estructura de tabla para la tabla `factura_titular`
 --
 
-CREATE TABLE `factura_titular` (
-  `idFacturaTitular` int(11) NOT NULL,
+DROP TABLE IF EXISTS `factura_titular`;
+CREATE TABLE IF NOT EXISTS `factura_titular` (
+  `idFacturaTitular` int(11) NOT NULL AUTO_INCREMENT,
   `idCliente` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellidos` varchar(70) DEFAULT NULL,
@@ -359,7 +383,8 @@ CREATE TABLE `factura_titular` (
   `codigoPostal` varchar(10) DEFAULT NULL,
   `ciudad` varchar(20) DEFAULT NULL,
   `provincia` varchar(20) DEFAULT NULL,
-  `pais` varchar(20) DEFAULT NULL
+  `pais` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`idFacturaTitular`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -368,33 +393,35 @@ CREATE TABLE `factura_titular` (
 -- Estructura de tabla para la tabla `fechas`
 --
 
-CREATE TABLE `fechas` (
-  `idFecha` int(11) NOT NULL,
+DROP TABLE IF EXISTS `fechas`;
+CREATE TABLE IF NOT EXISTS `fechas` (
+  `idFecha` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` datetime NOT NULL,
+  `idPuertoSalida` int(11) NOT NULL DEFAULT '1',
   `terminalSalida` varchar(10) DEFAULT NULL,
-  `terminalDestino` varchar(10) DEFAULT NULL,
   `tasasSalida` double DEFAULT NULL,
+  `idPuertoDestino` int(11) DEFAULT '1',
+  `terminalDestino` varchar(10) DEFAULT NULL,
   `tasasDestino` double DEFAULT NULL,
   `idCia` int(11) DEFAULT '1',
-  `idPuertoSalida` int(11) NOT NULL DEFAULT '1',
-  `idPuertoDestino` int(11) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`idFecha`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `fechas`
 --
 
-INSERT INTO `fechas` (`idFecha`, `fecha`, `terminalSalida`, `terminalDestino`, `tasasSalida`, `tasasDestino`, `idCia`, `idPuertoSalida`, `idPuertoDestino`) VALUES
-(1, '2020-02-16 00:00:00', 'T2', 'T1', 60, 0, 1, 2, 3),
-(2, '2020-02-23 00:00:00', 'T1', 'T2', 20, 0, 1, 3, 2),
-(3, '2020-02-16 00:00:00', 'T2', 'T1', 60, 0, 1, 2, 3),
-(4, '2020-02-23 00:00:00', 'T1', 'T2', 20, 0, 1, 3, 2),
-(5, '2020-02-16 00:00:00', 'T2', 'T1', 60, 0, 1, 2, 3),
-(6, '2020-02-23 00:00:00', 'T1', 'T2', 20, 0, 1, 3, 2),
-(7, '2020-02-16 00:00:00', 'T2', 'T1', 60, 0, 1, 2, 3),
-(8, '2020-02-23 00:00:00', 'T1', 'T2', 20, 0, 1, 3, 2),
-(9, '2020-02-16 00:00:00', 'T2', 'T1', 60, 0, 1, 2, 3),
-(10, '2020-02-23 00:00:00', 'T1', 'T2', 20, 0, 1, 3, 2);
+INSERT INTO `fechas` (`idFecha`, `fecha`, `idPuertoSalida`, `terminalSalida`, `tasasSalida`, `idPuertoDestino`, `terminalDestino`, `tasasDestino`, `idCia`) VALUES
+(1, '2020-02-16 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
+(2, '2020-02-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
+(3, '2020-02-16 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
+(4, '2020-02-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
+(5, '2020-02-16 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
+(6, '2020-02-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
+(7, '2020-02-16 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
+(8, '2020-02-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
+(9, '2020-02-16 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
+(10, '2020-02-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -402,13 +429,15 @@ INSERT INTO `fechas` (`idFecha`, `fecha`, `terminalSalida`, `terminalDestino`, `
 -- Estructura de tabla para la tabla `imagenes`
 --
 
-CREATE TABLE `imagenes` (
-  `idImagen` int(11) NOT NULL,
+DROP TABLE IF EXISTS `imagenes`;
+CREATE TABLE IF NOT EXISTS `imagenes` (
+  `idImagen` int(11) NOT NULL AUTO_INCREMENT,
   `idProducto` int(11) NOT NULL,
   `srcImagen` varchar(255) NOT NULL,
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `fehaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `fehaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idImagen`)
+) ENGINE=MyISAM AUTO_INCREMENT=97 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `imagenes`
@@ -518,12 +547,14 @@ INSERT INTO `imagenes` (`idImagen`, `idProducto`, `srcImagen`, `fechaAlta`, `feh
 -- Estructura de tabla para la tabla `legales`
 --
 
-CREATE TABLE `legales` (
+DROP TABLE IF EXISTS `legales`;
+CREATE TABLE IF NOT EXISTS `legales` (
   `idLegal` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `slug` varchar(50) DEFAULT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
-  `idEstado` int(11) NOT NULL
+  `idEstado` int(11) NOT NULL,
+  PRIMARY KEY (`idLegal`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -532,15 +563,17 @@ CREATE TABLE `legales` (
 -- Estructura de tabla para la tabla `notas`
 --
 
-CREATE TABLE `notas` (
-  `idNota` int(11) NOT NULL,
+DROP TABLE IF EXISTS `notas`;
+CREATE TABLE IF NOT EXISTS `notas` (
+  `idNota` int(11) NOT NULL AUTO_INCREMENT,
   `nombreTabla` varchar(255) NOT NULL,
   `idTabla` int(11) NOT NULL,
   `nota` varchar(255) NOT NULL,
   `idUsuario` int(11) NOT NULL,
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idNota`)
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `notas`
@@ -572,13 +605,15 @@ INSERT INTO `notas` (`idNota`, `nombreTabla`, `idTabla`, `nota`, `idUsuario`, `f
 -- Estructura de tabla para la tabla `pagos`
 --
 
-CREATE TABLE `pagos` (
-  `idPago` int(11) NOT NULL,
+DROP TABLE IF EXISTS `pagos`;
+CREATE TABLE IF NOT EXISTS `pagos` (
+  `idPago` int(11) NOT NULL AUTO_INCREMENT,
   `idReserva` int(11) NOT NULL,
   `importe` double NOT NULL,
   `idPagoTipo` int(11) NOT NULL COMMENT 'indica el tipo de pago',
   `idEstado` int(11) NOT NULL,
-  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idPago`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -587,15 +622,17 @@ CREATE TABLE `pagos` (
 -- Estructura de tabla para la tabla `pasajeros`
 --
 
-CREATE TABLE `pasajeros` (
-  `idPasajero` int(11) NOT NULL,
+DROP TABLE IF EXISTS `pasajeros`;
+CREATE TABLE IF NOT EXISTS `pasajeros` (
+  `idPasajero` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
   `apellidos` varchar(70) DEFAULT NULL,
   `NIFoPasaporte` varchar(10) NOT NULL,
   `nacionalidad` varchar(20) NOT NULL,
   `fechaNacimiento` date NOT NULL,
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+  `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idPasajero`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -604,9 +641,11 @@ CREATE TABLE `pasajeros` (
 -- Estructura de tabla para la tabla `permisos`
 --
 
-CREATE TABLE `permisos` (
-  `idPermiso` int(11) NOT NULL,
-  `nombre` varchar(20) NOT NULL
+DROP TABLE IF EXISTS `permisos`;
+CREATE TABLE IF NOT EXISTS `permisos` (
+  `idPermiso` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(20) NOT NULL,
+  PRIMARY KEY (`idPermiso`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -615,8 +654,9 @@ CREATE TABLE `permisos` (
 -- Estructura de tabla para la tabla `productos`
 --
 
-CREATE TABLE `productos` (
-  `idproducto` int(11) NOT NULL,
+DROP TABLE IF EXISTS `productos`;
+CREATE TABLE IF NOT EXISTS `productos` (
+  `idproducto` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   `descripcion` text,
@@ -632,8 +672,9 @@ CREATE TABLE `productos` (
   `stock` int(11) DEFAULT NULL,
   `esOferta` tinyint(4) DEFAULT '0',
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `fehaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `fehaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idproducto`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `productos`
@@ -654,14 +695,16 @@ INSERT INTO `productos` (`idproducto`, `nombre`, `imagen`, `descripcion`, `slug`
 -- Estructura de tabla para la tabla `producto_fecha_ref`
 --
 
-CREATE TABLE `producto_fecha_ref` (
-  `idProductoFechaRef` int(11) NOT NULL,
+DROP TABLE IF EXISTS `producto_fecha_ref`;
+CREATE TABLE IF NOT EXISTS `producto_fecha_ref` (
+  `idProductoFechaRef` int(11) NOT NULL AUTO_INCREMENT,
   `idProducto` int(11) NOT NULL,
   `idFechaSalida` int(11) DEFAULT NULL,
   `idFechaVuelta` int(11) DEFAULT NULL,
   `precioProveedor` double DEFAULT NULL,
-  `comision` int(11) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `comision` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idProductoFechaRef`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `producto_fecha_ref`
@@ -671,7 +714,7 @@ INSERT INTO `producto_fecha_ref` (`idProductoFechaRef`, `idProducto`, `idFechaSa
 (1, 5, 1, 2, 800, 10),
 (2, 3, 3, 4, 900, 9),
 (3, 4, 5, 6, 700, 10),
-(4, 2, 7, NULL, 900, 10),
+(4, 2, 7, 8, 900, 10),
 (5, 1, 9, 10, 100, 10);
 
 -- --------------------------------------------------------
@@ -680,8 +723,9 @@ INSERT INTO `producto_fecha_ref` (`idProductoFechaRef`, `idProducto`, `idFechaSa
 -- Estructura de tabla para la tabla `proveedores`
 --
 
-CREATE TABLE `proveedores` (
-  `idProveedor` int(11) NOT NULL,
+DROP TABLE IF EXISTS `proveedores`;
+CREATE TABLE IF NOT EXISTS `proveedores` (
+  `idProveedor` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
   `contacto` varchar(30) DEFAULT NULL,
   `telefono` varchar(100) DEFAULT NULL,
@@ -691,8 +735,9 @@ CREATE TABLE `proveedores` (
   `direccion` varchar(255) DEFAULT NULL,
   `idEstado` int(11) NOT NULL,
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `fehaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `fehaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idProveedor`)
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `proveedores`
@@ -730,7 +775,8 @@ INSERT INTO `proveedores` (`idProveedor`, `nombre`, `contacto`, `telefono`, `NIF
 -- Estructura de tabla para la tabla `puertos`
 --
 
-CREATE TABLE `puertos` (
+DROP TABLE IF EXISTS `puertos`;
+CREATE TABLE IF NOT EXISTS `puertos` (
   `idPuerto` int(11) NOT NULL,
   `nombre` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `codigo` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
@@ -752,12 +798,14 @@ INSERT INTO `puertos` (`idPuerto`, `nombre`, `codigo`, `idTipo`) VALUES
 -- Estructura de tabla para la tabla `reservas`
 --
 
-CREATE TABLE `reservas` (
-  `idReserva` int(11) NOT NULL,
+DROP TABLE IF EXISTS `reservas`;
+CREATE TABLE IF NOT EXISTS `reservas` (
+  `idReserva` int(11) NOT NULL AUTO_INCREMENT,
   `idProductoFechaRef` int(11) NOT NULL,
   `idEstado` int(11) NOT NULL,
   `importe` double NOT NULL,
-  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idReserva`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -766,22 +814,24 @@ CREATE TABLE `reservas` (
 -- Estructura de tabla para la tabla `tipos`
 --
 
-CREATE TABLE `tipos` (
-  `idTipo` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tipos`;
+CREATE TABLE IF NOT EXISTS `tipos` (
+  `idTipo` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(20) NOT NULL,
   `productos` tinyint(4) NOT NULL DEFAULT '0',
   `contactos` tinyint(4) NOT NULL DEFAULT '0',
   `pagos` tinyint(4) NOT NULL DEFAULT '0',
-  `puertos` int(11) DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `puertos` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idTipo`)
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tipos`
 --
 
 INSERT INTO `tipos` (`idTipo`, `nombre`, `productos`, `contactos`, `pagos`, `puertos`) VALUES
-(1, '-', 1, 1, 1, 1),
-(2, 'Otros', 1, 1, 1, 1),
+(1, '-', 1, 1, 1, 0),
+(2, 'Otros', 1, 1, 1, 0),
 (3, 'Tour', 1, 0, 0, 0),
 (4, 'Excursion', 1, 0, 0, 0),
 (5, 'Traslados', 1, 0, 0, 0),
@@ -806,8 +856,9 @@ INSERT INTO `tipos` (`idTipo`, `nombre`, `productos`, `contactos`, `pagos`, `pue
 -- Estructura de tabla para la tabla `usuarios`
 --
 
-CREATE TABLE `usuarios` (
-  `idUsuario` int(11) NOT NULL,
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
   `apellidos` varchar(70) DEFAULT NULL,
   `DNI` varchar(10) DEFAULT NULL,
@@ -819,8 +870,9 @@ CREATE TABLE `usuarios` (
   `idEstado` int(11) NOT NULL,
   `idPermiso` int(11) NOT NULL,
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idUsuario`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -828,291 +880,8 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`idUsuario`, `nombre`, `apellidos`, `DNI`, `email`, `password`, `telefono`, `perfil`, `imagen`, `idEstado`, `idPermiso`, `fechaAlta`, `fechaUpdate`) VALUES
 (1, 'sistema', '-', '-', '-', '-', '-', '-', '-', 1, 1, '2020-02-11 22:21:15', '2020-02-11 22:22:28');
+COMMIT;
 
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `blogs`
---
-ALTER TABLE `blogs`
-  ADD PRIMARY KEY (`idblog`);
-
---
--- Indices de la tabla `blog_comentarios`
---
-ALTER TABLE `blog_comentarios`
-  ADD PRIMARY KEY (`idBlogComentario`);
-
---
--- Indices de la tabla `categorias`
---
-ALTER TABLE `categorias`
-  ADD PRIMARY KEY (`idCategoria`);
-
---
--- Indices de la tabla `cias`
---
-ALTER TABLE `cias`
-  ADD PRIMARY KEY (`idCia`);
-
---
--- Indices de la tabla `clientes`
---
-ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`idCliente`);
-
---
--- Indices de la tabla `cliente_pasajero_reserva_ref`
---
-ALTER TABLE `cliente_pasajero_reserva_ref`
-  ADD PRIMARY KEY (`idCliente`,`idPasajero`,`idReserva`);
-
---
--- Indices de la tabla `contactos`
---
-ALTER TABLE `contactos`
-  ADD PRIMARY KEY (`idContacto`);
-
---
--- Indices de la tabla `documentos`
---
-ALTER TABLE `documentos`
-  ADD PRIMARY KEY (`idDocumento`);
-
---
--- Indices de la tabla `estados`
---
-ALTER TABLE `estados`
-  ADD PRIMARY KEY (`idEstado`);
-
---
--- Indices de la tabla `facturas`
---
-ALTER TABLE `facturas`
-  ADD PRIMARY KEY (`idFactura`);
-
---
--- Indices de la tabla `factura_num`
---
-ALTER TABLE `factura_num`
-  ADD PRIMARY KEY (`facturaNum`);
-
---
--- Indices de la tabla `factura_titular`
---
-ALTER TABLE `factura_titular`
-  ADD PRIMARY KEY (`idFacturaTitular`);
-
---
--- Indices de la tabla `fechas`
---
-ALTER TABLE `fechas`
-  ADD PRIMARY KEY (`idFecha`);
-
---
--- Indices de la tabla `imagenes`
---
-ALTER TABLE `imagenes`
-  ADD PRIMARY KEY (`idImagen`);
-
---
--- Indices de la tabla `legales`
---
-ALTER TABLE `legales`
-  ADD PRIMARY KEY (`idLegal`);
-
---
--- Indices de la tabla `notas`
---
-ALTER TABLE `notas`
-  ADD PRIMARY KEY (`idNota`);
-
---
--- Indices de la tabla `pagos`
---
-ALTER TABLE `pagos`
-  ADD PRIMARY KEY (`idPago`);
-
---
--- Indices de la tabla `pasajeros`
---
-ALTER TABLE `pasajeros`
-  ADD PRIMARY KEY (`idPasajero`);
-
---
--- Indices de la tabla `permisos`
---
-ALTER TABLE `permisos`
-  ADD PRIMARY KEY (`idPermiso`);
-
---
--- Indices de la tabla `productos`
---
-ALTER TABLE `productos`
-  ADD PRIMARY KEY (`idproducto`);
-
---
--- Indices de la tabla `producto_fecha_ref`
---
-ALTER TABLE `producto_fecha_ref`
-  ADD PRIMARY KEY (`idProductoFechaRef`);
-
---
--- Indices de la tabla `proveedores`
---
-ALTER TABLE `proveedores`
-  ADD PRIMARY KEY (`idProveedor`);
-
---
--- Indices de la tabla `puertos`
---
-ALTER TABLE `puertos`
-  ADD PRIMARY KEY (`idPuerto`);
-
---
--- Indices de la tabla `reservas`
---
-ALTER TABLE `reservas`
-  ADD PRIMARY KEY (`idReserva`);
-
---
--- Indices de la tabla `tipos`
---
-ALTER TABLE `tipos`
-  ADD PRIMARY KEY (`idTipo`);
-
---
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`idUsuario`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `blogs`
---
-ALTER TABLE `blogs`
-  MODIFY `idblog` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT de la tabla `blog_comentarios`
---
-ALTER TABLE `blog_comentarios`
-  MODIFY `idBlogComentario` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `categorias`
---
-ALTER TABLE `categorias`
-  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
---
--- AUTO_INCREMENT de la tabla `cias`
---
-ALTER TABLE `cias`
-  MODIFY `idCia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT de la tabla `clientes`
---
-ALTER TABLE `clientes`
-  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
---
--- AUTO_INCREMENT de la tabla `contactos`
---
-ALTER TABLE `contactos`
-  MODIFY `idContacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
---
--- AUTO_INCREMENT de la tabla `documentos`
---
-ALTER TABLE `documentos`
-  MODIFY `idDocumento` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `estados`
---
-ALTER TABLE `estados`
-  MODIFY `idEstado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT de la tabla `facturas`
---
-ALTER TABLE `facturas`
-  MODIFY `idFactura` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `factura_num`
---
-ALTER TABLE `factura_num`
-  MODIFY `facturaNum` int(11) NOT NULL AUTO_INCREMENT COMMENT 'este campo genera el numero visible de la factura, cada año vuelve a contar desde cero';
---
--- AUTO_INCREMENT de la tabla `factura_titular`
---
-ALTER TABLE `factura_titular`
-  MODIFY `idFacturaTitular` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `fechas`
---
-ALTER TABLE `fechas`
-  MODIFY `idFecha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
---
--- AUTO_INCREMENT de la tabla `imagenes`
---
-ALTER TABLE `imagenes`
-  MODIFY `idImagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
---
--- AUTO_INCREMENT de la tabla `notas`
---
-ALTER TABLE `notas`
-  MODIFY `idNota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
---
--- AUTO_INCREMENT de la tabla `pagos`
---
-ALTER TABLE `pagos`
-  MODIFY `idPago` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `pasajeros`
---
-ALTER TABLE `pasajeros`
-  MODIFY `idPasajero` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `permisos`
---
-ALTER TABLE `permisos`
-  MODIFY `idPermiso` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `productos`
---
-ALTER TABLE `productos`
-  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
---
--- AUTO_INCREMENT de la tabla `producto_fecha_ref`
---
-ALTER TABLE `producto_fecha_ref`
-  MODIFY `idProductoFechaRef` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT de la tabla `proveedores`
---
-ALTER TABLE `proveedores`
-  MODIFY `idProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
---
--- AUTO_INCREMENT de la tabla `puertos`
---
-ALTER TABLE `puertos`
-  MODIFY `idPuerto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT de la tabla `reservas`
---
-ALTER TABLE `reservas`
-  MODIFY `idReserva` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `tipos`
---
-ALTER TABLE `tipos`
-  MODIFY `idTipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -28,3 +28,13 @@ fv.tasasDestino
 FROM  producto_fecha_ref pfr
 left join fechas as fs on pfr.idFechaSalida = fs.idFecha 
 left join fechas as fv on pfr.idFechaVuelta  = fv.idFecha
+
+
+NOTA: la sentencia group by se queda con el ultimo registro sin ordenar ej;
+id  | cli | pro
+5   | 1   |   1
+7   | 2   |   1
+9   | 3   |   2
+
+select cli, pro from tbl group by pro -> el resultado son los registros 7 y 9
+select cli, pro from tbl group by pro order by cli ASC -> el resultado es el mismo que el anterior 7 y 9

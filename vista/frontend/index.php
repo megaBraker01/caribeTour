@@ -16,7 +16,7 @@ $productoIds = [];
 
 // 2do- solo nos quedamos con los ids para luego filtrar las fechas
 foreach($productoLista as $producto){
-	$productoIds[] = $producto->getIdproducto();
+    $productoIds[] = $producto->getIdproducto();
 }
 
 // 3ro- filtramos las fechas de los productos obtenidos y las organizamos por precio
@@ -28,7 +28,7 @@ $productoFechaSlider = $productoFechaC->select([['idProducto', 'in', $showProduc
 // PRODUCTOS
 $productoList = $productoC->select($productoFiltro,[],[6]);
 foreach($productoList as $producto){
-	$productoIds[] = $producto->getIdproducto();
+    $productoIds[] = $producto->getIdproducto();
 }
 $showProductoIds = implode(', ', $productoIds);
 $productosMostrarList = $productoFechaC->select([['idProducto', 'in', $showProductoIds]], $productoFechaOrder);

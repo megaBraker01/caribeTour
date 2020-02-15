@@ -6,20 +6,16 @@ $categoriaList = [];
 $slugCatPadre = $_GET['slugCat'];
 $catPadreNombre = ucfirst($slugCatPadre);
 if(isset($slugCatPadre) and $slugCatPadre != ""){
-    $categoriaC = new CategoriaController();
-    $filtro = [
-        ['slug', '=', $slugCatPadre]
-    ];
-    $catPadreList = $categoriaC->select($filtro);
     
-    if(!empty($catPadreList)){
-        $catPadreNombre = $catPadreList[0]->getNombre();    
-        $filtroCat = [
-            ['idCategoriaPadre', '=', $catPadreList[0]->getIdCategoria()],
-            ['idEstado', '=', 1],
-        ];
-        $categoriaList = $categoriaC->select($filtroCat);
-    }    
+    $util = new Util();
+    $categoriaPadre = $util->getCategoriaBySlug($slugCatPadre);
+    $idCategoriaPadre = $categoriaPadre->getIdCategoria();
+    $filtros = [['idCategoriaPadre', '=', $idCategoriaPadre]];
+    $ordenados = [['precioProveedor']];
+    $limitar = [];
+    $agrupar = ['idCategoria'];
+    $utilCategoriaList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
+
 }
 ?>
 <!DOCTYPE html>
@@ -90,7 +86,22 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
             
             
                 <div class="row">
-                    <?php $i = 1; foreach($categoriaList as $categoria){ ?>
+                    <?php 
+                    $i = 1; 
+                    foreach($utilCategoriaList as $utilCategoria){
+                        $idCategoria = $utilCategoria->idCategoria;
+                        $categoria = $util->getCategoriaById($idCategoria);
+                        $precioMasBajo = $utilCategoria->precioProveedor;
+                        $comision = $utilCategoria->comision;
+                        $precioMasBajo += ($precioMasBajo * $comision)/100;
+                        
+                        /*
+                        $precioMasBajo = $categoria->getProductoFechaRef([], [['precioProveedor']], [1])[0]->precioProveedor;
+                        $comision = $categoria->getProductoFechaRef([], [['precioProveedor']], [1])[0]->comision;
+                        $precioMasBajo += ($precioMasBajo * $comision)/100;
+                         * 
+                         */
+                    ?>
                     
                     <div class="fourcol column <?php if ($i % 3==0){ echo 'last'; } ?>">
                         <div class="featured-blog">
@@ -103,7 +114,7 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
                                 <div class="post-content">
                                     <h2 class="post-title">
                                         <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $slugCatPadre ?>/<?= $categoria->getSlug() ?>" title="<?= $categoria->getNombre() ?>">
-                                            <?= $categoria->getNombre() ?> desde <?php echo (800.54); ?>&euro;
+                                            <?= $categoria->getNombre() ?> desde <?= $precioMasBajo ?>&euro;
                                         </a>
                                     </h2>
                                     <p>&nbsp;</p>
@@ -115,7 +126,7 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
                     
                     <?php } ?>
                 
-                    <?php if(empty($categoriaList)){ ?>
+                    <?php if(empty($utilCategoriaList)){ ?>
                     <h3>Sin Resultados...</h3>
                     <h4><p>Lo sentimos, <?= $catPadreNombre ?> <strong>NO</strong> se encuentra disponible en estos momentos. </p><p>Puedes echar un vistazo a los productos relacionados... Disculpe las molestias.</p></h4>
                     <img  width="50%" src="<?=PATHFRONTEND ?>images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados...">

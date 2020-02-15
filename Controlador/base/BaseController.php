@@ -111,6 +111,7 @@ abstract class BaseController {
             $sql .= $this->groupSqlPrepare($agrupar);
             $sql .= $this->orderSqlPrepare($ordenados);
             $sql .= $this->limitSqlPrepare($limitar);
+            //var_dump($sql);
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             

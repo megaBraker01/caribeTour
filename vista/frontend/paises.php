@@ -2,13 +2,12 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
-$categoriaC = new CategoriaController();
-$filtro = [
-    ['idCategoriaPadre', '=', 0],
-    ['idEstado', '=', 1],
-    ['idCategoria', '!=', 14] // != seguros
-];
-$paisesList = $categoriaC->select($filtro);
+$util = new Util();
+$filtros = [];
+$ordenados = [['precioProveedor']];
+$limitar = [];
+$agrupar = ['idCategoriaPadre'];
+$utilPaisesList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -78,7 +77,15 @@ $paisesList = $categoriaC->select($filtro);
             
             
                 <div class="row">
-                    <?php $i = 1; foreach($paisesList as $categoria){ ?>
+                    <?php 
+                    $i = 1; 
+                    foreach($utilPaisesList as $utilPais){
+                        $idCategoria = $utilPais->idCategoriaPadre;
+                        $categoria = $util->getCategoriaById($idCategoria);
+                        $precioMasBajo = $utilPais->precioProveedor;
+                        $comision = $utilPais->comision;
+                        $precioMasBajo += ($precioMasBajo * $comision)/100;
+                    ?>
                     
                     <div class="fourcol column <?php if ($i % 3==0){ echo 'last'; } ?>">
                         <div class="featured-blog">
@@ -90,7 +97,7 @@ $paisesList = $categoriaC->select($filtro);
                                 </div>
                                 <div class="post-content">
                                     <h2 class="post-title">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoria->getSlug() ?>" title="<?= $categoria->getNombre() ?>"><?= $categoria->getNombre() ?> desde <?php echo (800.54); ?>&euro;</a>
+                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoria->getSlug() ?>" title="<?= $categoria->getNombre() ?>"><?= $categoria->getNombre() ?> desde <?= $precioMasBajo ?>&euro;</a>
                                     </h2>
                                     <p>&nbsp;</p>
                                 </div>
@@ -101,7 +108,7 @@ $paisesList = $categoriaC->select($filtro);
                     
                     <?php } ?>
                     
-                    <?php if(empty($paisesList)){ ?>
+                    <?php if(empty($utilPaisesList)){ ?>
                     <h3>Sin Resultados...</h3>
                     <h4>Lo sentimos, <strong>NO</strong> tenemos paises de destinos disponibles en estos momentos... Disculpe las molestias.</h4>
                     <img  width="50%" src="<?=PATHFRONTEND ?>images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados...">

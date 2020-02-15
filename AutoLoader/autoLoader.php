@@ -32,7 +32,7 @@ if (!function_exists('autoLoader')) {
          * - Controlador
          * - Modelo 
          */
-        $principalDirectories = ['Conexion', 'Controlador', 'Modelo'];
+        $principalDirectories = ['Conexion', 'Controlador', 'Modelo', 'Util'];
         
         $i = 0;
         while (!$clasWasFound and isset($principalDirectories[$i])){

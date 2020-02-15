@@ -115,7 +115,14 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
                         <?php // Show if recordset not empty ?>
                         <div class="items-list clearfix">
                             
-                            <?php $i = 1; foreach ($mostrarProductos as $producto){ ?>
+                            <?php 
+                            $i = 1; 
+                            foreach ($mostrarProductos as $producto){
+                                $roductoFechaRef = $producto->getProductoFechaRef([], [['precioProveedor']], [1]);
+                                $precioMasBajo = $roductoFechaRef[0]->precioProveedor;
+                                $comision = $roductoFechaRef[0]->comision;
+                                $precioMasBajo += ($precioMasBajo * $comision)/100;
+                            ?>
                             <div class="full-tour clearfix">
                                 
                                 <div class="fivecol column">
@@ -151,7 +158,7 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
                                         </li>
                                         <li style="font-size:1.8em;">
                                             <div class="colored-icon icon-3"><span></span></div>
-                                            <strong>Desde:</strong> 6545&euro;
+                                            <strong>Desde:</strong> <?= $precioMasBajo ?>&euro;
                                         </li>
                                     </ul>
                                     <p><?= substr($producto->getDescripcion(),0,261); ?>.[...]</p>

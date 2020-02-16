@@ -82,7 +82,7 @@ $utilPaisesList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, 
                     foreach($utilPaisesList as $utilPais){
                         $idCategoria = $utilPais->idCategoriaPadre;
                         $categoria = $util->getCategoriaById($idCategoria);
-                        $precioMasBajo = $utilPais->precioProveedor;
+                        $precioMasBajo = $utilPais->precioMinimo;
                         $comision = $utilPais->comision;
                         $precioMasBajo += ($precioMasBajo * $comision)/100;
                     ?>

@@ -3,14 +3,16 @@ require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
 $productoList = [];
-$slugCatPadre = $_GET['slugCat'];
-$catNombre = ucfirst($slugCatPadre);
+$slugCat = $_GET['slugCat'];
+$catNombre = ucfirst($slugCat);
+$slugCatPadre = $categoria = $catPadre = null;
 $mostrarDesde = $pagActual = $pagTotal = 1;
+$mostrarProductos = [];
 
-if(isset($slugCatPadre) and $slugCatPadre != ""){
+if(isset($slugCat) and $slugCat != ""){
     $categoriaC = new CategoriaController();
     $catFiltro = [
-        ['slug', '=', $slugCatPadre]
+        ['slug', '=', $slugCat]
     ];
     $catList = $categoriaC->select($catFiltro);
     
@@ -18,6 +20,7 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
         $categoria = $catList[0];
         $catNombre = $categoria->getNombre();
 	$catPadre = $categoria->getCategoriaPadre();
+        $slugCatPadre = $catPadre->getSlug();
         $productoFiltro = [
             ['idCategoria', '=', $categoria->getIdCategoria()],
             ['idEstado', '=', 1],
@@ -28,7 +31,7 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
 
 	// PAGINACION
 	$productoTotales = count($productoList);
-	$mostrarItems = 1;
+	$mostrarItems = 4;
 	$pagTotal = ceil($productoTotales / $mostrarItems);
 	$pagActual = $_GET['pag'] ?? 1;
 	$mostrarDesde = ($pagActual - 1) * $mostrarItems;
@@ -95,13 +98,13 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
                         <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises" rel="tag" title="Inicio">Paises</a>
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises" rel="tag" title="Paises">Paises</a>
                     </div>
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?=$catPadre->getSlug() ?>" rel="tag" title="Inicio"><?=$catPadre ?></a>
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $slugCatPadre ?>" rel="tag" title="<?= $catPadre ?>"><?= $catPadre ?></a>
                     </div>
                     <div class="breadcrumb">
-                        <?=$categoria ?>
+                        <?= $categoria ?>
                     </div>
                 </div>
                 <!-- /breadcrumb-->            
@@ -188,6 +191,7 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
                         </div>
 			<?php } ?>
                         
+                        <?php if(!empty($catList)){ ?>
                         <nav class="pagination">
                         <?php 
 			for ($i = 1; $i <= $pagTotal; $i++){
@@ -198,7 +202,7 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
 			} 
 			?>
                         </nav>
-                        
+                        <?php } ?>
                         
                     </div>
                     

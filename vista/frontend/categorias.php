@@ -5,17 +5,23 @@ require_once "../../AutoLoader/autoLoader.php";
 $categoriaList = [];
 $slugCatPadre = $_GET['slugCat'];
 $catPadreNombre = ucfirst($slugCatPadre);
-if(isset($slugCatPadre) and $slugCatPadre != ""){
+$util = new Util();
+$utilCategoriaList = [];
+
+if  (
+    isset($slugCatPadre) and 
+    $slugCatPadre != "" and 
+    $categoriaPadre = $util->getCategoriaBySlug($slugCatPadre)
+    ){    
     
-    $util = new Util();
-    $categoriaPadre = $util->getCategoriaBySlug($slugCatPadre);
+    $catPadreNombre = $categoriaPadre->getNombre();
     $idCategoriaPadre = $categoriaPadre->getIdCategoria();
     $filtros = [['idCategoriaPadre', '=', $idCategoriaPadre]];
     $ordenados = [['precioProveedor']];
     $limitar = [];
     $agrupar = ['idCategoria'];
     $utilCategoriaList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
-
+    
 }
 ?>
 <!DOCTYPE html>
@@ -91,7 +97,7 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
                     foreach($utilCategoriaList as $utilCategoria){
                         $idCategoria = $utilCategoria->idCategoria;
                         $categoria = $util->getCategoriaById($idCategoria);
-                        $precioMasBajo = $utilCategoria->precioProveedor;
+                        $precioMasBajo = $utilCategoria->precioMinimo;
                         $comision = $utilCategoria->comision;
                         $precioMasBajo += ($precioMasBajo * $comision)/100;
                         
@@ -128,7 +134,7 @@ if(isset($slugCatPadre) and $slugCatPadre != ""){
                 
                     <?php if(empty($utilCategoriaList)){ ?>
                     <h3>Sin Resultados...</h3>
-                    <h4><p>Lo sentimos, <?= $catPadreNombre ?> <strong>NO</strong> se encuentra disponible en estos momentos. </p><p>Puedes echar un vistazo a los productos relacionados... Disculpe las molestias.</p></h4>
+                    <h4><p>Lo sentimos, esta categor&iacute;a <strong>NO</strong> se encuentra disponible en estos momentos. </p><p>Puedes echar un vistazo a los productos relacionados... Disculpe las molestias.</p></h4>
                     <img  width="50%" src="<?=PATHFRONTEND ?>images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados...">
                     <?php } ?>                
                 

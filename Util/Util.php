@@ -4,7 +4,7 @@ class Util extends BaseController {
     
     public function getProductoFechaRefPDO(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array
     {
-        $sql = "select * from v_producto_fecha_ref";
+        $sql = "SELECT *, MIN(precioProveedor) AS precioMinimo FROM v_producto_fecha_ref";
         return $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
     }
     

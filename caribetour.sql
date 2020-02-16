@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 14-02-2020 a las 21:39:11
+-- Tiempo de generación: 16-02-2020 a las 11:03:37
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 7.0.23
 
@@ -103,7 +103,7 @@ INSERT INTO `categorias` (`idCategoria`, `idCategoriaPadre`, `nombre`, `slug`, `
 (9, 2, 'Canc&uacute;n', 'cancun', '...', 1, 'cancun.jpg'),
 (10, 1, 'La Romana', 'la-romana', '...', 1, 'portada.jpg'),
 (11, 1, 'Puerto Plata', 'puerto-plata', 'Es Un Lugar Precioso Con Grandes Monta&ntilde;as Y Ricas Playas En Las Que Podras Encontrar Un Sin Numero De Especies Marinas ', 1, 'paradisuspalmareal.jpg'),
-(12, 0, 'Puerto Rico', 'puerto-rico', '', 3, 'puerto-rico.jpg'),
+(12, 0, 'Puerto Rico', 'puerto-rico', '', 1, 'puerto-rico.jpg'),
 (13, 13, 'San Juan', 'san-juan', '....', 1, 'san-juan.jpg'),
 (14, 0, 'Seguros', 'seguros', 'Todos Los Seguros Que Pueden Contratar Los Pasajeros', 1, ''),
 (15, 14, 'Por Persona', 'por-persona', 'Se Calculan Por La Candidad De Personas Que Lo Contraten', 1, ''),
@@ -685,7 +685,7 @@ INSERT INTO `productos` (`idproducto`, `nombre`, `imagen`, `descripcion`, `slug`
 (2, 'Natura Park Beach Eco Resort &amp; Spa', 'natura-park-beach-eco-resort-y-spa.jpg', 'En este resort se aprovechan los recursos naturales del área tales como las piedras, el coco, la madera y la caña, creando un ambiente de extraordinaria belleza natural que parece estar soñando...\r\n \r\nviva la experiencia de unas vacaciones en completa armonía con la naturaleza en el lujoso resort de punta cana, natura park. abundantes jardines tropicales que rebosan con una exótica vida de aves se mezclan con lagunas y puentes a lo largo de caminos serpenteantes que llevan a la playa. el hotel está ubicado en la maravillosa playa de , uno de los mejores en el caribe.\r\n \r\nel natura park beach eco resort se beneficia de un diseño arquitectónico original que utiliza los recursos naturales de la zona como la piedra, los cocoteros, la madera y la caña para crear un ambiente tranquilo y confortable. el natura park es un lugar idílico para unas vacaciones relajantes en el caribe. nuestra excelente ubicación del punta cana resort ofrece una completa selección de actividades y de servicios especiales.', 'natura-park-beach-eco-resort-y-spa', '1- Salida el %s a las %s hrs en vuelo directo desde Madrid con destino %s.\r\n2- Llegada al aeropuerto internacional %s. Asistencia de nuestro Tour Operador en destino para traslados del aeropuerto al hotel %s.\r\n3- Estancia en el hotel %s - %s - todo incluido.\r\n4- Día %s traslado desde el hotel %s al aeropuerto, Vuelo desde %s a las %s hrs con destino Madrid.', '-Vuelo directo con la compañía Evelop desde Madrid con destino Punta Cana.\r\n-Estancia en habitación Standard, 7 noches en régimen de todo incluído en el Hotel Natura Park Eco - Resort & Spa 5* - Punta Cana.\r\n-Traslados de entrada y salida Punta Cana.\r\n-Tasas aéreas incluidas.\r\n-Seguro obligatorio de Viaje.', 'Natura park beach eco resort &amp; spa es un lugar id&iacute;lico para unas vacaciones relajantes en el caribe.', 'Natura Park Beach Eco Resort & Spa', 7, 3, 1, 21, 100, 0, '2020-01-17 21:55:51', '2020-01-18 17:48:45'),
 (3, 'Caribe Club Princess Beach Resort &amp; Spa ', 'caribe-club-princess-beach-resort-y-spa.jpg', 'El hotel caribe club princess beach resort & spa, está situado en una de las más bellas playas de la república dominicana, playa bávaro. gracias a su ubicación, te permitirá disfrutar de un paraje donde la belleza de sus paisajes y el encanto de sus aguas cristalinas, ofrece una percepción emocional de placentera y excepcional sensación de relajamiento y tranquilidad. estarás a pie de playa y además, a tan solo 25 min del aeropuerto de punta cana.\r\n \r\nel completo equipamiento y la calidad de los servicios de sus 111 caribe suites y de sus 229 habitaciones superiores, te ofrecen unas vacaciones en punta cana perfectas para disfrutar con amigos o con tu pareja. tendrás servicio wifi gratuito en el lobby. el atractivo de las tiendas y ofertas que tiene la calle caribeña, te incitarán a que pasees por ella y disfrutes de su animado ambiente.\r\n \r\nademás, este hotel de 4 estrellas te invita a disfrutar de las diversas actividades de ocio y entretenimiento tanto diurnas como nocturnas que tiene organizadas; deportes acuáticos en la playa, ejercicios aeróbicos en la piscina, pista de tenis, paseo en bicicleta, un gran casino ubicado en el bávaro princess, transporte gratuito, discoteca \"areito\" . asimismo, en este hotel todo incluido, podrás degustar la gastronomía de la isla en cualquiera de sus 6 restaurantes / snack bares y 4 bares uno de ellos dentro de la piscina.', 'caribe-club-princess-beach-resort-y-spa', '1- Salida el %s a las %s hrs en vuelo directo desde Madrid con destino %s.\r\n2- Llegada al aeropuerto internacional %s. Asistencia de nuestro Tour Operador en destino para traslados del aeropuerto al hotel %s.\r\n3- Estancia en el hotel %s - %s - todo incluido.\r\n4- Día %s traslado desde el hotel %s al aeropuerto, Vuelo desde %s a las %s hrs con destino Madrid.', '-Vuelo directo con la compañía Wamos Air desde Madrid con destino Punta Cana.\r\n-Estancia en habitación Superior, 7 noches en régimen de todo incluído en el Hotel Caribe Club Princess 4* - Punta Cana.\r\n-Traslados de entrada y salida Punta Cana.\r\n-Tasas aéreas incluidas.\r\n-Seguro obligatorio de Viaje.', 'El hotel caribe club princess beach resort &amp; spa, est&aacute; situado en una de las m&aacute;s bellas playas de la rep&uacute;blica dominicana, playa b&aacute;varo. ', 'Caribe Club Princess Beach Resort & Spa ', 7, 3, 1, 21, 100, 0, '2020-01-17 21:55:51', '2020-01-18 17:48:45'),
 (4, 'Sirenis Punta Cana Resort Casino &amp; Aquagames', 'sirenis-punta-cana-resort-casino-y-aquagames.jpg', 'Este espectacular resort de cinco estrellas, está situado en uno de los más bellos cocotales de punta cana; en un entorno privilegiado, el sirenis punta cana resort casino & aquagames ofrece actividades para todas las edades, ya sea en familia, con su pareja o amigos.\r\npreparado para dar el mejor servicio a sus clientes, dispone de dos piscinas para adultos, con entrada tipo playa, 2 piscinas separadas para los más pequeños, terrazas-solárium.  en el sirenis punta cana resort casino & aquagames  disfrutará de fantásticas  instalaciones, pistas de tenis, 1 pista de pádel,  gimnasio, tenis de mesa, dardos, vóley playa, actividades acuáticas como windsurf, kayak, canoa, catamarán, snorkel y buceo. el gran parque acuático sirenis aquagames de 12.000 m2 está disponible para los clientes del hotel; su gran extensión y sus sorprendentes atracciones, ¡es único en su tipo en toda la región . \r\n \r\nla calidad de la cocina que ofrecen nuestros chefs en los restaurante buffet y en los 7 restaurantes temáticos del hotel es excepcional. cada noche una nueva especialidad, italiana, mexicana, asiática y muchas más. con nuestra fórmula de todo incluido no tendrá que preocuparse de nada más, que de disfrutar de sus vacaciones podrá saborear  su cóctel preferido en los 8 bares del complejo, en la discoteca ó en el casino del hotel.\r\n \r\npunta cana le invita a disfrutar de unas vacaciones de ensueño. el exotismo del caribe, la amabilidad de su gente, playas con aguas transparentes ¡un destino mágico y excepcional le espera', 'sirenis-punta-cana-resort-casino-y-aquagames', '1- Salida el %s a las %s hrs en vuelo directo desde Madrid con destino %s.\r\n2- Llegada al aeropuerto internacional %s. Asistencia de nuestro Tour Operador en destino para traslados del aeropuerto al hotel %s.\r\n3- Estancia en el hotel %s - %s - todo incluido.\r\n4- Día %s traslado desde el hotel %s al aeropuerto, Vuelo desde %s a las %s hrs con destino Madrid.', '-Vuelo directo con la compañía Wamos Air desde Madrid con destino Punta Cana.\r\n-Estancia en habitación Standard, 7 noches en régimen de todo incluído en el Hotel Sirenis Punta Cana Resort Aqualand & Casino 5* - Punta Cana.\r\n-Traslados de entrada y salida Punta Cana.\r\n-Tasas aéreas incluidas.\r\n-Seguro obligatorio de Viaje.', 'Sirenis punta cana resort casino &amp; aquagames ofrece actividades para todas las edades, ya sea en familia, con su pareja o amigos.', 'Sirenis Punta Cana Resort Casino & Aquagames', 7, 3, 1, 21, 100, 0, '2020-01-17 21:55:51', '2020-01-18 17:48:45'),
-(5, 'Riu Lupita', 'riu-lupita.jpg', 'Rodeado de unos increã­bles jardines tropicales, el hotel riu lupita de playa del carmen ofrece a sus clientes todas las facilidades para que vivan unas vacaciones inolvidables. este hotel 5 estrellas en playa del carmen cuenta con el programa todo incluido 24 horas para proporcionarte los mejores servicios de riu hotels & resorts.\r\n \r\nel hotel riu lupita cuenta con 300 habitaciones divididas en varios edificios con vistas al jardã­n o a la piscina. ademã¡s, te ofrecen aire acondicionado, minibar con dispensador de bebidas, tv satã©lite y balcã³n o terraza, entre otras facilidades, para que tengas todas las comodidades durante tu estancia con nosotros.\r\n \r\nlas completas instalaciones de este hotel todo incluido en playa del carmen, mã©xico, te aseguran unas vacaciones perfectas. podrã¡s refrescarte en las piscinas del hotel y practicar numerosos deportes como tenis, windsurf, kayak, buceo y voleibol, ademã¡s de disfrutar del gimnasio del hotel riu lupita. si deseas relajarte en cualquier momento del dã­a, te recomendamos visitar el renova spa para que disfrutes de un sinfã­n de tratamientos y salgas totalmente renovado.', 'riu-lupita', '1- Salida el %s a las %s hrs en vuelo directo desde Madrid con destino Cancun - %s.\r\n2- Llegada al aeropuerto internacional de Cancun - %s. Asistencia de nuestro Tour Operador en destino para traslados del aeropuerto al hotel %s.\r\n3- Estancia en el hotel %s - %s - todo incluido.\r\n4- Dï¿½a %s traslado desde el hotel %s al aeropuerto, Vuelo desde Cancun - %s a las %s hrs con destino Madrid.', '-Vuelo directo con la compaï¿½ï¿½a Evelop desde Madrid con destino Cancun.\r\n-Estancia en habitaciï¿½n Standard, 7 noches en rï¿½gimen de todo incluï¿½do en el Hotel Riu Lupita 5* - Riviera Maya.\r\n-Traslados de entrada y salida Riviera Maya.\r\n-Tasas aï¿½reas incluidas.\r\n-Seguro obligatorio de Viaje.', 'Rodeado de unos incre&atilde;&shy;bles jardines tropicales, el hotel riu lupita de playa del carmen ofrece a sus clientes todas las facilidades para que vivan unas vacaciones inolvidables.', 'RIU LUPITA', 6, 3, 1, 21, 100, 0, '2020-01-17 21:55:51', '2020-01-18 17:48:45'),
+(5, 'Riu Lupita', 'riu-lupita.jpg', 'Rodeado de unos increã­bles jardines tropicales, el hotel riu lupita de playa del carmen ofrece a sus clientes todas las facilidades para que vivan unas vacaciones inolvidables. este hotel 5 estrellas en playa del carmen cuenta con el programa todo incluido 24 horas para proporcionarte los mejores servicios de riu hotels & resorts.\r\n \r\nel hotel riu lupita cuenta con 300 habitaciones divididas en varios edificios con vistas al jardã­n o a la piscina. ademã¡s, te ofrecen aire acondicionado, minibar con dispensador de bebidas, tv satã©lite y balcã³n o terraza, entre otras facilidades, para que tengas todas las comodidades durante tu estancia con nosotros.\r\n \r\nlas completas instalaciones de este hotel todo incluido en playa del carmen, mã©xico, te aseguran unas vacaciones perfectas. podrã¡s refrescarte en las piscinas del hotel y practicar numerosos deportes como tenis, windsurf, kayak, buceo y voleibol, ademã¡s de disfrutar del gimnasio del hotel riu lupita. si deseas relajarte en cualquier momento del dã­a, te recomendamos visitar el renova spa para que disfrutes de un sinfã­n de tratamientos y salgas totalmente renovado.', 'riu-lupita', '1- Salida el %s a las %s hrs en vuelo directo desde Madrid con destino Cancun - %s.\r\n2- Llegada al aeropuerto internacional de Cancun - %s. Asistencia de nuestro Tour Operador en destino para traslados del aeropuerto al hotel %s.\r\n3- Estancia en el hotel %s - %s - todo incluido.\r\n4- Dï¿½a %s traslado desde el hotel %s al aeropuerto, Vuelo desde Cancun - %s a las %s hrs con destino Madrid.', '-Vuelo directo con la compaï¿½ï¿½a Evelop desde Madrid con destino Cancun.\r\n-Estancia en habitaciï¿½n Standard, 7 noches en rï¿½gimen de todo incluï¿½do en el Hotel Riu Lupita 5* - Riviera Maya.\r\n-Traslados de entrada y salida Riviera Maya.\r\n-Tasas aï¿½reas incluidas.\r\n-Seguro obligatorio de Viaje.', 'Rodeado de unos incre&atilde;&shy;bles jardines tropicales, el hotel riu lupita de playa del carmen ofrece a sus clientes todas las facilidades para que vivan unas vacaciones inolvidables.', 'RIU LUPITA', 6, 3, 1, 21, 100, 0, '2020-01-17 21:55:51', '2020-02-15 18:17:17'),
 (6, 'Catalonia Riviera Maya Resort &amp; Spa', 'catalonia-riviera-maya-resort-y-spa.jpg', 'Catalonia riviera maya resort & spa está situado en la exclusiva zona de puerto aventuras, en las maravillosas costas del caribe mexicano. en pleno corazón de la riviera maya, puerto aventuras es de fácil acceso por carretera, a tan sólo 24 km de playa del carmen y a 78 km al sur del aeropuerto internacional de cancún, en el estado de quintana roo, méxico.\r\n \r\nla riviera maya es un pequeño paraíso para disfrutar a lo grande. sus paisajes hipnotizan a todo aquel que los mira y sus playas enamoran a quienes tienen el placer de visitarlas. el catalonia riviera maya te ofrece unas vacaciones de ensueño. su distribución permite que las habitaciones ofrezcan maravillosas vistas del mar caribe y de los fantásticos jardines que rodean al hotel.\r\n \r\nnuestras habitaciones se caracterizan por su amplitud, su hermosa y cálida decoración y por sus terrazas o balcones, indispensables para poder experimentar la suave brisa del caribe.\r\n \r\nla oferta gastronómica es amplia para satisfacer todos los gustos, por eso te ofrecemos restaurantes y bares en donde podrás degustar de deliciosos platillos, refrescantes bebidas, así como postres y tus snacks favoritos. nuestras instalaciones y actividades te ofrecen constante diversión y entretenimiento para toda la familia', 'catalonia-riviera-maya-resort-y-spa', '1- Salida el %s a las %s hrs en vuelo directo desde Madrid con destino Cancun - %s.\r\n2- Llegada al aeropuerto internacional de Cancun - %s. Asistencia de nuestro Tour Operador en destino para traslados del aeropuerto al hotel %s.\r\n3- Estancia en el hotel %s - %s - todo incluido.\r\n4- Día %s traslado desde el hotel %s al aeropuerto, Vuelo desde Cancun - %s a las %s hrs con destino Madrid.', '-Vuelo directo con la compañía Evelop desde Madrid con destino Cancun.\r\n-Estancia en habitación Standard, 7 noches en régimen de todo incluído en el Hotel Catalonia Riviera Maya 5* - Riviera Maya.\r\n-Traslados de entrada y salida Riviera Maya.\r\n-Tasas aéreas incluidas.\r\n-Seguro obligatorio de Viaje.', 'Catalonia riviera maya resort &amp; spa est&aacute; situado en la exclusiva zona de puerto aventuras, en las maravillosas costas del caribe mexicano.', 'Catalonia Riviera Maya Resort & Spa', 6, 3, 1, 21, 100, 0, '2020-01-17 21:55:51', '2020-01-18 17:48:45'),
 (7, 'Barcel&oacute; Maya Beach', 'barcelo-maya-beach.jpg', 'El hotel barceló maya beach se encuentra dentro de un increíble resort todo incluido situado en una de las playas más bellas del caribe mexicano que se extiende a lo largo de 2 km de arena blanca, agua cristalina y un arrecife de coral.\r\n \r\nel hotel ha sido renovado para adaptarse a las expectativas de nuestros clientes. la nueva casa club con su impactante diseño, alberga los servicios de recepción, lounge club premium, lobby bar beach con terraza para fumadores, restaurante buffet beach, restaurante de especialidad mexicana a la carta méxico lindo, tiendas de regalos y salones para reuniones.\r\n \r\ndele a su estancia un toque de lujo y déjese consentir con los beneficios exclusivos que le brinda el concepto club premium, disfrute de las totalmente nuevas habitaciones junior suite frente al mar club premium y suite frente al mar club premium.\r\n \r\nel hotel le ofrece 3 restaurantes entre los que encontrará el buffet beach con un novedoso diseño inspirado en la cultura maya, el espectacular méxico lindo con especialidades de la cocina mexicana y rancho grande restaurante de playa con vista al mar caribe; además de 3 bares repartidos estratégicamente por el hotel. el programa barceló todo incluido le ofrece aperitivos, comidas y bebidas disponibles las 24 horas del día.', 'barcelo-maya-beach', '1- Salida el %s a las %s hrs en vuelo directo desde Madrid con destino Cancun - %s.\r\n2- Llegada al aeropuerto internacional de Cancun - %s. Asistencia de nuestro Tour Operador en destino para traslados del aeropuerto al hotel %s.\r\n3- Estancia en el hotel %s - %s - todo incluido.\r\n4- Día %s traslado desde el hotel %s al aeropuerto, Vuelo desde Cancun - %s a las %s hrs con destino Madrid.', '- Vuelo directo con la compañía Evelop desde Madrid con destino Cancun.\r\n-Estancia en habitación Standard, 7 noches en régimen de todo incluído en el Hotel Barceló Maya Beach Resort 5* - Riviera Maya.\r\n-Traslados de entrada y salida Riviera Maya.\r\n-Tasas aéreas incluidas.\r\n-Seguro obligatorio de Viaje.', 'El hotel barcel&oacute; maya beach se encuentra dentro de un incre&iacute;ble resort todo incluido situado en una de las playas m&aacute;s bellas del caribe mexicano', 'Barceló Maya Beach', 6, 3, 1, 21, 100, 0, '2020-01-17 21:55:51', '2020-01-18 17:48:45');
 
@@ -704,7 +704,7 @@ CREATE TABLE IF NOT EXISTS `producto_fecha_ref` (
   `precioProveedor` double DEFAULT NULL,
   `comision` int(11) DEFAULT NULL,
   PRIMARY KEY (`idProductoFechaRef`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `producto_fecha_ref`
@@ -712,10 +712,15 @@ CREATE TABLE IF NOT EXISTS `producto_fecha_ref` (
 
 INSERT INTO `producto_fecha_ref` (`idProductoFechaRef`, `idProducto`, `idFechaSalida`, `idFechaVuelta`, `precioProveedor`, `comision`) VALUES
 (1, 5, 1, 2, 800, 10),
-(2, 3, 3, 4, 900, 9),
-(3, 4, 5, 6, 700, 10),
-(4, 2, 7, 8, 900, 10),
-(5, 1, 9, 10, 100, 10);
+(2, 3, 3, 4, 850, 9),
+(3, 4, 5, NULL, 700, 10),
+(4, 2, 7, 8, 1000, 10),
+(5, 1, 9, 10, 100, 10),
+(6, 6, 1, 2, 800, 10),
+(7, 3, 3, 4, 850, 9),
+(8, 2, 7, 8, 1000, 10),
+(9, 1, 9, 10, 100, 10),
+(10, 7, 5, 6, 700, 10);
 
 -- --------------------------------------------------------
 
@@ -853,6 +858,49 @@ INSERT INTO `tipos` (`idTipo`, `nombre`, `productos`, `contactos`, `pagos`, `pue
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tipo_tabla_ref`
+--
+
+DROP TABLE IF EXISTS `tipo_tabla_ref`;
+CREATE TABLE IF NOT EXISTS `tipo_tabla_ref` (
+  `idTipo` int(11) NOT NULL,
+  `tabla` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tipo_tabla_ref`
+--
+
+INSERT INTO `tipo_tabla_ref` (`idTipo`, `tabla`) VALUES
+(2, 'contactos'),
+(2, 'productos'),
+(1, 'pagos'),
+(1, 'puertos'),
+(1, 'productos'),
+(1, 'contactos'),
+(2, 'pagos'),
+(2, 'puertos'),
+(3, 'productos'),
+(4, 'productos'),
+(5, 'productos'),
+(6, 'productos'),
+(7, 'productos'),
+(11, 'contactos'),
+(10, 'contactos'),
+(9, 'contactos'),
+(8, 'contactos'),
+(16, 'pagos'),
+(15, 'pagos'),
+(14, 'pagos'),
+(13, 'pagos'),
+(12, 'pagos'),
+(19, 'puertos'),
+(18, 'puertos'),
+(17, 'puertos');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuarios`
 --
 
@@ -880,6 +928,46 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 
 INSERT INTO `usuarios` (`idUsuario`, `nombre`, `apellidos`, `DNI`, `email`, `password`, `telefono`, `perfil`, `imagen`, `idEstado`, `idPermiso`, `fechaAlta`, `fechaUpdate`) VALUES
 (1, 'sistema', '-', '-', '-', '-', '-', '-', '-', 1, 1, '2020-02-11 22:21:15', '2020-02-11 22:22:28');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `v_producto_fecha_ref`
+-- (Véase abajo para la vista actual)
+--
+DROP VIEW IF EXISTS `v_producto_fecha_ref`;
+CREATE TABLE IF NOT EXISTS `v_producto_fecha_ref` (
+`idProductoFechaRef` int(11)
+,`idProducto` int(11)
+,`idFechaSalida` int(11)
+,`precioProveedor` double
+,`comision` int(11)
+,`producto` varchar(100)
+,`idCategoria` int(11)
+,`categoria` varchar(50)
+,`idCategoriaPadre` int(11)
+,`catPadre` varchar(50)
+,`fsalida` datetime
+,`terminalSalida` varchar(10)
+,`terminalDestino` varchar(10)
+,`tasasSalida` double
+,`tasasDestino` double
+,`idFechaVuelta` int(11)
+,`fvuelta` datetime
+,`terminalSalidaV` varchar(10)
+,`terminalDestinoV` varchar(10)
+,`tasasSalidaV` double
+,`tasasDestinoV` double
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `v_producto_fecha_ref`
+--
+DROP TABLE IF EXISTS `v_producto_fecha_ref`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_producto_fecha_ref`  AS  select `pfr`.`idProductoFechaRef` AS `idProductoFechaRef`,`pfr`.`idProducto` AS `idProducto`,`pfr`.`idFechaSalida` AS `idFechaSalida`,`pfr`.`precioProveedor` AS `precioProveedor`,`pfr`.`comision` AS `comision`,`p`.`nombre` AS `producto`,`cat`.`idCategoria` AS `idCategoria`,`cat`.`nombre` AS `categoria`,`catpadre`.`idCategoria` AS `idCategoriaPadre`,`catpadre`.`nombre` AS `catPadre`,`fs`.`fecha` AS `fsalida`,`fs`.`terminalSalida` AS `terminalSalida`,`fs`.`terminalDestino` AS `terminalDestino`,`fs`.`tasasSalida` AS `tasasSalida`,`fs`.`tasasDestino` AS `tasasDestino`,`pfr`.`idFechaVuelta` AS `idFechaVuelta`,`fv`.`fecha` AS `fvuelta`,`fv`.`terminalSalida` AS `terminalSalidaV`,`fv`.`terminalDestino` AS `terminalDestinoV`,`fv`.`tasasSalida` AS `tasasSalidaV`,`fv`.`tasasDestino` AS `tasasDestinoV` from (((((`producto_fecha_ref` `pfr` join `productos` `p` on((`pfr`.`idProducto` = `p`.`idproducto`))) join `categorias` `cat` on((`p`.`idCategoria` = `cat`.`idCategoria`))) join `categorias` `catpadre` on((`cat`.`idCategoriaPadre` = `catpadre`.`idCategoria`))) join `fechas` `fs` on((`pfr`.`idFechaSalida` = `fs`.`idFecha`))) left join `fechas` `fv` on((`pfr`.`idFechaVuelta` = `fv`.`idFecha`))) where ((`p`.`idEstado` = 1) and (`cat`.`idEstado` = 1) and (`catpadre`.`idEstado` = 1)) order by `pfr`.`precioProveedor` ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

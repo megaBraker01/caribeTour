@@ -28,6 +28,7 @@ class Util extends BaseController {
         if(!is_string($slug) or "" == $slug){
             throw new Exception('[ERROR] El slug tiene que ser un string distinto de ""');
         }
+        $slug = strtolower($slug);
         $producto = null;
         $productoC = new ProductoController;
         $filtros = [['slug', '=', $slug]];
@@ -58,6 +59,7 @@ class Util extends BaseController {
         if(!is_string($slug) or "" == $slug){
             throw new Exception('[ERROR] El slug tiene que ser un string distinto de ""');
         }
+        $slug = strtolower($slug);
         $categoria = null;
         $categoriaC = new CategoriaController;
         $filtros = [['slug', '=', $slug]];

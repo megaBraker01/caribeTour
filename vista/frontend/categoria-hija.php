@@ -8,36 +8,32 @@ $catNombre = ucfirst($slugCat);
 $slugCatPadre = $categoria = $catPadre = null;
 $mostrarDesde = $pagActual = $pagTotal = 1;
 $mostrarProductos = [];
+$util = new Util();
 
-if(isset($slugCat) and $slugCat != ""){
-    $categoriaC = new CategoriaController();
-    $catFiltro = [
-        ['slug', '=', $slugCat]
-    ];
-    $catList = $categoriaC->select($catFiltro);
+if  (
+    isset($slugCat) and 
+    $slugCat != "" and
+    $categoria = $util->getCategoriaBySlug($slugCat)
+    ){
     
-    if(!empty($catList)){
-        $categoria = $catList[0];
-        $catNombre = $categoria->getNombre();
-	$catPadre = $categoria->getCategoriaPadre();
-        $slugCatPadre = $catPadre->getSlug();
-        $productoFiltro = [
-            ['idCategoria', '=', $categoria->getIdCategoria()],
-            ['idEstado', '=', 1],
-            ['stock', '>', 0]
-        ];
-        $productoC = new ProductoController();
-        $productoList = $productoC->select($productoFiltro);
+    $catPadre = $categoria->getCategoriaPadre();
+    $slugCatPadre = $catPadre->getSlug(); 
+    $idCategoria = $categoria->getIdCategoria();
+    $filtros = [['idCategoria', '=', $idCategoria]];
+    $ordenados = [['precioProveedor']];
+    $limitar = [];
+    $agrupar = ['idProducto'];
+    $utilCategoriaList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
+    
+    // PAGINACION
+    $productoTotales = count($utilCategoriaList);
+    $mostrarItems = 4;
+    $pagTotal = ceil($productoTotales / $mostrarItems);
+    $pagActual = $_GET['pag'] ?? 1;
+    $mostrarDesde = ($pagActual - 1) * $mostrarItems;
+    $mostrarProductos = array_slice($utilCategoriaList, $mostrarDesde, $mostrarItems);
 
-	// PAGINACION
-	$productoTotales = count($productoList);
-	$mostrarItems = 4;
-	$pagTotal = ceil($productoTotales / $mostrarItems);
-	$pagActual = $_GET['pag'] ?? 1;
-	$mostrarDesde = ($pagActual - 1) * $mostrarItems;
-	$mostrarProductos = array_slice($productoList, $mostrarDesde, $mostrarItems);
-	
-    }    
+
 }
 ?>
 <!DOCTYPE html>
@@ -120,10 +116,10 @@ if(isset($slugCat) and $slugCat != ""){
                             
                             <?php 
                             $i = 1; 
-                            foreach ($mostrarProductos as $producto){
-                                $roductoFechaRef = $producto->getProductoFechaRef([], [['precioProveedor']], [1]);
-                                $precioMasBajo = $roductoFechaRef[0]->precioProveedor;
-                                $comision = $roductoFechaRef[0]->comision;
+                            foreach ($mostrarProductos as $utilProducto){
+                                $producto = $util->getProductoById($utilProducto->idProducto);
+                                $precioMasBajo = $utilProducto->precioMinimo;
+                                $comision = $utilProducto->comision;
                                 $precioMasBajo += ($precioMasBajo * $comision)/100;
                             ?>
                             <div class="full-tour clearfix">
@@ -181,7 +177,7 @@ if(isset($slugCat) and $slugCat != ""){
                         </div>
                         
                         
-                        <?php if(empty($catList)){ ?>
+                        <?php if(empty($utilCategoriaList)){ ?>
                         <div class="column ninecol">
                             <div class="items-list clearfix">
                                 <h3>Sin Resultados...</h3>
@@ -191,7 +187,7 @@ if(isset($slugCat) and $slugCat != ""){
                         </div>
 			<?php } ?>
                         
-                        <?php if(!empty($catList)){ ?>
+                        <?php if(!empty($utilCategoriaList)){ ?>
                         <nav class="pagination">
                         <?php 
 			for ($i = 1; $i <= $pagTotal; $i++){

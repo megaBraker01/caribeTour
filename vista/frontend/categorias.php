@@ -100,7 +100,8 @@ if  (
                         $precioMasBajo = $utilCategoria->precioMinimo;
                         $comision = $utilCategoria->comision;
                         $precioMasBajo += ($precioMasBajo * $comision)/100;
-                        
+                        echo "el precio mas bajo es $precioMasBajo <br>";
+                        echo "el precio proveedor es {$utilCategoria->precioProveedor} <br>";
                         /*
                         $precioMasBajo = $categoria->getProductoFechaRef([], [['precioProveedor']], [1])[0]->precioProveedor;
                         $comision = $categoria->getProductoFechaRef([], [['precioProveedor']], [1])[0]->comision;

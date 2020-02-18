@@ -97,9 +97,7 @@ if  (
                     foreach($utilCategoriaList as $utilCategoria){
                         $idCategoria = $utilCategoria->idCategoria;
                         $categoria = $util->getCategoriaById($idCategoria);
-                        $precioMasBajo = $utilCategoria->precioMinimo;
-                        $comision = $utilCategoria->comision;
-                        $precioMasBajo += ($precioMasBajo * $comision)/100;
+                        $precioMasBajo = $categoria->getPrecioMasBajo();
                     ?>
                     
                     <div class="fourcol column <?php if ($i % 3==0){ echo 'last'; } ?>">

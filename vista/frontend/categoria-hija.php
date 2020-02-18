@@ -116,9 +116,7 @@ if  (
                             $i = 1; 
                             foreach ($mostrarProductos as $utilProducto){
                                 $producto = $util->getProductoById($utilProducto->idProducto);
-                                $precioMasBajo = $utilProducto->precioMinimo;
-                                $comision = $utilProducto->comision;
-                                $precioMasBajo += ($precioMasBajo * $comision)/100;
+                                $precioMasBajo = $producto->getPrecioMasBajo();
                             ?>
                             <div class="full-tour clearfix">
                                 

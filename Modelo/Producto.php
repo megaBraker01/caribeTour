@@ -2,7 +2,11 @@
 
 class Producto extends ProductoBase {
     
-    public function getImagenes()
+    /**
+     * Obtiene todas las imagenes del producto actual
+     * @return array
+     */
+    public function getImagenes(): array
     {
         $ImagenController = new ImagenController();
         $idProducto = $this->getIdproducto();
@@ -10,12 +14,47 @@ class Producto extends ProductoBase {
         return $ImagenList;
     }
     
-    public function getProductoFechaRef(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = [])
+    /**
+     * Obtiene todas las fechas del producto actual
+     * @param array $filtros
+     * @param array $ordenados
+     * @param array $limitar
+     * @param array $agrupar
+     * @return array
+     */
+    public function getProductoFechaRef(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array
     {
         $idProducto = $this->getIdproducto();
         $filtros[] = ['idProducto', '=', $idProducto];
         $util = new Util();
         return $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
+    }
+    
+    /**
+     * Obtiene el precion mas bajo disponible del producto actual
+     * @param bool $sumaComicion
+     * @return type
+     */
+    public function getPrecioMasBajo(bool $sumaComicion = true)
+    {
+        $ret = 0;
+        $idProducto = $this->getIdproducto();       
+        $filtros = [['idProducto', '=', $idProducto]];
+        $ordenados = [['precioProveedor']];
+        $limitar = [1];
+        $util = new Util();
+        $productoFechaRefs = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar);
+        
+        if(!empty($productoFechaRefs)){
+            $precio = $productoFechaRefs[0]->precioProveedor;
+            if($sumaComicion){
+                $comision = $productoFechaRefs[0]->comision;
+                $precio += ($precio * $comision) / 100;
+            }
+            $ret = $precio;
+        }
+        
+        return $ret;
     }
     
 }

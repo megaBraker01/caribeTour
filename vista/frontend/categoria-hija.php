@@ -20,7 +20,7 @@ if  (
     $slugCatPadre = $catPadre->getSlug(); 
     $idCategoria = $categoria->getIdCategoria();
     $filtros = [['idCategoria', '=', $idCategoria]];
-    $ordenados = [['precioProveedor']];
+    $ordenados = [['idCategoriaPadre'],['precioProveedor']];
     $limitar = [];
     $agrupar = ['idProducto'];
     $utilCategoriaList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
@@ -32,8 +32,6 @@ if  (
     $pagActual = $_GET['pag'] ?? 1;
     $mostrarDesde = ($pagActual - 1) * $mostrarItems;
     $mostrarProductos = array_slice($utilCategoriaList, $mostrarDesde, $mostrarItems);
-
-
 }
 ?>
 <!DOCTYPE html>

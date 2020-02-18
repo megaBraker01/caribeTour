@@ -17,7 +17,7 @@ if  (
     $catPadreNombre = $categoriaPadre->getNombre();
     $idCategoriaPadre = $categoriaPadre->getIdCategoria();
     $filtros = [['idCategoriaPadre', '=', $idCategoriaPadre]];
-    $ordenados = [['precioProveedor']];
+    $ordenados = [['idCategoriaPadre'], ['precioProveedor']];
     $limitar = [];
     $agrupar = ['idCategoria'];
     $utilCategoriaList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
@@ -100,14 +100,6 @@ if  (
                         $precioMasBajo = $utilCategoria->precioMinimo;
                         $comision = $utilCategoria->comision;
                         $precioMasBajo += ($precioMasBajo * $comision)/100;
-                        echo "el precio mas bajo es $precioMasBajo <br>";
-                        echo "el precio proveedor es {$utilCategoria->precioProveedor} <br>";
-                        /*
-                        $precioMasBajo = $categoria->getProductoFechaRef([], [['precioProveedor']], [1])[0]->precioProveedor;
-                        $comision = $categoria->getProductoFechaRef([], [['precioProveedor']], [1])[0]->comision;
-                        $precioMasBajo += ($precioMasBajo * $comision)/100;
-                         * 
-                         */
                     ?>
                     
                     <div class="fourcol column <?php if ($i % 3==0){ echo 'last'; } ?>">

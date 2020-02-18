@@ -4,7 +4,7 @@ require_once "../../AutoLoader/autoLoader.php";
 
 $util = new Util();
 $filtros = [];
-$ordenados = [['precioProveedor']];
+$ordenados = [];
 $limitar = [];
 $agrupar = ['idCategoriaPadre'];
 $utilPaisesList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);

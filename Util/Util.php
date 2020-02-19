@@ -5,7 +5,12 @@ class Util extends BaseController {
     public function getProductoFechaRefPDO(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array
     {
         $sql = "SELECT * FROM v_producto_fecha_ref";
-        return $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
+        $ret = [];
+        $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
+        foreach($rows as $row){
+            $ret[] = new ProductoFechaDTO($row->idProductoFechaRef, $row->idProducto, $row->idFechaSalida, $row->precioProveedor, $row->comision, $row->producto, $row->idCategoria, $row->categoria, $row->idCategoriaPadre, $row->catPadre, $row->fsalida, $row->terminalSalida, $row->terminalDestino, $row->tasasSalida, $row->tasasDestino, $row->idFechaVuelta, $row->fvuelta, $row->terminalSalidaV, $row->terminalDestinoV, $row->tasasSalidaV, $row->tasasDestinoV);
+        }
+        return $ret;
     }
     
     public function getProductoById(int $idProducto)

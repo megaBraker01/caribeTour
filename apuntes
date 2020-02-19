@@ -5,6 +5,9 @@
 //var_dump(getcwd()); // 'D:\wamp\www\caribetour\vista\frontend'
 
 
+nota mySql:
+se tiene que cambiar la variable sql_mode y quitar el valor ONLY_FULL_GROUP_BY, esto es para que permita agrupar sin la necesidad de meter todos los campos del select en el group by
+
 consulta para el objeto DTO de fechas 
 
 

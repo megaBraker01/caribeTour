@@ -115,7 +115,7 @@ if  (
                             <?php 
                             $i = 1; 
                             foreach ($mostrarProductos as $utilProducto){
-                                $producto = $util->getProductoById($utilProducto->idProducto);
+                                $producto = $util->getProductoById($utilProducto->getIdProducto());
                                 $precioMasBajo = $producto->getPrecioMasBajo();
                             ?>
                             <div class="full-tour clearfix">

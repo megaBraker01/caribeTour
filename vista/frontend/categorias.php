@@ -95,7 +95,7 @@ if  (
                     <?php 
                     $i = 1; 
                     foreach($utilCategoriaList as $utilCategoria){
-                        $idCategoria = $utilCategoria->idCategoria;
+                        $idCategoria = $utilCategoria->getIdCategoria();
                         $categoria = $util->getCategoriaById($idCategoria);
                         $precioMasBajo = $categoria->getPrecioMasBajo();
                     ?>

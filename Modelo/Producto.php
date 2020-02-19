@@ -46,9 +46,9 @@ class Producto extends ProductoBase {
         $productoFechaRefs = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar);
         
         if(!empty($productoFechaRefs)){
-            $precio = $productoFechaRefs[0]->precioProveedor;
+            $precio = $productoFechaRefs[0]->getPrecioProveedor();
             if($sumaComicion){
-                $comision = $productoFechaRefs[0]->comision;
+                $comision = $productoFechaRefs[0]->getComision();
                 $precio += ($precio * $comision) / 100;
             }
             $ret = $precio;

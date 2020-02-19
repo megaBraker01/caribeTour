@@ -80,7 +80,7 @@ $utilPaisesList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, 
                     <?php 
                     $i = 1; 
                     foreach($utilPaisesList as $utilPais){
-                        $idCategoria = $utilPais->idCategoriaPadre;
+                        $idCategoria = $utilPais->getIdCategoriaPadre();
                         $categoria = $util->getCategoriaById($idCategoria);
                         $precioMasBajo = $categoria->getPrecioMasBajo(true, true);
                     ?>

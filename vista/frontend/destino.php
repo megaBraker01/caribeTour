@@ -2,49 +2,41 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
-$producto = null;
+$producto = $categoria = $catPadre = null;
 $producSlug = $_GET['slugProduc'] ?? null;
 $url = explode("/", trim($_SERVER['REDIRECT_URL'], "/"));
-$catPadreSlug = $url[2];
-$catSlug = $url[3];
+$catPadreSlug = strtolower($url[2]);
+$catSlug = strtolower($url[3]);
+$util = new Util();
+$productoRelList = [];
 
-$categoriaC = new CategoriaController;
-$catList = $categoriaC->select([['slug', '=', $catSlug]]);
-$categoria = $catList[0];
-$catPadre = $categoria->getCategoriaPadre();
-
-if(isset($producSlug) and $producSlug != ""){
-    $productoC = new ProductoController;
-    $filtro = [
-    	['slug', '=', $producSlug],
-    	['idEstado', '=', 1],
-    	['stock', '>', 0]
-    ];
+// CATEGORIA 
+if ($categoria = $util->getCategoriaBySlug($catSlug)){
+	
+    $catPadre = $categoria->getCategoriaPadre();
+    $catPadreSlug = $catPadre->getSlug();
     
-    $productoList = $productoC->select($filtro);
-    
-    if(isset($productoList[0])){
-        $producto = $productoList[0];
-        
+    if(
+    isset($producSlug) and
+    $producSlug != "" and
+    $producto = $util->getProductoBySlug($producSlug)
+    ){
         // IMAGENES DEL PRODUCTO
-        $imagenC = new ImagenController;
-        $imagenList = $imagenC->select([['idProducto', '=', $producto->getIdProducto()]]);
+        $imagenList = $producto->getImagenes();
     }
+    
+    
+    // PRODUCTOS RELACIONADOS
+    $productoRelFiltro = [
+        ['idCategoria', '=', $categoria->getIdCategoria()]
+    ];
+
+    if($producto){
+        $productoRelFiltro[] = ['idProducto', '!=', $producto->getIdProducto()];
+    }
+
+    $productoRelList = $util->getProductoFechaRefPDO($productoRelFiltro);
 }
-
-
-// PRODUCTOS RELACIONADOS
-$productoRelFiltro = [
-    ['idCategoria', '=', $categoria->getIdCategoria()],
-    ['idEstado', '=', 1],
-    ['stock', '>', 0]
-];
-
-if($producto){
-    $productoRelFiltro[] = ['idProducto', '!=', $producto->getIdProducto()];
-}
-
-$productoRelList = $productoC->select($productoRelFiltro);
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -107,10 +99,10 @@ $productoRelList = $productoC->select($productoRelFiltro);
                         <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises" rel="tag" title="Paises">Paises</a>
                     </div>
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadre->getSlug() ?>"  rel="tag" title="<?= $catPadre ?>"><?= $catPadre ?></a>
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>"  rel="tag" title="<?= $catPadre ?>"><?= $catPadre ?></a>
                     </div>
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadre->getSlug() ?>/<?= $categoria->getSlug() ?>" rel="tag" title="<?= $categoria ?>"><?= $categoria ?></a>
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>" rel="tag" title="<?= $categoria ?>"><?= $categoria ?></a>
                     </div>
                     <div class="breadcrumb">
                         <?= $producto ?>
@@ -132,7 +124,7 @@ $productoRelList = $productoC->select($productoRelFiltro);
                             <div class="content-slider tour-slider">
                                 <ul>
                                 <li><img src="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" alt="Imagen de <?= $producto ?>" title="<?= $producto ?>" /></li>
-                                <?php foreach ($imagenList as $imagen) {?>
+                                <?php foreach ($imagenList as $imagen) { ?>
                                 <li><img src="<?=PATHFRONTEND ?>img/<?= $imagen->getSrcImagen() ?>" alt="Imagen de <?= $producto ?>" title="<?= $producto ?>" /></li>
                                 <?php } ?>
                                 </ul>
@@ -152,7 +144,7 @@ $productoRelList = $productoC->select($productoRelFiltro);
                         <ul class="tour-meta">
                             <li>
                                 <div class="colored-icon icon-2"></div>
-                                <strong>Destino:</strong> <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/categoria/subCategoria" rel="tag" title="Ver paises en subCategoria"><?= $producto->getCategoria() ?></a>
+                                <strong>Destino:</strong> <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>" rel="tag" title="Ver paises en subCategoria"><?= $categoria ?></a>
                             </li>
                             <li>
                                 <div class="colored-icon icon-1"><span></span></div>
@@ -258,20 +250,23 @@ $productoRelList = $productoC->select($productoRelFiltro);
                     </div>
                     <div class="items-grid">
                     
-                        <?php foreach($productoRelList as $productoRel) { ?>
+                        <?php 
+                        foreach($productoRelList as $productoRel) { 
+                            $producto = $util->getProductoById($productoRel->getIdProducto());
+                        ?>
                         <div class="column threecol ">
                             <div class="tour-thumb-container">
-                                <div class="tour-thumb"> <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadre->getSlug() ?>/<?= $categoria->getSlug() ?>/<?= $productoRel->getSlug() ?>" title="<?= $productoRel ?>"><img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $productoRel->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $productoRel ?>" /></a>
+                                <div class="tour-thumb"> <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadre->getSlug() ?>/<?= $categoria->getSlug() ?>/<?= $producto->getSlug() ?>" title="<?= $producto ?>"><img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $producto ?>" /></a>
                                     <div class="tour-caption">
                                         <h5 class="tour-title">
-                                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadre->getSlug() ?>/<?= $categoria->getSlug() ?>/<?= $productoRel->getSlug() ?>" title="<?= $productoRel ?>"> <?= $productoRel ?> </a>
+                                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>/<?= $producto->getSlug() ?>" title="<?= $producto ?>"> <?= $producto ?> </a>
                                         </h5>
                                         <div class="tour-meta">
                                             <div class="tour-destination">
                                                 <div class="colored-icon icon-2"></div>
-                                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadre->getSlug() ?>/<?= $categoria->getSlug() ?>" rel="tag" title="<?= $categoria ?>"><?= $categoria ?></a>
+                                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>" rel="tag" title="<?= $categoria ?>"><?= $categoria ?></a>
                                             </div>
-                                            <div class="colored-icon icon-3"></div>654&euro;
+                                            <div class="colored-icon icon-3"></div><div class="precio"><?= $producto->getPrecioMasBajo() ?>&euro;</div>
                                         </div>
                                     </div>
                                 </div>

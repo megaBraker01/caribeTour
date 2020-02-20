@@ -118,13 +118,14 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                     <div class="main-slider-container content-slider-container">
                         <div class="content-slider main-slider" id="slider" style="position:relative">
                             <ul>
-                                <?php foreach ($productoFechaSlider as $productoFecha){ ?>
-                                <?php
-                                $producto = $productoFecha->getProducto();
-                                $categoria = $producto->getCategoria();
-                                $categoriaPadre = $categoria->getCategoriaPadre();
-                                $precio = $productoFecha->getPrecioProveedor();
-                                $precio += ($productoFecha->getPrecioProveedor() * $productoFecha->getComision()) / 100;
+                            
+                                <?php 
+                                foreach ($productoFechaSlider as $productoFecha){ 
+                                
+                                    $producto = $productoFecha->getProducto();
+                                    $categoria = $producto->getCategoria();
+                                    $categoriaPadre = $categoria->getCategoriaPadre();
+                                    $precio = $categoria->getPrecioMasBajo();
                                 ?>
                                 <li>
                                     <div class="featured-image">
@@ -137,6 +138,7 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                                     </div>
                                 </li>
                                 <?php } ?>
+                                
                             </ul>
                             <div class="arrow arrow-left content-slider-arrow"></div>
                             <div class="arrow arrow-right content-slider-arrow"></div>
@@ -227,8 +229,7 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                     $producto = $productoFecha->getProducto();
                     $categoria = $producto->getCategoria();
                     $categoriPadre = $categoria->getCategoriaPadre();
-                    $precio = $productoFecha->getPrecioProveedor();
-                    $precio += ($productoFecha->getPrecioProveedor() * $productoFecha->getComision()) / 100;                    
+                    $precio = $producto->getPrecioMasBajo();      
                     ?>
                     
                     <div class="column threecol <?php if ($i % 4==0){ echo 'last'; }?>">

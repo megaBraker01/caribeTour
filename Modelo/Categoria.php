@@ -8,10 +8,14 @@ class Categoria extends CategoriaBase {
      */
     public function getCategoriaPadre()
     {
+        $ret = null;
         $categoriaC = new CategoriaController;
         $filtro = [['idCategoria', '=', $this->getIdCategoriaPadre()]];
         $catList = $categoriaC->select($filtro);
-        return $catList[0];
+        if(isset($catList[0])) {
+            $ret = $catList[0];
+        }
+        return $ret;
     }
     
     /**

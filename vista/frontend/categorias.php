@@ -98,9 +98,16 @@ if  (
                         $idCategoria = $utilCategoria->getIdCategoria();
                         $categoria = $util->getCategoriaById($idCategoria);
                         $precioMasBajo = $categoria->getPrecioMasBajo();
+                        $last = "";
+                        $clear = "";
+                        if($i++ % 3 == 0){
+                            $last = "last";
+                            $clear = '<div class="clear"></div>';
+                        }
+                        
                     ?>
                     
-                    <div class="fourcol column <?php if ($i % 3==0){ echo 'last'; } ?>">
+                    <div class="fourcol column <?= $last ?>">
                         <div class="featured-blog">
                             <article class="post type-post status-publish format-standard category-<?= $categoria->getSlug() ?> tag-<?= $categoria->getSlug() ?> tag-caribe">
                                 <div class="featured-image">
@@ -119,7 +126,7 @@ if  (
                             </article>
                         </div>
                     </div>
-                    <?php if ($i % 3==0){ echo '<div class="clear"></div>'; } $i++; ?>
+                    <?= $clear ?>
                     
                     <?php } ?>
                 

@@ -83,9 +83,15 @@ $utilPaisesList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, 
                         $idCategoria = $utilPais->getIdCategoriaPadre();
                         $categoria = $util->getCategoriaById($idCategoria);
                         $precioMasBajo = $categoria->getPrecioMasBajo(true, true);
+                        $last = "";
+                        $clear = "";
+                        if($i++ % 3 == 0){
+                            $last = "last";
+                            $clear = '<div class="clear"></div>';
+                        }
                     ?>
                     
-                    <div class="fourcol column <?php if ($i % 3==0){ echo 'last'; } ?>">
+                    <div class="fourcol column <?= $last ?>">
                         <div class="featured-blog">
                             <article class="post type-post status-publish format-standard category-<?= $categoria->getSlug() ?> tag-<?= $categoria->getSlug() ?> tag-caribe">
                                 <div class="featured-image">
@@ -102,7 +108,7 @@ $utilPaisesList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, 
                             </article>
                         </div>
                     </div>
-                    <?php if ($i % 3==0){ echo '<div class="clear"></div>'; } $i++; ?>
+                    <?= $clear ?>
                     
                     <?php } ?>
                     

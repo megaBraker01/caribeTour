@@ -18,13 +18,12 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
     
     if(
     isset($producSlug) and
-    $producSlug != "" and
+    "" != $producSlug and
     $producto = $util->getProductoBySlug($producSlug)
     ){
         // IMAGENES DEL PRODUCTO
         $imagenList = $producto->getImagenes();
-    }
-    
+    }    
     
     // PRODUCTOS RELACIONADOS
     $productoRelFiltro = [
@@ -35,7 +34,7 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
         $productoRelFiltro[] = ['idProducto', '!=', $producto->getIdProducto()];
     }
 
-    $productoRelList = $util->getProductoFechaRefPDO($productoRelFiltro);
+    $productoRelList = $util->getProductoFechaRefPDO($productoRelFiltro, [], [4], ['idProducto']);
 }
 ?>
 <!DOCTYPE html>
@@ -251,10 +250,13 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
                     <div class="items-grid">
                     
                         <?php 
+                        $i = 1;
                         foreach($productoRelList as $productoRel) { 
                             $producto = $util->getProductoById($productoRel->getIdProducto());
+                            $last = $i++ % 4 == 0 ? "last" : "";
+                            
                         ?>
-                        <div class="column threecol ">
+                        <div class="column threecol <?= $last ?>">
                             <div class="tour-thumb-container">
                                 <div class="tour-thumb"> <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadre->getSlug() ?>/<?= $categoria->getSlug() ?>/<?= $producto->getSlug() ?>" title="<?= $producto ?>"><img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $producto ?>" /></a>
                                     <div class="tour-caption">

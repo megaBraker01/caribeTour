@@ -224,15 +224,22 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                 <!-- producto -->
                 <div class="items-grid">
                     
-                    <?php $i=1; foreach ($productosMostrarList as $productoFecha) { ?>
-                    <?php
-                    $producto = $productoFecha->getProducto();
-                    $categoria = $producto->getCategoria();
-                    $categoriPadre = $categoria->getCategoriaPadre();
-                    $precio = $producto->getPrecioMasBajo();      
+                    <?php 
+                    $i=1;
+                    foreach ($productosMostrarList as $productoFecha) {
+                        $producto = $productoFecha->getProducto();
+                        $categoria = $producto->getCategoria();
+                        $categoriPadre = $categoria->getCategoriaPadre();
+                        $precio = $producto->getPrecioMasBajo();
+                        $last = "";
+                        $clear = "";
+                        if($i++ % 4 == 0){
+                            $last = "last";
+                            $clear = '<div class="clear"></div>';
+                        }
                     ?>
                     
-                    <div class="column threecol <?php if ($i % 4==0){ echo 'last'; }?>">
+                    <div class="column threecol <?= $last ?>">
                         <div class="tour-thumb-container">
                             <div class="tour-thumb">
                                 <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoriPadre->getSlug() ?>/<?= $categoria->getSlug() ?>/<?= $producto->getSlug() ?>">
@@ -255,8 +262,8 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                         </div>
                     </div>
                     
-                    <?php if ($i % 4==0){ echo '<div class="clear"></div>'; }?>
-                    <?php $i++; } ?>
+                    <?= $clear ?>
+                    <?php } ?>
                     
                     <div class="clear"></div>
                 </div>
@@ -310,8 +317,17 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                     </div>
                     <div class="items-grid">
                         
-                        <?php $i=1; foreach($productoGaleriaList as $producto) { ?>
-                        <div class="column gallery-item fourcol <?php if ($i % 3==0){ echo 'last'; }?>">
+                        <?php 
+                        $i=1;
+                        foreach($productoGaleriaList as $producto) {
+                            $last = "";
+                            $clear = "";
+                            if($i++ % 3 == 0){
+                                $last = "last";
+                                $clear = '<div class="clear"></div>';
+                            }
+                            ?>
+                        <div class="column gallery-item fourcol <?= $last ?>">
                             <div class="featured-image">
                                 <a hreflang="es" type="text/html" charset="iso-8859-1" href="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="colorbox " data-group="gallery-<?= $producto->getIdProducto() ?>" title="<?= $producto ?>">
                                     <img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $producto ?>" />
@@ -323,8 +339,8 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                             </div>
                             <div class="block-background"></div>
                         </div>
-                        <?php if ($i % 3 == 0){ echo '<div class="clear"></div>'; }?>
-                        <?php $i++;  } ?>
+                        <?= $clear ?>
+                        <?php } ?>
                         
                         <div class="clear"></div>
                     </div>

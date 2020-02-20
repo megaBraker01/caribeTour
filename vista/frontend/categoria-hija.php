@@ -117,6 +117,9 @@ if  (
                             foreach ($mostrarProductos as $utilProducto){
                                 $producto = $util->getProductoById($utilProducto->getIdProducto());
                                 $precioMasBajo = $producto->getPrecioMasBajo();
+                                $fsalida = new DateTime($utilProducto->getFsalida());
+                                $fvuelta = new DateTime($utilProducto->getFvuelta());
+                                $duracion = $fsalida->diff($fvuelta);
                             ?>
                             <div class="full-tour clearfix">
                                 
@@ -149,7 +152,7 @@ if  (
                                             <div class="colored-icon icon-1">
                                                 <span></span>
                                             </div>
-                                            <strong>Duraci&oacute;n:</strong> <?php $duracion=strtotime("20/01/2020") - strtotime("27/01/2020"); echo date('d',$duracion)*1; ?> D&iacute;as
+                                            <strong>Duraci&oacute;n:</strong> <?= $duracion->format('%d'); ?> D&iacute;as
                                         </li>
                                         <li style="font-size:1.8em;">
                                             <div class="colored-icon icon-3"><span></span></div>

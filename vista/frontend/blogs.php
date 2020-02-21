@@ -15,10 +15,11 @@ $blogsPopulares = $util->getBlogsPopulares();
 
 
 // PAGINACION
+$pag = $_GET['pag'] ?? 1;
 $blogTotales = count($blogList);
 $mostrarItems = 1;
 $pagTotal = ceil($blogTotales / $mostrarItems);
-$pagActual = ($_GET['pag'] < 1 OR $_GET['pag'] > $pagTotal) ? 1 : $_GET['pag'];
+$pagActual = ($pag < 1 OR $pag > $pagTotal) ? 1 : $pag;
 $mostrarDesde = ($pagActual - 1) * $mostrarItems;
 $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
 ?>

@@ -86,7 +86,9 @@ if(isset($blogSlug) and $blogSlug != ""){
             
                 <div class="row">
                     <div class="column eightcol">
-                        <article class="post-112 post type-post status-publish format-standard hentry category-guides tag-amet tag-dolor tag-lorem post full-post">
+                    
+                    		<?php if($blog){ ?>
+                        <article class="post type-post status-publish format-standard full-post">
                             <div class="post-featured-image">
                                 <div class="featured-image">
                                     <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><img width="768" height="522" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" class="attachment-wide wp-post-image" alt="<?= $blog ?>" /></a>
@@ -103,10 +105,13 @@ if(isset($blogSlug) and $blogSlug != ""){
                                 <div class="post-info">Por <strong><?= $blog->getUsuario() ?></strong> el <?= $blog->getFechaAlta() ?></div>
                             </footer>
                         </article>
+                        
+                        <!-- post comments -->
                         <div class="post-comments clearfix">
                             <div class="section-title">
                                 <h2>Deja tus Comentarios</h2>
                             </div>
+                            
                             <div id="respond" class="comment-respond">
                                 <form action="coment_add.php" method="post" id="commentform" class="comment-form" name="comentarios" onSubmit="return validacion();">
                                     <div class="formatted-form">
@@ -157,7 +162,10 @@ if(isset($blogSlug) and $blogSlug != ""){
                             </div><?php } ?>
                             <nav class="pagination comments-pagination"></nav>
                         </div>
-                        <!-- post comments -->
+                        <?php } // endBlog ?> 
+                        <!-- /post comments -->
+                        
+                        
                     </div>
                     <aside class="column fourcol last">
                         <div class="widget widget-selected-posts">

@@ -74,4 +74,19 @@ class Util extends BaseController {
         }
         return $categoria;
     }
+    
+    public function getBlogsPopulares(): array
+    {
+        $sql = "SELECT idBlog, count(idBlogComentario) AS comentarios FROM  blog_comentarios bc GROUP BY idBlog ORDER by comentarios desc";
+        $rows = $this->query($sql);
+        $Ids = [];
+        foreach($rows as $row){
+            $blogsIds[] = $row->idBlog;
+        }
+        $blogsIds = implode(", ", $blogsIds);
+        $filtro = [['idBlog', 'in', $blogsIds]];
+        $blogC = new BlogController;
+        $blogList = $blogC->select($filtro);
+        return $blogList;
+    }
 }

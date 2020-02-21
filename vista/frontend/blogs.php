@@ -8,11 +8,17 @@ $filtro = [
 $blogC = new BlogController;
 $blogList = $blogC->select($filtro);
 
+
+// BLOGS POPULARES
+$util = new Util;
+$blogsPopulares = $util->getBlogsPopulares();
+
+
 // PAGINACION
 $blogTotales = count($blogList);
 $mostrarItems = 1;
 $pagTotal = ceil($blogTotales / $mostrarItems);
-$pagActual = $_GET['pag'] ?? 1;
+$pagActual = ($_GET['pag'] < 1 OR $_GET['pag'] > $pagTotal) ? 1 : $_GET['pag'];
 $mostrarDesde = ($pagActual - 1) * $mostrarItems;
 $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
 ?>
@@ -84,7 +90,10 @@ $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
                     <div class="column eightcol">
                         <div class="blog-listing">
                             
-                            <?php foreach ($mostrarBlogs as $blog) { ?>
+                            <?php 
+                            foreach ($mostrarBlogs as $blog) {
+                                $fechaAlta = date('d-m-Y', strtotime($blog->getFechaUpdate())); // añadir el estado en el modelo y controlador
+                            ?>
                             <article class="post type-post status-publish format-standard hentry category-guides post clearfix">
                                 <div class="column fivecol post-featured-image">
                                     <div class="featured-image">
@@ -101,8 +110,8 @@ $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
                                         <p><?php echo substr($blog->getDescripcion(), 0, 400); ?>.[...]</p>
                                         <footer class="post-footer clearfix">
                                             <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>" class="button small"><span>Leer M&aacute;s</span></a>
-                                            <div class="post-comment-count"><?php echo '1'; ?></div>
-                                            <div class="post-info"><time datetime="25/01/2020"><?php echo '25/01/2020'; ?></time></div>
+                                            <div class="post-comment-count" title="Comentarios"><?= count($blog->getComentarios()); ?></div>
+                                            <div class="post-info"><time datetime="<?= $fechaAlta ?>" title="Fecha de Publicaci&oacute;n"><?= $fechaAlta ?></time></div>
                                         </footer>
                                     </div>
                                 </div>
@@ -125,27 +134,36 @@ $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
                     </div>
                     <!--/column eightcol-->
                     <aside class="column fourcol last">
+                    
                         <div class="widget widget-selected-posts">
                             <div class="section-title">
                                 <h4>Art&iacute;culos Populares</h4>
-                            </div> <?php do { ?>
+                            </div>
+                            
+                            <?php 
+                            foreach($blogsPopulares as $blog) { 
+                                $fechaAlta = date('d-m-Y', strtotime($blog->getFechaUpdate())); // añadir el estado en el modelo y controlador
+                            ?>
                             <article class="post clearfix">
                                 <div class="post-featured-image">
                                     <div class="featured-image">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?php echo 'seo'; ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?php echo 'imagen'; ?>" class="attachment-normal wp-post-image" alt="<?php echo ucwords('nombre'); ?>" title="<?php echo ucwords('nombre'); ?>" /></a>
+                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" class="attachment-normal wp-post-image" alt="<?= $blog ?>" title="<?= $blog ?>" /></a>
                                     </div>
                                 </div>
                                 <div class="post-content">
-                                    <h6 class="post-title"><a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?php echo 'seo'; ?>" title="<?php echo ucwords('nombre'); ?>"><?php echo ucwords('nombre'); ?></a></h6>
+                                    <h6 class="post-title"><a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><?= $blog ?></a></h6>
                                     <footer class="post-footer clearfix">
-                                        <div class="post-comment-count"><?php echo 'comentario'; ?></div>
+                                        <div class="post-comment-count" title="Comentarios"><?= count($blog->getComentarios()); ?></div>
                                         <div class="post-info">
-                                            <time datetime="<?php echo '25/01/2020'; ?>"><?php echo '25/01/2020'; ?></time>
+                                            <time datetime="<?= $fechaAlta ?>" title="Fecha de Publicaci&oacute;n"><?= $fechaAlta ?></time>
                                         </div>
                                     </footer>
                                 </div>
-                            </article><?php } while (false); ?>
+                            </article>
+                            <?php } ?>
+                            
                         </div>
+                        
                         <div class="widget widget_recent_comments">
                             <div class="section-title"><h4>Comentarios Recientes</h4></div>
                             <ul id="recentcomments"><?php do { ?>

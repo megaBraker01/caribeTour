@@ -2,7 +2,25 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
+$util = new Util;
+// INSERTAT COMENTARIO
+if(isset($_POST['MM_insert'])){
+    $nombre = $util->sanear($_POST['nombre']);
+    $email = $util->sanear($_POST['email']);
+    $comentarios = $util->sanear($_POST['comentario']);
+    $idBlog = $util->sanear($_POST['idBlog'], Util::CLEAR_INT);
+    
+    $comentarioC = new BlogComentarioController;
+    $comentario = new BlogComentario(0, $idBlog, 2, $nombre, $email, $comentarios);
+    $mensaje = 'KO';
+    if($comentarioC->insert($comentario)){
+        $mensaje = 'OK';
+    }
+    $insertGoTo = $_SERVER['REDIRECT_URL'] ."?". $mensaje;
+    header(sprintf("Location: %s", $insertGoTo));
+}
 
+// MOSTRAR EL BLOG
 $blog = null;
 $blogSlug = $_GET['slugBlog'] ?? null;
 
@@ -16,9 +34,7 @@ if(isset($blogSlug) and $blogSlug != ""){
 }
 
 // BLOGS POPULARES
-$util = new Util;
 $blogsPopulares = $util->getBlogsPopulares();
-
 
 // GALERIA
 $imagenes = $util->getGaleriaBlog();
@@ -123,30 +139,30 @@ $imagenes = $util->getGaleriaBlog();
                             </div>
                             
                             <div id="respond" class="comment-respond">
-                                <form action="coment_add.php" method="post" id="commentform" class="comment-form" name="comentarios" onSubmit="return validacion();">
+                                <form method="post" id="commentform" class="comment-form" name="comentarios" onSubmit="return validacion();">
                                     <div class="formatted-form">
                                     	<div class="message" id="nrequired" style="display:none;">Por favor indique su nombre completo</div>
                                         <div class="sixcol column">
                                             <div class="field-container">
-                                                <input id="nombre" name="strNombre" type="text" value="" size="30" maxlength="50" title="Indroduzca su Nombre" placeholder="Nombre" required />
+                                                <input id="nombre" name="nombre" type="text" value="" size="30" maxlength="50" title="Indroduzca su Nombre" placeholder="Nombre" required />
                                             </div>
                                         </div>
                                         <div class="message" id="erequired" style="display:none;">Por favor indique un correo v&aacute;lido</div>
                                         <div class="sixcol column last">
                                             <div class="field-container">
-                                                <input id="email" name="strEmail" type="email" value="" title="Introduzca su Email" maxlength="60" size="30" placeholder="Email" required />
+                                                <input id="email" name="email" type="email" value="" title="Introduzca su Email" maxlength="60" size="30" placeholder="Email" required />
                                             </div>
                                         </div>
                                         <div class="clear"></div>
                                         <div class="message" id="mrequired" style="display:none;">Es necesario rellenar este campo</div>
                                         <div class="field-container">
-                                            <textarea id="mensaje" name="strComentario" title="Introduzca sus Comentarios" maxlength="1000" cols="45" rows="8" placeholder="Comentario" required ></textarea>
+                                            <textarea id="comentario" name="comentario" title="Introduzca sus Comentarios" maxlength="1000" cols="45" rows="8" placeholder="Comentario" required ></textarea>
                                         </div>
                                     </div>
                                     <p class="form-submit">
                                         <input name="submit" type="submit" id="submit" value="Comentar" />
-                                        <input type="hidden" name="idArticulo" value="<?= $blog->getIdBlog() ?>" />
-                                        <input type="hidden" name="blogSeo" value="<?php echo $_SERVER["REQUEST_URI"]; ?>" />
+                                        <input type="hidden" name="idBlog" value="<?= $blog->getIdBlog() ?>" />
+                                        <input type="hidden" name="blogSeo" value="<?= $blog->getSlug() ?>" />
                                         <input type="hidden" name="MM_insert" value="comentarios" />
                                     </p><br>
                                 </form>
@@ -160,7 +176,7 @@ $imagenes = $util->getGaleriaBlog();
                                 <ul>
                                     <?php 
                                     foreach ($comentarios as $comentario){
-                                        $fechaAlta = date('d-m-Y', strtotime($comentario->getFechaAlta()));
+                                        $fechaAlta = date('d-m-Y H:i', strtotime($comentario->getFechaAlta()));
                                     ?>
                                     <li id="comment-<?= $comentario->getIdBlogComentario() ?>">
                                         <div class="comment clearfix">
@@ -172,7 +188,7 @@ $imagenes = $util->getGaleriaBlog();
                                                     <time class="comment-date" datetime="<?= $fechaAlta ?>"><?= $fechaAlta ?></time>
                                                     <span class='comment-reply-link'></span>
                                                 </header>
-                                                <p><?= $comentario->getComentario() ?></p>
+                                                <p><?= nl2br($comentario->getComentario()) ?></p>
                                             </div>
                                         </div>
                                     </li>

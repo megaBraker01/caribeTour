@@ -2,6 +2,39 @@
 
 class Util extends BaseController {
     
+    const CLEAR_TEXT = 'text';
+    const CLEAR_INT = 'int';
+    const CLEAR_DOUBLE = 'double';
+
+
+    public function sanear($value, $type = self::CLEAR_TEXT): string
+    {
+        $remplazar = array("\n\r");
+	$por = " ";
+        $ret = htmlentities($value, ENT_COMPAT, 'iso-8859-1');
+        $pattern = "/[^A-Za-z0-9-=+_@,;&.\/\s\ ]/";
+        
+        switch ($type){
+            case self::CLEAR_TEXT :
+                $ret = preg_replace($pattern, $por, $ret);
+                break;
+            case self::CLEAR_INT :
+                $pattern = "/[^0-9-]/";
+                $ret = preg_replace($pattern, $por, $ret);
+                break;
+            case self::CLEAR_DOUBLE :
+                $pattern = "/[^0-9-,.]/";
+                $ret = preg_replace($pattern, $por, $ret);
+                break;
+            default :
+                $ret = preg_replace($pattern, $por, $ret);
+                break;
+        }
+        
+        return str_replace($remplazar, $por, $ret);
+    }
+    
+
     public function getProductoFechaRefPDO(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array
     {
         $sql = "SELECT * FROM v_producto_fecha_ref";

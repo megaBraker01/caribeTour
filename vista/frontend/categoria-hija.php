@@ -28,8 +28,9 @@ if  (
     // PAGINACION
     $productoTotales = count($utilCategoriaList);
     $mostrarItems = 4;
+    $pag = $_GET['pag'] ?? 1;
     $pagTotal = ceil($productoTotales / $mostrarItems);
-    $pagActual = $_GET['pag'] ?? 1;
+    $pagActual = ($pag < 1 OR $pag > $pagTotal) ? 1 : $pag;
     $mostrarDesde = ($pagActual - 1) * $mostrarItems;
     $mostrarProductos = array_slice($utilCategoriaList, $mostrarDesde, $mostrarItems);
 }

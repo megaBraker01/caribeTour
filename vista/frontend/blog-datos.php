@@ -15,7 +15,13 @@ if(isset($blogSlug) and $blogSlug != ""){
     }
 }
 
+// BLOGS POPULARES
+$util = new Util;
+$blogsPopulares = $util->getBlogsPopulares();
 
+
+// GALERIA
+$imagenes = $util->getGaleriaBlog();
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -87,7 +93,11 @@ if(isset($blogSlug) and $blogSlug != ""){
                 <div class="row">
                     <div class="column eightcol">
                     
-                    		<?php if($blog){ ?>
+                    	<?php 
+                        if($blog){ 
+                         $fechaAlta = date('d-m-Y', strtotime($blog->getFechaAlta()));
+                         $comentarios = $blog->getComentarios();
+                        ?>
                         <article class="post type-post status-publish format-standard full-post">
                             <div class="post-featured-image">
                                 <div class="featured-image">
@@ -101,8 +111,8 @@ if(isset($blogSlug) and $blogSlug != ""){
                                 <?= nl2br($blog->getDescripcion()) ?>			
                             </div>
                             <footer class="post-footer clearfix">
-                                <div class="post-comment-count">2</div>
-                                <div class="post-info">Por <strong><?= $blog->getUsuario() ?></strong> el <?= $blog->getFechaAlta() ?></div>
+                                <div class="post-comment-count"><?= count($comentarios); ?></div>
+                                <div class="post-info">Por <strong><?= $blog->getUsuario() ?></strong> el <?= $fechaAlta ?></div>
                             </footer>
                         </article>
                         
@@ -140,26 +150,39 @@ if(isset($blogSlug) and $blogSlug != ""){
                                         <input type="hidden" name="MM_insert" value="comentarios" />
                                     </p><br>
                                 </form>
-                            </div><!-- #respond --><?php if (1 > 0) { ?>
+                            </div><!-- #respond -->
+                            
+                            <?php if(!empty($comentarios)){ ?>
                             <div class="section-title">
                                 <h2>Comentarios</h2>
                             </div>
                             <div class="comments-list" id="comments">		
-                                <ul><?php do { ?>
-                                    <li id="comment-<?php echo 'idComentario' ?>">
+                                <ul>
+                                    <?php 
+                                    foreach ($comentarios as $comentario){
+                                        $fechaAlta = date('d-m-Y', strtotime($comentario->getFechaAlta()));
+                                    ?>
+                                    <li id="comment-<?= $comentario->getIdBlogComentario() ?>">
                                         <div class="comment clearfix">
                                             <div class="comment-text">
                                                 <header class="comment-header clearfix">				
-                                                    <h6 class="comment-author"><?php echo 'strNombre' ?></h6>
-                                                    <time class="comment-date" datetime="<?php echo ('fchPost'); ?>"><?php echo ('fchPost'); ?></time>
+                                                    <h6 class="comment-author">
+                                                        <?= $comentario->getNombre() ?>
+                                                    </h6>
+                                                    <time class="comment-date" datetime="<?= $fechaAlta ?>"><?= $fechaAlta ?></time>
                                                     <span class='comment-reply-link'></span>
                                                 </header>
-                                                <p><?php echo 'strComentario' ?></p>
+                                                <p><?= $comentario->getComentario() ?></p>
                                             </div>
                                         </div>
-                                    </li><?php } while (false); ?><!-- #comment-## -->
+                                    </li>
+                                    <?php } ?>
+                                    
                                 </ul>
-                            </div><?php } ?>
+                            </div>
+                            <?php } // endComentario ?>
+                            
+                            
                             <nav class="pagination comments-pagination"></nav>
                         </div>
                         <?php } // endBlog ?> 
@@ -169,45 +192,84 @@ if(isset($blogSlug) and $blogSlug != ""){
                     </div>
                     <aside class="column fourcol last">
                         <div class="widget widget-selected-posts">
-                            <div class="section-title"><h4>Art&iacute;culos Populares</h4></div><?php do { ?>
-                            <article class="post-112 post type-post status-publish format-standard hentry category-guides tag-amet tag-dolor tag-lorem post clearfix">
+                            <div class="section-title">
+                                <h4>Art&iacute;culos Populares</h4>
+                            </div>
+                            
+                            <?php 
+                            foreach($blogsPopulares as $blog) { 
+                                $fechaAlta = date('d-m-Y', strtotime($blog->getFechaAlta()));
+                            ?>
+                            <article class="post clearfix">
                                 <div class="post-featured-image">
                                     <div class="featured-image">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?php echo "seoBlog"; ?>"><img width="440" height="299" src="img/<?php echo 'strImagen' ?>" class="attachment-normal wp-post-image" alt="image_7" /></a>
+                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" class="attachment-normal wp-post-image" alt="<?= $blog ?>" title="<?= $blog ?>" /></a>
                                     </div>
                                 </div>
                                 <div class="post-content">
-                                    <h6 class="post-title"><a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?php echo "seoBlog"; ?>"><?php echo 'strNombre'; ?></a></h6>
+                                    <h6 class="post-title"><a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><?= $blog ?></a></h6>
                                     <footer class="post-footer clearfix">
-                                        <div class="post-comment-count"><?php echo 'comentarios'; ?></div>
+                                        <div class="post-comment-count" title="Comentarios"><?= count($blog->getComentarios()); ?></div>
                                         <div class="post-info">
-                                                <time datetime="2012-11-24"><?php echo ('fchFecha'); ?></time>
+                                            <time datetime="<?= $fechaAlta ?>" title="Fecha de Publicaci&oacute;n"><?= $fechaAlta ?></time>
                                         </div>
                                     </footer>
                                 </div>
-                            </article><?php } while (false); ?>
-                        </div><?php if (1 > 0) { ?>
+                            </article>
+                            <?php } ?>
+                            
+                        </div>
+                            
+                        <!-- comentarios 
                         <div class="widget widget_recent_comments">
                             <div class="section-title"><h4>Comentarios Recientes</h4></div>
-                            <ul id="recentcomments"><?php do { ?>
-                                <li class="recentcomments"><?php echo "nombreComentario"; ?> en <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?php echo "seoComentario"; ?>#comment-<?php echo "idcomentario"; ?>"><?php echo "nombreBlog"; ?></a></li><?php } while (false); ?>
+                            <ul id="recentcomments">
+                                <?php do { ?>
+                                <li class="recentcomments">
+                                    <?php echo 'nombre'; ?> en <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?php echo 'seo'; ?>#comment-<?php echo 'idcoment'; ?>">
+                                        <?php echo ucwords('blog'); ?>
+                                    </a>
+                                </li>
+                                <?php } while (false); ?>
                             </ul>
-                        </div><?php } ?>
+                        </div>
+                        /comentarios -->
+                        
+                        
+                        <!-- galeria -->
                         <div class="widget widget_text">
                             <div class="section-title"><a hreflang="es" type="text/html" charset="iso-8859-1" href="galeria" title="Ver la Galer&iacute;a Completa"><h4>Galer&iacute;a</h4></a></div>
                             <div class="textwidget">
-                                <div class="items-grid"><?php $i=1; do { ?>
-                                    <div class="column gallery-item sixcol <?php if ($i % 2==0){ echo 'last'; }?>">
+                                <div class="items-grid">
+                                    
+                                    <?php 
+                                    $i=1;
+                                    foreach ($imagenes as $imagen){ 
+                                        $last = "";
+                                        $clear = "";
+                                        if($i++ % 2 == 0){
+                                            $last = "last";
+                                            $clear = '<div class="clear"></div>';
+                                        }
+                                    ?>
+                                    <div class="column gallery-item sixcol <?= $last ?>">
                                         <div class="featured-image">
-                                            <a href="img/<?php echo "nombreImagen"; ?>" class="colorbox " data-group="gallery-111" title="<?php echo ucwords("nombreProducto"); ?>"><img width="440" height="330" src="img/<?php echo "nombreImagen"; ?>" class="attachment-preview wp-post-image" alt="<?php echo "nombreProducto"; ?>" /></a>
-                                            <a class="featured-image-caption none-caption" href="#"><h6><?php echo ucwords("nombreProducto"); ?></h6></a>
+                                            <a href="<?=PATHFRONTEND ?>img/<?= $imagen->srcImagen ?>" class="colorbox " data-group="gallery-111" title="<?= $imagen->nombre ?>"><img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $imagen->srcImagen ?>" class="attachment-preview wp-post-image" alt="<?= $imagen->nombre ?>" title="<?= $imagen->nombre ?>" /></a>
+                                            <a class="featured-image-caption none-caption" href="#">
+                                                <h6><?= $imagen->nombre ?></h6>
+                                            </a>
                                         </div>
                                         <div class="block-background"></div>
-                                    </div><?php if ($i % 2==0){ echo '<div class="clear"></div>'; }?><?php $i++; } while (false); ?>
+                                    </div>
+                                    <?= $clear ?>
+                                    <?php } ?>
+                                    
                                 </div>
                                 <div class="clear"></div>
                             </div>
                         </div>
+                        <!-- /galeria -->
+                        
                     </aside>
                 </div>
                 

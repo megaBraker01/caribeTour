@@ -81,12 +81,21 @@ class Util extends BaseController {
         $rows = $this->query($sql);
         $Ids = [];
         foreach($rows as $row){
-            $blogsIds[] = $row->idBlog;
+            $Ids[] = $row->idBlog;
         }
-        $blogsIds = implode(", ", $blogsIds);
+        $blogsIds = implode(", ", $Ids);
         $filtro = [['idBlog', 'in', $blogsIds]];
         $blogC = new BlogController;
         $blogList = $blogC->select($filtro);
         return $blogList;
+    }
+    
+    public function getGaleriaBlog(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array
+    {
+        $ordenados[] = ['RAND()'];
+        $limitar[] = 8;
+        $sql = "SELECT i.idImagen, i.srcImagen, i.idProducto, p.nombre, p.slug FROM imagenes i INNER JOIN productos p ON i.idProducto = p.idproducto";
+        return $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
+        
     }
 }

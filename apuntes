@@ -41,3 +41,9 @@ id  | cli | pro
 
 select cli, pro from tbl group by pro -> el resultado son los registros 7 y 9
 select cli, pro from tbl group by pro order by cli ASC -> el resultado es el mismo que el anterior 7 y 9
+
+==========
+BLOG
+==========
+hacer que la imagen portada del blog tambien se guarde en tamaño reducido para hacer la imagen thumbnail
+

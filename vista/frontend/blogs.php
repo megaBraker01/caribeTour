@@ -14,10 +14,14 @@ $util = new Util;
 $blogsPopulares = $util->getBlogsPopulares();
 
 
+// GALERIA
+$imagenes = $util->getGaleriaBlog();
+
+
 // PAGINACION
-$pag = $_GET['pag'] ?? 1;
 $blogTotales = count($blogList);
 $mostrarItems = 1;
+$pag = $_GET['pag'] ?? 1;
 $pagTotal = ceil($blogTotales / $mostrarItems);
 $pagActual = ($pag < 1 OR $pag > $pagTotal) ? 1 : $pag;
 $mostrarDesde = ($pagActual - 1) * $mostrarItems;
@@ -84,16 +88,17 @@ $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
                         Blogs
                     </div>
                 </div>
-                <!-- /breadcrumb-->            
-            
-            
+                <!-- /breadcrumb-->
+
                 <div class="row">
+                    
+                    <!-- column eightcol -->
                     <div class="column eightcol">
                         <div class="blog-listing">
                             
                             <?php 
                             foreach ($mostrarBlogs as $blog) {
-                                $fechaAlta = date('d-m-Y', strtotime($blog->getFechaUpdate())); // añadir el estado en el modelo y controlador
+                                $fechaAlta = date('d-m-Y', strtotime($blog->getFechaAlta()));
                             ?>
                             <article class="post type-post status-publish format-standard hentry category-guides post clearfix">
                                 <div class="column fivecol post-featured-image">
@@ -134,6 +139,7 @@ $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
                         
                     </div>
                     <!--/column eightcol-->
+                    
                     <aside class="column fourcol last">
                     
                         <div class="widget widget-selected-posts">
@@ -143,7 +149,7 @@ $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
                             
                             <?php 
                             foreach($blogsPopulares as $blog) { 
-                                $fechaAlta = date('d-m-Y', strtotime($blog->getFechaUpdate())); // añadir el estado en el modelo y controlador
+                                $fechaAlta = date('d-m-Y', strtotime($blog->getFechaAlta()));
                             ?>
                             <article class="post clearfix">
                                 <div class="post-featured-image">
@@ -165,27 +171,55 @@ $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
                             
                         </div>
                         
+                        <!-- comentarios 
                         <div class="widget widget_recent_comments">
                             <div class="section-title"><h4>Comentarios Recientes</h4></div>
-                            <ul id="recentcomments"><?php do { ?>
-                                <li class="recentcomments"><?php echo 'nombre'; ?> en <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?php echo 'seo'; ?>#comment-<?php echo 'idcoment'; ?>"><?php echo ucwords('blog'); ?></a></li><?php } while (false); ?>
+                            <ul id="recentcomments">
+                                <?php do { ?>
+                                <li class="recentcomments">
+                                    <?php echo 'nombre'; ?> en <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?php echo 'seo'; ?>#comment-<?php echo 'idcoment'; ?>">
+                                        <?php echo ucwords('blog'); ?>
+                                    </a>
+                                </li>
+                                <?php } while (false); ?>
                             </ul>
                         </div>
+                        /comentarios -->
+                        
+                        <!-- galeria -->
                         <div class="widget widget_text">
                             <div class="section-title"><a hreflang="es" type="text/html" charset="iso-8859-1" href="galeria" title="Ver la Galer&iacute;a Completa"><h4>Galer&iacute;a</h4></a></div>
                             <div class="textwidget">
-                                <div class="items-grid"><?php $i=1; do { ?>
-                                    <div class="column gallery-item sixcol <?php if ($i % 2==0){ echo 'last'; }?>">
+                                <div class="items-grid">
+                                    
+                                    <?php 
+                                    $i=1;
+                                    foreach ($imagenes as $imagen){ 
+                                        $last = "";
+                                        $clear = "";
+                                        if($i++ % 2 == 0){
+                                            $last = "last";
+                                            $clear = '<div class="clear"></div>';
+                                        }
+                                    ?>
+                                    <div class="column gallery-item sixcol <?= $last ?>">
                                         <div class="featured-image">
-                                            <a href="<?=PATHFRONTEND ?>img/<?php echo 'imagen'; ?>" class="colorbox " data-group="gallery-111" title="<?php echo ucwords('nombre'); ?>"><img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?php echo 'imagen'; ?>" class="attachment-preview wp-post-image" alt="<?php echo 'nombre'; ?>" /></a>
-                                            <a class="featured-image-caption none-caption" href="#"><h6><?php echo ucwords('nombre'); ?></h6></a>
+                                            <a href="<?=PATHFRONTEND ?>img/<?= $imagen->srcImagen ?>" class="colorbox " data-group="gallery-111" title="<?= $imagen->nombre ?>"><img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $imagen->srcImagen ?>" class="attachment-preview wp-post-image" alt="<?= $imagen->nombre ?>" title="<?= $imagen->nombre ?>" /></a>
+                                            <a class="featured-image-caption none-caption" href="#">
+                                                <h6><?= $imagen->nombre ?></h6>
+                                            </a>
                                         </div>
                                         <div class="block-background"></div>
-                                    </div><?php if ($i % 2==0){ echo '<div class="clear"></div>'; }?><?php $i++; } while (false); ?>
+                                    </div>
+                                    <?= $clear ?>
+                                    <?php } ?>
+                                    
                                 </div>
                                 <div class="clear"></div>
                             </div>
                         </div>
+                        <!-- /galeria -->
+                        
                     </aside>
                 </div>
                 

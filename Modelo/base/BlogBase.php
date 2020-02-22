@@ -10,6 +10,7 @@ abstract class BlogBase extends ModelBase {
     protected $descripcion;
     protected $srcImagen;
     protected $idUsuario;
+    protected $idEstado;
     protected $fechaAlta;
     protected $fechaUpdate;
 
@@ -22,6 +23,7 @@ abstract class BlogBase extends ModelBase {
         $descripcion = '',
         $srcImagen = '',
         $idUsuario = 0,
+        $idEstado = 1,
         $fechaAlta = '',
         $fechaUpdate = ''
     ){
@@ -33,6 +35,7 @@ abstract class BlogBase extends ModelBase {
         $this->setDescripcion($descripcion);
         $this->setSrcImagen($srcImagen);
         $this->setIdUsuario($idUsuario);
+        $this->setIdEstado($idEstado);
         $this->setFechaAlta($fechaAlta);
         $this->setFechaUpdate($fechaUpdate);
     }
@@ -57,6 +60,8 @@ abstract class BlogBase extends ModelBase {
 
     public function getIdUsuario(){ return $this->idUsuario; }
 
+    public function getIdEstado(){ return $this->idEstado; }
+
     public function getFechaAlta(){ return $this->fechaAlta; }
 
     public function getFechaUpdate(){ return $this->fechaUpdate; }
@@ -66,6 +71,13 @@ abstract class BlogBase extends ModelBase {
         $idUsuario = $this->getIdUsuario();
         $UsuarioList = $UsuarioController->select([['idUsuario', '=', $idUsuario]]);
         return $UsuarioList[0];
+    }
+
+    public function getEstado(){
+        $EstadoController = new EstadoController();
+        $idEstado = $this->getIdEstado();
+        $EstadoList = $EstadoController->select([['idEstado', '=', $idEstado]]);
+        return $EstadoList[0];
     }
 
     public function setIdblog($idblog = 0){
@@ -98,6 +110,10 @@ abstract class BlogBase extends ModelBase {
 
     public function setIdUsuario($idUsuario = 0){
         $this->idUsuario = (int) $idUsuario; return $this;
+    }
+
+    public function setIdEstado($idEstado = 1){
+        $this->idEstado = (int) $idEstado; return $this;
     }
 
     public function setFechaAlta($fechaAlta = ''){

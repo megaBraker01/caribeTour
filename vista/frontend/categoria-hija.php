@@ -3,7 +3,7 @@ require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
 $productoList = [];
-$slugCat = $_GET['slugCat'];
+$slugCat = $_GET['slugCat'] ?? "";
 $catNombre = ucfirst($slugCat);
 $slugCatPadre = $categoria = $catPadre = null;
 $mostrarDesde = $pagActual = $pagTotal = 1;

@@ -282,7 +282,11 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                     </div>
                     
                     <div class="featured-blog">
-                        <?php if($blog) { ?>
+                        <?php 
+                        if($blog) { 
+                            $fechaAlta = date('d-m-Y', strtotime($blog->getFechaAlta()));
+                            $comentarios = count($blog->getComentarios());
+                        ?>
                         <article class="post type-post status-publish format-standard hentry category-guides post">
                             <div class="featured-image">
                                 <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" class="attachment-normal wp-post-image" alt="Imagen de <?= $blog ?>" title="<?= $blog ?>" /></a>
@@ -295,9 +299,9 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                             </div>
                             <footer class="post-footer clearfix">
                                 <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>" class="button small" title="Leer m&aacute;s">Leer M&aacute;s</a>
-                                <div class="post-comment-count">1</div>
+                                <div class="post-comment-count" title="Comentarios"><?= $comentarios ?></div>
                                 <div class="post-info">
-                                    <time datetime="<?= $blog->getFechaAlta() ?>"><?= $blog->getFechaAlta() ?></time>
+                                    <time datetime="<?= $fechaAlta ?>" title="Fecha de Publicaci&oacute;n"><?= $fechaAlta ?></time>
                                 </div>
                             </footer>
                         </article>
@@ -335,7 +339,7 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                                 <?php foreach ($producto->getImagenes() as $imagen) { ?>
                                 <a href="<?=PATHFRONTEND ?>img/<?= $imagen ?>" class="colorbox " data-group="gallery-<?= $imagen->getIdProducto() ?>" title="<?= $producto ?>"></a>
                                 <?php } ?>
-                                <a class="featured-image-caption visible-caption" href="#"><h6><?= $producto ?></h6></a>
+                                <a class="featured-image-caption hidden-caption" href="#"><h6><?= $producto ?></h6></a>
                             </div>
                             <div class="block-background"></div>
                         </div>

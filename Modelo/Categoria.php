@@ -18,6 +18,17 @@ class Categoria extends CategoriaBase {
         return $ret;
     }
     
+    public function getCategoriasHijas() 
+    {
+        $ret = [];
+        if(0 == $this->getIdCategoriaPadre()) {
+            $categoriaC = new CategoriaController;
+            $filtro = [['idCategoriaPadre', '=', $this->getIdCategoria()]];
+            $ret = $categoriaC->select($filtro);
+        }
+        return $ret;        
+    }
+    
     /**
      * Obtiene el precio mas bajo disponible de la categoria actual
      * @param bool $sumaComicion

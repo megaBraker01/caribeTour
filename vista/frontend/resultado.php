@@ -2,6 +2,9 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
+//var_dump($_GET);
+var_dump($_SERVER);
+
 $productoList = [];
 
 $mostrarProductos = [];
@@ -173,7 +176,7 @@ if  (
                             <div class="items-list clearfix">
                                 <h3>Sin Resultados...</h3>
                                 <p>Lo sentimos, no hemos encontrado Destinos con estas caracter&iacute;sticas, puedes intentar buscando en el men&uacute; superior<a hreflang="es" type="text/html" charset="iso-8859-1" href="paises"> Paises</a> o trata cambiando los parametros de b&uacute;squeda.</p>
-                                <img src="<?php echo PATHFRONTEND ?>/images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados..."><br>
+                                <!--<img src="<?php echo PATHFRONTEND ?>/images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados..."><br>-->
                             </div>
                         </div>
 			<?php } ?>

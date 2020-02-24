@@ -1,3 +1,30 @@
+<?php
+
+//var_dump($_GET);
+//var_dump($_SERVER);
+$url = $_SERVER["REQUEST_URI"];
+$urlClear = trim(strstr($url, "?"), "?");
+$urlClear = explode("&", $urlClear);
+
+var_dump($urlClear);
+$agrupar = ['idCategoriaPadre'];
+$util = new Util;
+$productoFechaPDO = $util->getProductoFechaRefPDO([], [], [], $agrupar);
+
+$catPadreLista = [];
+foreach($productoFechaPDO as $pdo){
+    $catPadreLista[] = $util->getCategoriaById($pdo->getIdCategoriaPadre()); 
+}
+
+$opciones = "";
+foreach($catPadreLista as $catPadre){
+    $opciones .= "<option value='{$catPadre->getIdCategoria()}'> {$catPadre} </option>";
+
+    foreach($catPadre->getCategoriasHijas() as $catHija){
+        $opciones .= "<option value='{$catHija->getIdCategoria()}'>&nbsp;&nbsp;{$catHija} </option>";
+    }     	
+}
+?>
 <script type='text/javascript'>
 /* <![CDATA[ */
 var labels = {"dateFormat":"dd-mm-yy","dayNames":["Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"],"dayNamesMin":["Do","Lu","Ma","Mi","Ju","Vi","Sa"],"monthNames":["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],"firstDay":"1","prevText":"Mes Anterior","nextText":"Mes Siguiente"};
@@ -7,12 +34,12 @@ var labels = {"dateFormat":"dd-mm-yy","dayNames":["Domingo","Lunes","Martes","Mi
         <div class="form-title">
             <h4>Encuentra tu Destino</h4>
         </div>
-		<form role="search" method="get" action="resultado.php">
+		<form role="search" method="get" action="resultado.php" name="search">
 			<div class="select-field">
 				<span>All Destinations</span>
 				<select name='cat' id='destination' class='postform' >
                     <option value='0'>Todos los Destinos</option>
-                    	<?php do {  ?><option value="idCategoria" >nombreCategoria</option>las subcategorias<?php } while (false); ?>
+                    	<?= $opciones ?>
 				</select>
 			</div>
 			<div class="field-container">

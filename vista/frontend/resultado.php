@@ -2,38 +2,37 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
-//var_dump($_GET);
-var_dump($_SERVER);
+$cat = filter_input(INPUT_GET, 'cat') ?? "";
+$fechaI = $_GET['fechaI'] ?? date('d-m-Y');
+$fechaR = $_GET['fechaR'] ?? "";
+$precio_min = $_GET["precio_min"] ?? 200;
+$precio_max = $_GET["precio_max"] ?? 2000;
 
-$productoList = [];
-
-$mostrarProductos = [];
 $util = new Util();
 
-if  (
-    isset($slugCat) and 
-    $slugCat != "" and
-    $categoria = $util->getCategoriaBySlug($slugCat)
-    ){
-    
-    $catPadre = $categoria->getCategoriaPadre();
-    $slugCatPadre = $catPadre->getSlug(); 
-    $idCategoria = $categoria->getIdCategoria();
-    $filtros = [['idCategoria', '=', $idCategoria]];
-    $ordenados = [['idCategoriaPadre'],['precioProveedor']];
-    $limitar = [];
-    $agrupar = ['idProducto'];
-    $utilCategoriaList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
-    
-    // PAGINACION
-    $productoTotales = count($utilCategoriaList);
-    $mostrarItems = 4;
-    $pag = $_GET['pag'] ?? 1;
-    $pagTotal = ceil($productoTotales / $mostrarItems);
-    $pagActual = ($pag < 1 OR $pag > $pagTotal) ? 1 : $pag;
-    $mostrarDesde = ($pagActual - 1) * $mostrarItems;
-    $mostrarProductos = array_slice($utilCategoriaList, $mostrarDesde, $mostrarItems);
+$filtros = [
+    ['precioProveedor', '>=', $precio_min],
+    ['precioProveedor', '<=', $precio_max],
+];
+
+if(0 != $cat){ 
+    $filtros[] = ['idCategoria', '=', $cat];
+    $filtros[] = ['idCategoriaPadre', '=', $cat, 'or'];
 }
+
+$ordenados = [['idCategoriaPadre'],['precioProveedor']];
+$limitar = [];
+$agrupar = ['idProducto'];
+$utilCategoriaList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
+
+// PAGINACION
+$productoTotales = count($utilCategoriaList);
+$mostrarItems = 4;
+$pag = $_GET['pag'] ?? 1;
+$pagTotal = ceil($productoTotales / $mostrarItems);
+$pagActual = ($pag < 1 OR $pag > $pagTotal) ? 1 : $pag;
+$mostrarDesde = ($pagActual - 1) * $mostrarItems;
+$mostrarProductos = array_slice($utilCategoriaList, $mostrarDesde, $mostrarItems);
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -111,6 +110,8 @@ if  (
                             $i = 1; 
                             foreach ($mostrarProductos as $utilProducto){
                                 $producto = $util->getProductoById($utilProducto->getIdProducto());
+                                $categoria = $producto->getCategoria();
+                                $catPadre = $categoria->getCategoriaPadre();
                                 $precioMasBajo = $producto->getPrecioMasBajo();
                                 $fsalida = new DateTime($utilProducto->getFsalida());
                                 $fvuelta = new DateTime($utilProducto->getFvuelta());

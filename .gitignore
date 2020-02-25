@@ -4,3 +4,5 @@
 /router/
 /etls/
 /nbproject/
+*.php~
+/vista/frontend/*.php~

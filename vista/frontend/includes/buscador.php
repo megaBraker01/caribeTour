@@ -1,10 +1,10 @@
 <?php
 
-$cat = $_GET['cat'] ?? "";
-//$fechaI = $_GET['fechaI'] ?? date('d-m-Y');
-//$fechaR = $_GET['fechaR'] ?? "";
-$precio_min = $_GET["precio_min"] ?? 200;
-$precio_max = $_GET["precio_max"] ?? 2000;
+$cat = filter_input(INPUT_GET, 'cat') ?? "";
+//$fechaI = filter_input(INPUT_GET, 'fechaI') ?? date('d-m-Y');
+//$fechaR = filter_input(INPUT_GET, 'fechaR') ?? "";
+$precio_min = filter_input(INPUT_GET, 'precio_min') ?? 200;
+$precio_max = filter_input(INPUT_GET, 'precio_max') ?? 2000;
 
 $agrupar = ['idCategoriaPadre'];
 $util = new Util;

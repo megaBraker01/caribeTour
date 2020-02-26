@@ -3,17 +3,28 @@ require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
 $cat = filter_input(INPUT_GET, 'cat') ?? "";
-$fechaI = $_GET['fechaI'] ?? date('d-m-Y');
-$fechaR = $_GET['fechaR'] ?? "";
-$precio_min = $_GET["precio_min"] ?? 200;
-$precio_max = $_GET["precio_max"] ?? 2000;
+$fechaI = filter_input(INPUT_GET, 'fechaI') ?? date('d-m-Y');
+$fechaR = filter_input(INPUT_GET, 'fechaR') ?? "";
+$precioMin = filter_input(INPUT_GET, 'precio_min') ?? 200;
+$precioMax = filter_input(INPUT_GET, 'precio_max') ?? 2000;
 
 $util = new Util();
 
+$fechaIFiltro = DateTime::createFromFormat('d-m-Y', $fechaI);
+$fechaRFiltro = DateTime::createFromFormat('d-m-Y', $fechaR);
+
 $filtros = [
-    ['precioProveedor', '>=', $precio_min],
-    ['precioProveedor', '<=', $precio_max],
+    ['precioProveedor', '>=', $precioMin],
+    ['precioProveedor', '<=', $precioMax],
 ];
+
+if($fechaIFiltro){
+    $filtros[] = ['fsalida', '>=', $fechaIFiltro->format('Y-m-d')];
+}
+
+if($fechaRFiltro){
+    $filtros[] = ['fvuelta', '<=', $fechaRFiltro->format('Y-m-d')];
+}
 
 if(0 != $cat){ 
     $filtros[] = ['idCategoria', '=', $cat];
@@ -33,6 +44,7 @@ $pagTotal = ceil($productoTotales / $mostrarItems);
 $pagActual = ($pag < 1 OR $pag > $pagTotal) ? 1 : $pag;
 $mostrarDesde = ($pagActual - 1) * $mostrarItems;
 $mostrarProductos = array_slice($utilCategoriaList, $mostrarDesde, $mostrarItems);
+$urlPaginacion = "resultado.php?cat={$cat}&fechaI={$fechaI}&fechaR={$fechaR}&precio_min={$precioMin}&precio_max={$precioMax}";
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -153,6 +165,11 @@ $mostrarProductos = array_slice($utilCategoriaList, $mostrarDesde, $mostrarItems
                                         <li style="font-size:1.8em;">
                                             <div class="colored-icon icon-3"><span></span></div>
                                             <strong>Desde:</strong> <?= $precioMasBajo ?>&euro;
+                                            <p>idProductoFecha: <?= $utilProducto->getIdProductoFechaRef() ?></p>
+                                            <p>Fecha de Salida: <?= $fsalida->format('d-m-Y'); ?></p>
+                                            <p>Fecha de Salida F: <?php if($fechaIFiltro){ echo $fechaIFiltro->format('d-m-Y'); } ?></p>
+                                            <p>Fecha de Regreso: <?= $fvuelta->format('d-m-Y'); ?></p>
+                                            <p>Fecha de Regreso F: <?php if($fechaRFiltro){ echo $fechaRFiltro->format('d-m-Y'); } ?></p>
                                         </li>
                                     </ul>
                                     <p><?= substr($producto->getDescripcion(),0,261); ?>.[...]</p>
@@ -187,9 +204,9 @@ $mostrarProductos = array_slice($utilCategoriaList, $mostrarDesde, $mostrarItems
                         <?php 
 			for ($i = 1; $i <= $pagTotal; $i++){
                             if ($i == $pagActual)
-                                echo "<span class='page-numbers current'>".$i."</span>";
+                                echo "<span class='page-numbers current'>{$i}</span>";
                             else
-				echo "<a hreflang='es' type='text/html' charset='iso-8859-1' href='paises/{$catPadre->getSlug()}/{$categoria->getSlug()}/pag=$i' class='page-numbers' title='Pasar a la pagina $i'>$i</a>";
+				echo "<a hreflang='es' type='text/html' charset='iso-8859-1' href='{$urlPaginacion}&pag={$i}' class='page-numbers' title='Pasar a la pagina {$i}'>{$i}</a>";
 			} 
 			?>
                         </nav>

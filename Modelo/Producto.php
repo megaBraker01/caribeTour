@@ -39,7 +39,10 @@ class Producto extends ProductoBase {
     {
         $ret = 0;
         $idProducto = $this->getIdproducto();       
-        $filtros = [['idProducto', '=', $idProducto]];
+        $filtros = [
+            ['idProducto', '=', $idProducto],
+            ['fsalida', '>=', Date('Y-m-d')]
+        ];
         $ordenados = [['precioProveedor']];
         $limitar = [1];
         $util = new Util();

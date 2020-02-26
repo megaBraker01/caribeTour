@@ -18,6 +18,10 @@ class Categoria extends CategoriaBase {
         return $ret;
     }
     
+    /**
+     * 
+     * @return array
+     */
     public function getCategoriasHijas() 
     {
         $ret = [];
@@ -43,7 +47,10 @@ class Categoria extends CategoriaBase {
         if($byCatPadre){
             $id = "idCategoriaPadre";
         }        
-        $filtros = [[$id, '=', $idCategoria]];
+        $filtros = [
+            [$id, '=', $idCategoria],
+            ['fsalida', '>=', date('Y-m-d')]
+        ];
         $ordenados = [['precioProveedor']];
         $limitar = [1];
         $util = new Util();

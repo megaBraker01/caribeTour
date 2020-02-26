@@ -132,7 +132,7 @@ $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
                             if ($i == $pagActual)
                                 echo "<span class='page-numbers current'>".$i."</span>";
                             else
-				echo "<a hreflang='es' type='text/html' charset='iso-8859-1' href='blogs/pag=$i' class='page-numbers' title='Pasar a la pagina $i'>$i</a>";
+				echo "<a hreflang='es' type='text/html' charset='iso-8859-1' href='blogs/pag=$i' class='page-numbers' title='Pasar a la p&aacute;gina $i'>$i</a>";
 			} 
 			?>
                         </nav>

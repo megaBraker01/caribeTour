@@ -25,27 +25,27 @@ class ProductoFechaDTO {
     protected $tasasDestinoV;
 
     function __construct($idProductoFechaRef, $idProducto, $idFechaSalida, $precioProveedor, $comision, $producto, $idCategoria, $categoria, $idCategoriaPadre, $catPadre, $fsalida, $terminalSalida, $terminalDestino, $tasasSalida, $tasasDestino, $idFechaVuelta, $fvuelta, $terminalSalidaV, $terminalDestinoV, $tasasSalidaV, $tasasDestinoV) {
-        $this->idProductoFechaRef = $idProductoFechaRef;
-        $this->idProducto = $idProducto;
-        $this->idFechaSalida = $idFechaSalida;
-        $this->precioProveedor = $precioProveedor;
-        $this->comision = $comision;
-        $this->producto = $producto;
-        $this->idCategoria = $idCategoria;
-        $this->categoria = $categoria;
-        $this->idCategoriaPadre = $idCategoriaPadre;
-        $this->catPadre = $catPadre;
-        $this->fsalida = $fsalida;
-        $this->terminalSalida = $terminalSalida;
-        $this->terminalDestino = $terminalDestino;
-        $this->tasasSalida = $tasasSalida;
-        $this->tasasDestino = $tasasDestino;
-        $this->idFechaVuelta = $idFechaVuelta;
-        $this->fvuelta = $fvuelta;
-        $this->terminalSalidaV = $terminalSalidaV;
-        $this->terminalDestinoV = $terminalDestinoV;
-        $this->tasasSalidaV = $tasasSalidaV;
-        $this->tasasDestinoV = $tasasDestinoV;
+        $this->setIdProductoFechaRef($idProductoFechaRef);
+        $this->setIdProducto($idProducto);
+        $this->setIdFechaSalida($idFechaSalida);
+        $this->setPrecioProveedor($precioProveedor);
+        $this->setComision($comision);
+        $this->setProducto($producto);
+        $this->setIdCategoria($idCategoria);
+        $this->setCategoria($categoria);
+        $this->setIdCategoriaPadre($idCategoriaPadre);
+        $this->setCatPadre($catPadre);
+        $this->setFsalida($fsalida);
+        $this->setTerminalSalida($terminalSalida);
+        $this->setTerminalDestino($terminalDestino);
+        $this->setTasasSalida($tasasSalida);
+        $this->setTasasDestino($tasasDestino);
+        $this->setIdFechaVuelta($idFechaVuelta);
+        $this->setFvuelta($fvuelta);
+        $this->setTerminalSalidaV($terminalSalidaV);
+        $this->setTerminalDestinoV($terminalDestinoV);
+        $this->setTasasSalidaV($tasasSalidaV);
+        $this->setTasasDestinoV($tasasDestinoV);
     }
     
     function getIdProductoFechaRef() {
@@ -133,15 +133,15 @@ class ProductoFechaDTO {
     }
 
     function setIdProductoFechaRef($idProductoFechaRef) {
-        $this->idProductoFechaRef = $idProductoFechaRef;
+        $this->idProductoFechaRef = (int) $idProductoFechaRef;
     }
 
     function setIdProducto($idProducto) {
-        $this->idProducto = $idProducto;
+        $this->idProducto = (int) $idProducto;
     }
 
     function setIdFechaSalida($idFechaSalida) {
-        $this->idFechaSalida = $idFechaSalida;
+        $this->idFechaSalida = (int) $idFechaSalida;
     }
 
     function setPrecioProveedor($precioProveedor) {
@@ -157,7 +157,7 @@ class ProductoFechaDTO {
     }
 
     function setIdCategoria($idCategoria) {
-        $this->idCategoria = $idCategoria;
+        $this->idCategoria = (int) $idCategoria;
     }
 
     function setCategoria($categoria) {
@@ -165,7 +165,7 @@ class ProductoFechaDTO {
     }
 
     function setIdCategoriaPadre($idCategoriaPadre) {
-        $this->idCategoriaPadre = $idCategoriaPadre;
+        $this->idCategoriaPadre = (int) $idCategoriaPadre;
     }
 
     function setCatPadre($catPadre) {
@@ -193,7 +193,7 @@ class ProductoFechaDTO {
     }
 
     function setIdFechaVuelta($idFechaVuelta) {
-        $this->idFechaVuelta = $idFechaVuelta;
+        $this->idFechaVuelta = (int) $idFechaVuelta;
     }
 
     function setFvuelta($fvuelta) {

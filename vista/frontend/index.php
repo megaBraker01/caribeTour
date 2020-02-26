@@ -2,36 +2,19 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
-$productoC = new ProductoController;
-$productoFechaC = new ProductoFechaRefController;
+$util = new Util;
 
 // CATEGORIAS (SLIDER)
-$productoFiltro = [
-    ['idEstado', '=', 1],
-    ['stock', '>', 0]
-];
-// 1ro- obtenemos los productos disponibles y que agrupamos por categoria
-$productoLista = $productoC->select($productoFiltro, [], [], ['idCategoria']);
-$productoIds = [];
-
-// 2do- solo nos quedamos con los ids para luego filtrar las fechas
-foreach($productoLista as $producto){
-    $productoIds[] = $producto->getIdproducto();
-}
-
-// 3ro- filtramos las fechas de los productos obtenidos y las organizamos por precio
-$showProductoIds = implode(', ', $productoIds);
-$productoFechaOrder = [['precioProveedor']];
-$productoFechaSlider = $productoFechaC->select([['idProducto', 'in', $showProductoIds]], $productoFechaOrder);
-
+$filtro = [['fsalida', '>=', date('Y-m-d')]];
+$agrupar = ['idCategoria'];
+$productoFechaSlider = $util->getProductoFechaRefPDO($filtro, [], [], $agrupar);
 
 // PRODUCTOS
-$productoList = $productoC->select($productoFiltro,[],[6]);
-foreach($productoList as $producto){
+foreach($productoFechaSlider as $producto){
     $productoIds[] = $producto->getIdproducto();
 }
 $showProductoIds = implode(', ', $productoIds);
-$productosMostrarList = $productoFechaC->select([['idProducto', 'in', $showProductoIds]], $productoFechaOrder);
+$productosMostrarList = $productoFechaSlider;
 
 
 
@@ -50,6 +33,7 @@ if(count($blogLista) > 0){
 
 
 // GALERIA
+$productoC = new ProductoController;
 $productoGaleriaList = $productoC->select([],[],[6]);
 ?>
 <!DOCTYPE html>
@@ -120,9 +104,8 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                             <ul>
                             
                                 <?php 
-                                foreach ($productoFechaSlider as $productoFecha){ 
-                                
-                                    $producto = $productoFecha->getProducto();
+                                foreach ($productoFechaSlider as $utilProducto){ 
+                                    $producto = $util->getProductoById($utilProducto->getIdProducto());
                                     $categoria = $producto->getCategoria();
                                     $categoriaPadre = $categoria->getCategoriaPadre();
                                     $precio = $categoria->getPrecioMasBajo();
@@ -227,7 +210,7 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                     <?php 
                     $i=1;
                     foreach ($productosMostrarList as $productoFecha) {
-                        $producto = $productoFecha->getProducto();
+                        $producto = $util->getProductoById($productoFecha->getIdProducto());
                         $categoria = $producto->getCategoria();
                         $categoriPadre = $categoria->getCategoriaPadre();
                         $precio = $producto->getPrecioMasBajo();

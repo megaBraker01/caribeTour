@@ -41,7 +41,7 @@ class Producto extends ProductoBase {
         $idProducto = $this->getIdproducto();       
         $filtros = [
             ['idProducto', '=', $idProducto],
-            ['fsalida', '>=', Date('Y-m-d')]
+            ['fsalida', '>=', date('Y-m-d')]
         ];
         $ordenados = [['precioProveedor']];
         $limitar = [1];

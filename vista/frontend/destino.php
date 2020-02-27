@@ -109,7 +109,7 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
                 </div>
                 <!-- /breadcrumb-->            
             
-            
+                <!-- row -->
                 <div class="row">
                 <?php echo "<h1>Por favor rellene todos los campos del formulario.</h1><br>";?>
                 <?php echo "<h1>Gracias por su consulta, los datos se han enviado correctamente.</h1><br>"; ?>
@@ -175,7 +175,6 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
                <!-- question form -->
                 <?php include("includes/mailconsulta.php"); ?>
                 <!-- /question form -->
-                </div>
                 <div class="sixcol column">
                     <div class="tour-itinerary">
                         <div class="tour-day">
@@ -284,6 +283,7 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
                 <!-- /related tours -->
                 
             </div>
+            <!-- /row -->
                 
                 
                 

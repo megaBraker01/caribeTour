@@ -5,4 +5,5 @@
 /etls/
 /nbproject/
 *.php~
-/vista/frontend/*.php~
+/vista/frontend/*.*~
+vista/frontend/css/*.*~

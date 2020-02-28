@@ -16,10 +16,11 @@ $fechaRFiltro = DateTime::createFromFormat('d-m-Y', $fechaR);
 $filtros = [
     ['precioProveedor', '>=', $precioMin],
     ['precioProveedor', '<=', $precioMax],
+    ['fsalida', '>=', date('Y-m-d')]
 ];
 
 if($fechaIFiltro){
-    $filtros[] = ['fsalida', '>=', $fechaIFiltro->format('Y-m-d')];
+    $filtros[2][2] = $fechaIFiltro->format('Y-m-d');
 }
 
 if($fechaRFiltro){
@@ -165,11 +166,6 @@ $urlPaginacion = "resultado.php?cat={$cat}&fechaI={$fechaI}&fechaR={$fechaR}&pre
                                         <li style="font-size:1.8em;">
                                             <div class="colored-icon icon-3"><span></span></div>
                                             <strong>Desde:</strong> <?= $precioMasBajo ?>&euro;
-                                            <p>idProductoFecha: <?= $utilProducto->getIdProductoFechaRef() ?></p>
-                                            <p>Fecha de Salida: <?= $fsalida->format('d-m-Y'); ?></p>
-                                            <p>Fecha de Salida F: <?php if($fechaIFiltro){ echo $fechaIFiltro->format('d-m-Y'); } ?></p>
-                                            <p>Fecha de Regreso: <?= $fvuelta->format('d-m-Y'); ?></p>
-                                            <p>Fecha de Regreso F: <?php if($fechaRFiltro){ echo $fechaRFiltro->format('d-m-Y'); } ?></p>
                                         </li>
                                     </ul>
                                     <p><?= substr($producto->getDescripcion(),0,261); ?>.[...]</p>

@@ -1631,7 +1631,7 @@ ul.success li { background:url(../images/bullet_3.png) 0 0.6em no-repeat; }
 
 .tour-thumb .tour-destination {
 	float:left;
-	width:60%;
+	width:50%;
 	padding-right:5%;
 	color:#777;
 }

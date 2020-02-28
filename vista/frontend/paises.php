@@ -3,7 +3,7 @@ require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
 $util = new Util();
-$filtros = [];
+$filtros = [['fsalida', '>=', date('Y-m-d')]];
 $ordenados = [];
 $limitar = [];
 $agrupar = ['idCategoriaPadre'];

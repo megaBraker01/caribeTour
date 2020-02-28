@@ -65,6 +65,6 @@ class Categoria extends CategoriaBase {
             $ret = $precio;
         }
         
-        return $ret;
+        return number_format($ret, $decimals = 2, ",", ".");
     }
 }

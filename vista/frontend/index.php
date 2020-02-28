@@ -10,10 +10,6 @@ $agrupar = ['idCategoria'];
 $productoFechaSlider = $util->getProductoFechaRefPDO($filtro, [], [], $agrupar);
 
 // PRODUCTOS
-foreach($productoFechaSlider as $producto){
-    $productoIds[] = $producto->getIdproducto();
-}
-$showProductoIds = implode(', ', $productoIds);
 $productosMostrarList = $productoFechaSlider;
 
 

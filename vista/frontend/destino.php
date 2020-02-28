@@ -27,7 +27,8 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
     
     // PRODUCTOS RELACIONADOS
     $productoRelFiltro = [
-        ['idCategoria', '=', $categoria->getIdCategoria()]
+        ['idCategoria', '=', $categoria->getIdCategoria()],
+        ['fsalida', '>=', date('Y-m-d')]
     ];
 
     if($producto){

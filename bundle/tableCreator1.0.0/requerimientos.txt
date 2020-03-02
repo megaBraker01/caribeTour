@@ -1,0 +1,44 @@
+secion en 3v4l.org valido para el ejemplo
+https://3v4l.org/NT69i
+
+parametros:
+
+los parametros le pueden llegar en el contructors de la siguiente forma:
+
+como un array indexado, en ese caso se entenderá que son los encabezados de la tabla
+$matrix = ['lun', 'mar', 'mie', 'jue'];
+$matrix = [1, 52, 69, 78, 05];
+$matrix = ['nombre', 'apellidos', 'tel', 'email'];
+ejemplo:
+|'nombre'|'apellidos'|'tel'|'email'|
+
+como un array asociativo, en ese caso se crea una columna por cada elemento del array en donde el ecabezado sea la clave y la celda de abajo sea el valor del elemento
+$matrix = ["Dom" => 1, "Lun" => 2, "Mar" => 3, "Mie" => 4, "Jue" => 5, "Vie" => 6, "Sab" => 7];
+ejemplo:
+|Dom|Lun|Mar|Mie|Jue|Vie|Sab|
+|1  |2  |3  |4  |5  |6  |7  |
+
+como un array (1) de arrys (2) indexado, en ese caso la tabla NO tendra encabezados y sólo se crearan filas por cada posicion del array (1)
+$matrix = [
+    ['rafael', 'perez', 32],
+    ['maria', 'sanchez', 29],
+    ['esthel', 'nieves', 35],
+];
+ejemplo:
+|'rafael'|'perez'  | 32|
+|'maria' |'sanchez'| 29|
+|'esthel'|'nieves' | 35|
+
+un array (1) de arrays (2) asociativos con los encabezados y su valor, en ese caso se extraeran los encabezados de la posicion 0 del array (1) con la funcion array_keys()
+$matrix = [
+    ["Dom" => 1, "Lun" => 2, "Mar" => 3, "Mie" => 4, "Jue" => 5, "Vie" => 6, "Sab" => 7],
+    ["Dom" => 8, "Lun" => 9, "Mar" => 10, "Mie" => 11, "Jue" => 12, "Vie" => 13, "Sab" => 14],
+    ["Dom" => 15, "Lun" => 16, "Mar" => 17, "Mie" => 18, "Jue" => 19, "Vie" => 20, "Sab" => 21],
+    ["Dom" => 22, "Lun" => 23, "Mar" => 24, "Mie" => 25, "Jue" => 26, "Vie" => 27, "Sab" => 28],
+    ["Dom" => 29, "Lun" => 30, "Mar" => 31, "Mie" => "", "Jue" => "", "Vie" => "", "Sab" => ""],
+];
+ejemplo:
+|"Dom"|"Lun"|"Mar"|"Mie"|"Jue"|"Vie"|"Sab"|
+|2    |3    |4    |5    |6    |7    |8    |
+|9    |10   |11   |12   |13   |14   |15   |
+|16   |17   |18   ......

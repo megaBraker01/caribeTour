@@ -32,7 +32,10 @@ if (!function_exists('autoLoader')) {
          * - Controlador
          * - Modelo 
          */
-        $principalDirectories = ['Conexion', 'Controlador', 'Modelo', 'Util', 'Modelo/dto'];
+        $principalDirectories = [
+            'Conexion', 'Controlador', 'Modelo', 'Util', 'Modelo/dto',
+            'bundle/tableCreator1.0.0'
+        ];
         
         $i = 0;
         while (!$clasWasFound and isset($principalDirectories[$i])){

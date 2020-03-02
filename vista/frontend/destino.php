@@ -23,7 +23,29 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
     ){
         // IMAGENES DEL PRODUCTO
         $imagenList = $producto->getImagenes();
-    }    
+    }
+    
+    // CALENDARIO
+    $anioActual = 2019;//date('y');
+    $mesActual = 3;//date('m');
+    $diasMes = cal_days_in_month(CAL_GREGORIAN, $mesActual, $anioActual);
+    $filaCalendario = ceil($diasMes / 7);
+    $diasNombres = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
+    $dias = [];
+    $i = $j = 0;
+    while($j < $filaCalendario){
+        $start = ++$i;
+        $end = ($i+=6) <= $diasMes ? $i : $diasMes;
+        $dias[] = range($start, $end);
+        $j++;
+    }
+    
+    $table = new Table($diasNombres);
+    $table->setBody($dias);
+    $table->setAttribute('summary', "Calendario con las fechas de salida para el tour {$producto}");
+    $table->setAttribute('class', 'table table-sm table-striped');
+    $table->setCaption('<h3>El&iacute;ge la fecha de salida</h3>');
+    $showTable = $table->render();
     
     // PRODUCTOS RELACIONADOS
     $productoRelFiltro = [
@@ -209,24 +231,8 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
                     </div>
                 </div>
                 <div class="sixcol column last">
-                    <div class="calendario">        
-                        <table summary="Calendario con las fechas de salida para el tour <?= $producto ?>">
-                            <caption><h3>El&iacute;ge la fecha de salida</h3></caption>
-                            <colgroup span="7" style="width:14.29%; text-align:left; vertical-align:top; height:39px;" />
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th scope="col" abbr="Domingo">Dom</th><th scope="col" abbr="Lunes">Lun</th><th scope="col" abbr="Martes">Mar</th><th scope="col" abbr="Mi&eacute;rcoles">Mie</th><th scope="col" abbr="Jueves">Jue</th><th scope="col" abbr="Viernes">Vie</th><th scope="col" abbr="S&aacute;bado">Sab</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="calendario">   
+                        <?= $showTable ?>
                     </div>
                 </div>
                 <?php } ?>
@@ -254,7 +260,6 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
                         foreach($productoRelList as $productoRel) { 
                             $producto = $util->getProductoById($productoRel->getIdProducto());
                             $last = $i++ % 4 == 0 ? "last" : "";
-                            
                         ?>
                         <div class="column threecol <?= $last ?>">
                             <div class="tour-thumb-container">

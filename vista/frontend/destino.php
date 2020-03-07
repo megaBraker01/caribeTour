@@ -26,26 +26,69 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
     }
     
     // CALENDARIO
-    $anioActual = 2019;//date('y');
-    $mesActual = 3;//date('m');
+    $anioActual = date('y');
+    $mesActual = date('n');
+    $diaActual = date('j');
     $diasMes = cal_days_in_month(CAL_GREGORIAN, $mesActual, $anioActual);
-    $filaCalendario = ceil($diasMes / 7);
+    $diaPosicion = date('w', mktime(0, 0, 0, $mesActual, 1, $anioActual));
+    $filasCantidad = ceil($diasMes / 7);
+    $celdasCantidad = $filasCantidad * 7;
+    $celdasRestantes = $celdasCantidad - $diasMes;
     $diasNombres = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
     $dias = [];
     $i = $j = 0;
-    while($j < $filaCalendario){
+    $firstRow = array_fill(0, $diaPosicion, "");
+    $dias[] = $firstRow;
+    /*
+    while($j < $filasCantidad){
         $start = ++$i;
         $end = ($i+=6) <= $diasMes ? $i : $diasMes;
-        $dias[] = range($start, $end);
+        $celdas = range($start, $end);
+        if($j == $celdasRestantes){
+            $celdas = array_merge($celdas, array_fill($end-1, $celdasRestantes, ""));
+        }
+        $dias[] = $celdas;
         $j++;
     }
+     * 
+     */
+    //$lastPosition = count($dias)-1;
+    //array_push($dias[$lastPosition], array_fill(--$lastPosition, $celdasRestantes, ""));
+
+
+    // ALTERNATIVA
+    /*
+    $diasPorSemana = 7;
+$anioActual = date('y');
+$mesActual = date('n');
+$diaActual = date('j');
+$diasMes = 31;//cal_days_in_month(CAL_GREGORIAN, $mesActual, $anioActual);
+$filasCalendario = ceil($diasMes / $diasPorSemana);
+$celdasCalendario = $filasCalendario * $diasPorSemana;
+
+echo $celdasCalendario;
+
+$i = $diaNum = 0;
+$arrayCalendar = [];
+while($i < $filasCalendario){
+    $row = [];
+    $d = 0;
+    while($d < $diasPorSemana){
+        $row[] = $diaNum++;
+        $d++;
+    }
+    $arrayCalendar[] = $row;
+    $i++;
+}
+    
+    */
     
     $table = new Table($diasNombres);
     $table->setBody($dias);
     $table->setAttribute('summary', "Calendario con las fechas de salida para el tour {$producto}");
     $table->setAttribute('class', 'table table-sm table-striped');
     $table->setCaption('<h3>El&iacute;ge la fecha de salida</h3>');
-    $showTable = $table->render();
+    $showTable = $diaPosicion;// $table->render();
     
     // PRODUCTOS RELACIONADOS
     $productoRelFiltro = [

@@ -2,29 +2,9 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
-
-// CATEGORIAS (SLIDER)
-
-$productoC = new ProductoController;
-$productoFechaC = new ProductoFechaRefController;
-
-$productoFiltro = [
-    ['idEstado', '=', 1],
-    ['stock', '>', 0]
-];
-$productoLista = $productoC->select($productoFiltro);
-$productoIds = [];
-
-foreach($productoLista as $producto){
-	$productoIds[] = $producto->getIdproducto();
-}
-
-$showProductoIds = implode(', ', $productoIds);
-$productoFechaOrder = [['precioProveedor']];
-$productoFechaSlider = $productoFechaC->select([['idProducto', 'in', $showProductoIds]], $productoFechaOrder);
-
-$productoSliderFiltered = [];
-$vista = $productoFechaSlider;
+$mes = 2;// date('m');
+$anio = date('y');
+$vista = Util::generar_calendario($mes, $anio, "es", [14]);
 
 
 ?>

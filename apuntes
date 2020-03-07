@@ -47,3 +47,8 @@ BLOG
 ==========
 hacer que la imagen portada del blog tambien se guarde en tamaño reducido para hacer la imagen thumbnail
 
+
+==========
+SERVIDOR
+==========
+al momento de subir la web al SERVIDOR, hay que modificar el archivo caribetour\vista\frontend\includes\baselink.php y cambiar el protocolo de la url y ponerle https://www.caribetour.es

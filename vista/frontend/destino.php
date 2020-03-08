@@ -15,80 +15,38 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
 	
     $catPadre = $categoria->getCategoriaPadre();
     $catPadreSlug = $catPadre->getSlug();
+    $idProducto = 0;
     
     if(
     isset($producSlug) and
     "" != $producSlug and
     $producto = $util->getProductoBySlug($producSlug)
     ){
+        $idProducto = $producto->getIdProducto();
         // IMAGENES DEL PRODUCTO
         $imagenList = $producto->getImagenes();
     }
     
     // CALENDARIO
-    $anioActual = date('y');
-    $mesActual = date('n');
-    $diaActual = date('j');
-    $diasMes = cal_days_in_month(CAL_GREGORIAN, $mesActual, $anioActual);
-    $diaPosicion = date('w', mktime(0, 0, 0, $mesActual, 1, $anioActual));
-    $filasCantidad = ceil($diasMes / 7);
-    $celdasCantidad = $filasCantidad * 7;
-    $celdasRestantes = $celdasCantidad - $diasMes;
-    $diasNombres = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
-    $dias = [];
-    $i = $j = 0;
-    $firstRow = array_fill(0, $diaPosicion, "");
-    $dias[] = $firstRow;
-    /*
-    while($j < $filasCantidad){
-        $start = ++$i;
-        $end = ($i+=6) <= $diasMes ? $i : $diasMes;
-        $celdas = range($start, $end);
-        if($j == $celdasRestantes){
-            $celdas = array_merge($celdas, array_fill($end-1, $celdasRestantes, ""));
-        }
-        $dias[] = $celdas;
-        $j++;
+    $mesActual = date('m');
+    $anioActual = date('Y');
+    $calendarioFiltro = [
+        ['idProducto', '=', $idProducto],
+        ['MONTH(fsalida)', '=', $mesActual],
+        ['YEAR(fsalida)', '=', $anioActual]
+    ];
+
+    $fechaSalidaPrecio = $util->getProductoFechaRefPDO($calendarioFiltro);
+    $fechaPrecio = [];
+    foreach($fechaSalidaPrecio as $row){
+        $precio = $row->getPrecioProveedor() + ( $row->getPrecioProveedor() * $row->getComision() ) / 100;
+        $fecha = date('Y-m-d', strtotime( $row->getFsalida() ));
+        $fechaPrecio[$fecha] = $precio;
     }
-     * 
-     */
-    //$lastPosition = count($dias)-1;
-    //array_push($dias[$lastPosition], array_fill(--$lastPosition, $celdasRestantes, ""));
-
-
-    // ALTERNATIVA
-    /*
-    $diasPorSemana = 7;
-$anioActual = date('y');
-$mesActual = date('n');
-$diaActual = date('j');
-$diasMes = 31;//cal_days_in_month(CAL_GREGORIAN, $mesActual, $anioActual);
-$filasCalendario = ceil($diasMes / $diasPorSemana);
-$celdasCalendario = $filasCalendario * $diasPorSemana;
-
-echo $celdasCalendario;
-
-$i = $diaNum = 0;
-$arrayCalendar = [];
-while($i < $filasCalendario){
-    $row = [];
-    $d = 0;
-    while($d < $diasPorSemana){
-        $row[] = $diaNum++;
-        $d++;
-    }
-    $arrayCalendar[] = $row;
-    $i++;
-}
     
-    */
-    
-    $table = new Table($diasNombres);
-    $table->setBody($dias);
-    $table->setAttribute('summary', "Calendario con las fechas de salida para el tour {$producto}");
-    $table->setAttribute('class', 'table table-sm table-striped');
-    $table->setCaption('<h3>El&iacute;ge la fecha de salida</h3>');
-    $showTable = $diaPosicion;// $table->render();
+    //$showCalendar = Util::generar_calendario($mesActual, $anioActual, $fechaPrecio);
+    //$showCalendar = "<table><tr>" . Util::diasCalendario($mesActual, $anioActual, $fechaPrecio) . "</tr></table>";
+    $showCalendar = Util::calendario($mesActual, $anioActual, $fechaPrecio);
     
     // PRODUCTOS RELACIONADOS
     $productoRelFiltro = [
@@ -99,8 +57,9 @@ while($i < $filasCalendario){
     if($producto){
         $productoRelFiltro[] = ['idProducto', '!=', $producto->getIdProducto()];
     }
-
-    $productoRelList = $util->getProductoFechaRefPDO($productoRelFiltro, [], [4], ['idProducto']);
+    
+    $limit = [4];
+    $productoRelList = $util->getProductoFechaRefPDO($productoRelFiltro, [], $limit, ['idProducto']);
 }
 ?>
 <!DOCTYPE html>
@@ -275,7 +234,7 @@ while($i < $filasCalendario){
                 </div>
                 <div class="sixcol column last">
                     <div class="calendario">   
-                        <?= $showTable ?>
+                        <?= $showCalendar ?>
                     </div>
                 </div>
                 <?php } ?>

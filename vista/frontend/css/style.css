@@ -107,6 +107,15 @@ Tags: travel, trip, tour, journal, nature, ecological, cruise, holiday, booking
 	vertical-align:top;
 	height:39px;
 }
+
+.calendar-current-day {
+	background-color:#E2E2E2;
+}
+
+.calendar-price {
+	font-size: 1.2em;
+	font-weight: bold;
+}
 /*td {
 	text-align:left;
 	vertical-align:top;

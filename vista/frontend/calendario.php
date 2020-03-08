@@ -51,3 +51,36 @@ $table = "
 ";
 
 echo $table;
+
+// PARCIALMENTE FUNCIONANDO
+
+    // CALENDARIO
+    /*
+    $anioActual = date('y');
+    $mesActual = 2;//date('n');
+    $diaActual = date('j');
+    $diasMes = cal_days_in_month(CAL_GREGORIAN, $mesActual, $anioActual);
+    $diaPosicion = date('w', mktime(0, 0, 0, $mesActual, 1, $anioActual));
+    $filasCantidad = ceil($diasMes / 7);
+    $celdasCantidad = $filasCantidad * 7;
+    $celdasRestantes = $celdasCantidad - $diasMes;
+    $diasNombres = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
+    $dias = [];
+    $i = $j = 0;
+    $firstRow = array_fill(0, $diaPosicion, "");
+    $dias[] = $firstRow;
+    
+    while($j < $filasCantidad){
+        $start = ++$i;
+        $end = ($i+=6) <= $diasMes ? $i : $diasMes;
+        $celdas = range($start, $end);
+        if($j == $celdasRestantes){
+            $celdas = array_merge($celdas, array_fill($end-1, $celdasRestantes, ""));
+        }
+        $dias[] = $celdas;
+        $j++;
+    }
+
+    $lastPosition = count($dias)-1;
+    array_push($dias[$lastPosition], array_fill(--$lastPosition, $celdasRestantes, ""));
+    */

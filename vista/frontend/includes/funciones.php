@@ -203,7 +203,7 @@ function ObtenerSEOporCat($identificador) //**obsoleto*//
 	}
 //******************************************************************************
 function noacent($cadena){
-    return strtr($cadena,'àáâãäçèéêëìíîïñòóôõöùúûüıÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜİ',
+    return strtr($cadena,'Ã Ã¡Ã¢Ã£Ã¤Ã§Ã¨Ã©ÃªÃ«Ã¬Ã­Ã®Ã¯Ã±Ã²Ã³Ã´ÃµÃ¶Ã¹ÃºÃ»Ã¼Ã½Ã¿Ã€ÃÃ‚ÃƒÃ„Ã‡ÃˆÃ‰ÃŠÃ‹ÃŒÃÃÃÃ‘Ã’Ã“Ã”Ã•Ã–Ã™ÃšÃ›ÃœÃ',
 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
 }
 	//******************************************************************************
@@ -459,7 +459,7 @@ function ObtenerFormaPago($identificador)
 //******************************************************************************
 		function MostratFechaEspanol($identificador)
 {
-	$dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado"); 
+	$dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sï¿½bado"); 
 	$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"); 
 	$fecha = ($dias[date('w', strtotime($identificador))]." ".date('d', strtotime($identificador))." de ".$meses[date('n', strtotime($identificador))-1 ]. " del ".date("Y", strtotime($identificador)));
 	return $fecha;	
@@ -820,10 +820,10 @@ function ObtenerMailCiente($identificador)
   <tr>
     <td>Muchas gracias,<br /><br />     
 	<p><strong>Departamento de Reservas CaribeTour.es</strong><br>
-	<strong>Oficina:</strong> Calle Puerto del Pozazal 37 3 7º-5, Madrid 28031 - Espa&ntilde;a<br>
+	<strong>Oficina:</strong> Calle Puerto del Pozazal 37 3 7ï¿½-5, Madrid 28031 - Espa&ntilde;a<br>
 	<strong>Tel:</strong> (+34) 676062155<br>
 	<strong>Email:</strong> <a href="mailto:info@caribetour.es">info@caribetour.es</a></p>
-	<small>Este mensaje puede contener información privilegiada y/o personal. Si cree que ha recibido éste correo por error descarte su contenido e informe al remitente para evitar que en el futuro reciba otro correo como este. Disculpe los inconvenientes.</small></td>
+	<small>Este mensaje puede contener informaciï¿½n privilegiada y/o personal. Si cree que ha recibido ï¿½ste correo por error descarte su contenido e informe al remitente para evitar que en el futuro reciba otro correo como este. Disculpe los inconvenientes.</small></td>
   </tr>
 </table>
 </body>
@@ -866,10 +866,10 @@ function ObtenerMailCiente($identificador)
   <tr>
     <td>Muchas gracias,<br /><br />     
 	<p><strong>Departamento de Reservas CaribeTour.es</strong><br>
-	<strong>Oficina:</strong> Calle Puerto del Pozazal 37 3 7º-5, Madrid 28031 - Espa&ntilde;a<br>
+	<strong>Oficina:</strong> Calle Puerto del Pozazal 37 3 7ï¿½-5, Madrid 28031 - Espa&ntilde;a<br>
 	<strong>Tel:</strong> (+34) 676062155<br>
 	<strong>Email:</strong> <a href="mailto:info@caribetour.es">info@caribetour.es</a></p>
-	<small>Este mensaje puede contener información privilegiada y/o personal. Si cree que ha recibido éste correo por error descarte su contenido e informe al remitente para evitar que en el futuro reciba otro correo como este. Disculpe los inconvenientes.</small></td>
+	<small>Este mensaje puede contener informaciï¿½n privilegiada y/o personal. Si cree que ha recibido ï¿½ste correo por error descarte su contenido e informe al remitente para evitar que en el futuro reciba otro correo como este. Disculpe los inconvenientes.</small></td>
   </tr>
 </table>
 </body>

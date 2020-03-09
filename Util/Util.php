@@ -254,6 +254,7 @@ class Util extends BaseController {
         $cantidad_celdas = $filas * 7;
         $diferencia = $cantidad_celdas - $numero_dias;
         $ret = "";
+        $url = $_SERVER['REDIRECT_URL'];
         for($i = 1; $i <= $numero_dias; $i++){
             if($i <= $iniciomes){
                 $ret .= '<td></td>';
@@ -266,7 +267,7 @@ class Util extends BaseController {
                 $dateToCompare = date('Y-m-d', mktime(0,0,0,$month, $dia, $year));
                 if(isset($holidays[$dateToCompare])){
                     $precio = Util::moneda($holidays[$dateToCompare]);
-                    $showPrecio = "<div class='calendar-price'>{$precio}</div>";
+                    $showPrecio = "<div class='calendar-price'><a href='{$url}?fecha={$i}'>{$precio}</a></div>";
                 }
                 
                 $ret .=  "<td{$dayClass}>{$dia} {$showPrecio}</td>";

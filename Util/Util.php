@@ -7,7 +7,7 @@ class Util extends BaseController {
     const _DOUBLE = 'double';
 
 
-    public function sanear($value, $type = self::CLEAR_TEXT): string
+    public function sanear($value, $type = self::_TEXT): string
     {
         $remplazar = array("\n\r");
 	    $por = " ";

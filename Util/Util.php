@@ -241,7 +241,7 @@ class Util extends BaseController {
     }
 
 
-    public static function diasCalendario($month = null, $year = null, $holidays = [], $lang = "es"){
+    public static function diasCalendario($month=null, $year=null, $holidays=[], $url="", $lang="es"){
         date_default_timezone_set("Europe/Madrid");
         setlocale(LC_TIME, "spanish");
         $anio_actual = $year ?? date("Y");
@@ -254,7 +254,9 @@ class Util extends BaseController {
         $cantidad_celdas = $filas * 7;
         $diferencia = $cantidad_celdas - $numero_dias;
         $ret = "";
-        $url = $_SERVER['REDIRECT_URL'];
+        //$url = $_SERVER['REDIRECT_URL'];
+        $dateSelectedClass = "";
+        $dateSelected = $_GET['fecha'] ?? "";
         for($i = 1; $i <= $numero_dias; $i++){
             if($i <= $iniciomes){
                 $ret .= '<td></td>';
@@ -262,15 +264,16 @@ class Util extends BaseController {
                 $dia = $i-$iniciomes;
                 $precio = $dayClass = $showPrecio = "";
                 if($dia == $dia_actual){
-                    $dayClass = " class='calendar-current-day'";
+                    $dayClass = "calendar-current-day";
                 }
                 $dateToCompare = date('Y-m-d', mktime(0,0,0,$month, $dia, $year));
                 if(isset($holidays[$dateToCompare])){
                     $precio = Util::moneda($holidays[$dateToCompare]);
-                    $showPrecio = "<div class='calendar-price'><a href='{$url}?fecha={$i}'>{$precio}</a></div>";
+                    $dayClass .= $dateSelected == $dateToCompare ? " calendar-selected-date" : "";
+                    $showPrecio = "<div class='calendar-price'><a href='{$url}/fecha={$dateToCompare}'>{$precio}</a></div>";
                 }
                 
-                $ret .=  "<td{$dayClass}>{$dia} {$showPrecio}</td>";
+                $ret .=  "<td class='{$dayClass}'>{$dia} {$showPrecio}</td>";
             }
 
             if ($i % 7 ==0){
@@ -295,13 +298,13 @@ class Util extends BaseController {
         return $fecha;
     }
 
-    public static function calendario($month = null, $year = null, $holidays = [], $lang = "es"){
+    public static function calendario($month=null, $year=null, $holidays=[], $url="", $lang="es"){
         $fechaTexto = Util::MostratFechaEspanol(date('d-m-Y'));
-        $diasCalendario = Util::diasCalendario($month, $year , $holidays, $lang);
+        $diasCalendario = Util::diasCalendario($month, $year , $holidays, $url, $lang);
         $ret ="<table>
                  <thead>
                      <tr>
-                         <th><a href='' title='Ver el mes anterior'>&lt; &lt;--</a></th><th colspan='5'> {$fechaTexto} </th><th><a href='' title='Ver el mes anterior'>--&gt; &gt;</a></th>
+                         <th><a href='' title='Ver el mes anterior'>&lt; &lt;--</a></th><th colspan='5'> {$fechaTexto} </th><th><a href='' title='Ver el mes siguiente'>--&gt; &gt;</a></th>
                      </tr>
                      <tr>
                          <th>Dom</th><th>Lun</th><th>Mar</th><th>Mie</th><th>Jue</th><th>Vie</th><th>Sab</th>

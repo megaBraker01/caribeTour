@@ -46,7 +46,8 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
     
     //$showCalendar = Util::generar_calendario($mesActual, $anioActual, $fechaPrecio);
     //$showCalendar = "<table><tr>" . Util::diasCalendario($mesActual, $anioActual, $fechaPrecio) . "</tr></table>";
-    $showCalendar = Util::calendario($mesActual, $anioActual, $fechaPrecio);
+    $url = "paises/{$catPadreSlug}/{$catSlug}/{$producSlug}";
+    $showCalendar = Util::calendario($mesActual, $anioActual, $fechaPrecio, $url);
     
     // PRODUCTOS RELACIONADOS
     $productoRelFiltro = [

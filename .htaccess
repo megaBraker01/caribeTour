@@ -11,7 +11,8 @@ RewriteEngine On
 
 RewriteCond %{HTTP_HOST} ^caribetour.es [NC]
 RewriteRule ^(.*)$ http://www.caribetour.es/$1 [R=301,L]
-RewriteRule ^admin/.*$ - [PT]
+#RewriteRule ^admin/.*$ - [PT]
+RewriteRule ^admin/?.*$ vista/backend/
 RewriteRule ^/?$ vista/frontend/index.php
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
@@ -23,7 +24,7 @@ RewriteRule ^paises/([a-z-]+)/?$ vista/frontend/categorias.php?slugCat=$1
 RewriteRule ^paises/([a-z-]+)/([a-z-]+)/?$ vista/frontend/categoria-hija.php?slugCat=$2
 RewriteRule ^paises/([a-z-]+)/([a-z-]+)/pag=([0-9]+)?$ vista/frontend/categoria-hija.php?slugCat=$2&pag=$3
 RewriteRule ^paises/([a-z-]+)/([a-z-]+)/([a-z-]+)/?$ vista/frontend/destino.php?slugProduc=$3
-#RewriteRule ^paises/([a-z-]+)/([a-z-]+)/([a-z-]+)/fecha=([0-9]+)?$ vista/frontend/destino.php?slugProduc=$3&idFecha=$4
+RewriteRule ^paises/([a-z-]+)/([a-z-]+)/([a-z-]+)/fecha=([0-9-]+)?$ vista/frontend/destino.php?slugProduc=$3&fecha=$4
 RewriteRule ^blogs/?$ vista/frontend/blogs.php
 RewriteRule ^blogs/pag=([0-9]+)?$ vista/frontend/blogs.php?pag=$1
 RewriteRule ^blogs/([a-z-]+)/?$ vista/frontend/blog-datos.php?slugBlog=$1

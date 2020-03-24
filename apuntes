@@ -52,3 +52,33 @@ hacer que la imagen portada del blog tambien se guarde en tamaño reducido para 
 SERVIDOR
 ==========
 al momento de subir la web al SERVIDOR, hay que modificar el archivo caribetour\vista\frontend\includes\baselink.php y cambiar el protocolo de la url y ponerle https://www.caribetour.es
+
+
+==========
+DATATABLE
+==========
+se tiene que insertar el codigo del datatable en cada lister que se vaya a crear
+ya que la configuracion de cada tabla se tiene que hacer desde ese codigo
+
+para solicitar el objeto json que vamos a mostrar en la tabla, se hace mediante el siguiente codigo
+teniendo en cuenta que el json es el siguiente:
+{"data":[
+    {"nombre":"", "apellidos":"", "tel":},
+    {"nombre":"", "apellidos":"", "tel":},
+    {"nombre":"", "apellidos":"", "tel":}
+]}
+
+$('#dynamic-table').DataTable({
+    "columns": [
+    {"data": "nombre"},
+    {"data": "apellidos"},
+    {"data": "tel"}
+    ]
+});
+
+
+para hacer scroll horizontal, introducimos el siguiente codigo
+$('#dynamic-table').DataTable({
+    "sScrollX": "100%",
+    "sScrollXInner": "100%",
+});

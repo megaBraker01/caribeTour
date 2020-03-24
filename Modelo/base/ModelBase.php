@@ -15,6 +15,14 @@ abstract class ModelBase {
     }
 
     /*
+    * Retorna un objeto en formato json de la clase   
+    * @return string 
+    */
+    public function toJson(): string {
+        return json_encode($this->getAllParams(false, false));
+    }
+
+    /*
     * @param array asociativo propiedadClase => valor $paramList
     * ej: ['nombre' => 'juan', 'telefono' => 987987987]
     */

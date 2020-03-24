@@ -11,3 +11,6 @@ if(!defined("SITE_ROOT"))
 
 if(!defined("PATHFRONTEND"))
     define("PATHFRONTEND", "vista/frontend/");
+
+if(!defined("PATHBACKEND"))
+    define("PATHBACKEND", "vista/backend/");

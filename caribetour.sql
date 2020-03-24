@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 22-02-2020 a las 19:26:35
+-- Tiempo de generación: 24-03-2020 a las 10:18:24
 -- Versión del servidor: 5.7.19
--- Versión de PHP: 7.0.23
+-- Versión de PHP: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -109,13 +109,13 @@ INSERT INTO `categorias` (`idCategoria`, `idCategoriaPadre`, `nombre`, `slug`, `
 (1, 0, 'Rep&uacute;blica Dominicana', 'republica-dominicana', 'Donde te espera la sonrisa eterna de gente buena y hospitalaria, la carcajada de un mar que hace de la republica dominicana un destino singular cargado con el sol caribe&ntilde;o, la alegr&iacute;a del merengue y la bachata y el mejor ron del mundo. tambi&eacute;n encontraras excelente clima, playas paradisiacas, y el mejor arco&iacute;ris gastron&oacute;mico que te puedas imaginar.', 1, 'republica-dominicana.jpg'),
 (2, 0, 'M&eacute;xico', 'mexico', '', 1, 'mexico.jpg'),
 (3, 0, 'Cuba', 'cuba', '', 1, 'cuba.jpg'),
-(4, 1, 'Santo Domingo', 'santo-domingo', 'Es la ciudad primada de ameria\r\n', 1, 'santo-domingo.jpg'),
+(4, 1, 'Santo Domingo', 'santo-domingo', 'Es la ciudad primada de ameria\r\n', 1, 'yucatan.jpg'),
 (5, 2, 'Rivera Maya', 'rivera-maya', '...', 1, 'rivera-maya.jpg'),
-(6, 1, 'Punta Cana', 'punta-cana', '...', 1, 'paradisuspalmareal.jpg'),
+(6, 1, 'Punta Cana', 'punta-cana', '...', 1, 'varadero.jpg'),
 (7, 3, 'Varadero', 'varadero', '...', 1, 'varadero.jpg'),
 (8, 2, 'Yucatan', 'yucatan', '...', 1, 'yucatan.jpg'),
 (9, 2, 'Canc&uacute;n', 'cancun', '...', 1, 'cancun.jpg'),
-(10, 1, 'La Romana', 'la-romana', '...', 1, 'portada.jpg'),
+(10, 1, 'La Romana', 'la-romana', '...', 1, 'cancun.jpg'),
 (11, 1, 'Puerto Plata', 'puerto-plata', 'Es Un Lugar Precioso Con Grandes Monta&ntilde;as Y Ricas Playas En Las Que Podras Encontrar Un Sin Numero De Especies Marinas ', 1, 'paradisuspalmareal.jpg'),
 (12, 0, 'Puerto Rico', 'puerto-rico', '', 1, 'puerto-rico.jpg'),
 (13, 13, 'San Juan', 'san-juan', '....', 1, 'san-juan.jpg'),
@@ -426,16 +426,16 @@ CREATE TABLE IF NOT EXISTS `fechas` (
 --
 
 INSERT INTO `fechas` (`idFecha`, `fecha`, `idPuertoSalida`, `terminalSalida`, `tasasSalida`, `idPuertoDestino`, `terminalDestino`, `tasasDestino`, `idCia`) VALUES
-(1, '2020-02-16 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
-(2, '2020-02-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
-(3, '2020-02-16 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
-(4, '2020-02-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
-(5, '2020-02-16 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
-(6, '2020-02-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
-(7, '2020-02-16 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
-(8, '2020-02-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
-(9, '2020-02-16 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
-(10, '2020-02-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1);
+(1, '2020-03-02 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
+(2, '2020-03-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
+(3, '2020-03-16 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
+(4, '2020-03-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
+(5, '2020-03-16 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
+(6, '2020-03-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
+(7, '2020-03-16 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
+(8, '2020-03-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
+(9, '2020-03-16 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
+(10, '2020-03-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -670,7 +670,7 @@ CREATE TABLE IF NOT EXISTS `permisos` (
 
 DROP TABLE IF EXISTS `productos`;
 CREATE TABLE IF NOT EXISTS `productos` (
-  `idproducto` int(11) NOT NULL AUTO_INCREMENT,
+  `idProducto` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   `descripcion` text,
@@ -687,14 +687,14 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `esOferta` tinyint(4) DEFAULT '0',
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fehaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idproducto`)
+  PRIMARY KEY (`idProducto`)
 ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`idproducto`, `nombre`, `imagen`, `descripcion`, `slug`, `itinerario`, `incluye`, `metaDescripcion`, `metaKeyWords`, `idCategoria`, `idTipo`, `idEstado`, `idProveedor`, `stock`, `esOferta`, `fechaAlta`, `fehaUpdate`) VALUES
+INSERT INTO `productos` (`idProducto`, `nombre`, `imagen`, `descripcion`, `slug`, `itinerario`, `incluye`, `metaDescripcion`, `metaKeyWords`, `idCategoria`, `idTipo`, `idEstado`, `idProveedor`, `stock`, `esOferta`, `fechaAlta`, `fehaUpdate`) VALUES
 (1, 'Vik Hotel Arena Blanca', 'vik-hotel-arena-blanca.jpg', 'El vik hotel arena blanca estã£â¡ situado en punta cana sobre la inigualable playa de bã£â¡varo, a 30 minutos del aeropuerto internacional de punta cana. este hotel en punta cana fue reformado en 2006 para ofrecerle su caracterã£â­stica variedad de ambientes cuidados terapã£â©uticos y de belleza en el moderno spa, completos programas de animaciã£â³n y cenas romã£â¡nticas bajo las estrellas, sobre la templada playa caribeã£â±a. desconecte desde su llegada al vik.\r\n \r\npara satisfacer todo tipo de paladares, el vik hotel arena blanca dispone de 1 restaurante buffet principal y otros 3 a la carta, con platos de la alta cocina italiana, local e internacional. ã¢â¿cuã£â¡l es la que mã£â¡s le gusta los 5 bares, el snack-bar y la discoteca completan la oferta gastronã£â³mica de nuestro servicio de todo incluido, variado y de calidad. todo tipo de gastronomã£â­a y bebidas para que se sienta mejor que en casa.', 'vik-hotel-arena-blanca', '1- Salida el %s a las %s hrs en vuelo directo desde Madrid con destino %s.\r\n2- Llegada al aeropuerto internacional %s. Asistencia de nuestro Tour Operador en destino para traslados del aeropuerto al hotel %s.\r\n3- Estancia en el hotel %s - %s - todo incluido.\r\n4- Dï¿½a %s traslado desde el hotel %s al aeropuerto, Vuelo desde %s a las %s hrs con destino Madrid.', '-Vuelo directo con la compaï¿½ï¿½a Evelop desde Madrid con destino Punta Cana.\r\n-Estancia en habitaciï¿½n Standard, 7 noches en rï¿½gimen de todo incluï¿½do en el Hotel VIK Arena Blanca 4* - Punta Cana.\r\n-Traslados de entrada y salida Punta Cana.\r\n-Tasas aï¿½reas incluidas.\r\n-Seguro obligatorio de Viaje', 'El vik hotel arena blanca est&atilde;&pound;&acirc;&iexcl; situado en punta cana sobre la inigualable playa de b&atilde;&pound;&acirc;&iexcl;varo, a 30 minutos del aeropuerto internacional de punta ca', 'El VIK hotel Arena Blanca estï¿½ situado en Punta Cana sobre la inigualable Playa de Bï¿½varo, a 30 minutos del Aeropuerto Internacional de Punta Cana. ', 11, 3, 1, 21, 100, 0, '2020-01-17 21:55:51', '2020-01-18 17:48:34'),
 (2, 'Natura Park Beach Eco Resort &amp; Spa', 'natura-park-beach-eco-resort-y-spa.jpg', 'En este resort se aprovechan los recursos naturales del área tales como las piedras, el coco, la madera y la caña, creando un ambiente de extraordinaria belleza natural que parece estar soñando...\r\n \r\nviva la experiencia de unas vacaciones en completa armonía con la naturaleza en el lujoso resort de punta cana, natura park. abundantes jardines tropicales que rebosan con una exótica vida de aves se mezclan con lagunas y puentes a lo largo de caminos serpenteantes que llevan a la playa. el hotel está ubicado en la maravillosa playa de , uno de los mejores en el caribe.\r\n \r\nel natura park beach eco resort se beneficia de un diseño arquitectónico original que utiliza los recursos naturales de la zona como la piedra, los cocoteros, la madera y la caña para crear un ambiente tranquilo y confortable. el natura park es un lugar idílico para unas vacaciones relajantes en el caribe. nuestra excelente ubicación del punta cana resort ofrece una completa selección de actividades y de servicios especiales.', 'natura-park-beach-eco-resort-y-spa', '1- Salida el %s a las %s hrs en vuelo directo desde Madrid con destino %s.\r\n2- Llegada al aeropuerto internacional %s. Asistencia de nuestro Tour Operador en destino para traslados del aeropuerto al hotel %s.\r\n3- Estancia en el hotel %s - %s - todo incluido.\r\n4- Día %s traslado desde el hotel %s al aeropuerto, Vuelo desde %s a las %s hrs con destino Madrid.', '-Vuelo directo con la compañía Evelop desde Madrid con destino Punta Cana.\r\n-Estancia en habitación Standard, 7 noches en régimen de todo incluído en el Hotel Natura Park Eco - Resort & Spa 5* - Punta Cana.\r\n-Traslados de entrada y salida Punta Cana.\r\n-Tasas aéreas incluidas.\r\n-Seguro obligatorio de Viaje.', 'Natura park beach eco resort &amp; spa es un lugar id&iacute;lico para unas vacaciones relajantes en el caribe.', 'Natura Park Beach Eco Resort & Spa', 8, 3, 1, 21, 100, 0, '2020-01-17 21:55:51', '2020-02-16 20:52:26'),
 (3, 'Caribe Club Princess Beach Resort &amp; Spa ', 'caribe-club-princess-beach-resort-y-spa.jpg', 'El hotel caribe club princess beach resort & spa, está situado en una de las más bellas playas de la república dominicana, playa bávaro. gracias a su ubicación, te permitirá disfrutar de un paraje donde la belleza de sus paisajes y el encanto de sus aguas cristalinas, ofrece una percepción emocional de placentera y excepcional sensación de relajamiento y tranquilidad. estarás a pie de playa y además, a tan solo 25 min del aeropuerto de punta cana.\r\n \r\nel completo equipamiento y la calidad de los servicios de sus 111 caribe suites y de sus 229 habitaciones superiores, te ofrecen unas vacaciones en punta cana perfectas para disfrutar con amigos o con tu pareja. tendrás servicio wifi gratuito en el lobby. el atractivo de las tiendas y ofertas que tiene la calle caribeña, te incitarán a que pasees por ella y disfrutes de su animado ambiente.\r\n \r\nademás, este hotel de 4 estrellas te invita a disfrutar de las diversas actividades de ocio y entretenimiento tanto diurnas como nocturnas que tiene organizadas; deportes acuáticos en la playa, ejercicios aeróbicos en la piscina, pista de tenis, paseo en bicicleta, un gran casino ubicado en el bávaro princess, transporte gratuito, discoteca \"areito\" . asimismo, en este hotel todo incluido, podrás degustar la gastronomía de la isla en cualquiera de sus 6 restaurantes / snack bares y 4 bares uno de ellos dentro de la piscina.', 'caribe-club-princess-beach-resort-y-spa', '1- Salida el %s a las %s hrs en vuelo directo desde Madrid con destino %s.\r\n2- Llegada al aeropuerto internacional %s. Asistencia de nuestro Tour Operador en destino para traslados del aeropuerto al hotel %s.\r\n3- Estancia en el hotel %s - %s - todo incluido.\r\n4- Día %s traslado desde el hotel %s al aeropuerto, Vuelo desde %s a las %s hrs con destino Madrid.', '-Vuelo directo con la compañía Wamos Air desde Madrid con destino Punta Cana.\r\n-Estancia en habitación Superior, 7 noches en régimen de todo incluído en el Hotel Caribe Club Princess 4* - Punta Cana.\r\n-Traslados de entrada y salida Punta Cana.\r\n-Tasas aéreas incluidas.\r\n-Seguro obligatorio de Viaje.', 'El hotel caribe club princess beach resort &amp; spa, est&aacute; situado en una de las m&aacute;s bellas playas de la rep&uacute;blica dominicana, playa b&aacute;varo. ', 'Caribe Club Princess Beach Resort & Spa ', 7, 3, 1, 21, 100, 0, '2020-01-17 21:55:51', '2020-01-18 17:48:45'),
@@ -996,7 +996,7 @@ CREATE TABLE IF NOT EXISTS `v_producto_fecha_ref` (
 --
 DROP TABLE IF EXISTS `v_producto_fecha_ref`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_producto_fecha_ref`  AS  select `pfr`.`idProductoFechaRef` AS `idProductoFechaRef`,`pfr`.`idProducto` AS `idProducto`,`pfr`.`idFechaSalida` AS `idFechaSalida`,`pfr`.`precioProveedor` AS `precioProveedor`,`pfr`.`comision` AS `comision`,`p`.`nombre` AS `producto`,`cat`.`idCategoria` AS `idCategoria`,`cat`.`nombre` AS `categoria`,`catpadre`.`idCategoria` AS `idCategoriaPadre`,`catpadre`.`nombre` AS `catPadre`,`fs`.`fecha` AS `fsalida`,`fs`.`terminalSalida` AS `terminalSalida`,`fs`.`terminalDestino` AS `terminalDestino`,`fs`.`tasasSalida` AS `tasasSalida`,`fs`.`tasasDestino` AS `tasasDestino`,`pfr`.`idFechaVuelta` AS `idFechaVuelta`,`fv`.`fecha` AS `fvuelta`,`fv`.`terminalSalida` AS `terminalSalidaV`,`fv`.`terminalDestino` AS `terminalDestinoV`,`fv`.`tasasSalida` AS `tasasSalidaV`,`fv`.`tasasDestino` AS `tasasDestinoV` from (((((`producto_fecha_ref` `pfr` join `productos` `p` on((`pfr`.`idProducto` = `p`.`idproducto`))) join `categorias` `cat` on((`p`.`idCategoria` = `cat`.`idCategoria`))) join `categorias` `catpadre` on((`cat`.`idCategoriaPadre` = `catpadre`.`idCategoria`))) join `fechas` `fs` on((`pfr`.`idFechaSalida` = `fs`.`idFecha`))) left join `fechas` `fv` on((`pfr`.`idFechaVuelta` = `fv`.`idFecha`))) where ((`p`.`idEstado` = 1) and (`cat`.`idEstado` = 1) and (`catpadre`.`idEstado` = 1)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_producto_fecha_ref`  AS  select `pfr`.`idProductoFechaRef` AS `idProductoFechaRef`,`pfr`.`idProducto` AS `idProducto`,`pfr`.`idFechaSalida` AS `idFechaSalida`,`pfr`.`precioProveedor` AS `precioProveedor`,`pfr`.`comision` AS `comision`,`p`.`nombre` AS `producto`,`cat`.`idCategoria` AS `idCategoria`,`cat`.`nombre` AS `categoria`,`catpadre`.`idCategoria` AS `idCategoriaPadre`,`catpadre`.`nombre` AS `catPadre`,`fs`.`fecha` AS `fsalida`,`fs`.`terminalSalida` AS `terminalSalida`,`fs`.`terminalDestino` AS `terminalDestino`,`fs`.`tasasSalida` AS `tasasSalida`,`fs`.`tasasDestino` AS `tasasDestino`,`pfr`.`idFechaVuelta` AS `idFechaVuelta`,`fv`.`fecha` AS `fvuelta`,`fv`.`terminalSalida` AS `terminalSalidaV`,`fv`.`terminalDestino` AS `terminalDestinoV`,`fv`.`tasasSalida` AS `tasasSalidaV`,`fv`.`tasasDestino` AS `tasasDestinoV` from (((((`producto_fecha_ref` `pfr` join `productos` `p` on((`pfr`.`idProducto` = `p`.`idProducto`))) join `categorias` `cat` on((`p`.`idCategoria` = `cat`.`idCategoria`))) join `categorias` `catpadre` on((`cat`.`idCategoriaPadre` = `catpadre`.`idCategoria`))) join `fechas` `fs` on((`pfr`.`idFechaSalida` = `fs`.`idFecha`))) left join `fechas` `fv` on((`pfr`.`idFechaVuelta` = `fv`.`idFecha`))) where ((`p`.`idEstado` = 1) and (`cat`.`idEstado` = 1) and (`catpadre`.`idEstado` = 1)) ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -8,7 +8,7 @@ if(isset($_POST['MM_insert'])){
     $nombre = $util->sanear($_POST['nombre']);
     $email = $util->sanear($_POST['email']);
     $comentarios = $util->sanear($_POST['comentario']);
-    $idBlog = $util->sanear($_POST['idBlog'], Util::CLEAR_INT);
+    $idBlog = $util->sanear($_POST['idBlog'], Util::_INT);
     
     $comentarioC = new BlogComentarioController;
     $comentario = new BlogComentario(0, $idBlog, 2, $nombre, $email, $comentarios);

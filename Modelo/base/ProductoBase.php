@@ -2,7 +2,7 @@
 
 abstract class ProductoBase extends ModelBase {
 
-    protected $idproducto;
+    protected $idProducto;
     protected $nombre;
     protected $imagen;
     protected $descripcion;
@@ -21,7 +21,7 @@ abstract class ProductoBase extends ModelBase {
     protected $fehaUpdate;
 
     public function __construct(
-        $idproducto = 0,
+        $idProducto = 0,
         $nombre = '',
         $imagen = '',
         $descripcion = '',
@@ -39,7 +39,7 @@ abstract class ProductoBase extends ModelBase {
         $fechaAlta = '',
         $fehaUpdate = ''
     ){
-        $this->setIdproducto($idproducto);
+        $this->setIdProducto($idProducto);
         $this->setNombre($nombre);
         $this->setImagen($imagen);
         $this->setDescripcion($descripcion);
@@ -62,7 +62,7 @@ abstract class ProductoBase extends ModelBase {
         return $this->nombre;
     }
 
-    public function getIdproducto(){ return $this->idproducto; }
+    public function getIdProducto(){ return $this->idProducto; }
 
     public function getNombre(){ return $this->nombre; }
 
@@ -124,8 +124,8 @@ abstract class ProductoBase extends ModelBase {
         return $ProveedorList[0];
     }
 
-    public function setIdproducto($idproducto = 0){
-        $this->idproducto = (int) $idproducto; return $this;
+    public function setIdProducto($idProducto = 0){
+        $this->idProducto = (int) $idProducto; return $this;
     }
 
     public function setNombre($nombre = ''){

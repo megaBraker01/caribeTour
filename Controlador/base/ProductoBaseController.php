@@ -40,10 +40,10 @@ $statement->bindValue(":esOferta", $Producto->getEsOferta());
 
     public function update(Producto $Producto): int {
         try{
-            $sql = "UPDATE productos SET nombre = :nombre, imagen = :imagen, descripcion = :descripcion, slug = :slug, itinerario = :itinerario, incluye = :incluye, metaDescripcion = :metaDescripcion, metaKeyWords = :metaKeyWords, idCategoria = :idCategoria, idTipo = :idTipo, idEstado = :idEstado, idProveedor = :idProveedor, stock = :stock, esOferta = :esOferta WHERE idproducto = :idproducto LIMIT 1;";
+            $sql = "UPDATE productos SET nombre = :nombre, imagen = :imagen, descripcion = :descripcion, slug = :slug, itinerario = :itinerario, incluye = :incluye, metaDescripcion = :metaDescripcion, metaKeyWords = :metaKeyWords, idCategoria = :idCategoria, idTipo = :idTipo, idEstado = :idEstado, idProveedor = :idProveedor, stock = :stock, esOferta = :esOferta WHERE idProducto = :idProducto LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":idproducto", $Producto->getIdproducto());
+            $statement->bindValue(":idProducto", $Producto->getIdProducto());
 $statement->bindValue(":nombre", $Producto->getNombre());
 $statement->bindValue(":imagen", $Producto->getImagen());
 $statement->bindValue(":descripcion", $Producto->getDescripcion());
@@ -74,14 +74,14 @@ $statement->bindValue(":esOferta", $Producto->getEsOferta());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
-            $sql = "SELECT idproducto, nombre, imagen, descripcion, slug, itinerario, incluye, metaDescripcion, metaKeyWords, idCategoria, idTipo, idEstado, idProveedor, stock, esOferta, fechaAlta, fehaUpdate 
+            $sql = "SELECT idProducto, nombre, imagen, descripcion, slug, itinerario, incluye, metaDescripcion, metaKeyWords, idCategoria, idTipo, idEstado, idProveedor, stock, esOferta, fechaAlta, fehaUpdate 
             FROM productos";                        
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
-                    $ret[] = new Producto($row->idproducto, $row->nombre, $row->imagen, $row->descripcion, $row->slug, $row->itinerario, $row->incluye, $row->metaDescripcion, $row->metaKeyWords, $row->idCategoria, $row->idTipo, $row->idEstado, $row->idProveedor, $row->stock, $row->esOferta, $row->fechaAlta, $row->fehaUpdate);
+                    $ret[] = new Producto($row->idProducto, $row->nombre, $row->imagen, $row->descripcion, $row->slug, $row->itinerario, $row->incluye, $row->metaDescripcion, $row->metaKeyWords, $row->idCategoria, $row->idTipo, $row->idEstado, $row->idProveedor, $row->stock, $row->esOferta, $row->fechaAlta, $row->fehaUpdate);
                 }
             }
             
@@ -94,11 +94,11 @@ $statement->bindValue(":esOferta", $Producto->getEsOferta());
 
     public function deleteByIds(array $ids = []): int {
         try{
-            if(!isset($ids['idproducto'])){
+            if(!isset($ids['idProducto'])){
                 throw new Exception('Para eliminar un registro, se tiene que especificar sus ids');
             }
             $sql = "DELETE FROM productos";
-            $sql .= " WHERE idproducto = :idproducto LIMIT 1;";
+            $sql .= " WHERE idProducto = :idProducto LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             

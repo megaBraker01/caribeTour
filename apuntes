@@ -76,9 +76,35 @@ $('#dynamic-table').DataTable({
     ]
 });
 
+para obtener la data por ajax se utiliza el atributo "ajax", tambien se puede especificar el metodo de obtencion (post o get)
+$('#dynamic-table').DataTable({
+    "ajax": "http://dominio/data.json"
+});
+
+y especificando el metodo seria así
+$('#dynamic-table').DataTable({
+    "ajax": {
+        "method": "POST",
+        "url": "http://dominio/data.json(.php, .net, .js)" // el archivo puede tener diferentes extenciones pero el contenido tiene que ser json
+    }
+});
+
+
 
 para hacer scroll horizontal, introducimos el siguiente codigo
 $('#dynamic-table').DataTable({
     "sScrollX": "100%",
     "sScrollXInner": "100%",
+});
+
+
+los nombre de los atributos del DataTable tambien se pueden poner sin comillas (es preferible que sean con comillas)
+$('#dynamic-table').DataTable({
+    sScrollX: "100%",
+    sScrollXInner: "100%",
+});
+
+metodo destroy, para poder reescribir o actualizar la DataTable (puede ser con un boton de actualizar) y así evitar que salga el error "DataTables warning. cannot reinitialise..."
+$('#dynamic-table').DataTable({
+    "destroy": true
 });

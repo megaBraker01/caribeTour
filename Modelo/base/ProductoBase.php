@@ -18,7 +18,7 @@ abstract class ProductoBase extends ModelBase {
     protected $stock;
     protected $esOferta;
     protected $fechaAlta;
-    protected $fehaUpdate;
+    protected $fechaUpdate;
 
     public function __construct(
         $idProducto = 0,
@@ -37,7 +37,7 @@ abstract class ProductoBase extends ModelBase {
         $stock = 0,
         $esOferta = 0,
         $fechaAlta = '',
-        $fehaUpdate = ''
+        $fechaUpdate = ''
     ){
         $this->setIdProducto($idProducto);
         $this->setNombre($nombre);
@@ -55,7 +55,7 @@ abstract class ProductoBase extends ModelBase {
         $this->setStock($stock);
         $this->setEsOferta($esOferta);
         $this->setFechaAlta($fechaAlta);
-        $this->setFehaUpdate($fehaUpdate);
+        $this->setFechaUpdate($fechaUpdate);
     }
 
     public function __toString(){
@@ -94,7 +94,7 @@ abstract class ProductoBase extends ModelBase {
 
     public function getFechaAlta(){ return $this->fechaAlta; }
 
-    public function getFehaUpdate(){ return $this->fehaUpdate; }
+    public function getFechaUpdate(){ return $this->fechaUpdate; }
 
     public function getCategoria(){
         $CategoriaController = new CategoriaController();
@@ -188,8 +188,8 @@ abstract class ProductoBase extends ModelBase {
         $this->fechaAlta = (string) $fechaAlta; return $this;
     }
 
-    public function setFehaUpdate($fehaUpdate = ''){
-        $this->fehaUpdate = (string) $fehaUpdate; return $this;
+    public function setFechaUpdate($fechaUpdate = ''){
+        $this->fechaUpdate = (string) $fechaUpdate; return $this;
     }
 
 }

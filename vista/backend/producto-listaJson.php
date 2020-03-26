@@ -207,12 +207,27 @@ $JsonData = "";//json_encode($data);
                     $(document).on('ready', function(){
 
 						// obtener los datos de la fila
-						var getDataRow = function(tbody, table){
-							$(tbody).on('click', 'button#editar', function(){
+						var openRow = function(tbody, table){
+							$(tbody).on('click', 'button.label', function(){
 								var dataRow = table.row($(this).parents('tr')).data();
-								console.log(dataRow);
+								var urlForm = 'producto-form.php?idProducto='+ dataRow.idProducto;
+								urlForm += '&action='+ this.id;
+								window.open(urlForm, '_self');
+								//console.log(urlForm);
+								//return dataRow;
 							});
 						};
+
+						// cuando haga clic en el boton ver o editar abre un formulario
+						/*
+						var openRow = function(idProducto, action = 'ver'){
+							$('button.label').on('click', function(){
+								var urlForm = 'producto-form.php?idProducto='+ dataRow.idProducto;
+								window.open(urlForm, '_self');
+								return false;
+							});
+						};
+						*/
                         
                         var myDataTable = function(){
 							var myTable = $('#dynamic-table').DataTable( {
@@ -247,7 +262,9 @@ $JsonData = "";//json_encode($data);
 								"sScrollXInner": "100%"
 							} );
 
-							getDataRow('#dynamic-table tbody', myTable);
+							var dataRow = openRow('#dynamic-table tbody', myTable);
+							//console.log(myTable);
+							//openRow(dataRow.idProducto);
 
 						};
                         
@@ -258,11 +275,8 @@ $JsonData = "";//json_encode($data);
 						$('#actualizar').on('click', function(){
 							myDataTable();
 						});
-                        
-                    });
-                    
-                                    
-			
+
+                    });                 
 
 		</script>
 	</body>

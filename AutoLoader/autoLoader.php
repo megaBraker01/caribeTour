@@ -34,7 +34,7 @@ if (!function_exists('autoLoader')) {
          */
         $principalDirectories = [
             'Conexion', 'Controlador', 'Modelo', 'Util', 'Modelo/dto',
-            'bundle/tableCreator1.0.0'
+            'bundle/formCreator1.0.0'
         ];
         
         $i = 0;

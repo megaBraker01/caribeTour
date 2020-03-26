@@ -74,14 +74,14 @@ $statement->bindValue(":esOferta", $Producto->getEsOferta());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
-            $sql = "SELECT idProducto, nombre, imagen, descripcion, slug, itinerario, incluye, metaDescripcion, metaKeyWords, idCategoria, idTipo, idEstado, idProveedor, stock, esOferta, fechaAlta, fehaUpdate 
+            $sql = "SELECT idProducto, nombre, imagen, descripcion, slug, itinerario, incluye, metaDescripcion, metaKeyWords, idCategoria, idTipo, idEstado, idProveedor, stock, esOferta, fechaAlta, fechaUpdate 
             FROM productos";                        
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(!empty($rows)){
                 foreach($rows as $row){
-                    $ret[] = new Producto($row->idProducto, $row->nombre, $row->imagen, $row->descripcion, $row->slug, $row->itinerario, $row->incluye, $row->metaDescripcion, $row->metaKeyWords, $row->idCategoria, $row->idTipo, $row->idEstado, $row->idProveedor, $row->stock, $row->esOferta, $row->fechaAlta, $row->fehaUpdate);
+                    $ret[] = new Producto($row->idProducto, $row->nombre, $row->imagen, $row->descripcion, $row->slug, $row->itinerario, $row->incluye, $row->metaDescripcion, $row->metaKeyWords, $row->idCategoria, $row->idTipo, $row->idEstado, $row->idProveedor, $row->stock, $row->esOferta, $row->fechaAlta, $row->fechaUpdate);
                 }
             }
             

@@ -4,6 +4,7 @@ abstract class FieldBase {
     
     protected $showLabel = false;
     protected $label = ['id' => '', 'class' => '', 'for' => '', 'form' => '', 'accesskey' => '', 'content' => ''];
+    //TODO: pasar los atributos por cada campo especifico, así no se mandan to
     protected $attributes = ['name' => '', 'type' => 'text', 'id' => '', 'class' => '', 'value' => '', 'alt' => '', 'title' => '', 'placeholder' => '', 'required' => '', 'form' => '', 'maxlength' => '', 'minlength' => '', 'max' => '', 'min' => '', 'rows' => '', 'cols' => '', 'width' => '', 'height' => '', 'disabled' => '', 'readonly' => '', 'autofocus' => '', 'autocomplete' => '', 'step' => '', 'size' => '', 'selected' => '', 'src' => '', 'multiple' => '', 'pattern' => ''];
     protected $selectOptions = [];
     protected $optionSelected = null;
@@ -663,9 +664,19 @@ abstract class FieldBase {
         return $this;
     }
 
-    public function renderAttributes(){
+    public function renderAttr(){
+        
+        switch($this->getType()){
+            case 'textarea': $Attributes = $this->getTextAreaAttr();
+            break;
+            case 'select': $Attributes = $this->getSelectAttr();
+            break;
+            default: $Attributes = $this->attributes;
+            break;
+        }
+
         $renderAttributes = [];
-        foreach ($this->attributes as $attribute => $value){
+        foreach ($Attributes as $attribute => $value){
             if("" != $value and !is_array($value)){
                 if(true === $value){
                     $renderAttributes[] = "$attribute";
@@ -674,7 +685,33 @@ abstract class FieldBase {
                 }
             }
         }
+
         return implode(" ", $renderAttributes);
+    }
+
+
+    public function getSelectAttr(){
+        $allowedAttributes = ['name', 'id', 'class', 'required', 'readonly', 'form'];
+        $attr = [];
+        foreach($this->attributes as $key => $value){
+            if(in_array($key, $allowedAttributes)){
+                $attr[$key] = $value;
+            }
+        }
+
+        return $attr;
+    }
+
+    public function getTextAreaAttr(){
+        $allowedAttributes = ['name', 'id', 'cols', 'rows', 'class', 'maxlength', 'placeholder', 'required', 'wrap', 'readonly', 'form'];
+        $attr = [];
+        foreach($this->attributes as $key => $value){
+            if(in_array($key, $allowedAttributes)){
+                $attr[$key] = $value;
+            }
+        }
+
+        return $attr;
     }
 
     
@@ -705,7 +742,7 @@ abstract class FieldBase {
                 break;
             case 'select': $ret .= $this->renderSelect();
                 break;
-            default: $ret .= "\t\t<input " . $this->renderAttributes() . "/>\n";
+            default: $ret .= "\t\t<input " . $this->renderAttr() . "/>\n";
                 break;
         }        
         
@@ -716,7 +753,7 @@ abstract class FieldBase {
     public function renderTextArea()
     {
         $value = $this->getValue() ?? "";
-        $ret = "\t\t<textarea " . $this->renderAttributes() . ">{$value}</textarea>\n";
+        $ret = "\t\t<textarea " . $this->renderAttr() . ">{$value}</textarea>\n";
         return $ret;
     }
 
@@ -739,7 +776,9 @@ abstract class FieldBase {
 
     public function renderSelect(){
         $options = $this->renderOptions();
-        $ret = "\t\t<select " . $this->renderAttributes() . " >{$options}</select>\n";
+        $ret = "\t\t<select " . $this->renderAttr() . " >
+        {$options}
+        </select>\n";
         return $ret;
     }
 

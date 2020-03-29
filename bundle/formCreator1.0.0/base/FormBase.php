@@ -229,6 +229,16 @@ abstract class FormBase{
         return $this;
     }
 
+    public function setReadOnly($readOnly = true)
+    {
+        foreach($this->getFieldsets() as $fieldset){
+            foreach($fieldset->getFields() as $field){
+                $field->setReadOnly($readOnly);
+            }
+        }
+        return $this;
+    }
+
 
     /**
      * @return string

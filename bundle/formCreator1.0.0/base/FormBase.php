@@ -2,6 +2,7 @@
 
 abstract class FormBase{
     
+    protected $formReadOnly = false;
     protected $attributes = ['id' => '', 'class' => '', 'action' => '', 'method' => '', 'name' => '', 'caption' => '', 'fieldsets' => [], 'fields' => [], 'autocomplete' => '', 'novalidate' => '', 'enctype' => '', 'target' => ''];
     
     const METHOD_LIST = ['get', 'post'];
@@ -229,13 +230,9 @@ abstract class FormBase{
         return $this;
     }
 
-    public function setReadOnly($readOnly = true)
+    public function setReadOnly(bool $readOnly = true)
     {
-        foreach($this->getFieldsets() as $fieldset){
-            foreach($fieldset->getFields() as $field){
-                $field->setReadOnly($readOnly);
-            }
-        }
+        $this->formReadOnly = $readOnly;
         return $this;
     }
 
@@ -256,12 +253,18 @@ abstract class FormBase{
         
         if(!empty($this->getFieldsets())){
             foreach($this->getFieldsets() as $fieldset){
+                if($this->formReadOnly){
+                    $fieldset->setReadOnly();
+                }
                 $ret .= $fieldset->render();
             }
         }
         
         if(!empty($this->getFields())){
             foreach($this->getFields() as $field){
+                if($this->formReadOnly){
+                    $field->setReadOnly();
+                }
                 $ret .= $field->render();
             }
         }        

@@ -12,40 +12,17 @@ $filter = [
 ];
 $producto = $productoC->select($filter)[0];
 
-// creamos el fomulario
-$form = new Form;
-$fieldSet = new Fieldset();
+$fieldValues = $producto->getAllParams(false, false);
+$tableToForm = new TableToForm('productos');
+//$tableToForm->getForm()->setReadOnly();
+$tableToForm->setValues($fieldValues);
+$tableToForm->setFielsReadOnly(['idProducto', 'fechaAlta', 'fechaUpdate']);
+$tableToForm->setFielsTypeSelect(['idCategoria', 'idTipo']);
+$tableToForm->setFieldOptions('idCategoria', [11 => 'republica Dominicana', 3 => 'cuba', 4 => 'mexico']);
+$tableToForm->setFieldOptions('idTipo', ['tour', 'vuelo', 3 => 'excursion']);
+$tableToForm->setFieldIntoFieldset();
 
-// campos del form que serán readonly siempre
-$fieldsReadOnly = ['idProducto', 'fechaAlta', 'fechaUpdate'];
-$fieldsTypeTextarear = ['descripcion', 'itinerario', 'incluye', 'metaDescripcion', 'metaKeyWords'];
-$fieldTypeSelect = ['idCategoria', 'idTipo'];
-$categoriaOption = [11 => 'republica Dominicana', 3 => 'cuba', 4 => 'mexico'];
-//$categoriaOption = ['republica Dominicana', 'cuba', 'mexico'];
-$fieldSet = [];
-$fields = [];
-foreach($producto->getAllParams(false, false) as $key => $val){
-	$field = new Field($key);
-	$field->showLabel()->setClass('form-control')->setValue($val);
-
-	if(in_array($key, $fieldsReadOnly) or $formEdit){
-		$field->setReadonly();
-	}
-
-	if(in_array($key, $fieldsTypeTextarear)){
-		$field->setType('textarea');
-	}
-
-	if(in_array($key, $fieldTypeSelect)){
-		$field->setType('select');
-		$field->setOptions($categoriaOption);
-	}
-
-	$fields[] = $field;
-}
-
-$form->setFields($fields);
-$show = $form->render();
+$show = $tableToForm->renderForm();//->getFieldList();// $tableToForm->getFieldsMap();// 
 ?>
 <!DOCTYPE html>
 <html lang="es">

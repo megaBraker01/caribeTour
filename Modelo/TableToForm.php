@@ -13,15 +13,18 @@ class TableToForm {
         $this->tableName = $tableName;
         $this->fieldMap = $this->getInfoFromTable($tableName);
         $this->form = new Form;
+        $this->fillFieldList();
     }
 
 
-    public function getForm(){
+    public function getForm()
+    {
         return $this->form;
     }
 
 
-    public function getInfoFromTable(string $tableNameParam = ''){
+    public function getInfoFromTable(string $tableNameParam = '')
+    {
         try{
 
             $tableName = '' == $tableNameParam ? $this->tableName : $tableNameParam;
@@ -97,7 +100,7 @@ class TableToForm {
         foreach($this->getFieldsMap() as $fieldForm){
             $field = new Field($fieldForm['Field']);
             $field->setType($this->cleanType($fieldForm['Type']))
-                ->setValue($fieldForm['Value'])->showLabel()->setClass('form-control');
+                ->showLabel()->setClass('form-control');
             $fieldList[] = $field;
         }
 
@@ -108,21 +111,22 @@ class TableToForm {
     /**
      * setea el array asociativo con los nombres de los campos y su valor
      */
-    public function setValues(array $fieldValues){
+    public function setValues(array $fieldValues)
+    {
         if(empty($fieldValues)){
             Throw new Exception('[ERROR] el fieldValues NO puede estar vacío');
         }
 
-        $newFieldMap = [];
+        //$newFieldMap = [];
         //var_dump($this->getFieldsMap());
-        foreach($this->getFieldsMap() as $field){
-            $fieldName = $field['Field'];
-            $field['Value'] = isset($fieldValues[$fieldName]) ? $fieldValues[$fieldName] : "";            
-            $newFieldMap[] = $field;
+        foreach($this->getFieldList() as $field){
+            $fieldName = $field->getName();
+            $value = isset($fieldValues[$fieldName]) ? $fieldValues[$fieldName] : "";
+            $field->setValue($value);
+            //$newFieldMap[] = $field;
         }
 
-        $this->fieldMap = $newFieldMap;
-        $this->fillFieldList();
+        //$this->fieldMap = $newFieldMap;
         return $this;
     }
     
@@ -131,25 +135,25 @@ class TableToForm {
      * setea el valor del campo indicado
      * 
      */
-    public function setFieldValue(string $fieldName, $value){
-        $newFieldMap = [];
-        foreach($this->getFieldsMap() as $field){
-            if($fieldName === $field['Field']){
-                $field['Value'] = $value;
-            }          
-            $newFieldMap[] = $field;
+    public function setFieldValue(string $fieldName, $value)
+    {
+        foreach($this->getFieldList() as $field){
+            if($field->getName() == $fieldName){
+                $field->setValue($value);
+            }
         }
 
-        $this->fieldMap = $newFieldMap;
         return $this;
     }
 
-    public function setFieldType(string $fieldName, $type = 'text'){
+    public function setFieldType(string $fieldName, $type = 'text')
+    {
         foreach($this->getFieldList() as $field){
             if($field->getName() == $fieldName){
                 $field->settype($type);
             }
         }
+
         return $this;
     }
 
@@ -160,6 +164,7 @@ class TableToForm {
                 $field->setReadonly();
             }
         }
+
         return $this;
     }
 
@@ -170,6 +175,7 @@ class TableToForm {
                 $field->settype('textarea');
             }
         }
+
         return $this;
     }
 
@@ -180,6 +186,7 @@ class TableToForm {
                 $field->settype('select');
             }
         }
+
         return $this;
     }
 
@@ -190,6 +197,7 @@ class TableToForm {
                 $field->setOptions($options);
             }
         }
+
         return $this;
     }
 
@@ -197,8 +205,7 @@ class TableToForm {
     {
         $i = 1;
         foreach($this->getFieldList() as $field){
-            $fields[] = $field;
-	
+            $fields[] = $field;	
             if($i++ % $fieldCount == 0){
                 $fieldSet = new Fieldset();
                 $fieldSets[] = $fieldSet->setFields($fields)->setClass('col-xs-6');

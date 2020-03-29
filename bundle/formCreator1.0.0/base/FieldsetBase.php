@@ -4,6 +4,7 @@ abstract class FieldsetBase {
     
     protected $attributes = ['id' => '', 'class' => '', 'fields' => []];
     protected $legend = "";
+    protected $readOnly = false;
 
     public function __construct($legend = "")
     {
@@ -78,6 +79,12 @@ abstract class FieldsetBase {
         $this->attributes['id'] = $id;
         return $this;
     }
+
+    public function setReadOnly(bool $readOnly = true)
+    {
+        $this->readOnly = $readOnly;
+        return $this;
+    }
     
 	
     /**
@@ -98,6 +105,9 @@ abstract class FieldsetBase {
         }
 		
         foreach($this->getFields() as $field){
+            if($this->readOnly){
+                $field->setReadOnly();
+            }
             $ret .= $field->render();
         }
         $ret .= "</fieldset>\n";

@@ -1,6 +1,6 @@
 <?php
 
-class TableToForm {
+class FormHandler {
 
     protected $tableName = "";
     protected $form = null;
@@ -8,11 +8,15 @@ class TableToForm {
     protected $fieldList = [];
     protected $fieldSetList = [];
 
-    public function __construct(string $tableName = '')
+    public function __construct(string $tableName = '', $readOnly = true)
     {
         $this->tableName = $tableName;
         $this->fieldMap = $this->getInfoFromTable($tableName);
         $this->form = new Form;
+        
+        $this->getForm()->setMethod('post')//->setAccept('image/png, image/jpeg')
+            ->setEnctype('multipart/form-data')->setReadOnly($readOnly);
+
         $this->fillFieldList();
     }
 
@@ -108,6 +112,14 @@ class TableToForm {
         return $this;
     }
 
+    public function addField($fieldName, $type = 'text')
+    {
+        $field = new Field($fieldName);
+        $field->setType($type);
+        $this->fieldList[] = $field;
+        return $this;
+    }
+
     /**
      * setea el array asociativo con los nombres de los campos y su valor
      */
@@ -157,7 +169,7 @@ class TableToForm {
         return $this;
     }
 
-    public function setFielsReadOnly($fieldsReadOnly)
+    public function setFieldsReadOnly($fieldsReadOnly)
     {
         foreach($this->getFieldList() as $field){
             if(in_array($field->getName(), $fieldsReadOnly)){
@@ -168,7 +180,7 @@ class TableToForm {
         return $this;
     }
 
-    public function setFielsTypeTextarea($fieldsTextarea)
+    public function setFieldsTypeTextarea($fieldsTextarea)
     {
         foreach($this->getFieldList() as $field){
             if(in_array($field->getName(), $fieldsTextarea)){
@@ -179,11 +191,45 @@ class TableToForm {
         return $this;
     }
 
-    public function setFielsTypeSelect($fieldsSelect)
+    public function setFieldsTypeSelect($fieldsSelect)
     {
         foreach($this->getFieldList() as $field){
             if(in_array($field->getName(), $fieldsSelect)){
                 $field->settype('select');
+            }
+        }
+
+        return $this;
+    }
+
+
+    public function setFieldsTypeFile($fieldsFile)
+    {
+        foreach($this->getFieldList() as $field){
+            if(in_array($field->getName(), $fieldsFile)){
+                $field->settype('file');
+            }
+        }
+
+        return $this;
+    }
+
+    public function setFieldsTypeImgFile($fieldsImagen)
+    {
+        foreach($this->getFieldList() as $field){
+            if(in_array($field->getName(), $fieldsImagen)){
+                $field->settype('file')->setAccept('image/png, image/jpeg');
+            }
+        }
+
+        return $this;
+    }
+
+    public function setFieldsTypeHidden($fieldsHidden)
+    {
+        foreach($this->getFieldList() as $field){
+            if(in_array($field->getName(), $fieldsHidden)){
+                $field->settype('hidden');
             }
         }
 
@@ -223,14 +269,22 @@ class TableToForm {
     {
         $form = $this->getForm();
         $fieldSets = $this->fieldSetList;
-        if(!empty($fieldSets)){
-            $form->setFieldsets($fieldSets);
-        } else {
-            $form->setFields($this->fieldList);
-        }
-        $fieldsave = new Field('Guardar');
-        $fieldsave->setType('submit')->setClass('btn btn-success')->setValue('Guardar')->setTitle('Guardar');
-        $form->setFields([$fieldsave]);
+
+        $fieldName = 'Guardar';
+        $fielClass = 'btn btn-success input-medium';
+        if($this->getForm()->getReadOnly()){
+            $fieldName = 'Editar';
+            $fielClass = 'btn btn-warning input-medium';
+        } 
+
+        $fieldsave = new Field($fieldName);
+        $fieldsave->setType('submit')->setClass($fielClass)->setValue($fieldName)->setTitle($fieldName);
+
+        $saveFieldSet = new Fieldset();
+        $saveFieldSet->setClass('col-xs-12')->setFields([$fieldsave]);
+        $fieldSets[] = $saveFieldSet;
+
+        $form->setFieldsets($fieldSets);
 
         return $form->render();
     }

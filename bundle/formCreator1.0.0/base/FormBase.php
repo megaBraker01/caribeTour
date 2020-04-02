@@ -3,7 +3,7 @@
 abstract class FormBase{
     
     protected $formReadOnly = false;
-    protected $attributes = ['id' => '', 'class' => '', 'action' => '', 'method' => '', 'name' => '', 'caption' => '', 'fieldsets' => [], 'fields' => [], 'autocomplete' => '', 'novalidate' => '', 'enctype' => '', 'target' => ''];
+    protected $attributes = ['id' => '', 'class' => '', 'action' => '', 'method' => '', 'name' => '', 'caption' => '', 'fieldsets' => [], 'fields' => [], 'autocomplete' => '', 'novalidate' => '', 'enctype' => '', 'target' => '', 'accept' => '', 'enctype' => ''];
     
     const METHOD_LIST = ['get', 'post'];
 
@@ -97,6 +97,28 @@ abstract class FormBase{
 
 
     /**
+    * @return string 
+    */
+    public function getAccept(): string {
+        return $this->attributes['accept'];
+    }
+
+
+    public function getFieldByParam($value, $param = 'name')
+    {
+        $fieldMethod = "get" . ucfirst(strtolower($param));
+        $ret = null;
+        foreach($this->getFields() as $field){
+            if ($field->$fieldMethod() == $value){
+                $ret = $field;
+            }
+        }
+
+        return $ret ?? new Field('');
+    }
+
+
+    /**
     * @param string $id
     * @return Form 
     */
@@ -126,7 +148,7 @@ abstract class FormBase{
     * @return Form 
     */
     public function setMethod(string $method): Form {
-        $validMethod = (in_array(strtolower($method), self::METHOD_LIST)) ? $method : 'get';
+        $validMethod = (in_array(strtolower($method), self::METHOD_LIST)) ? $method : 'post';
         $this->attributes['method'] = $validMethod;
         return $this;
     }
@@ -230,10 +252,25 @@ abstract class FormBase{
         return $this;
     }
 
+
+    /**
+    * @param string $target
+    * @return Form 
+    */
+    public function setAccept(string $accept): Form {
+        $this->attributes['accept'] = $accept;
+        return $this;
+    }
+
+
     public function setReadOnly(bool $readOnly = true)
     {
         $this->formReadOnly = $readOnly;
         return $this;
+    }
+
+    public function getReadOnly(){
+        return $this->formReadOnly;
     }
 
 

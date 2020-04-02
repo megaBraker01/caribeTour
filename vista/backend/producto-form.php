@@ -3,26 +3,74 @@ require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
 
-$formEdit = false;
+$readOnly = true;
+if(isset($_GET['action']) and 'editar' == $_GET['action']){
+	$readOnly = false;
+}
 
+$show = $error = '';
 
-$productoC = new ProductoController;
-$filter = [
-	['idProducto', '=', $_GET['idProducto']]
-];
-$producto = $productoC->select($filter)[0];
+try {
+	if(isset($_GET['idProducto']) and '' != $_GET['idProducto']){
+		$productoC = new ProductoController;
+		$filter = [
+			['idProducto', '=', $_GET['idProducto']]
+		];
+	
+		// si hay producto con el id indicado, entonces realizamos la accion
+		if($producto = @$productoC->select($filter)[0]){
 
-$fieldValues = $producto->getAllParams(false, false);
-$tableToForm = new TableToForm('productos');
-//$tableToForm->getForm()->setReadOnly();
-$tableToForm->setValues($fieldValues);
-$tableToForm->setFielsReadOnly(['idProducto', 'fechaAlta', 'fechaUpdate']);
-$tableToForm->setFielsTypeSelect(['idCategoria', 'idTipo']);
-$tableToForm->setFieldOptions('idCategoria', [11 => 'republica Dominicana', 3 => 'cuba', 4 => 'mexico']);
-$tableToForm->setFieldOptions('idTipo', ['tour', 'vuelo', 3 => 'excursion']);
-$tableToForm->setFieldIntoFieldset();
+			// creamos los datos a mostrar
+			$fieldValues = $producto->getAllParams(false, false); // usar array_merge para unir valores al formulario
+			
+			$categoriaC = new CategoriaController;
+			$categoriaOptions = [];
+			foreach($categoriaC->select([], [['idCategoriaPadre']]) as $categoria){
+				$categoriaOptions[$categoria->getIdCategoria()] = $categoria->getNombre();
+			}
 
-$show = $tableToForm->renderForm();//->getFieldList();// $tableToForm->getFieldsMap();// 
+			$formHandler = new FormHandler('productos', $readOnly);
+			$formHandler->setValues($fieldValues);
+			$formHandler->setFieldsReadOnly(['idProducto', 'fechaAlta', 'fechaUpdate']);
+			$formHandler->setFieldsTypeSelect(['idCategoria', 'idTipo']);
+			$formHandler->setFieldsTypeImgFile(['imagen']);
+			$formHandler->setFieldOptions('idCategoria', $categoriaOptions);
+			$formHandler->setFieldOptions('idTipo', ['tour', 'vuelo', 3 => 'excursion']);
+			$formHandler->setFieldIntoFieldset();
+			$show = $formHandler->renderForm();
+	
+			// editamos los datos del producto
+			$location = "producto-form.php?idProducto={$producto->getIdProducto()}";
+			if(isset($_POST['Guardar']) and 'Guardar' == $_POST['Guardar']){
+				// seteamos los valores del producto y lo guardamos en bbdd
+				$producto->setAllParams($_POST);
+				$productoC->update($producto);
+
+				// verificamos si se ha subido una imagen y la guardamos
+				$nombreImg = $producto->getSlug();
+				$destinoImg = "../frontend/img/";
+				if(isset($_FILES['imagen']) and 0 == $_FILES['imagen']['error']){
+					$imgHandler = new ImgHandler($_FILES['imagen']);
+					$imgHandler->uploadImage($destinoImg, $nombreImg);
+				}				
+				//$imgHandler->cropAndUploadImage($destinoImg, $nombre_archivo, 550, 413);
+	
+				$location .= "&action=ver";
+				header(sprintf("Location: %s", $location));
+			} elseif(isset($_POST['Editar']) and 'Editar' == $_POST['Editar']){
+				$location .= "&action=editar";
+				header(sprintf("Location: %s", $location));
+			}
+		}
+		
+	}
+} catch (Exception $e){
+	$error = '
+	<div class="alert alert-warning" role="alert">
+		<h4 class="alert-heading">Ups!</h4>
+		' . $e->getMessage() . '
+	</div>';
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -122,111 +170,15 @@ $show = $tableToForm->renderForm();//->getFieldList();// $tableToForm->getFields
 
 								<div class="row">
 									<div class="col-sm-offset-1 col-sm-10">
-										
+										<h3 class="header smaller lighter blue">Datos del Producto</h3>
 
+										<?php
+										echo $error;
+										echo $show;
+										?>
 									
-
-										
-										<div class="">
-											<h3 class="header smaller lighter blue">Datos del Producto</h3>
-
-
-
-											<?php
-											//var_dump($show);
-											echo $show;
-											?>
-
-
-											<!--
-											<form id="form1">
-												<fieldset class='col-xs-6'  disabled>
-													<div class='form-group'>
-														<label for='nombre'>nombre:</label>
-														<input name='nombre' id='nombre' class='form-control' value="Vik arena blanca"/>
-													</div>
-													<div class='form-group'>
-														<label for='apellidos'>apellidos:</label>
-														<input name='apellidos' id='apellidos' class='form-control'/>
-													</div>
-													<div class='form-group'>
-														<label for='tel'>tel:</label>
-														<input name='tel' id='tel' class='form-control'/>
-													</div>
-												</fieldset>
-												<fieldset class='col-xs-6' >
-													<div class='form-group'>
-														<label for='nombre'>nombre:</label>
-														<input name='nombre' type='text' id='nombre2' class='form-control'/>
-													</div>
-													<div class='form-group'>
-														<label for='apellidos'>apellidos:</label>
-														<input name='apellidos' type='text' id='apellidos2' class='form-control'/>
-													</div>
-													<div class='form-group'>
-														<label for='tel'>tel:</label>
-														<input name='tel' type='text' id='tel2' class='form-control'/>
-													</div>
-												</fieldset>
-												<div class="clearfix form-actions">
-													<div class="col-md-offset-3 col-md-9">
-
-														<button id="submitForm" class="btn btn-info" type="button" onclick="submitform()">
-															<i class="ace-icon fa fa-check bigger-110"></i>
-															Aceptar
-														</button>
-
-														&nbsp; &nbsp; &nbsp;
-														<button class="btn" type="reset">
-															<i class="ace-icon fa fa-undo bigger-110"></i>
-															Borrar Todo
-														</button>
-													</div>
-												</div>
-											</form>
-
-										</div>
-										-->
-										
-										<!--
-										<form class="form-horizontal" role="form" id="form1" name="form1">
-
-											<div class="form-group">
-												<label class="col-sm-3 control-label no-padding-right" for="nombre">Nombre</label>
-												<div class="col-sm-9">
-													<input class="col-xs-10 col-sm-5" type="text" id="nombre" placeholder="Nombre"/>
-												</div>												
-											</div>
-
-											<div class="form-group">
-												<label class="col-sm-3 control-label no-padding-right" for="email">Email</label>
-												<div class="col-sm-9">
-													<input class="col-xs-10 col-sm-5" type="text" id="email" placeholder="Email"/>
-												</div>												
-											</div>
-
-											<div class="clearfix form-actions">
-												<div class="col-md-offset-3 col-md-9">
-
-													<button id="submitForm" class="btn btn-info" type="button" onclick="submitform()">
-														<i class="ace-icon fa fa-check bigger-110"></i>
-														Aceptar
-													</button>
-
-													&nbsp; &nbsp; &nbsp;
-													<button class="btn" type="reset">
-														<i class="ace-icon fa fa-undo bigger-110"></i>
-														Borrar Todo
-													</button>
-												</div>
-											</div>
-
-										</form>
-										-->
 									</div>
 								</div>
-
-
 
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->

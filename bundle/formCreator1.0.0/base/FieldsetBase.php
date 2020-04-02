@@ -105,7 +105,7 @@ abstract class FieldsetBase {
         }
 		
         foreach($this->getFields() as $field){
-            if($this->readOnly){
+            if($this->readOnly and $field->getType() != 'submit'){
                 $field->setReadOnly();
             }
             $ret .= $field->render();

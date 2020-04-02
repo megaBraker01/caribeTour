@@ -5,7 +5,7 @@ abstract class FieldBase {
     protected $showLabel = false;
     protected $label = ['id' => '', 'class' => '', 'for' => '', 'form' => '', 'accesskey' => '', 'content' => ''];
     //TODO: pasar los atributos por cada campo especifico, así no se mandan to
-    protected $attributes = ['name' => '', 'type' => 'text', 'id' => '', 'class' => '', 'value' => '', 'alt' => '', 'title' => '', 'placeholder' => '', 'required' => '', 'form' => '', 'maxlength' => '', 'minlength' => '', 'max' => '', 'min' => '', 'rows' => '', 'cols' => '', 'width' => '', 'height' => '', 'disabled' => '', 'readonly' => '', 'autofocus' => '', 'autocomplete' => '', 'step' => '', 'size' => '', 'selected' => '', 'src' => '', 'multiple' => '', 'pattern' => ''];
+    protected $attributes = ['name' => '', 'type' => 'text', 'id' => '', 'class' => '', 'value' => '', 'alt' => '', 'title' => '', 'placeholder' => '', 'required' => '', 'form' => '', 'maxlength' => '', 'minlength' => '', 'max' => '', 'min' => '', 'rows' => '', 'cols' => '', 'width' => '', 'height' => '', 'disabled' => '', 'readonly' => '', 'autofocus' => '', 'autocomplete' => '', 'step' => '', 'size' => '', 'selected' => '', 'src' => '', 'multiple' => '', 'pattern' => '', 'accept' => ''];
     protected $selectOptions = [];
     protected $optionSelected = null;
 
@@ -259,6 +259,13 @@ abstract class FieldBase {
      */
     public function getPattern(): string {
         return $this->attributes['pattern'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccept(): string {
+        return $this->attributes['accept'];
     }
 
 
@@ -631,6 +638,15 @@ abstract class FieldBase {
         $this->label['form'] = $form;
         return $this;
     }
+
+    /**
+     * @param string $accept
+     * @return Field
+     */
+    public function setAccept(string $accept): Field {
+        $this->attributes['accept'] = $accept;
+        return $this;
+    }
     
     
     /**
@@ -742,6 +758,8 @@ abstract class FieldBase {
                 break;
             case 'select': $ret .= $this->renderSelect();
                 break;
+            case 'date': $ret .= $this->renderDate();
+                break;
             default: $ret .= "\t\t<input " . $this->renderAttr() . "/>\n";
                 break;
         }        
@@ -755,6 +773,13 @@ abstract class FieldBase {
         $value = $this->getValue() ?? "";
         $ret = "\t\t<textarea " . $this->renderAttr() . ">{$value}</textarea>\n";
         return $ret;
+    }
+
+    public function renderDate()
+    {
+        $value = date('Y-m-d', strtotime($this->getValue()));
+        $this->setValue($value);
+        return "\t\t<input " . $this->renderAttr() . "/>\n";
     }
 
     

@@ -777,8 +777,11 @@ abstract class FieldBase {
 
     public function renderDate()
     {
-        $value = date('Y-m-d', strtotime($this->getValue()));
-        $this->setValue($value);
+        if("" != $this->getValue()){
+            $value = date('Y-m-d', strtotime($this->getValue()));
+            $this->setValue($value);
+        }
+        
         return "\t\t<input " . $this->renderAttr() . "/>\n";
     }
 

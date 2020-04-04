@@ -3,67 +3,86 @@ require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
 
-$readOnly = true;
-if(isset($_GET['action']) and 'editar' == $_GET['action']){
-	$readOnly = false;
-}
-
 $show = $error = '';
+$action = isset($_GET['action']) ? $_GET['action'] : 'nuevo';
+$readOnly = false;
+$formHandler = new FormHandler('productos', $readOnly);
+$fieldValues = [];
 
-try {
-	if(isset($_GET['idProducto']) and '' != $_GET['idProducto']){
-		$productoC = new ProductoController;
-		$filter = [
-			['idProducto', '=', $_GET['idProducto']]
-		];
-	
-		// si hay producto con el id indicado, entonces realizamos la accion
-		if($producto = @$productoC->select($filter)[0]){
+try{
 
-			// creamos los datos a mostrar
-			$fieldValues = $producto->getAllParams(false, false); // usar array_merge para unir valores al formulario
-			
-			$categoriaC = new CategoriaController;
-			$categoriaOptions = [];
-			foreach($categoriaC->select([], [['idCategoriaPadre']]) as $categoria){
-				$categoriaOptions[$categoria->getIdCategoria()] = $categoria->getNombre();
-			}
+	$productoC = new ProductoController;
+	$location = "producto-form.php";
+	$rutaImg = "../frontend/img/";
 
-			$formHandler = new FormHandler('productos', $readOnly);
-			$formHandler->setValues($fieldValues);
-			$formHandler->setFieldsReadOnly(['idProducto', 'fechaAlta', 'fechaUpdate']);
-			$formHandler->setFieldsTypeSelect(['idCategoria', 'idTipo']);
-			$formHandler->setFieldsTypeImgFile(['imagen']);
-			$formHandler->setFieldOptions('idCategoria', $categoriaOptions);
-			$formHandler->setFieldOptions('idTipo', ['tour', 'vuelo', 3 => 'excursion']);
-			$formHandler->setFieldIntoFieldset();
-			$show = $formHandler->renderForm();
-	
-			// editamos los datos del producto
-			$location = "producto-form.php?idProducto={$producto->getIdProducto()}";
-			if(isset($_POST['Guardar']) and 'Guardar' == $_POST['Guardar']){
-				// seteamos los valores del producto y lo guardamos en bbdd
+	switch($action) {
+		case 'nuevo':
+			if (isset($_POST['Guardar']) and 'Guardar' == $_POST['Guardar']){
+				$producto = new Producto();
 				$producto->setAllParams($_POST);
-				$productoC->update($producto);
-
 				// verificamos si se ha subido una imagen y la guardamos
-				$nombreImg = $producto->getSlug();
-				$destinoImg = "../frontend/img/";
+				$nombreImg = $producto->getSlug();				
 				if(isset($_FILES['imagen']) and 0 == $_FILES['imagen']['error']){
 					$imgHandler = new ImgHandler($_FILES['imagen']);
-					$imgHandler->uploadImage($destinoImg, $nombreImg);
-				}				
-				//$imgHandler->cropAndUploadImage($destinoImg, $nombre_archivo, 550, 413);
-	
-				$location .= "&action=ver";
-				header(sprintf("Location: %s", $location));
-			} elseif(isset($_POST['Editar']) and 'Editar' == $_POST['Editar']){
-				$location .= "&action=editar";
+					$nombreImagenFinal = $imgHandler->uploadImage($rutaImg, $nombreImg);
+					$producto->setImagen($nombreImagenFinal);
+				}
+				$idProducto = $productoC->insert($producto);
+				$location .= "?idProducto={$idProducto}&action=ver";
 				header(sprintf("Location: %s", $location));
 			}
-		}
+
+			break;
+
+		case 'ver': 
+			$readOnly = true;
+			
+		case 'editar':
+			if(!isset($_GET['idProducto']) or '' == $_GET['idProducto']){
+				throw new Exception('[ERROR] el idProducto NO está definido');
+			}
 		
-	}
+			$idProducto = $_GET['idProducto'];			
+			$producto = @$productoC->select([['idProducto', '=', $idProducto]])[0];
+		
+			if(!$producto){
+				throw new Exception('[ERROR] NO hay producto con el id indicado');
+			}
+
+			$fieldValues = $producto->getAllParams(false, false);
+			$show = "<div class='row'><div class='col-xs-12'><img width='50%' src='{$rutaImg}{$producto->getImagen()}' alt='imagen de {$producto}' title='Imagen portada de {$producto}' class='img-thumbnail'></div></div><hr>";
+
+			if(isset($_POST['Editar']) and 'Editar' == $_POST['Editar']){
+				$location .= "?idProducto={$idProducto}&action=editar";
+				header(sprintf("Location: %s", $location));
+			}
+
+			if(isset($_POST['Guardar']) and 'Guardar' == $_POST['Guardar']){
+				// seteamos los valores del producto y lo guardamos en bbdd
+				$producto->setAllParams($_POST);				
+
+				// verificamos si se ha subido una imagen y la guardamos
+				$nombreImg = $producto->getSlug();				
+				if(isset($_FILES['imagen']) and 0 == $_FILES['imagen']['error']){
+					$imgHandler = new ImgHandler($_FILES['imagen']);
+					$nombreImagenFinal = $imgHandler->uploadImage($rutaImg, $nombreImg);
+					$producto->setImagen($nombreImagenFinal);
+				}				
+				
+				$productoC->update($producto);
+				//$imgHandler->cropAndUploadImage($destinoImg, $nombre_archivo, 550, 413);
+
+				$location .= "?idProducto={$idProducto}&action=ver";
+				header(sprintf("Location: %s", $location));
+			}
+
+			break;
+	}	
+
+	// mostramos los datos del formulario
+	$formHandler->getForm()->setReadOnly($readOnly);
+	$show .= $formHandler->renderProductoForm($fieldValues);
+
 } catch (Exception $e){
 	$error = '
 	<div class="alert alert-warning" role="alert">

@@ -289,5 +289,53 @@ class FormHandler {
         return $form->render();
     }
 
+
+    public function renderProductoForm($fieldValues = [])
+    {
+        $categoriaC = new CategoriaController;
+        $categoriaOptions = [];
+        foreach($categoriaC->select([], [['idCategoriaPadre']]) as $categoria){
+            $categoriaOptions[$categoria->getIdCategoria()] = $categoria->getNombre();
+        }
+
+        $tipoC = new TipoController;
+        $tipoOptions = [];
+        foreach($tipoC->select([['productos', '=', 1], ['idTipo', '>', 1]]) as $tipo){
+            $tipoOptions[$tipo->getIdTipo()] = $tipo->getNombre();
+        }
+
+        $estadoC = new EstadoController;
+        $estadoOptions = [];
+        foreach($estadoC->select([['productos', '=', 1], ['idEstado', '>', 1]]) as $estado){
+            $estadoOptions[$estado->getIdEstado()] = $estado->getNombre();
+        }
+
+        $proveedorC = new ProveedorController;
+        $proveedorOptions = [];
+        foreach($proveedorC->select() as $proveedor){
+            $proveedorOptions[$proveedor->getIdProveedor()] = $proveedor->getNombre();
+        }
+
+        // TODO: hacer que mire el valor que tiene por defecto en la tabla y que rellene el valor del formulario
+        //$formHandler = new FormHandler('productos', $readOnly);
+
+        //$this->getForm()->setReadOnly($readOnly);
+        $this->setFieldsReadOnly(['idProducto', 'fechaAlta', 'fechaUpdate']);
+        $this->setFieldsTypeSelect(['idCategoria', 'idTipo', 'idEstado', 'idProveedor', 'esOferta']);
+        $this->setFieldOptions('idCategoria', $categoriaOptions);
+        $this->setFieldOptions('idTipo', $tipoOptions);
+        $this->setFieldOptions('idEstado', $estadoOptions);
+        $this->setFieldOptions('idProveedor', $proveedorOptions);
+        $this->setFieldOptions('esOferta', ['No', 'Si']);
+        $this->setFieldsTypeImgFile(['imagen']);
+        $this->setFieldIntoFieldset();
+        if(!empty($fieldValues)){
+            $this->setValues($fieldValues);
+        }
+
+        return $this->renderForm();
+
+    }
+
     
 }

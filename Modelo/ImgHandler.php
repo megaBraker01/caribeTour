@@ -43,9 +43,12 @@ class ImgHandler {
 
         $rutaOrigen = $this->getImgInfo()['tmp_name'];
         $imgNombre = $nombreImg ?? $this->getImgInfo()['name'];
-        $finRura = substr($rutaDestino, -1) != "/" ? "/" : ""; // nos aseguramos que haya una / al final de la ruta
-        $rutaDestino = "{$rutaDestino}{$finRura}{$imgNombre}.{$this->getImgType()}";
-        return move_uploaded_file($rutaOrigen, $rutaDestino);
+        $barra = substr($rutaDestino, -1) != "/" ? "/" : ""; // nos aseguramos que haya una / al final de la ruta
+        $rutaDestino = "{$rutaDestino}{$barra}{$imgNombre}.{$this->getImgType()}";
+        if(!move_uploaded_file($rutaOrigen, $rutaDestino)){
+            throw new Exception("[ERROR] La imagen no se ha subido");
+        }
+        return "{$imgNombre}.{$this->getImgType()}";
     }
 
 

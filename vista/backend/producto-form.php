@@ -6,11 +6,11 @@ require_once "../../AutoLoader/autoLoader.php";
 $show = $error = '';
 $action = isset($_GET['action']) ? $_GET['action'] : 'nuevo';
 $readOnly = false;
-$formHandler = new FormHandler('productos', $readOnly);
 $fieldValues = [];
 
 try{
 
+	$formHandler = new FormHandler('productos', $readOnly);
 	$productoC = new ProductoController;
 	$location = "producto-form.php";
 	$rutaImg = "../frontend/img/";
@@ -50,7 +50,10 @@ try{
 			}
 
 			$fieldValues = $producto->getAllParams(false, false);
-			$show = "<div class='row'><div class='col-xs-12'><img width='50%' src='{$rutaImg}{$producto->getImagen()}' alt='imagen de {$producto}' title='Imagen portada de {$producto}' class='img-thumbnail'></div></div><hr>";
+			if("" != $producto->getImagen()){
+				$show .= "<div class='row'><div class='col-xs-12'><img width='50%' src='{$rutaImg}{$producto->getImagen()}' alt='imagen de {$producto}' title='Imagen portada de {$producto}' class='img-thumbnail'></div></div><hr>";
+			}
+			
 
 			if(isset($_POST['Editar']) and 'Editar' == $_POST['Editar']){
 				$location .= "?idProducto={$idProducto}&action=editar";
@@ -191,10 +194,8 @@ try{
 									<div class="col-sm-offset-1 col-sm-10">
 										<h3 class="header smaller lighter blue">Datos del Producto</h3>
 
-										<?php
-										echo $error;
-										echo $show;
-										?>
+										<?= $error ?>
+										<?= $show ?>
 									
 									</div>
 								</div>

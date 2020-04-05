@@ -60,5 +60,12 @@ class Producto extends ProductoBase {
         // TODO: cambiar el retorno de esta funcion por Util::moneda()
         return number_format($ret, $decimals = 2, ",", ".");
     }
+
+    public function setSlug($slug = '')
+    {
+        $slug = $this->getNombre();
+        $this->slug = Util::slugify($slug);
+        return $this; 
+    }
     
 }

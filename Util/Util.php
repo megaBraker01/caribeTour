@@ -33,6 +33,33 @@ class Util extends BaseController {
         
         return str_replace($remplazar, $por, $ret);
     }
+
+    public static function slugify($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+
+        // trim
+        $text = trim($text, '-');
+
+        // remove duplicate -
+        $text = preg_replace('~-+~', '-', $text);
+
+        // lowercase
+        $text = strtolower($text);
+
+        if (empty($text)) {
+            $text = 'n-a';
+        }
+
+        return $text;
+    }
     
 
     public function getProductoFechaRefPDO(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array
@@ -133,7 +160,8 @@ class Util extends BaseController {
     }
 
 
-    public static function moneda($numberToCombert = 0, $decimal = 2, $sing = "e"){
+    public static function moneda($numberToCombert = 0, $decimal = 2, $sing = "e")
+    {
         switch(strtolower($sing)){
             case 'e': $symbol = "&euro;";
                 break;
@@ -152,8 +180,8 @@ class Util extends BaseController {
     }
 
 
-    public static function generar_calendario($month, $year, $holidays = null, $lang = "es"){
- 
+    public static function generar_calendario($month, $year, $holidays = null, $lang = "es")
+    { 
         $calendar = '<table cellpadding="0" cellspacing="0" class="calendar">';
      
         if($lang=='en'){
@@ -241,7 +269,8 @@ class Util extends BaseController {
     }
 
 
-    public static function diasCalendario($month=null, $year=null, $holidays=[], $url="", $lang="es"){
+    public static function diasCalendario($month=null, $year=null, $holidays=[], $url="", $lang="es")
+    {
         date_default_timezone_set("Europe/Madrid");
         setlocale(LC_TIME, "spanish");
         $anio_actual = $year ?? date("Y");
@@ -298,7 +327,8 @@ class Util extends BaseController {
         return $fecha;
     }
 
-    public static function calendario($month=null, $year=null, $holidays=[], $url="", $lang="es"){
+    public static function calendario($month=null, $year=null, $holidays=[], $url="", $lang="es")
+    {
         $fechaTexto = Util::MostratFechaEspanol(date('d-m-Y'));
         $diasCalendario = Util::diasCalendario($month, $year , $holidays, $url, $lang);
         $ret ="<table>
@@ -324,7 +354,8 @@ class Util extends BaseController {
      * Verifica si la peticion request se ha hecho a travez de ajax
      * @return boolean
      */
-    public static function isAjax(){
+    public static function isAjax()
+    {
         $isAjax = false;
         if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
             $isAjax = true;

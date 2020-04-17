@@ -5,7 +5,7 @@ require_once "../../AutoLoader/autoLoader.php";
 $util = new Util;
 
 // CATEGORIAS (SLIDER)
-$filtro = [['fsalida', '>=', date('Y-m-d')]];
+$filtro = [['fsalida', date('Y-m-d'), '>=']];
 $agrupar = ['idCategoria'];
 $productoFechaSlider = $util->getProductoFechaRefPDO($filtro, [], [], $agrupar);
 
@@ -17,7 +17,7 @@ $productosMostrarList = $productoFechaSlider;
 // BLOG
 $blogC = new BlogController();
 $blogFiltro = [
-    ['idEstado', '=', 1]
+    ['idEstado', 1]
 ];
 $blogOrder = [['fechaAlta', 'DESC']];
 $blogLimit = [1];

@@ -3,7 +3,7 @@ require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
 $filtro = [
-        ['idEstado', '=', 1]
+        ['idEstado', 1]
 ];
 $blogC = new BlogController;
 $blogList = $blogC->select($filtro);

@@ -10,7 +10,7 @@ class Producto extends ProductoBase {
     {
         $ImagenController = new ImagenController();
         $idProducto = $this->getIdproducto();
-        $ImagenList = $ImagenController->select([['idProducto', '=', $idProducto]]);
+        $ImagenList = $ImagenController->select([['idProducto', $idProducto]]);
         return $ImagenList;
     }
     
@@ -25,7 +25,7 @@ class Producto extends ProductoBase {
     public function getProductoFechaRef(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array
     {
         $idProducto = $this->getIdproducto();
-        $filtros[] = ['idProducto', '=', $idProducto];
+        $filtros[] = ['idProducto', $idProducto];
         $util = new Util();
         return $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
     }
@@ -40,8 +40,8 @@ class Producto extends ProductoBase {
         $ret = 0;
         $idProducto = $this->getIdproducto();       
         $filtros = [
-            ['idProducto', '=', $idProducto],
-            ['fsalida', '>=', date('Y-m-d')]
+            ['idProducto', $idProducto],
+            ['fsalida', date('Y-m-d'), '>=']
         ];
         $ordenados = [['precioProveedor']];
         $limitar = [1];
@@ -61,11 +61,12 @@ class Producto extends ProductoBase {
         return number_format($ret, $decimals = 2, ",", ".");
     }
 
-    public function setSlug($slug = '')
-    {
-        $slug = $this->getNombre();
-        $this->slug = Util::slugify($slug);
-        return $this; 
-    }
+    // TODO: se comenta porque para la creacion de un objeto se unsa setSlug y nos da un resultado no esperado, modificar la funcion slugify
+    // public function setSlug($slug = '')
+    // {
+    //     $slug = $this->getNombre();
+    //     $this->slug = Util::slugify($slug);
+    //     return $this; 
+    // }
     
 }

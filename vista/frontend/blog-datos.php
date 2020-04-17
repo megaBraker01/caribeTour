@@ -26,7 +26,7 @@ $blogSlug = $_GET['slugBlog'] ?? null;
 
 if(isset($blogSlug) and $blogSlug != ""){
     $blogC = new BlogController;
-    $filtro = [['slug', '=', $blogSlug]];
+    $filtro = [['slug', $blogSlug]];
     $blogList = $blogC->select($filtro);
     if(isset($blogList[0])){
         $blog = $blogList[0];

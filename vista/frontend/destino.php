@@ -31,9 +31,9 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
     $mesActual = date('m');
     $anioActual = date('Y');
     $calendarioFiltro = [
-        ['idProducto', '=', $idProducto],
-        ['MONTH(fsalida)', '=', $mesActual],
-        ['YEAR(fsalida)', '=', $anioActual]
+        ['idProducto', $idProducto],
+        ['MONTH(fsalida)', $mesActual],
+        ['YEAR(fsalida)', $anioActual]
     ];
 
     $fechaSalidaPrecio = $util->getProductoFechaRefPDO($calendarioFiltro);
@@ -51,12 +51,12 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
     
     // PRODUCTOS RELACIONADOS
     $productoRelFiltro = [
-        ['idCategoria', '=', $categoria->getIdCategoria()],
-        ['fsalida', '>=', date('Y-m-d')]
+        ['idCategoria', $categoria->getIdCategoria()],
+        ['fsalida', date('Y-m-d'), '>=']
     ];
 
     if($producto){
-        $productoRelFiltro[] = ['idProducto', '!=', $producto->getIdProducto()];
+        $productoRelFiltro[] = ['idProducto', $producto->getIdProducto(), '!='];
     }
     
     $limit = [4];
@@ -173,7 +173,10 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
                             </li>
                             <li>
                                 <div class="colored-icon icon-1"><span></span></div>
-                                <strong>Duracion:</strong> <?php $duracion=strtotime("01/02/2020") - strtotime("25/01/2020"); echo date('d',$duracion)*1; ?> D&iacute;as
+                                <strong>Duracion:</strong> <?php 
+                                // TODO: refactorizar, poner este calculo al principio
+                                 $duracion=strtotime("01/02/2020") - strtotime("25/01/2020"); echo date('d',$duracion)*1; 
+                                 ?> D&iacute;as
                             </li>
                             <li>
                                 <div class="colored-icon icon-6"><span></span></div>

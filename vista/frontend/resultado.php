@@ -14,9 +14,9 @@ $fechaIFiltro = DateTime::createFromFormat('d-m-Y', $fechaI);
 $fechaRFiltro = DateTime::createFromFormat('d-m-Y', $fechaR);
 
 $filtros = [
-    ['precioProveedor', '>=', $precioMin],
-    ['precioProveedor', '<=', $precioMax],
-    ['fsalida', '>=', date('Y-m-d')]
+    ['precioProveedor', $precioMin, '>='],
+    ['precioProveedor', $precioMax, '<='],
+    ['fsalida', date('Y-m-d'), '>=']
 ];
 
 if($fechaIFiltro){
@@ -24,12 +24,12 @@ if($fechaIFiltro){
 }
 
 if($fechaRFiltro){
-    $filtros[] = ['fvuelta', '<=', $fechaRFiltro->format('Y-m-d')];
+    $filtros[] = ['fvuelta', $fechaRFiltro->format('Y-m-d'), '<='];
 }
 
 if(0 != $cat){ 
-    $filtros[] = ['idCategoria', '=', $cat];
-    $filtros[] = ['idCategoriaPadre', '=', $cat, 'or'];
+    $filtros[] = ['idCategoria', $cat];
+    $filtros[] = ['idCategoriaPadre', $cat, 'or'];
 }
 
 $ordenados = [['idCategoriaPadre'],['precioProveedor']];

@@ -17,8 +17,8 @@ if  (
     $catPadreNombre = $categoriaPadre->getNombre();
     $idCategoriaPadre = $categoriaPadre->getIdCategoria();
     $filtros = [
-        ['idCategoriaPadre', '=', $idCategoriaPadre],
-        ['fsalida', '>=', date('Y-m-d')]
+        ['idCategoriaPadre', $idCategoriaPadre],
+        ['fsalida', date('Y-m-d'), '>=']
     ];
     $ordenados = [['idCategoriaPadre'], ['precioProveedor']];
     $limitar = [];

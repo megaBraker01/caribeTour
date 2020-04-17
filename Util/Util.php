@@ -80,7 +80,7 @@ class Util extends BaseController {
         }
         $producto = null;
         $productoC = new ProductoController;
-        $filtros = [['idProducto', '=', $idProducto]];
+        $filtros = [['idProducto', $idProducto]];
         $productoList = $productoC->select($filtros);
         if(isset($productoList[0])){
             $producto = $productoList[0];
@@ -96,7 +96,7 @@ class Util extends BaseController {
         $slug = strtolower($slug);
         $producto = null;
         $productoC = new ProductoController;
-        $filtros = [['slug', '=', $slug]];
+        $filtros = [['slug', $slug]];
         $productoList = $productoC->select($filtros);
         if(isset($productoList[0])){
             $producto = $productoList[0];
@@ -111,7 +111,7 @@ class Util extends BaseController {
         }
         $categoria = null;
         $categoriaC = new CategoriaController;
-        $filtros = [['idCategoria', '=', $idCategoria]];
+        $filtros = [['idCategoria', $idCategoria]];
         $categoriaList = $categoriaC->select($filtros);
         if(isset($categoriaList[0])){
             $categoria = $categoriaList[0];
@@ -127,7 +127,7 @@ class Util extends BaseController {
         $slug = strtolower($slug);
         $categoria = null;
         $categoriaC = new CategoriaController;
-        $filtros = [['slug', '=', $slug]];
+        $filtros = [['slug', $slug]];
         $categoriaList = $categoriaC->select($filtros);
         if(isset($categoriaList[0])){
             $categoria = $categoriaList[0];
@@ -144,7 +144,7 @@ class Util extends BaseController {
             $Ids[] = $row->idBlog;
         }
         $blogsIds = implode(", ", $Ids);
-        $filtro = [['idBlog', 'in', $blogsIds]];
+        $filtro = [['idBlog', $blogsIds, 'in']];
         $blogC = new BlogController;
         $blogList = $blogC->select($filtro);
         return $blogList;

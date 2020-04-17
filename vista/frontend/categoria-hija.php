@@ -20,8 +20,8 @@ if  (
     $slugCatPadre = $catPadre->getSlug(); 
     $idCategoria = $categoria->getIdCategoria();
     $filtros = [
-        ['idCategoria', '=', $idCategoria],
-        ['fsalida', '>=', date('Y-m-d')]
+        ['idCategoria', $idCategoria],
+        ['fsalida', date('Y-m-d'), '>=']
     ];
     $ordenados = [['idCategoriaPadre'],['precioProveedor']];
     $limitar = [];

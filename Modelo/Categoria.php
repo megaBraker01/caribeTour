@@ -10,7 +10,7 @@ class Categoria extends CategoriaBase {
     {
         $ret = null;
         $categoriaC = new CategoriaController;
-        $filtro = [['idCategoria', '=', $this->getIdCategoriaPadre()]];
+        $filtro = [['idCategoria', $this->getIdCategoriaPadre()]];
         $catList = $categoriaC->select($filtro);
         if(isset($catList[0])) {
             $ret = $catList[0];
@@ -27,7 +27,7 @@ class Categoria extends CategoriaBase {
         $ret = [];
         if(0 == $this->getIdCategoriaPadre()) {
             $categoriaC = new CategoriaController;
-            $filtro = [['idCategoriaPadre', '=', $this->getIdCategoria()]];
+            $filtro = [['idCategoriaPadre', $this->getIdCategoria()]];
             $ret = $categoriaC->select($filtro);
         }
         return $ret;        
@@ -48,8 +48,8 @@ class Categoria extends CategoriaBase {
             $id = "idCategoriaPadre";
         }        
         $filtros = [
-            [$id, '=', $idCategoria],
-            ['fsalida', '>=', date('Y-m-d')]
+            [$id, $idCategoria],
+            ['fsalida', date('Y-m-d'), '>=']
         ];
         $ordenados = [['precioProveedor']];
         $limitar = [1];

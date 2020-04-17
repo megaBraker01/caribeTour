@@ -31,7 +31,7 @@ abstract class ModelBase {
             foreach($paramList as $param => $value){
                 if(property_exists($this, $param)){
                     //$this->$param = $value;
-                    $method = "set$param";
+                    $method = "set" . ucfirst($param);
                     $this->$method($value);
                 }
             }

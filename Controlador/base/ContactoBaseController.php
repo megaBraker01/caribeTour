@@ -61,7 +61,7 @@ $statement->bindValue(":idTabla", $Contacto->getIdTabla());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new Contacto($row->idContacto, $row->idTipo, $row->contacto, $row->personaContacto, $row->srcTabla, $row->idTabla, $row->fechaAlta, $row->fechaUpdate);
                 }

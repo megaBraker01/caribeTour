@@ -59,7 +59,7 @@ $statement->bindValue(":idEstado", $Pago->getIdEstado());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new Pago($row->idPago, $row->idReserva, $row->importe, $row->idPagoTipo, $row->idEstado, $row->fechaAlta);
                 }

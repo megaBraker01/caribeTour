@@ -34,10 +34,10 @@ $statement->bindValue(":idEstado", $Blog->getIdEstado());
 
     public function update(Blog $Blog): int {
         try{
-            $sql = "UPDATE blogs SET nombre = :nombre, slug = :slug, metaDescripcion = :metaDescripcion, metaKeyWords = :metaKeyWords, descripcion = :descripcion, srcImagen = :srcImagen, idUsuario = :idUsuario, idEstado = :idEstado WHERE idblog = :idblog LIMIT 1;";
+            $sql = "UPDATE blogs SET nombre = :nombre, slug = :slug, metaDescripcion = :metaDescripcion, metaKeyWords = :metaKeyWords, descripcion = :descripcion, srcImagen = :srcImagen, idUsuario = :idUsuario, idEstado = :idEstado WHERE idBlog = :idBlog LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":idblog", $Blog->getIdblog());
+            $statement->bindValue(":idBlog", $Blog->getIdBlog());
 $statement->bindValue(":nombre", $Blog->getNombre());
 $statement->bindValue(":slug", $Blog->getSlug());
 $statement->bindValue(":metaDescripcion", $Blog->getMetaDescripcion());
@@ -62,14 +62,14 @@ $statement->bindValue(":idEstado", $Blog->getIdEstado());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
-            $sql = "SELECT idblog, nombre, slug, metaDescripcion, metaKeyWords, descripcion, srcImagen, idUsuario, idEstado, fechaAlta, fechaUpdate 
+            $sql = "SELECT idBlog, nombre, slug, metaDescripcion, metaKeyWords, descripcion, srcImagen, idUsuario, idEstado, fechaAlta, fechaUpdate 
             FROM blogs";                        
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
-                    $ret[] = new Blog($row->idblog, $row->nombre, $row->slug, $row->metaDescripcion, $row->metaKeyWords, $row->descripcion, $row->srcImagen, $row->idUsuario, $row->idEstado, $row->fechaAlta, $row->fechaUpdate);
+                    $ret[] = new Blog($row->idBlog, $row->nombre, $row->slug, $row->metaDescripcion, $row->metaKeyWords, $row->descripcion, $row->srcImagen, $row->idUsuario, $row->idEstado, $row->fechaAlta, $row->fechaUpdate);
                 }
             }
             
@@ -82,11 +82,11 @@ $statement->bindValue(":idEstado", $Blog->getIdEstado());
 
     public function deleteByIds(array $ids = []): int {
         try{
-            if(!isset($ids['idblog'])){
+            if(!isset($ids['idBlog'])){
                 throw new Exception('Para eliminar un registro, se tiene que especificar sus ids');
             }
             $sql = "DELETE FROM blogs";
-            $sql .= " WHERE idblog = :idblog LIMIT 1;";
+            $sql .= " WHERE idBlog = :idBlog LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             

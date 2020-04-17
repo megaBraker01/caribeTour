@@ -49,14 +49,14 @@ abstract class BlogComentarioBase extends ModelBase {
     public function getBlog(){
         $BlogController = new BlogController();
         $idBlog = $this->getIdBlog();
-        $BlogList = $BlogController->select([['idBlog', '=', $idBlog]]);
+        $BlogList = $BlogController->select([['idBlog', $idBlog]]);
         return $BlogList[0];
     }
 
     public function getEstado(){
         $EstadoController = new EstadoController();
         $idEstado = $this->getIdEstado();
-        $EstadoList = $EstadoController->select([['idEstado', '=', $idEstado]]);
+        $EstadoList = $EstadoController->select([['idEstado', $idEstado]]);
         return $EstadoList[0];
     }
 

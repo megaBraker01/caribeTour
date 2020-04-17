@@ -61,7 +61,7 @@ $statement->bindValue(":idUsuario", $Documento->getIdUsuario());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new Documento($row->idDocumento, $row->nombre, $row->path, $row->nombreTabla, $row->idTabla, $row->idUsuario, $row->fechaAlta);
                 }

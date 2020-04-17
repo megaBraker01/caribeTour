@@ -1,18 +1,17 @@
 <?php
 
-abstract class ReservaBaseController extends BaseController {
+abstract class TipoTablaRefBaseController extends BaseController {
 
 
 
-    public function insert(Reserva $Reserva): int {
+    public function insert(TipoTablaRef $TipoTablaRef): int {
         try{
-            $sql = "INSERT INTO reservas (idProductoFechaRef, idEstado, importe) 
-            VALUES (:idProductoFechaRef, :idEstado, :importe);";
+            $sql = "INSERT INTO tipo_tabla_ref (idTipo, tabla) 
+            VALUES (:idTipo, :tabla);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":idProductoFechaRef", $Reserva->getIdProductoFechaRef());
-$statement->bindValue(":idEstado", $Reserva->getIdEstado());
-$statement->bindValue(":importe", $Reserva->getImporte());
+            $statement->bindValue(":idTipo", $TipoTablaRef->getIdTipo());
+$statement->bindValue(":tabla", $TipoTablaRef->getTabla());
 
             $ret = 0;
             if($statement->execute()){
@@ -27,15 +26,13 @@ $statement->bindValue(":importe", $Reserva->getImporte());
         }
     }
 
-    public function update(Reserva $Reserva): int {
+    public function update(TipoTablaRef $TipoTablaRef): int {
         try{
-            $sql = "UPDATE reservas SET idProductoFechaRef = :idProductoFechaRef, idEstado = :idEstado, importe = :importe WHERE idReserva = :idReserva LIMIT 1;";
+            $sql = "UPDATE tipo_tabla_ref SET idTipo = :idTipo, tabla = :tabla WHERE idTipo = :idTipo AND tabla = :tabla LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":idReserva", $Reserva->getIdReserva());
-$statement->bindValue(":idProductoFechaRef", $Reserva->getIdProductoFechaRef());
-$statement->bindValue(":idEstado", $Reserva->getIdEstado());
-$statement->bindValue(":importe", $Reserva->getImporte());
+            $statement->bindValue(":idTipo", $TipoTablaRef->getIdTipo());
+$statement->bindValue(":tabla", $TipoTablaRef->getTabla());
 
             $ret = 0;
             if($statement->execute()){
@@ -52,14 +49,14 @@ $statement->bindValue(":importe", $Reserva->getImporte());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
-            $sql = "SELECT idReserva, idProductoFechaRef, idEstado, importe, fechaAlta 
-            FROM reservas";                        
+            $sql = "SELECT idTipo, tabla 
+            FROM tipo_tabla_ref";                        
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(!empty($rows)){
                 foreach($rows as $row){
-                    $ret[] = new Reserva($row->idReserva, $row->idProductoFechaRef, $row->idEstado, $row->importe, $row->fechaAlta);
+                    $ret[] = new TipoTablaRef($row->idTipo, $row->tabla);
                 }
             }
             
@@ -72,11 +69,11 @@ $statement->bindValue(":importe", $Reserva->getImporte());
 
     public function deleteByIds(array $ids = []): int {
         try{
-            if(!isset($ids['idReserva'])){
+            if(!isset($ids['idTipo']) or !isset($ids['tabla'])){
                 throw new Exception('Para eliminar un registro, se tiene que especificar sus ids');
             }
-            $sql = "DELETE FROM reservas";
-            $sql .= " WHERE idReserva = :idReserva LIMIT 1;";
+            $sql = "DELETE FROM tipo_tabla_ref";
+            $sql .= " WHERE idTipo = :idTipo AND tabla = :tabla LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             

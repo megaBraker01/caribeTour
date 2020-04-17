@@ -56,7 +56,7 @@ $statement->bindValue(":idReserva", $ClientePasajeroReservaRef->getIdReserva());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new ClientePasajeroReservaRef($row->idCliente, $row->idPasajero, $row->idReserva);
                 }

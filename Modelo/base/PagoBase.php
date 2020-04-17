@@ -40,21 +40,21 @@ abstract class PagoBase extends ModelBase {
     public function getReserva(){
         $ReservaController = new ReservaController();
         $idReserva = $this->getIdReserva();
-        $ReservaList = $ReservaController->select([['idReserva', '=', $idReserva]]);
+        $ReservaList = $ReservaController->select([['idReserva', $idReserva]]);
         return $ReservaList[0];
     }
 
     public function getPagoTipo(){
         $PagoTipoController = new PagoTipoController();
         $idPagoTipo = $this->getIdPagoTipo();
-        $PagoTipoList = $PagoTipoController->select([['idPagoTipo', '=', $idPagoTipo]]);
+        $PagoTipoList = $PagoTipoController->select([['idPagoTipo', $idPagoTipo]]);
         return $PagoTipoList[0];
     }
 
     public function getEstado(){
         $EstadoController = new EstadoController();
         $idEstado = $this->getIdEstado();
-        $EstadoList = $EstadoController->select([['idEstado', '=', $idEstado]]);
+        $EstadoList = $EstadoController->select([['idEstado', $idEstado]]);
         return $EstadoList[0];
     }
 

@@ -54,14 +54,14 @@ abstract class ContactoBase extends ModelBase {
     public function getTipo(){
         $TipoController = new TipoController();
         $idTipo = $this->getIdTipo();
-        $TipoList = $TipoController->select([['idTipo', '=', $idTipo]]);
+        $TipoList = $TipoController->select([['idTipo', $idTipo]]);
         return $TipoList[0];
     }
 
     public function getTabla(){
         $TablaController = new TablaController();
         $idTabla = $this->getIdTabla();
-        $TablaList = $TablaController->select([['idTabla', '=', $idTabla]]);
+        $TablaList = $TablaController->select([['idTabla', $idTabla]]);
         return $TablaList[0];
     }
 

@@ -2,7 +2,7 @@
 
 abstract class BlogBase extends ModelBase {
 
-    protected $idblog;
+    protected $idBlog;
     protected $nombre;
     protected $slug;
     protected $metaDescripcion;
@@ -15,7 +15,7 @@ abstract class BlogBase extends ModelBase {
     protected $fechaUpdate;
 
     public function __construct(
-        $idblog = 0,
+        $idBlog = 0,
         $nombre = '',
         $slug = '',
         $metaDescripcion = '',
@@ -27,7 +27,7 @@ abstract class BlogBase extends ModelBase {
         $fechaAlta = '',
         $fechaUpdate = ''
     ){
-        $this->setIdblog($idblog);
+        $this->setIdBlog($idBlog);
         $this->setNombre($nombre);
         $this->setSlug($slug);
         $this->setMetaDescripcion($metaDescripcion);
@@ -44,7 +44,7 @@ abstract class BlogBase extends ModelBase {
         return $this->nombre;
     }
 
-    public function getIdblog(){ return $this->idblog; }
+    public function getIdBlog(){ return $this->idBlog; }
 
     public function getNombre(){ return $this->nombre; }
 
@@ -69,19 +69,19 @@ abstract class BlogBase extends ModelBase {
     public function getUsuario(){
         $UsuarioController = new UsuarioController();
         $idUsuario = $this->getIdUsuario();
-        $UsuarioList = $UsuarioController->select([['idUsuario', '=', $idUsuario]]);
+        $UsuarioList = $UsuarioController->select([['idUsuario', $idUsuario]]);
         return $UsuarioList[0];
     }
 
     public function getEstado(){
         $EstadoController = new EstadoController();
         $idEstado = $this->getIdEstado();
-        $EstadoList = $EstadoController->select([['idEstado', '=', $idEstado]]);
+        $EstadoList = $EstadoController->select([['idEstado', $idEstado]]);
         return $EstadoList[0];
     }
 
-    public function setIdblog($idblog = 0){
-        $this->idblog = (int) $idblog; return $this;
+    public function setIdBlog($idBlog = 0){
+        $this->idBlog = (int) $idBlog; return $this;
     }
 
     public function setNombre($nombre = ''){

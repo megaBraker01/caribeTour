@@ -64,7 +64,7 @@ abstract class FacturaTitularBase extends ModelBase {
     public function getCliente(){
         $ClienteController = new ClienteController();
         $idCliente = $this->getIdCliente();
-        $ClienteList = $ClienteController->select([['idCliente', '=', $idCliente]]);
+        $ClienteList = $ClienteController->select([['idCliente', $idCliente]]);
         return $ClienteList[0];
     }
 

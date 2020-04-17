@@ -6,7 +6,7 @@ class Blog extends BlogBase {
     {
         $comentarioC = new BlogComentarioController;
         $idBlog = $this->getIdBlog();
-        return $comentarioC->select([['idBlog', '=', $idBlog]]);
+        return $comentarioC->select([['idBlog', $idBlog]]);
     }
     
 }

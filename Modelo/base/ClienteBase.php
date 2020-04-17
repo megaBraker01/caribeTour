@@ -84,7 +84,7 @@ abstract class ClienteBase extends ModelBase {
     public function getEstado(){
         $EstadoController = new EstadoController();
         $idEstado = $this->getIdEstado();
-        $EstadoList = $EstadoController->select([['idEstado', '=', $idEstado]]);
+        $EstadoList = $EstadoController->select([['idEstado', $idEstado]]);
         return $EstadoList[0];
     }
 

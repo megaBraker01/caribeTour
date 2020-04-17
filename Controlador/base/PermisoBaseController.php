@@ -53,7 +53,7 @@ $statement->bindValue(":nombre", $Permiso->getNombre());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new Permiso($row->idPermiso, $row->nombre);
                 }

@@ -73,7 +73,7 @@ $statement->bindValue(":pais", $Cliente->getPais());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new Cliente($row->idCliente, $row->idEstado, $row->nombre, $row->apellidos, $row->NIFoPasaporte, $row->telefono, $row->email, $row->direccion, $row->codigoPostal, $row->ciudad, $row->provincia, $row->pais, $row->fechaAlta, $row->fechaUpdate);
                 }

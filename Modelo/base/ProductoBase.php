@@ -99,28 +99,28 @@ abstract class ProductoBase extends ModelBase {
     public function getCategoria(){
         $CategoriaController = new CategoriaController();
         $idCategoria = $this->getIdCategoria();
-        $CategoriaList = $CategoriaController->select([['idCategoria', '=', $idCategoria]]);
+        $CategoriaList = $CategoriaController->select([['idCategoria', $idCategoria]]);
         return $CategoriaList[0];
     }
 
     public function getTipo(){
         $TipoController = new TipoController();
         $idTipo = $this->getIdTipo();
-        $TipoList = $TipoController->select([['idTipo', '=', $idTipo]]);
+        $TipoList = $TipoController->select([['idTipo', $idTipo]]);
         return $TipoList[0];
     }
 
     public function getEstado(){
         $EstadoController = new EstadoController();
         $idEstado = $this->getIdEstado();
-        $EstadoList = $EstadoController->select([['idEstado', '=', $idEstado]]);
+        $EstadoList = $EstadoController->select([['idEstado', $idEstado]]);
         return $EstadoList[0];
     }
 
     public function getProveedor(){
         $ProveedorController = new ProveedorController();
         $idProveedor = $this->getIdProveedor();
-        $ProveedorList = $ProveedorController->select([['idProveedor', '=', $idProveedor]]);
+        $ProveedorList = $ProveedorController->select([['idProveedor', $idProveedor]]);
         return $ProveedorList[0];
     }
 

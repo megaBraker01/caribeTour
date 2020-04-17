@@ -61,7 +61,7 @@ $statement->bindValue(":comentario", $BlogComentario->getComentario());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new BlogComentario($row->idBlogComentario, $row->idBlog, $row->idEstado, $row->nombre, $row->email, $row->comentario, $row->fechaAlta);
                 }

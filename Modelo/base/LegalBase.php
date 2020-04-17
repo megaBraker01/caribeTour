@@ -39,14 +39,14 @@ abstract class LegalBase extends ModelBase {
     public function getLegal(){
         $LegalController = new LegalController();
         $idLegal = $this->getIdLegal();
-        $LegalList = $LegalController->select([['idLegal', '=', $idLegal]]);
+        $LegalList = $LegalController->select([['idLegal', $idLegal]]);
         return $LegalList[0];
     }
 
     public function getEstado(){
         $EstadoController = new EstadoController();
         $idEstado = $this->getIdEstado();
-        $EstadoList = $EstadoController->select([['idEstado', '=', $idEstado]]);
+        $EstadoList = $EstadoController->select([['idEstado', $idEstado]]);
         return $EstadoList[0];
     }
 

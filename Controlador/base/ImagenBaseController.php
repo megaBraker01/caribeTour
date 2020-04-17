@@ -55,7 +55,7 @@ $statement->bindValue(":srcImagen", $Imagen->getSrcImagen());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new Imagen($row->idImagen, $row->idProducto, $row->srcImagen, $row->fechaAlta, $row->fehaUpdate);
                 }

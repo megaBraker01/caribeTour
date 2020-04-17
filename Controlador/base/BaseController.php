@@ -9,7 +9,7 @@ abstract class BaseController {
      * pasamos los parametros para condicionar el WHERE de la consulta
      * el aparametro debe de ser un array de arrays, cada array elemento tiene que ser de la forma:
      * ['campo_a_comparar', 'sigo_comparacion', 'valor_a_comparar', (opcional 'and | or')]
-     * ejemplo: $filters = [['idEstado', '=', 1], ['idTipo', '!=', 3, 'or'], ['marNombre', 'like', 'merce'], ['idBlog', 'in', '1, 5, 8']];
+     * ejemplo: $filters = [['idEstado', 14], ['idTipo', 3, '!=', 'or'], ['marNombre', 'merce', 'like'], ['idBlog', '1,5,8', 'in']];
      * @param array $filters
      * @return string
      */
@@ -21,12 +21,17 @@ abstract class BaseController {
             $p = 'p';
             foreach($filters as $filter){
             	$field = $filter[0];
-            	$comparator = strtoupper(trim($filter[1]));
-            	$value = "LIKE" == $comparator ? "%{$filter[2]}%" : $filter[2];
+                $comparator = isset($filter[2]) ? strtoupper(trim($filter[2])) : "=";
+            	$value = "LIKE" == $comparator ? "%{$filter[1]}%" : $filter[1];
                 $united = (isset($filter[3]) && is_string($filter[3])) ? strtoupper($filter[3]) : 'AND';
                 
-                if('IN' == $comparator) {
-                    $values = explode(", ", $value);
+                if('IN' != $comparator) {
+                    $binParam = $p.$i;
+                    $sql .= " $united {$field} {$comparator} :{$binParam}";
+                    $this->parameters[$binParam] = $value;
+                } else {
+                    $value = str_replace(" ", "", $value);
+                    $values = explode(",", $value);
                     $paramIN = [];
                     foreach($values as $val){
                         $binParam = $p.$i;
@@ -36,11 +41,6 @@ abstract class BaseController {
                     }
                     $finalParam = implode(", ", $paramIN);
                     $sql .= " $united {$field} {$comparator} ({$finalParam})";
-                		
-                } else {
-                    $binParam = $p.$i;
-                    $sql .= " $united {$field} {$comparator} :{$binParam}";
-                    $this->parameters[$binParam] = $value;
                 }
                 $i++;
             }
@@ -111,6 +111,7 @@ abstract class BaseController {
             $sql .= $this->groupSqlPrepare($agrupar);
             $sql .= $this->orderSqlPrepare($ordenados);
             $sql .= $this->limitSqlPrepare($limitar);
+            //var_dump($sql);
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             

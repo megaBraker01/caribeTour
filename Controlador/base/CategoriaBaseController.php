@@ -63,7 +63,7 @@ $statement->bindValue(":srcImagen", $Categoria->getSrcImagen());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new Categoria($row->idCategoria, $row->idCategoriaPadre, $row->nombre, $row->slug, $row->descripcion, $row->idEstado, $row->srcImagen);
                 }

@@ -25,21 +25,21 @@ abstract class ClientePasajeroReservaRefBase extends ModelBase {
     public function getCliente(){
         $ClienteController = new ClienteController();
         $idCliente = $this->getIdCliente();
-        $ClienteList = $ClienteController->select([['idCliente', '=', $idCliente]]);
+        $ClienteList = $ClienteController->select([['idCliente', $idCliente]]);
         return $ClienteList[0];
     }
 
     public function getPasajero(){
         $PasajeroController = new PasajeroController();
         $idPasajero = $this->getIdPasajero();
-        $PasajeroList = $PasajeroController->select([['idPasajero', '=', $idPasajero]]);
+        $PasajeroList = $PasajeroController->select([['idPasajero', $idPasajero]]);
         return $PasajeroList[0];
     }
 
     public function getReserva(){
         $ReservaController = new ReservaController();
         $idReserva = $this->getIdReserva();
-        $ReservaList = $ReservaController->select([['idReserva', '=', $idReserva]]);
+        $ReservaList = $ReservaController->select([['idReserva', $idReserva]]);
         return $ReservaList[0];
     }
 

@@ -35,14 +35,14 @@ abstract class ReservaBase extends ModelBase {
     public function getProductoFechaRef(){
         $ProductoFechaRefController = new ProductoFechaRefController();
         $idProductoFechaRef = $this->getIdProductoFechaRef();
-        $ProductoFechaRefList = $ProductoFechaRefController->select([['idProductoFechaRef', '=', $idProductoFechaRef]]);
+        $ProductoFechaRefList = $ProductoFechaRefController->select([['idProductoFechaRef', $idProductoFechaRef]]);
         return $ProductoFechaRefList[0];
     }
 
     public function getEstado(){
         $EstadoController = new EstadoController();
         $idEstado = $this->getIdEstado();
-        $EstadoList = $EstadoController->select([['idEstado', '=', $idEstado]]);
+        $EstadoList = $EstadoController->select([['idEstado', $idEstado]]);
         return $EstadoList[0];
     }
 

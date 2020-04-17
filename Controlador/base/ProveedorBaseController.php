@@ -67,7 +67,7 @@ $statement->bindValue(":idEstado", $Proveedor->getIdEstado());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new Proveedor($row->idProveedor, $row->nombre, $row->contacto, $row->telefono, $row->NIF, $row->web, $row->email, $row->direccion, $row->idEstado, $row->fechaAlta, $row->fehaUpdate);
                 }

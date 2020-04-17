@@ -59,7 +59,7 @@ $statement->bindValue(":idUsuario", $Nota->getIdUsuario());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new Nota($row->idNota, $row->nombreTabla, $row->idTabla, $row->nota, $row->idUsuario, $row->fechaAlta, $row->fechaUpdate);
                 }

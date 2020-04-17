@@ -40,21 +40,21 @@ abstract class ProductoFechaRefBase extends ModelBase {
     public function getProducto(){
         $ProductoController = new ProductoController();
         $idProducto = $this->getIdProducto();
-        $ProductoList = $ProductoController->select([['idProducto', '=', $idProducto]]);
+        $ProductoList = $ProductoController->select([['idProducto', $idProducto]]);
         return $ProductoList[0];
     }
 
     public function getFechaSalida(){
-        $FechaSalidaController = new FechaController();
+        $FechaSalidaController = new FechaSalidaController();
         $idFechaSalida = $this->getIdFechaSalida();
-        $FechaSalidaList = $FechaSalidaController->select([['idFechaSalida', '=', $idFechaSalida]]);
+        $FechaSalidaList = $FechaSalidaController->select([['idFechaSalida', $idFechaSalida]]);
         return $FechaSalidaList[0];
     }
 
     public function getFechaVuelta(){
-        $FechaVueltaController = new FechaController();
+        $FechaVueltaController = new FechaVueltaController();
         $idFechaVuelta = $this->getIdFechaVuelta();
-        $FechaVueltaList = $FechaVueltaController->select([['idFechaVuelta', '=', $idFechaVuelta]]);
+        $FechaVueltaList = $FechaVueltaController->select([['idFechaVuelta', $idFechaVuelta]]);
         return $FechaVueltaList[0];
     }
 

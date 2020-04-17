@@ -61,7 +61,7 @@ $statement->bindValue(":comision", $ProductoFechaRef->getComision());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new ProductoFechaRef($row->idProductoFechaRef, $row->idProducto, $row->idFechaSalida, $row->idFechaVuelta, $row->precioProveedor, $row->comision);
                 }

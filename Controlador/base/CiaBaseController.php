@@ -1,18 +1,17 @@
 <?php
 
-abstract class ReservaBaseController extends BaseController {
+abstract class CiaBaseController extends BaseController {
 
 
 
-    public function insert(Reserva $Reserva): int {
+    public function insert(Cia $Cia): int {
         try{
-            $sql = "INSERT INTO reservas (idProductoFechaRef, idEstado, importe) 
-            VALUES (:idProductoFechaRef, :idEstado, :importe);";
+            $sql = "INSERT INTO cias (nombre, codigo) 
+            VALUES (:nombre, :codigo);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":idProductoFechaRef", $Reserva->getIdProductoFechaRef());
-$statement->bindValue(":idEstado", $Reserva->getIdEstado());
-$statement->bindValue(":importe", $Reserva->getImporte());
+            $statement->bindValue(":nombre", $Cia->getNombre());
+$statement->bindValue(":codigo", $Cia->getCodigo());
 
             $ret = 0;
             if($statement->execute()){
@@ -27,15 +26,14 @@ $statement->bindValue(":importe", $Reserva->getImporte());
         }
     }
 
-    public function update(Reserva $Reserva): int {
+    public function update(Cia $Cia): int {
         try{
-            $sql = "UPDATE reservas SET idProductoFechaRef = :idProductoFechaRef, idEstado = :idEstado, importe = :importe WHERE idReserva = :idReserva LIMIT 1;";
+            $sql = "UPDATE cias SET nombre = :nombre, codigo = :codigo WHERE idCia = :idCia LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":idReserva", $Reserva->getIdReserva());
-$statement->bindValue(":idProductoFechaRef", $Reserva->getIdProductoFechaRef());
-$statement->bindValue(":idEstado", $Reserva->getIdEstado());
-$statement->bindValue(":importe", $Reserva->getImporte());
+            $statement->bindValue(":idCia", $Cia->getIdCia());
+$statement->bindValue(":nombre", $Cia->getNombre());
+$statement->bindValue(":codigo", $Cia->getCodigo());
 
             $ret = 0;
             if($statement->execute()){
@@ -52,14 +50,14 @@ $statement->bindValue(":importe", $Reserva->getImporte());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
-            $sql = "SELECT idReserva, idProductoFechaRef, idEstado, importe, fechaAlta 
-            FROM reservas";                        
+            $sql = "SELECT idCia, nombre, codigo 
+            FROM cias";                        
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(!empty($rows)){
                 foreach($rows as $row){
-                    $ret[] = new Reserva($row->idReserva, $row->idProductoFechaRef, $row->idEstado, $row->importe, $row->fechaAlta);
+                    $ret[] = new Cia($row->idCia, $row->nombre, $row->codigo);
                 }
             }
             
@@ -72,11 +70,11 @@ $statement->bindValue(":importe", $Reserva->getImporte());
 
     public function deleteByIds(array $ids = []): int {
         try{
-            if(!isset($ids['idReserva'])){
+            if(!isset($ids['idCia'])){
                 throw new Exception('Para eliminar un registro, se tiene que especificar sus ids');
             }
-            $sql = "DELETE FROM reservas";
-            $sql .= " WHERE idReserva = :idReserva LIMIT 1;";
+            $sql = "DELETE FROM cias";
+            $sql .= " WHERE idCia = :idCia LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             

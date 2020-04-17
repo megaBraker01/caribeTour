@@ -7,7 +7,7 @@ abstract class EstadoBase extends ModelBase {
     protected $productos;
     protected $categorias;
     protected $blogComentarios;
-    protected $blos;
+    protected $blogs;
     protected $proveedores;
     protected $pagos;
     protected $reservas;
@@ -21,7 +21,7 @@ abstract class EstadoBase extends ModelBase {
         $productos = 0,
         $categorias = 0,
         $blogComentarios = 0,
-        $blos = 0,
+        $blogs = 0,
         $proveedores = 0,
         $pagos = 0,
         $reservas = 0,
@@ -34,7 +34,7 @@ abstract class EstadoBase extends ModelBase {
         $this->setProductos($productos);
         $this->setCategorias($categorias);
         $this->setBlogComentarios($blogComentarios);
-        $this->setBlos($blos);
+        $this->setBlogs($blogs);
         $this->setProveedores($proveedores);
         $this->setPagos($pagos);
         $this->setReservas($reservas);
@@ -57,7 +57,7 @@ abstract class EstadoBase extends ModelBase {
 
     public function getBlogComentarios(){ return $this->blogComentarios; }
 
-    public function getBlos(){ return $this->blos; }
+    public function getBlogs(){ return $this->blogs; }
 
     public function getProveedores(){ return $this->proveedores; }
 
@@ -91,8 +91,8 @@ abstract class EstadoBase extends ModelBase {
         $this->blogComentarios = (int) $blogComentarios; return $this;
     }
 
-    public function setBlos($blos = 0){
-        $this->blos = (int) $blos; return $this;
+    public function setBlogs($blogs = 0){
+        $this->blogs = (int) $blogs; return $this;
     }
 
     public function setProveedores($proveedores = 0){

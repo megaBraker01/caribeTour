@@ -49,14 +49,14 @@ abstract class DocumentoBase extends ModelBase {
     public function getTabla(){
         $TablaController = new TablaController();
         $idTabla = $this->getIdTabla();
-        $TablaList = $TablaController->select([['idTabla', '=', $idTabla]]);
+        $TablaList = $TablaController->select([['idTabla', $idTabla]]);
         return $TablaList[0];
     }
 
     public function getUsuario(){
         $UsuarioController = new UsuarioController();
         $idUsuario = $this->getIdUsuario();
-        $UsuarioList = $UsuarioController->select([['idUsuario', '=', $idUsuario]]);
+        $UsuarioList = $UsuarioController->select([['idUsuario', $idUsuario]]);
         return $UsuarioList[0];
     }
 

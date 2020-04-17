@@ -71,7 +71,7 @@ $statement->bindValue(":idPermiso", $Usuario->getIdPermiso());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new Usuario($row->idUsuario, $row->nombre, $row->apellidos, $row->DNI, $row->email, $row->password, $row->telefono, $row->perfil, $row->imagen, $row->idEstado, $row->idPermiso, $row->fechaAlta, $row->fechaUpdate);
                 }

@@ -49,14 +49,14 @@ abstract class CategoriaBase extends ModelBase {
     public function getCategoriaPadre(){
         $CategoriaPadreController = new CategoriaPadreController();
         $idCategoriaPadre = $this->getIdCategoriaPadre();
-        $CategoriaPadreList = $CategoriaPadreController->select([['idCategoriaPadre', '=', $idCategoriaPadre]]);
+        $CategoriaPadreList = $CategoriaPadreController->select([['idCategoriaPadre', $idCategoriaPadre]]);
         return $CategoriaPadreList[0];
     }
 
     public function getEstado(){
         $EstadoController = new EstadoController();
         $idEstado = $this->getIdEstado();
-        $EstadoList = $EstadoController->select([['idEstado', '=', $idEstado]]);
+        $EstadoList = $EstadoController->select([['idEstado', $idEstado]]);
         return $EstadoList[0];
     }
 

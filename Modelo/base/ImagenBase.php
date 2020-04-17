@@ -39,7 +39,7 @@ abstract class ImagenBase extends ModelBase {
     public function getProducto(){
         $ProductoController = new ProductoController();
         $idProducto = $this->getIdProducto();
-        $ProductoList = $ProductoController->select([['idProducto', '=', $idProducto]]);
+        $ProductoList = $ProductoController->select([['idProducto', $idProducto]]);
         return $ProductoList[0];
     }
 

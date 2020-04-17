@@ -51,7 +51,7 @@ abstract class FacturaNumBaseController extends BaseController {
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new FacturaNum($row->facturaNum, $row->fechaAlta);
                 }

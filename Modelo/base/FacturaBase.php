@@ -34,10 +34,6 @@ abstract class FacturaBase extends ModelBase {
         $this->setFehaUpdate($fehaUpdate);
     }
 
-    public function __toString(){
-        return $this->facturaNum;
-    }
-
     public function getIdFactura(){ return $this->idFactura; }
 
     public function getFacturaNum(){ return $this->facturaNum; }
@@ -59,14 +55,14 @@ abstract class FacturaBase extends ModelBase {
     public function getReserva(){
         $ReservaController = new ReservaController();
         $idReserva = $this->getIdReserva();
-        $ReservaList = $ReservaController->select([['idReserva', '=', $idReserva]]);
+        $ReservaList = $ReservaController->select([['idReserva', $idReserva]]);
         return $ReservaList[0];
     }
 
     public function getFacturaTitular(){
         $FacturaTitularController = new FacturaTitularController();
         $idFacturaTitular = $this->getIdFacturaTitular();
-        $FacturaTitularList = $FacturaTitularController->select([['idFacturaTitular', '=', $idFacturaTitular]]);
+        $FacturaTitularList = $FacturaTitularController->select([['idFacturaTitular', $idFacturaTitular]]);
         return $FacturaTitularList[0];
     }
 

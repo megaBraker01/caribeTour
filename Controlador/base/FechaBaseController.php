@@ -6,15 +6,18 @@ abstract class FechaBaseController extends BaseController {
 
     public function insert(Fecha $Fecha): int {
         try{
-            $sql = "INSERT INTO fechas (fecha, terminalSalida, terminalDestino, tasasSalida, tasasDestino) 
-            VALUES (:fecha, :terminalSalida, :terminalDestino, :tasasSalida, :tasasDestino);";
+            $sql = "INSERT INTO fechas (fecha, idPuertoSalida, terminalSalida, tasasSalida, idPuertoDestino, terminalDestino, tasasDestino, idCia) 
+            VALUES (:fecha, :idPuertoSalida, :terminalSalida, :tasasSalida, :idPuertoDestino, :terminalDestino, :tasasDestino, :idCia);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":fecha", $Fecha->getFecha());
+$statement->bindValue(":idPuertoSalida", $Fecha->getIdPuertoSalida());
 $statement->bindValue(":terminalSalida", $Fecha->getTerminalSalida());
-$statement->bindValue(":terminalDestino", $Fecha->getTerminalDestino());
 $statement->bindValue(":tasasSalida", $Fecha->getTasasSalida());
+$statement->bindValue(":idPuertoDestino", $Fecha->getIdPuertoDestino());
+$statement->bindValue(":terminalDestino", $Fecha->getTerminalDestino());
 $statement->bindValue(":tasasDestino", $Fecha->getTasasDestino());
+$statement->bindValue(":idCia", $Fecha->getIdCia());
 
             $ret = 0;
             if($statement->execute()){
@@ -31,15 +34,18 @@ $statement->bindValue(":tasasDestino", $Fecha->getTasasDestino());
 
     public function update(Fecha $Fecha): int {
         try{
-            $sql = "UPDATE fechas SET fecha = :fecha, terminalSalida = :terminalSalida, terminalDestino = :terminalDestino, tasasSalida = :tasasSalida, tasasDestino = :tasasDestino WHERE idFecha = :idFecha LIMIT 1;";
+            $sql = "UPDATE fechas SET fecha = :fecha, idPuertoSalida = :idPuertoSalida, terminalSalida = :terminalSalida, tasasSalida = :tasasSalida, idPuertoDestino = :idPuertoDestino, terminalDestino = :terminalDestino, tasasDestino = :tasasDestino, idCia = :idCia WHERE idFecha = :idFecha LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idFecha", $Fecha->getIdFecha());
 $statement->bindValue(":fecha", $Fecha->getFecha());
+$statement->bindValue(":idPuertoSalida", $Fecha->getIdPuertoSalida());
 $statement->bindValue(":terminalSalida", $Fecha->getTerminalSalida());
-$statement->bindValue(":terminalDestino", $Fecha->getTerminalDestino());
 $statement->bindValue(":tasasSalida", $Fecha->getTasasSalida());
+$statement->bindValue(":idPuertoDestino", $Fecha->getIdPuertoDestino());
+$statement->bindValue(":terminalDestino", $Fecha->getTerminalDestino());
 $statement->bindValue(":tasasDestino", $Fecha->getTasasDestino());
+$statement->bindValue(":idCia", $Fecha->getIdCia());
 
             $ret = 0;
             if($statement->execute()){
@@ -56,14 +62,14 @@ $statement->bindValue(":tasasDestino", $Fecha->getTasasDestino());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
-            $sql = "SELECT idFecha, fecha, terminalSalida, terminalDestino, tasasSalida, tasasDestino 
+            $sql = "SELECT idFecha, fecha, idPuertoSalida, terminalSalida, tasasSalida, idPuertoDestino, terminalDestino, tasasDestino, idCia 
             FROM fechas";                        
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
-                    $ret[] = new Fecha($row->idFecha, $row->fecha, $row->terminalSalida, $row->terminalDestino, $row->tasasSalida, $row->tasasDestino);
+                    $ret[] = new Fecha($row->idFecha, $row->fecha, $row->idPuertoSalida, $row->terminalSalida, $row->tasasSalida, $row->idPuertoDestino, $row->terminalDestino, $row->tasasDestino, $row->idCia);
                 }
             }
             

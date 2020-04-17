@@ -61,7 +61,7 @@ $statement->bindValue(":fechaNacimiento", $Pasajero->getFechaNacimiento());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new Pasajero($row->idPasajero, $row->nombre, $row->apellidos, $row->NIFoPasaporte, $row->nacionalidad, $row->fechaNacimiento, $row->fechaAlta, $row->fechaUpdate);
                 }

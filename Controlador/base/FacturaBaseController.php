@@ -63,7 +63,7 @@ $statement->bindValue(":descuento", $Factura->getDescuento());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new Factura($row->idFactura, $row->facturaNum, $row->idReserva, $row->idFacturaTitular, $row->importeBruto, $row->IVA, $row->descuento, $row->fechaAlta, $row->fehaUpdate);
                 }

@@ -73,7 +73,7 @@ $statement->bindValue(":legales", $Estado->getLegales());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new Estado($row->idEstado, $row->nombre, $row->productos, $row->categorias, $row->blogComentarios, $row->blogs, $row->proveedores, $row->pagos, $row->reservas, $row->clientes, $row->usuarios, $row->legales);
                 }

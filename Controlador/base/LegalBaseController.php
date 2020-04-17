@@ -60,7 +60,7 @@ $statement->bindValue(":idEstado", $Legal->getIdEstado());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new Legal($row->idLegal, $row->nombre, $row->slug, $row->descripcion, $row->idEstado);
                 }

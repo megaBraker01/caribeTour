@@ -69,7 +69,7 @@ $statement->bindValue(":pais", $FacturaTitular->getPais());
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
-            if(count($rows) > 0){
+            if(!empty($rows)){
                 foreach($rows as $row){
                     $ret[] = new FacturaTitular($row->idFacturaTitular, $row->idCliente, $row->nombre, $row->apellidos, $row->NIF, $row->direccion, $row->codigoPostal, $row->ciudad, $row->provincia, $row->pais);
                 }

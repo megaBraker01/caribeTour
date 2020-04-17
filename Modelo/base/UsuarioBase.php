@@ -79,14 +79,14 @@ abstract class UsuarioBase extends ModelBase {
     public function getEstado(){
         $EstadoController = new EstadoController();
         $idEstado = $this->getIdEstado();
-        $EstadoList = $EstadoController->select([['idEstado', '=', $idEstado]]);
+        $EstadoList = $EstadoController->select([['idEstado', $idEstado]]);
         return $EstadoList[0];
     }
 
     public function getPermiso(){
         $PermisoController = new PermisoController();
         $idPermiso = $this->getIdPermiso();
-        $PermisoList = $PermisoController->select([['idPermiso', '=', $idPermiso]]);
+        $PermisoList = $PermisoController->select([['idPermiso', $idPermiso]]);
         return $PermisoList[0];
     }
 

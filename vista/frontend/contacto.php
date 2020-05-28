@@ -49,6 +49,7 @@ require_once '../../config.php';
         })();
         </script>
         <style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     </head>
     <body class="home page page-id-96 page-template-default">
         <!-- container -->
@@ -113,8 +114,10 @@ require_once '../../config.php';
                             <div class="field-container">
                                 <textarea id="mensaje" name="mensaje" title="Introduzca su Mensaje." maxlength="1000" placeholder="Mensaje" required ><?php if (isset($_SESSION['mensaje']) && $_SESSION['enviado']!=1) { echo $_SESSION['mensaje']; } ?></textarea>
                             </div>
+                            <div class="g-recaptcha" data-sitekey="6LebCf0UAAAAADzVD3nn1xXCgyLkycL9DDjcmzTN"></div>
+                            <br>
                             <input type="submit" class="action" value="Enviar" title="Enviar" />
-                            <input type="hidden" name="producto" value="algo" />
+                            
                             <input type="hidden" name="volver" value="http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"]; ?>" />
                         </form>
                     </div>
@@ -132,6 +135,8 @@ require_once '../../config.php';
                                 <div class="field-container">
                                     <input type="email" name="email" id="suscribir" placeholder="Email" value="<?php if (isset($_GET['suscritor'])) {echo $_GET['suscritor'];} if (isset($_GET['errorsuscritor'])) {echo $_GET['errorsuscritor'];} ?>" title="Introduzca su Email para suscribirse." maxlength="60" required />
                                 </div><br>
+                                <div class="g-recaptcha" data-sitekey="6LebCf0UAAAAADzVD3nn1xXCgyLkycL9DDjcmzTN"></div>
+                                <br>
                                 <input type="submit" class="action" value="Suscribirse" title="Suscribirse" />
                                 <input type="hidden" name="MM_insert" value="suscribir">
                             </form>

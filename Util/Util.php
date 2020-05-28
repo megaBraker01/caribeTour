@@ -6,6 +6,14 @@ class Util extends BaseController {
     const _INT = 'int';
     const _DOUBLE = 'double';
 
+    /**
+     * Depura el parametro de entrada
+     */
+    public static function dev($param){
+        var_dump($param);
+        exit();
+    }
+
 
     public function sanear($value, $type = self::_TEXT): string
     {
@@ -34,31 +42,15 @@ class Util extends BaseController {
         return str_replace($remplazar, $por, $ret);
     }
 
-    public static function slugify($text)
+    public static function slugify($cadena, $separador = '-')
     {
-        // replace non letter or digits by -
-        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+        setlocale(LC_ALL, 'en_US.UTF8');
+        $slug = iconv('UTF-8', 'ASCII//TRANSLIT', $cadena);
+        $slug = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $slug);
+        $slug = preg_replace("/[\/_|+ -]+/", $separador, $slug);
+        $slug = strtolower(trim($slug, $separador));
 
-        // transliterate
-        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-
-        // remove unwanted characters
-        $text = preg_replace('~[^-\w]+~', '', $text);
-
-        // trim
-        $text = trim($text, '-');
-
-        // remove duplicate -
-        $text = preg_replace('~-+~', '-', $text);
-
-        // lowercase
-        $text = strtolower($text);
-
-        if (empty($text)) {
-            $text = 'n-a';
-        }
-
-        return $text;
+        return !empty($slug) ? $slug : "n{$separador}a";
     }
     
 
@@ -102,6 +94,24 @@ class Util extends BaseController {
             $producto = $productoList[0];
         }
         return $producto;
+    }
+
+    /**
+     * Obtiene los tipos disponibles dependiendo el nombre de la tabla
+     */
+    public function getTipos(string $tableName)
+    {
+        if(!is_string($tableName) or "" == $tableName){
+            throw new Exception('[ERROR] El nombre de la tabla tiene que ser un string distinto de ""');
+        }
+        $sql = "SELECT tipos.idTipo, tipos.nombre FROM tipo_tabla_ref INNER JOIN tipos USING(idTipo)";
+        $filtros = [['tabla', $tableName], ['idTipo', 1, '>']];
+        $tiposList = [];
+        foreach($this->query($sql, $filtros) as $tipo){
+            $tiposList[] = new Tipo($tipo->idTipo, $tipo->nombre);
+        }
+
+        return $tiposList;
     }
     
     public function getCategoriaById(int $idCategoria)
@@ -331,10 +341,14 @@ class Util extends BaseController {
     {
         $fechaTexto = Util::MostratFechaEspanol(date('d-m-Y'));
         $diasCalendario = Util::diasCalendario($month, $year , $holidays, $url, $lang);
+        $previousMonth = $month - 1;
+        $nextMonth = $month + 1;
         $ret ="<table>
                  <thead>
                      <tr>
-                         <th><a href='' title='Ver el mes anterior'>&lt; &lt;--</a></th><th colspan='5'> {$fechaTexto} </th><th><a href='' title='Ver el mes siguiente'>--&gt; &gt;</a></th>
+                        <th><a href='$url/fecha={$previousMonth}' title='Ver el mes anterior' class='button'>&lt;&lt;</a></th>
+                        <th colspan='5'> {$fechaTexto} </th>
+                        <th><a href='$url/fecha={$nextMonth}' title='Ver el mes siguiente' class='button'>&gt;&gt;</a></th>
                      </tr>
                      <tr>
                          <th>Dom</th><th>Lun</th><th>Mar</th><th>Mie</th><th>Jue</th><th>Vie</th><th>Sab</th>

@@ -2,63 +2,97 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
+
 $show = $error = '';
 $action = isset($_GET['action']) ? $_GET['action'] : 'nuevo';
 $readOnly = false;
 $fieldValues = [];
-$location = "producto-form.php";
-$rutaImg = "../frontend/img/";
 
 // mostramos los botones editar segun el action
 
 try{
 
 	$productoC = new ProductoController;
-
-	if (isset($_POST['Guardar']) and 'Guardar' == $_POST['Guardar']){
-		$producto = new Producto();
-		$producto->setAllParams($_POST);
-		// verificamos si se ha subido una imagen y la guardamos
-		$nombreImg = $producto->getSlug();				
-		if(isset($_FILES['imagen']) and 0 == $_FILES['imagen']['error']){
-			$imgHandler = new ImgHandler($_FILES['imagen']);
-			$nombreImagenFinal = $imgHandler->uploadImage($rutaImg, $nombreImg);
-			$producto->setImagen($nombreImagenFinal);
-		}
-		$idProducto = $productoC->insert($producto);
-		$location .= "?idProducto={$idProducto}&action=ver";
-		header(sprintf("Location: %s", $location));
-	}
+	$location = "producto-form.php";
+	$rutaImg = "../frontend/img/";
 
 	switch($action) {
 		case 'nuevo':
-			// no hace nada de momento
-		break;
+			if (isset($_POST['Guardar']) and 'Guardar' == $_POST['Guardar']){
+				$producto = new Producto();
+				$producto->setAllParams($_POST);
+				// verificamos si se ha subido una imagen y la guardamos
+				$nombreImg = $producto->getSlug();				
+				if(isset($_FILES['imagen']) and 0 == $_FILES['imagen']['error']){
+					$imgHandler = new ImgHandler($_FILES['imagen']);
+					$nombreImagenFinal = $imgHandler->uploadImage($rutaImg, $nombreImg);
+					$producto->setImagen($nombreImagenFinal);
+				}
+				$idProducto = $productoC->insert($producto);
+				$location .= "?idProducto={$idProducto}&action=ver";
+				header(sprintf("Location: %s", $location));
+			}
 
-		case 'ver':
+			break;
+
+		case 'ver': 
 			$readOnly = true;
-			$idProducto = $productoC->verificaGetIdProducto();
-			$producto = $productoC->getProductoById($idProducto);
-			// rellenamos los valores de los campos a mostrar
-			$fieldValues = $producto->getAllParams(false, false);
-			$show .= "<a href='producto-form.php?idProducto={$idProducto}&action=editar' class='btn btn-warning input-medium' value='Editar' title='Editar'>Editar</a><p></p>";
-		break;
-
+			
 		case 'editar':
-			$idProducto = $productoC->verificaGetIdProducto();						
-			$producto = $productoC->getProductoById($idProducto);
-			// rellenamos los valores de los campos a mostrar
+			if(!isset($_GET['idProducto']) or '' == $_GET['idProducto']){
+				throw new Exception('[ERROR] el idProducto NO está definido');
+			}
+		
+			$idProducto = $_GET['idProducto'];			
+			$producto = @$productoC->select([['idProducto', $idProducto]])[0];
+		
+			if(!$producto){
+				throw new Exception('[ERROR] NO hay producto con el id indicado');
+			}
+
 			$fieldValues = $producto->getAllParams(false, false);
-		break;
-	}
+                        
+                        // si hay imagen la mostramos
+			if("" != $producto->getImagen()){
+				$show .= "<div class='row'><div class='col-xs-12'><img width='50%' src='{$rutaImg}{$producto->getImagen()}' alt='imagen de {$producto}' title='Imagen portada de {$producto}' class='img-thumbnail'></div></div><hr>";
+			}
+			
+
+			if(isset($_POST['Editar']) and 'Editar' == $_POST['Editar']){
+				$location .= "?idProducto={$idProducto}&action=editar";
+				header(sprintf("Location: %s", $location));
+			}
+
+			if(isset($_POST['Guardar']) and 'Guardar' == $_POST['Guardar']){
+				// seteamos los valores del producto y lo guardamos en bbdd
+				$producto->setAllParams($_POST);				
+
+				// verificamos si se ha subido una imagen y la guardamos
+				$nombreImg = $producto->getSlug();				
+				if(isset($_FILES['imagen']) and 0 == $_FILES['imagen']['error']){
+					$imgHandler = new ImgHandler($_FILES['imagen']);
+					$nombreImagenFinal = $imgHandler->uploadImage($rutaImg, $nombreImg);
+					$producto->setImagen($nombreImagenFinal);
+				}				
+				
+				$productoC->update($producto);
+				//$imgHandler->cropAndUploadImage($destinoImg, $nombre_archivo, 550, 413);
+
+				$location .= "?idProducto={$idProducto}&action=ver";
+				header(sprintf("Location: %s", $location));
+			}
+
+			break;
+	}	
 
 	// mostramos los datos del formulario
+	//$formHandler->getForm()->setReadOnly($readOnly);
 	$show .= $productoC->renderProductoForm($fieldValues, $readOnly);
 
 } catch (Exception $e){
 	$error = '
 	<div class="alert alert-warning" role="alert">
-		<h4 class="alert-heading">[ERROR]</h4>
+		<h4 class="alert-heading">Ups!</h4>
 		' . $e->getMessage() . '
 	</div>';
 }

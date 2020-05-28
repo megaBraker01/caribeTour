@@ -115,22 +115,22 @@ $JsonData = "";//json_encode($data);
                                                                                 
 
 										<div class="clearfix">
-                                                                                    <div class="pull-left tableTools-container">
-                                                                                        <a class="dt-button buttons-collection btn btn-white btn-primary btn-bold" id="actualizar2" title="desactivar seleccionados">
-                                                                                            <span>
-                                                                                                <i class="fa fa-times bigger-110 green"></i> <span class="hidden">desactivar seleccionados</span>
-                                                                                            </span>
-                                                                                            desactivar seleccionados
-                                                                                        </a>
-                                                                                    </div>
-                                                                                    
-                                                                                    <div class="pull-right tableTools-container">
-                                                                                        <a class="dt-button buttons-collection btn btn-white btn-primary btn-bold" id="actualizar" title="actualizar">
-                                                                                            <span>
-                                                                                                <i class="fa fa-refresh bigger-110 green"></i> <span class="hidden">Actualizar</span>
-                                                                                            </span>
-                                                                                        </a>
-                                                                                    </div>
+											<div class="pull-left tableTools-container">
+												<a class="dt-button buttons-collection btn btn-white btn-primary btn-bold" id="actualizar2" title="desactivar seleccionados">
+													<span>
+														<i class="fa fa-times bigger-110 green"></i> <span class="hidden">desactivar seleccionados</span>
+													</span>
+													desactivar seleccionados
+												</a>
+											</div>
+											
+											<div class="pull-right tableTools-container">
+												<a class="dt-button buttons-collection btn btn-white btn-primary btn-bold" id="actualizar" title="actualizar">
+													<span>
+														<i class="fa fa-refresh bigger-110 green"></i> <span class="hidden">Actualizar</span>
+													</span>
+												</a>
+											</div>
 										</div>
 										<!-- 
 										<div class="table-header">
@@ -143,18 +143,12 @@ $JsonData = "";//json_encode($data);
 										<div>
                                                                                     
 											<table id="dynamic-table" class="table table-striped table-bordered table-hover">
-                                                                                            <thead>
-                                                                                                <tr>
-                                                                                                    <th class="center">
-                                                                                                        <label class="pos-rel">
-                                                                                                            <input type="checkbox" class="ace" />
-                                                                                                            <span class="lbl"></span>
-                                                                                                        </label>
-                                                                                                    </th>
-                                                                                                    <?= $th ?>
+												<thead>
+													<tr>
+														<?= $th ?>
 
-                                                                                                </tr>
-                                                                                            </thead>
+													</tr>
+												</thead>
 											</table>
 										</div>
 
@@ -233,11 +227,6 @@ $JsonData = "";//json_encode($data);
 							var myTable = $('#dynamic-table').DataTable( {
 								"destroy": true,
 								"columns": [
-									{
-										"sortable": false, // ver cómo se puede indeicar que NO aparezca la opcion de organizar la oculumna
-										"defaultContent": null,
-										"data": "idEstado" // ver la forma de no cargar contenido en columna
-									},
 									{"data": "idProducto"},
 									{"data": "nombre"},
 									{"data": "idCategoria"},
@@ -245,6 +234,7 @@ $JsonData = "";//json_encode($data);
 									{"data": "idTipo"},
 									{"data": "idEstado"},
 									{
+										"sortable": false,
 										"defaultContent": "<button id='ver' title='Ver registro' class='label label-info label-white middle'><i class='ace-icon fa  fa-eye bigger-110'></i> Ver</button>&nbsp&nbsp&nbsp<button id='editar' title='Editar registro' class='label label-warning label-white middle'><i class='ace-icon fa  fa-pencil-square-o bigger-110'></i> Editar</button>"
 									}
 								],
@@ -259,7 +249,20 @@ $JsonData = "";//json_encode($data);
 								},
 
 								"sScrollX": "100%",
-								"sScrollXInner": "100%"
+								"sScrollXInner": "100%",
+								
+								buttons: [
+									{
+										"extend": "excelHtml5",
+										"text": "<i class='fa fa-user-plus></i>'",
+										"titleAttr": "no se que poner"
+									},
+									{
+										"extend": "copy",
+										"text": "<i class='fa fa-copy bigger-110 pink'></i> <span class='hidden'>Copy to clipboard</span>",
+										"className": "btn btn-white btn-primary btn-bold"
+									}
+								]
 							} );
 
 							var dataRow = openRow('#dynamic-table tbody', myTable);

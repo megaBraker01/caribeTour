@@ -4,7 +4,7 @@ class ImgHandler {
     
     protected $imgInfo = [];
     protected $validTypes = ['gif','jpg','jpe','jpeg','png'];
-    protected $maxImgSize = 1048576; // = 1 Mg
+    const MAX_SIZE = 1048576; // = 1Mg
 
 
     public function __construct($imgInfo)
@@ -28,6 +28,20 @@ class ImgHandler {
         $this->imgInfo = $imgInfo;
         return $this;
     }
+    
+    /**
+     * Verificamos si se ha subido una imagen y la guardamos
+     * @param string $nombreImg
+     * @param string $rutaImg
+     * @return string | null
+     */
+    public function uploadImageIfExist($nombreImg, $rutaImg = '../frontend/img/'){
+        $nombreImagenFinal = null;
+        if(0 == $this->getImgInfo()['error']){
+            $nombreImagenFinal = $this->uploadImage($rutaImg, $nombreImg);
+        }
+        return $nombreImagenFinal;
+    }
 
     public function uploadImage($rutaDestino, $nombreImg = null)
     {
@@ -36,8 +50,8 @@ class ImgHandler {
             throw new Exception("[ERROR] El tipo de imagen '{$imgType}' NO es permitido.");
         }
 
-        if($this->getImgInfo()['size'] > $this->maxImgSize){
-            $size = $this->maxImgSize / 1024;
+        if($this->getImgInfo()['size'] > self::MAX_SIZE){
+            $size = self::MAX_SIZE / 1024;
             throw new Exception("[ERROR] El tamaño de la imagen supera el tamaño máximo permitido de {$size}Kb");
         }
 

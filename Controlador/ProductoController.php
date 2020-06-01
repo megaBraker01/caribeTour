@@ -4,32 +4,57 @@ class ProductoController extends ProductoBaseController {
 
     /**
      * Verifica si el parametro idProducto ha sido mandado por el metodo GET
+     * @return int
+     * @throws Exception
      */
     public function verificaGetIdProducto(){
-		if(!isset($_GET['idProducto']) or '' == $_GET['idProducto']){
-			throw new Exception('El idProducto NO está definido');
-		}
-		return $_GET['idProducto'];	
-	}
+        if(!isset($_GET['idProducto']) or '' == $_GET['idProducto']){
+            throw new Exception('El idProducto NO está definido');
+        }
+        return $_GET['idProducto'];
+    }
 
     /**
      * Busca el producto en la bbdd y si no lo encuentra lanzamos una exception	
+     * @param int $idProducto
+     * @return Producto
+     * @throws Exception
      */
-	public function getProductoById(int $idProducto){
-		$producto = @$this->select([['idProducto', $idProducto]])[0];		
-		if(!$producto){
-			throw new Exception('NO hay producto con el id indicado');
-		}
-		return $producto;
-	}
+    public function getProductoById(int $idProducto){
+        $producto = @$this->select([['idProducto', $idProducto]])[0];		
+        if(!$producto){
+            throw new Exception('NO hay producto con el id indicado');
+        }
+        return $producto;
+    }
     
     /**
-     * renderiza el formulario para la entidad producto
+     * Setea los campos del producto con los valores del metodo POST
+     * @param Producto $producto
+     * @return \Producto
      */
-    public function renderProductoForm($fieldValues = [], $readOnly = true)
+    public function setProductFromPost(Producto $producto)
+    {
+        $producto->setAllParams($_POST);
+        $imgHandler = new ImgHandler($_FILES['imagen']);
+        $nombreImagenFinal = $imgHandler->uploadImageIfExist($producto->getSlug());
+        if(!is_null($nombreImagenFinal)){
+            $producto->setImagen($nombreImagenFinal);
+        }        
+        return $producto;
+    }
+
+    /**
+     * Renderiza el formulario para la entidad producto
+     * @param array $fieldValues
+     * @param bool $readOnly
+     * @param bool $isNewRecord
+     * @return string
+     */
+    public function renderProductoForm($fieldValues = [], $readOnly = true, $isNewRecord = true)
     {
         $categoriaC = new CategoriaController;
-        $formHamdler = new FormHandler('productos', $readOnly);
+        $formHamdler = new FormHandler('productos', $readOnly, $isNewRecord);
         $categoriaOptions = [];
         foreach($categoriaC->select([], [['idCategoriaPadre']]) as $categoria){
             $categoriaOptions[$categoria->getIdCategoria()] = $categoria->getNombre();

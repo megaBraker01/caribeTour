@@ -60,13 +60,14 @@ class Producto extends ProductoBase {
         // TODO: cambiar el retorno de esta funcion por Util::moneda()
         return number_format($ret, $decimals = 2, ",", ".");
     }
-
-    // TODO: se comenta porque para la creacion de un objeto se unsa setSlug y nos da un resultado no esperado, modificar la funcion slugify
-    // public function setSlug($slug = '')
-    // {
-    //     $slug = $this->getNombre();
-    //     $this->slug = Util::slugify($slug);
-    //     return $this; 
-    // }
+    
+    public function setSlug($slug = '')
+    {
+        if('' == $slug){
+            $slug = Util::slugify($this->getNombre());
+        }
+        
+        return parent::setSlug($slug);        
+    }
     
 }

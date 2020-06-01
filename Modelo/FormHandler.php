@@ -7,8 +7,9 @@ class FormHandler {
     protected $fieldMap = [];
     protected $fieldList = [];
     protected $fieldSetList = [];
+    private $isNewRecord = true;
 
-    public function __construct(string $tableName = '', $readOnly = true)
+    public function __construct(string $tableName = '', $readOnly = true, $isNewRecord = true)
     {
         $this->tableName = $tableName;
         $this->fieldMap = $this->getInfoFromTable($tableName);
@@ -17,6 +18,7 @@ class FormHandler {
         $this->getForm()->setMethod('post')//->setAccept('image/png, image/jpeg')
             ->setEnctype('multipart/form-data')->setReadOnly($readOnly);
 
+        $this->setIsNewRecord($isNewRecord);
         $this->fillFieldList();
     }
 
@@ -245,8 +247,18 @@ class FormHandler {
 
         return $this;
     }
+    
+    public function setIsNewRecord($isNewRecord){
+        $this->isNewRecord = $isNewRecord;
+        return $this;
+    }
 
-    public function setFieldIntoFieldset($fieldCount = 7)
+    /**
+     * Introduce los campos en un fieldSet
+     * @param int $fieldCount indica la cantidad de campos que serán incluidos en el fieldSet
+     * @return $this
+     */
+    public function setFieldIntoFieldset(int $fieldCount = 7)
     {
         $i = 1;
         foreach($this->getFieldList() as $field){
@@ -268,21 +280,24 @@ class FormHandler {
     {
         $form = $this->getForm();
         $fieldSets = $this->fieldSetList;
-
-        $fieldName = 'Guardar';
-        $fielClass = 'btn btn-success input-medium';
-        if($this->getForm()->getReadOnly()){
-            $fieldName = 'Editar';
-            $fielClass = 'btn btn-warning input-medium';
-        } 
-
-        $fieldsave = new Field($fieldName);
-        $fieldsave->setType('submit')->setClass($fielClass)->setValue($fieldName)->setTitle($fieldName);
-
-        $saveFieldSet = new Fieldset();
-        $saveFieldSet->setClass('col-xs-12')->setFields([$fieldsave]);
-        $fieldSets[] = $saveFieldSet;
-
+        
+        if(!$this->getForm()->getReadOnly()){            
+            $fieldName = 'Guardar';
+            $fielClass = 'btn btn-success input-medium';
+            $fieldsave = new Field($fieldName);
+            $fieldsave->setType('submit')->setClass($fielClass)->setValue($fieldName)->setTitle($fieldName);
+            $fieldList = [$fieldsave];
+            // añadimos un campo para indicar que si es nuevo
+            if($this->isNewRecord){
+                $isNewRecordField = new Field('isNewRecord');
+                $isNewRecordField->setType('hidden');
+                $fieldList[] = $isNewRecordField;
+            }
+            $saveFieldSet = new Fieldset();
+            $saveFieldSet->setClass('col-xs-12')->setFields($fieldList);
+            $fieldSets[] = $saveFieldSet;
+        }
+        
         $form->setFieldsets($fieldSets);
 
         return $form->render();

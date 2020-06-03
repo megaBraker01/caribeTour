@@ -2,15 +2,16 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
+$formName = "Excursion";
+$location = "excursion-form.php";
+$lister = "excursion-lister.php";
+
 $show = $error = '';
 $action = (isset($_GET['action']) and "" != $_GET['action']) ? $_GET['action'] : 'nuevo';
 $readOnly = false;
 $isNewRecord = true;
 $fieldValues = [];
-$location = "producto-form.php";
 $rutaImg = "../frontend/img/";
-
-// mostramos los botones editar segun el action
 
 try{
     
@@ -42,7 +43,7 @@ try{
             $producto = $productoC->getProductoById($idProducto);
             $readOnly = true;
             $isNewRecord = false;
-            $show .= "<a href='producto-form.php?id={$idProducto}&action=editar' class='btn btn-warning input-medium' value='Editar' title='Editar'>Editar</a><p></p>";            
+            $show .= "<a href='{$location}?id={$idProducto}&action=editar' class='btn btn-warning input-medium' value='Editar' title='Editar'>Editar</a><p></p>";            
             $fieldValues = $producto->getAllParams(false, false);
             // si hay imagen la mostramos
             if("" != $producto->getImagen()){
@@ -83,8 +84,9 @@ try{
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta charset="utf-8" />
-        <title>Blank Page - Ace Admin</title>
-
+        <title>Editar <?= $formName ?></title>
+        <meta name="robots" content="noindex, nofollow, nosnippet, noarchive, noimageindex" />
+	<meta name="googlebot" content="noindex, nofollow">
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
         <?php include_once("includes/baselink.php"); ?>
@@ -151,9 +153,9 @@ try{
                             </li>
 
                             <li>
-                                <a href="tour-lister.php">Tours</a>
+                                <a href="<?= $lister ?>"><?= $formName ?></a>
                             </li>
-                            <li class="active">Producto</li>
+                            <li class="active"><?= $formName ?> Form</li>
                         </ul><!-- /.breadcrumb -->
 
                         <div class="nav-search" id="nav-search">

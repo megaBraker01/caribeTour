@@ -2,10 +2,10 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
-$ajaxListName = "tour-lista.php";
-$listerName = "Tours";
+$ajaxListName = "excursion-lista.php";
+$listerName = "Excursiones";
 $thList = ['idProducto', 'Nombre', 'Categoria', 'Proveedor', 'Estado'];
-$editorForm = "tour-form.php";
+$editorForm = "excursion-form.php";
 $idRecord = "idProducto";
 
 $util = new Util();
@@ -25,7 +25,8 @@ $showTh = $util->renderThForLister($thList);
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta charset="utf-8" />
         <title>Listado de <?= $listerName ?> | Caribetour Admin</title>
-
+        <meta name="robots" content="noindex, nofollow, nosnippet, noarchive, noimageindex" />
+	<meta name="googlebot" content="noindex, nofollow">
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
         <?php include_once("includes/baselink.php"); ?>

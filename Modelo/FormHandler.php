@@ -1,5 +1,13 @@
 <?php
 
+
+/**
+ * TODO: esta clase tiene metodos que deberian ir en la clase Form, y esta clase debería ir en 
+ * en el modelo porque maneja modelos de la aplicacion
+ * TODO: definir cuales serán los metodos privados que tendrá esta clase
+ * TODO: verificar si un capo no puede ser nulo en bbdd se marca como required
+ * TODO: verificar los valores por defecto en bbdd y setarlo en los campos
+ */
 class FormHandler {
 
     protected $tableName = "";
@@ -36,7 +44,7 @@ class FormHandler {
             $tableName = '' == $tableNameParam ? $this->tableName : $tableNameParam;
             
             if('' == $tableName or !is_string($tableName)){
-                Throw new Exception("[ERROR] '{$tableName}' NO es un valor valido");
+                Throw new Exception("'{$tableName}' NO es un valor válido");
             }
             
             $sql = "DESCRIBE {$tableName}";
@@ -127,11 +135,14 @@ class FormHandler {
 
     /**
      * setea el array asociativo con los nombres de los campos y su valor
+     * @param array $fieldValues
+     * @return $this
+     * @throws Exception
      */
     public function setValues(array $fieldValues)
     {
         if(empty($fieldValues)){
-            Throw new Exception('[ERROR] el fieldValues NO puede estar vacío');
+            Throw new Exception('El fieldValues NO puede estar vacío');
         }
 
         foreach($this->getFieldList() as $field){
@@ -146,7 +157,9 @@ class FormHandler {
 
     /**
      * setea el valor del campo indicado
-     * 
+     * @param string $fieldName
+     * @param type $value
+     * @return $this
      */
     public function setFieldValue(string $fieldName, $value)
     {
@@ -159,6 +172,12 @@ class FormHandler {
         return $this;
     }
 
+    /**
+     * 
+     * @param string $fieldName
+     * @param type $type
+     * @return $this
+     */
     public function setFieldType(string $fieldName, $type = 'text')
     {
         foreach($this->getFieldList() as $field){
@@ -170,7 +189,12 @@ class FormHandler {
         return $this;
     }
 
-    public function setFieldsReadOnly($fieldsReadOnly)
+    /**
+     * Setea los campos pasados en el parametro como sólo lectura
+     * @param array $fieldsReadOnly
+     * @return $this
+     */
+    public function setFieldsReadOnly(array $fieldsReadOnly)
     {
         foreach($this->getFieldList() as $field){
             if(in_array($field->getName(), $fieldsReadOnly)){
@@ -181,7 +205,12 @@ class FormHandler {
         return $this;
     }
 
-    public function setFieldsTypeTextarea($fieldsTextarea)
+    /**
+     * Setea los campos pasados en el parametro como campos textarea
+     * @param array $fieldsTextarea
+     * @return $this
+     */
+    public function setFieldsTypeTextarea(array $fieldsTextarea)
     {
         foreach($this->getFieldList() as $field){
             if(in_array($field->getName(), $fieldsTextarea)){
@@ -192,7 +221,12 @@ class FormHandler {
         return $this;
     }
 
-    public function setFieldsTypeSelect($fieldsSelect)
+    /**
+     * Setea los campos pasados en el parametro como campos select
+     * @param array $fieldsSelect
+     * @return $this
+     */
+    public function setFieldsTypeSelect(array $fieldsSelect)
     {
         foreach($this->getFieldList() as $field){
             if(in_array($field->getName(), $fieldsSelect)){
@@ -204,7 +238,12 @@ class FormHandler {
     }
 
 
-    public function setFieldsTypeFile($fieldsFile)
+    /**
+     * Setea los campos pasados en el parametro como campos tipo file
+     * @param array $fieldsFile
+     * @return $this
+     */
+    public function setFieldsTypeFile(array $fieldsFile)
     {
         foreach($this->getFieldList() as $field){
             if(in_array($field->getName(), $fieldsFile)){
@@ -215,6 +254,11 @@ class FormHandler {
         return $this;
     }
 
+    /**
+     * Setea los campos pasados en el parametro como campos tipo file que solo aceptan imagenes
+     * @param type $fieldsImagen
+     * @return $this
+     */
     public function setFieldsTypeImgFile($fieldsImagen)
     {
         foreach($this->getFieldList() as $field){
@@ -226,7 +270,12 @@ class FormHandler {
         return $this;
     }
 
-    public function setFieldsTypeHidden($fieldsHidden)
+    /**
+     * Setea los campos pasados en el parametro como campos hidden
+     * @param array $fieldsHidden
+     * @return $this
+     */
+    public function setFieldsTypeHidden(array $fieldsHidden)
     {
         foreach($this->getFieldList() as $field){
             if(in_array($field->getName(), $fieldsHidden)){
@@ -237,7 +286,13 @@ class FormHandler {
         return $this;
     }
 
-    public function setFieldOptions($fieldName, $options)
+    /**
+     * 
+     * @param string $fieldName
+     * @param array $options
+     * @return $this
+     */
+    public function setFieldOptions(string $fieldName, array $options)
     {
         foreach($this->getFieldList() as $field){
             if($field->getName() == $fieldName){
@@ -248,12 +303,18 @@ class FormHandler {
         return $this;
     }
     
-    public function setIsNewRecord($isNewRecord){
-        $this->isNewRecord = $isNewRecord;
+    /**
+     * 
+     * @param bool $isNewRecord
+     * @return $this
+     */
+    public function setIsNewRecord(bool $isNewRecord){
+        $this->isNewRecord = (true == $isNewRecord);
         return $this;
     }
 
     /**
+     * TODO: setFieldIntoFieldset es un metodo quey hay que ejecutarlo si o si, refactorizar eso 
      * Introduce los campos en un fieldSet
      * @param int $fieldCount indica la cantidad de campos que serán incluidos en el fieldSet
      * @return $this

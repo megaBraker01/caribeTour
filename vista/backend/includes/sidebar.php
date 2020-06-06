@@ -8,15 +8,12 @@
 						<button class="btn btn-success">
 							<i class="ace-icon fa fa-signal"></i>
 						</button>
-
 						<button class="btn btn-info">
 							<i class="ace-icon fa fa-pencil"></i>
 						</button>
-
 						<button class="btn btn-warning">
 							<i class="ace-icon fa fa-users"></i>
 						</button>
-
 						<button class="btn btn-danger">
 							<i class="ace-icon fa fa-cogs"></i>
 						</button>
@@ -24,11 +21,8 @@
 
 					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
 						<span class="btn btn-success"></span>
-
 						<span class="btn btn-info"></span>
-
 						<span class="btn btn-warning"></span>
-
 						<span class="btn btn-danger"></span>
 					</div>
 				</div><!-- /.sidebar-shortcuts -->
@@ -39,16 +33,15 @@
 							<i class="menu-icon fa fa-tachometer"></i>
 							<span class="menu-text"> Dashboard </span>
 						</a>
-
 						<b class="arrow"></b>
 					</li>
                                         
-                                        <li class="">
-                                            <a href="reserva-lister.php">
-                                                <i class="menu-icon fa fa-list"></i>
-                                                <span class="menu-text" id="reserva-lister">Reservas</span>
-                                            </a>
-                                        </li>
+					<li class="">
+						<a href="reserva-lister.php">
+							<i class="menu-icon fa fa-list"></i>
+							<span class="menu-text" id="reserva-lister">Reservas</span>
+						</a>
+					</li>
 
 					<li class="">
 						<a href="#" class="dropdown-toggle">
@@ -56,30 +49,33 @@
 							<span class="menu-text">
 								Productos
 							</span>
-
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
 
 						<b class="arrow"></b>
-
 						<ul class="submenu">
-
 							<li class="">
-								<a href="tour-lister.php">
-									<i class="menu-icon fa fa-caret-right"></i>
+                                                            <a href="tour-lister.php">
+                                                                <i class="menu-icon fa fa-caret-right"></i>
 									Tours
-								</a>
-
-								<b class="arrow"></b>
+                                                            </a>
+                                                            <b class="arrow"></b>
 							</li>
 
 							<li class="">
-								<a href="elements.html">
+								<a href="excursion-lister.php">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Excursiones
 								</a>
-
 								<b class="arrow"></b>
+							</li>
+                                                        
+                                                        <li class="">
+                                                            <a href="proveedor-lister.php">
+                                                                <i class="menu-icon fa fa-caret-right"></i>
+                                                                Proveedores
+                                                            </a>
+                                                            <b class="arrow"></b>
 							</li>
 
 							<li class="">
@@ -87,7 +83,6 @@
 									<i class="menu-icon fa fa-caret-right"></i>
 									Vuelos
 								</a>
-
 								<b class="arrow"></b>
 							</li>
 
@@ -96,7 +91,6 @@
 									<i class="menu-icon fa fa-caret-right"></i>
 									Hoteles
 								</a>
-
 								<b class="arrow"></b>
 							</li>
 
@@ -105,7 +99,6 @@
 									<i class="menu-icon fa fa-caret-right"></i>
 									Seguros
 								</a>
-
 								<b class="arrow"></b>
 							</li>
 
@@ -114,7 +107,6 @@
 									<i class="menu-icon fa fa-caret-right"></i>
 									Rent a Car
 								</a>
-
 								<b class="arrow"></b>
 							</li>
 
@@ -123,7 +115,6 @@
 									<i class="menu-icon fa fa-caret-right"></i>
 									Nestable Lists
 								</a>
-
 								<b class="arrow"></b>
 							</li>
 

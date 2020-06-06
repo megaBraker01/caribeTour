@@ -22,21 +22,35 @@ abstract class ModelBase {
         return json_encode($this->getAllParams(false, false));
     }
 
-    /*
-    * @param array asociativo propiedadClase => valor $paramList
-    * ej: ['nombre' => 'juan', 'telefono' => 987987987]
-    */
+    /**
+     * TODO: Pasar al generator
+     * Setea los parametros de una clase mediante sus metodos setters
+     * ej: ['nombre' => 'juan', 'telefono' => 987987987]
+     * @param array $paramList
+     * @return $this
+     */
     public function setAllParams(array $paramList){
         if(!empty($paramList)){
+            $methods = $this->getAllMethods();
             foreach($paramList as $param => $value){
                 if(property_exists($this, $param)){
-                    //$this->$param = $value;
                     $method = "set" . ucfirst($param);
-                    $this->$method($value);
+                    if(in_array($method, $methods)){
+                       $this->$method(trim($value)); 
+                    }
                 }
             }
         }
         return $this;
+    }
+    
+    /**
+     * TODO: meter este metodo en el generator
+     * Obtiene todos los meltodos publicos de la clase actual
+     * @return array
+     */
+    public function getAllMethods(){
+        return get_class_methods($this);
     }
 
 }

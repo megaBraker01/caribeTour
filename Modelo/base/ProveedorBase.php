@@ -4,40 +4,28 @@ abstract class ProveedorBase extends ModelBase {
 
     protected $idProveedor;
     protected $nombre;
-    protected $contacto;
-    protected $telefono;
     protected $NIF;
-    protected $web;
-    protected $email;
     protected $direccion;
     protected $idEstado;
     protected $fechaAlta;
-    protected $fehaUpdate;
+    protected $fechaUpdate;
 
     public function __construct(
         $idProveedor = 0,
         $nombre = '',
-        $contacto = '',
-        $telefono = '',
         $NIF = '',
-        $web = '',
-        $email = '',
         $direccion = '',
         $idEstado = 0,
         $fechaAlta = '',
-        $fehaUpdate = ''
+        $fechaUpdate = ''
     ){
         $this->setIdProveedor($idProveedor);
         $this->setNombre($nombre);
-        $this->setContacto($contacto);
-        $this->setTelefono($telefono);
         $this->setNIF($NIF);
-        $this->setWeb($web);
-        $this->setEmail($email);
         $this->setDireccion($direccion);
         $this->setIdEstado($idEstado);
         $this->setFechaAlta($fechaAlta);
-        $this->setFehaUpdate($fehaUpdate);
+        $this->setFechaUpdate($fechaUpdate);
     }
 
     public function __toString(){
@@ -48,15 +36,7 @@ abstract class ProveedorBase extends ModelBase {
 
     public function getNombre(){ return $this->nombre; }
 
-    public function getContacto(){ return $this->contacto; }
-
-    public function getTelefono(){ return $this->telefono; }
-
     public function getNIF(){ return $this->NIF; }
-
-    public function getWeb(){ return $this->web; }
-
-    public function getEmail(){ return $this->email; }
 
     public function getDireccion(){ return $this->direccion; }
 
@@ -64,7 +44,7 @@ abstract class ProveedorBase extends ModelBase {
 
     public function getFechaAlta(){ return $this->fechaAlta; }
 
-    public function getFehaUpdate(){ return $this->fehaUpdate; }
+    public function getFechaUpdate(){ return $this->fechaUpdate; }
 
     public function getEstado(){
         $EstadoController = new EstadoController();
@@ -81,24 +61,8 @@ abstract class ProveedorBase extends ModelBase {
         $this->nombre = (string) $nombre; return $this;
     }
 
-    public function setContacto($contacto = ''){
-        $this->contacto = (string) $contacto; return $this;
-    }
-
-    public function setTelefono($telefono = ''){
-        $this->telefono = (string) $telefono; return $this;
-    }
-
     public function setNIF($NIF = ''){
         $this->NIF = (string) $NIF; return $this;
-    }
-
-    public function setWeb($web = ''){
-        $this->web = (string) $web; return $this;
-    }
-
-    public function setEmail($email = ''){
-        $this->email = (string) $email; return $this;
     }
 
     public function setDireccion($direccion = ''){
@@ -113,8 +77,8 @@ abstract class ProveedorBase extends ModelBase {
         $this->fechaAlta = (string) $fechaAlta; return $this;
     }
 
-    public function setFehaUpdate($fehaUpdate = ''){
-        $this->fehaUpdate = (string) $fehaUpdate; return $this;
+    public function setFechaUpdate($fechaUpdate = ''){
+        $this->fechaUpdate = (string) $fechaUpdate; return $this;
     }
 
 }

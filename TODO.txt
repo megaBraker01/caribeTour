@@ -1,0 +1,13 @@
+-> = usa (crea una instancia de)
+<- = es usado (crea una instancia de esta clase)
+<-> = usa y es usado
+=> = hereda de
+<= = es heredado por
+-i> = implementa interfaz
+
+
+
+GRUPOS DE COMPONENTES:
+Controladores => BaseController, <-> Otros Controladores, <-> Modelos, 
+Modelos => BaseModelo, <-> otros Modelos, <-> Controladores
+Util => BaseController // cambiar el nombre a UtilController y crear un unevo Util que haga sólo cosas generiacas

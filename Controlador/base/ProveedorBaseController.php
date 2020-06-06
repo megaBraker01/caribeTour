@@ -6,16 +6,12 @@ abstract class ProveedorBaseController extends BaseController {
 
     public function insert(Proveedor $Proveedor): int {
         try{
-            $sql = "INSERT INTO proveedores (nombre, contacto, telefono, NIF, web, email, direccion, idEstado) 
-            VALUES (:nombre, :contacto, :telefono, :NIF, :web, :email, :direccion, :idEstado);";
+            $sql = "INSERT INTO proveedores (nombre, NIF, direccion, idEstado) 
+            VALUES (:nombre, :NIF, :direccion, :idEstado);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":nombre", $Proveedor->getNombre());
-$statement->bindValue(":contacto", $Proveedor->getContacto());
-$statement->bindValue(":telefono", $Proveedor->getTelefono());
 $statement->bindValue(":NIF", $Proveedor->getNIF());
-$statement->bindValue(":web", $Proveedor->getWeb());
-$statement->bindValue(":email", $Proveedor->getEmail());
 $statement->bindValue(":direccion", $Proveedor->getDireccion());
 $statement->bindValue(":idEstado", $Proveedor->getIdEstado());
 
@@ -34,16 +30,12 @@ $statement->bindValue(":idEstado", $Proveedor->getIdEstado());
 
     public function update(Proveedor $Proveedor): int {
         try{
-            $sql = "UPDATE proveedores SET nombre = :nombre, contacto = :contacto, telefono = :telefono, NIF = :NIF, web = :web, email = :email, direccion = :direccion, idEstado = :idEstado WHERE idProveedor = :idProveedor LIMIT 1;";
+            $sql = "UPDATE proveedores SET nombre = :nombre, NIF = :NIF, direccion = :direccion, idEstado = :idEstado WHERE idProveedor = :idProveedor LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idProveedor", $Proveedor->getIdProveedor());
 $statement->bindValue(":nombre", $Proveedor->getNombre());
-$statement->bindValue(":contacto", $Proveedor->getContacto());
-$statement->bindValue(":telefono", $Proveedor->getTelefono());
 $statement->bindValue(":NIF", $Proveedor->getNIF());
-$statement->bindValue(":web", $Proveedor->getWeb());
-$statement->bindValue(":email", $Proveedor->getEmail());
 $statement->bindValue(":direccion", $Proveedor->getDireccion());
 $statement->bindValue(":idEstado", $Proveedor->getIdEstado());
 
@@ -62,14 +54,14 @@ $statement->bindValue(":idEstado", $Proveedor->getIdEstado());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
-            $sql = "SELECT idProveedor, nombre, contacto, telefono, NIF, web, email, direccion, idEstado, fechaAlta, fehaUpdate 
+            $sql = "SELECT idProveedor, nombre, NIF, direccion, idEstado, fechaAlta, fechaUpdate 
             FROM proveedores";                        
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(!empty($rows)){
                 foreach($rows as $row){
-                    $ret[] = new Proveedor($row->idProveedor, $row->nombre, $row->contacto, $row->telefono, $row->NIF, $row->web, $row->email, $row->direccion, $row->idEstado, $row->fechaAlta, $row->fehaUpdate);
+                    $ret[] = new Proveedor($row->idProveedor, $row->nombre, $row->NIF, $row->direccion, $row->idEstado, $row->fechaAlta, $row->fechaUpdate);
                 }
             }
             

@@ -1,6 +1,6 @@
 <?php
 
-class Util extends BaseController {
+class UtilController extends BaseController {
     
     const _TEXT = 'text';
     const _INT = 'int';
@@ -8,44 +8,10 @@ class Util extends BaseController {
     const LIST_DATA = "data";
     const AJAX_PATH = "json-data-list/";
 
-    /**
-     * Depura el parametro de entrada
-     */
-    public static function dev($param){
-        var_dump($param);
-        exit();
-    }
 
-
-    public function sanear($value, $type = self::_TEXT): string
-    {
-        $remplazar = array("\n\r");
-	    $por = " ";
-        $ret = htmlentities($value, ENT_COMPAT, 'iso-8859-1');
-        $pattern = "/[^A-Za-z0-9-=+_@,;&.\/\s\ ]/";
-        
-        switch (strtolower($type)){
-            case self::_TEXT :
-                $ret = preg_replace($pattern, $por, $ret);
-                break;
-            case self::_INT :
-                $pattern = "/[^0-9-]/";
-                $ret = preg_replace($pattern, $por, $ret);
-                break;
-            case self::_DOUBLE :
-                $pattern = "/[^0-9-,.]/";
-                $ret = preg_replace($pattern, $por, $ret);
-                break;
-            default :
-                $ret = preg_replace($pattern, $por, $ret);
-                break;
-        }
-        
-        return str_replace($remplazar, $por, $ret);
-    }
 
     /**
-     * TODO: pasar esta funcion a BaseController
+     * TODO: pasar esta funcion a BaseModelo
      * @param type $cadena
      * @param type $separador
      * @return type
@@ -75,68 +41,7 @@ class Util extends BaseController {
         return parent::query($sql, $filtros, $ordenados, $limitar, $agrupar);
     }
 
-    /**
-     * TODO: pasar este metodo al modelo o al controlador de producto
-     * @param array $filtros
-     * @param array $ordenados
-     * @param array $limitar
-     * @param array $agrupar
-     * @return array
-     */
-    public function getProductoFechaRefPDO(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array
-    {
-        $sql = "SELECT * FROM v_producto_fecha_ref";
-        $ret = [];
-        $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
-        foreach($rows as $row){
-            $ret[] = new ProductoFechaDTO($row->idProductoFechaRef, $row->idProducto, $row->idFechaSalida, $row->precioProveedor, $row->comision, $row->producto, $row->idCategoria, $row->categoria, $row->idCategoriaPadre, $row->catPadre, $row->fsalida, $row->terminalSalida, $row->terminalDestino, $row->tasasSalida, $row->tasasDestino, $row->idFechaVuelta, $row->fvuelta, $row->terminalSalidaV, $row->terminalDestinoV, $row->tasasSalidaV, $row->tasasDestinoV);
-        }
-        return $ret;
-    }
-    
-    /**
-     * TODO: pasar este metodo al modelo o al controlador de producto
-     * @param int $idProducto
-     * @return type
-     * @throws Exception
-     */
-    public function getProductoById(int $idProducto)
-    {
-        if(!is_int($idProducto) or $idProducto < 1){
-            throw new Exception('[ERROR] El idProducto tiene que ser un entero mayor a cero (0)');
-        }
-        $producto = null;
-        $productoC = new ProductoController;
-        $filtros = [['idProducto', $idProducto]];
-        $productoList = $productoC->select($filtros);
-        if(isset($productoList[0])){
-            $producto = $productoList[0];
-        }
-        return $producto;
-    }
-    
-    /**
-     * TODO: pasar este metodo al modelo o al controlador de producto
-     * @param string $slug
-     * @return type
-     * @throws Exception
-     */
-    public function getProductoBySlug(string $slug)
-    {
-        if(!is_string($slug) or "" == $slug){
-            throw new Exception('[ERROR] El slug tiene que ser un string distinto de ""');
-        }
-        $slug = strtolower($slug);
-        $producto = null;
-        $productoC = new ProductoController;
-        $filtros = [['slug', $slug]];
-        $productoList = $productoC->select($filtros);
-        if(isset($productoList[0])){
-            $producto = $productoList[0];
-        }
-        return $producto;
-    }
-
+ 
     /**
      * Obtiene los tipos disponibles dependiendo el nombre de la tabla
      * @param string $tableName
@@ -158,106 +63,6 @@ class Util extends BaseController {
         return $tiposList;
     }
     
-    /**
-     * TODO: pasar este metodo al modelo o al controlador de categoria
-     * @param int $idCategoria
-     * @return type
-     * @throws Exception
-     */
-    public function getCategoriaById(int $idCategoria)
-    {
-        if(!is_int($idCategoria) or $idCategoria < 1){
-            throw new Exception('[ERROR] El idProducto tiene que ser un entero mayor a cero (0)');
-        }
-        $categoria = null;
-        $categoriaC = new CategoriaController;
-        $filtros = [['idCategoria', $idCategoria]];
-        $categoriaList = $categoriaC->select($filtros);
-        if(isset($categoriaList[0])){
-            $categoria = $categoriaList[0];
-        }
-        return $categoria;
-    }
-    
-    /**
-     * TODO: pasar este metodo al modelo o al controlador de categoria
-     * @param string $slug
-     * @return type
-     * @throws Exception
-     */
-    public function getCategoriaBySlug(string $slug)
-    {
-        if(!is_string($slug) or "" == $slug){
-            throw new Exception('[ERROR] El slug tiene que ser un string distinto de ""');
-        }
-        $slug = strtolower($slug);
-        $categoria = null;
-        $categoriaC = new CategoriaController;
-        $filtros = [['slug', $slug]];
-        $categoriaList = $categoriaC->select($filtros);
-        if(isset($categoriaList[0])){
-            $categoria = $categoriaList[0];
-        }
-        return $categoria;
-    }
-    
-    /**
-     * TODO: pasar este metodo al modelo o al controlador de blog
-     * @return array
-     */
-    public function getBlogsPopulares(): array
-    {
-        $sql = "SELECT idBlog, count(idBlogComentario) AS comentarios FROM  blog_comentarios bc GROUP BY idBlog ORDER by comentarios desc";
-        $rows = $this->query($sql);
-        $Ids = [];
-        foreach($rows as $row){
-            $Ids[] = $row->idBlog;
-        }
-        $blogsIds = implode(", ", $Ids);
-        $filtro = [['idBlog', $blogsIds, 'in']];
-        $blogC = new BlogController;
-        $blogList = $blogC->select($filtro);
-        return $blogList;
-    }
-    
-    /**
-     * TODO: pasar este metodo al modelo o al controlador de blog
-     * @param array $filtros
-     * @param array $ordenados
-     * @param array $limitar
-     * @param array $agrupar
-     * @return array
-     */
-    public function getGaleriaBlog(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array
-    {
-        $ordenados[] = ['RAND()'];
-        $limitar[] = 8;
-        $sql = "SELECT i.idImagen, i.srcImagen, i.idProducto, p.nombre, p.slug FROM imagenes i INNER JOIN productos p ON i.idProducto = p.idproducto";
-        return $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
-        
-    }
-
-
-    public static function moneda($numberToCombert = 0, $decimal = 2, $sing = "e")
-    {
-        switch(strtolower($sing)){
-            case 'e': $symbol = "&euro;";
-                break;
-            case 'd': $symbol = "&dollar;";
-                break;
-            case 'p': $symbol = "&&pound;;";
-                break;
-            case 'c': $symbol = "&cent;";
-                break;
-            case 'y': $symbol = "&yen;";
-                break;
-            default: $symbol = "&euro;";
-                break;
-        }
-        return number_format($numberToCombert, $decimal, ",", ".") . $symbol;
-    }
-
-
     public static function generar_calendario($month, $year, $holidays = null, $lang = "es")
     { 
         $calendar = '<table cellpadding="0" cellspacing="0" class="calendar">';
@@ -446,7 +251,6 @@ class Util extends BaseController {
     }
     
     /**
-     * TODO: mover a util, cambiar idProducto por id
      * Verifica si el parametro idProducto ha sido mandado por el metodo GET
      * @return int
      * @throws Exception
@@ -460,7 +264,7 @@ class Util extends BaseController {
     }
     
     /**
-     * 
+     * TODO: crear clase Modelo/Lister que contenga esta logica
      * @param array $thList
      * @return string
      */
@@ -499,7 +303,7 @@ class Util extends BaseController {
     }
     
     /**
-     * 
+     * TODO: meter en Modelo/Form
      * @param ModelBase $obj
      * @return \ModelBase
      */

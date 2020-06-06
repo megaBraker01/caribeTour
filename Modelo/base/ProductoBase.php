@@ -100,28 +100,32 @@ abstract class ProductoBase extends ModelBase {
         $CategoriaController = new CategoriaController();
         $idCategoria = $this->getIdCategoria();
         $CategoriaList = $CategoriaController->select([['idCategoria', $idCategoria]]);
-        return $CategoriaList[0];
+        return isset($CategoriaList[0]) ? $CategoriaList[0]: new Categoria;
     }
 
     public function getTipo(){
         $TipoController = new TipoController();
         $idTipo = $this->getIdTipo();
         $TipoList = $TipoController->select([['idTipo', $idTipo]]);
-        return $TipoList[0];
+        return isset($TipoList[0]) ? $TipoList[0]: new Tipo;
     }
 
     public function getEstado(){
         $EstadoController = new EstadoController();
         $idEstado = $this->getIdEstado();
         $EstadoList = $EstadoController->select([['idEstado', $idEstado]]);
-        return $EstadoList[0];
+        return isset($EstadoList[0]) ? $EstadoList[0]: new Estado;
     }
 
+    /**
+     * TODO: meter esta refactorizacion en el genereitor
+     * @return type
+     */
     public function getProveedor(){
         $ProveedorController = new ProveedorController();
         $idProveedor = $this->getIdProveedor();
         $ProveedorList = $ProveedorController->select([['idProveedor', $idProveedor]]);
-        return $ProveedorList[0];
+        return isset($ProveedorList[0]) ? $ProveedorList[0]: new Proveedor;
     }
 
     public function setIdProducto($idProducto = 0){

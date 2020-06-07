@@ -5,13 +5,14 @@ require_once "../../AutoLoader/autoLoader.php";
 $categoriaList = [];
 $slugCatPadre = $_GET['slugCat'];
 $catPadreNombre = ucfirst($slugCatPadre);
-$util = new Util();
-$utilCategoriaList = [];
+$productoC = new ProductoController;
+$categoriaC = new CategoriaController;
+$categoriaList = [];
 
 if  (
     isset($slugCatPadre) and 
     $slugCatPadre != "" and 
-    $categoriaPadre = $util->getCategoriaBySlug($slugCatPadre)
+    $categoriaPadre = $categoriaC->getCategoriaBySlug($slugCatPadre)
     ){    
     
     $catPadreNombre = $categoriaPadre->getNombre();
@@ -23,7 +24,7 @@ if  (
     $ordenados = [['idCategoriaPadre'], ['precioProveedor']];
     $limitar = [];
     $agrupar = ['idCategoria'];
-    $utilCategoriaList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
+    $categoriaList = $productoC->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
     
 }
 ?>
@@ -97,9 +98,9 @@ if  (
                 <div class="row">
                     <?php 
                     $i = 1; 
-                    foreach($utilCategoriaList as $utilCategoria){
+                    foreach($categoriaList as $utilCategoria){
                         $idCategoria = $utilCategoria->getIdCategoria();
-                        $categoria = $util->getCategoriaById($idCategoria);
+                        $categoria = $categoriaC->getCategoriaById($idCategoria);
                         $precioMasBajo = $categoria->getPrecioMasBajo();
                         $last = "";
                         $clear = "";
@@ -133,7 +134,7 @@ if  (
                     
                     <?php } ?>
                 
-                    <?php if(empty($utilCategoriaList)){ ?>
+                    <?php if(empty($categoriaList)){ ?>
                     <h3>Sin Resultados...</h3>
                     <h4><p>Lo sentimos, esta categor&iacute;a <strong>NO</strong> se encuentra disponible en estos momentos. </p><p>Puedes echar un vistazo a los productos relacionados... Disculpe las molestias.</p></h4>
                     <img  width="50%" src="<?=PATHFRONTEND ?>images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados...">

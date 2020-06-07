@@ -2,12 +2,13 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
-$util = new Util;
+$utilC = new UtilController();
+$productoC = new ProductoController;
 
 // CATEGORIAS (SLIDER)
 $filtro = [['fsalida', date('Y-m-d'), '>=']];
 $agrupar = ['idCategoria'];
-$productoFechaSlider = $util->getProductoFechaRefPDO($filtro, [], [], $agrupar);
+$productoFechaSlider = $productoC->getProductoFechaRefPDO($filtro, [], [], $agrupar);
 
 // PRODUCTOS
 $productosMostrarList = $productoFechaSlider;
@@ -29,7 +30,6 @@ if(count($blogLista) > 0){
 
 
 // GALERIA
-$productoC = new ProductoController;
 $productoGaleriaList = $productoC->select([],[],[6]);
 ?>
 <!DOCTYPE html>
@@ -100,8 +100,8 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                             <ul>
                             
                                 <?php 
-                                foreach ($productoFechaSlider as $utilProducto){ 
-                                    $producto = $util->getProductoById($utilProducto->getIdProducto());
+                                foreach ($productoFechaSlider as $utilCProducto){ 
+                                    $producto = $productoC->getProductoById($utilCProducto->getIdProducto());
                                     $categoria = $producto->getCategoria();
                                     $categoriaPadre = $categoria->getCategoriaPadre();
                                     $precio = $categoria->getPrecioMasBajo();
@@ -206,7 +206,7 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                     <?php 
                     $i=1;
                     foreach ($productosMostrarList as $productoFecha) {
-                        $producto = $util->getProductoById($productoFecha->getIdProducto());
+                        $producto = $productoC->getProductoById($productoFecha->getIdProducto());
                         $categoria = $producto->getCategoria();
                         $categoriPadre = $categoria->getCategoriaPadre();
                         $precio = $producto->getPrecioMasBajo();

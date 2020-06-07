@@ -8,7 +8,7 @@ $fechaR = filter_input(INPUT_GET, 'fechaR') ?? "";
 $precioMin = filter_input(INPUT_GET, 'precio_min') ?? 200;
 $precioMax = filter_input(INPUT_GET, 'precio_max') ?? 2000;
 
-$util = new Util();
+$productoC = new ProductoController();
 
 $fechaIFiltro = DateTime::createFromFormat('d-m-Y', $fechaI);
 $fechaRFiltro = DateTime::createFromFormat('d-m-Y', $fechaR);
@@ -35,16 +35,16 @@ if(0 != $cat){
 $ordenados = [['idCategoriaPadre'],['precioProveedor']];
 $limitar = [];
 $agrupar = ['idProducto'];
-$utilCategoriaList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
+$categoriaList = $productoC->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
 
 // PAGINACION
-$productoTotales = count($utilCategoriaList);
+$productoTotales = count($categoriaList);
 $mostrarItems = 4;
 $pag = $_GET['pag'] ?? 1;
 $pagTotal = ceil($productoTotales / $mostrarItems);
 $pagActual = ($pag < 1 OR $pag > $pagTotal) ? 1 : $pag;
 $mostrarDesde = ($pagActual - 1) * $mostrarItems;
-$mostrarProductos = array_slice($utilCategoriaList, $mostrarDesde, $mostrarItems);
+$mostrarProductos = array_slice($categoriaList, $mostrarDesde, $mostrarItems);
 $urlPaginacion = "resultado.php?cat={$cat}&fechaI={$fechaI}&fechaR={$fechaR}&precio_min={$precioMin}&precio_max={$precioMax}";
 ?>
 <!DOCTYPE html>
@@ -122,7 +122,7 @@ $urlPaginacion = "resultado.php?cat={$cat}&fechaI={$fechaI}&fechaR={$fechaR}&pre
                             <?php 
                             $i = 1; 
                             foreach ($mostrarProductos as $utilProducto){
-                                $producto = $util->getProductoById($utilProducto->getIdProducto());
+                                $producto = $productoC->getProductoById($utilProducto->getIdProducto());
                                 $categoria = $producto->getCategoria();
                                 $catPadre = $categoria->getCategoriaPadre();
                                 $precioMasBajo = $producto->getPrecioMasBajo();
@@ -185,7 +185,7 @@ $urlPaginacion = "resultado.php?cat={$cat}&fechaI={$fechaI}&fechaR={$fechaR}&pre
                         </div>
                         
                         
-                        <?php if(empty($utilCategoriaList)){ ?>
+                        <?php if(empty($categoriaList)){ ?>
                         <div class="column ninecol">
                             <div class="items-list clearfix">
                                 <h3>Sin Resultados...</h3>
@@ -195,7 +195,7 @@ $urlPaginacion = "resultado.php?cat={$cat}&fechaI={$fechaI}&fechaR={$fechaR}&pre
                         </div>
 			<?php } ?>
                         
-                        <?php if(!empty($utilCategoriaList)){ ?>
+                        <?php if(!empty($categoriaList)){ ?>
                         <nav class="pagination">
                         <?php 
 			for ($i = 1; $i <= $pagTotal; $i++){

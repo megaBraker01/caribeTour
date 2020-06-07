@@ -27,6 +27,33 @@ class UtilController extends BaseController {
         return !empty($slug) ? $slug : "n{$separador}a";
     }
     
+    public static function sanear($value, $type = self::_TEXT): string
+    {
+        $remplazar = array("\n\r");
+        $por = " ";
+        $ret = htmlentities($value, ENT_COMPAT, 'iso-8859-1');
+        $pattern = "/[^A-Za-z0-9-=+_@,;&.\/\s\ ]/";
+        
+        switch (strtolower($type)){
+            case self::_TEXT :
+                $ret = preg_replace($pattern, $por, $ret);
+                break;
+            case self::_INT :
+                $pattern = "/[^0-9-]/";
+                $ret = preg_replace($pattern, $por, $ret);
+                break;
+            case self::_DOUBLE :
+                $pattern = "/[^0-9-,.]/";
+                $ret = preg_replace($pattern, $por, $ret);
+                break;
+            default :
+                $ret = preg_replace($pattern, $por, $ret);
+                break;
+        }
+        
+        return str_replace($remplazar, $por, $ret);
+    }
+    
     /**
      * TODO: hacer una clase UtilController para pasar este y otros metodos
      * @param string $sql
@@ -212,8 +239,8 @@ class UtilController extends BaseController {
 
     public static function calendario($month=null, $year=null, $holidays=[], $url="", $lang="es")
     {
-        $fechaTexto = Util::MostratFechaEspanol(date('d-m-Y'));
-        $diasCalendario = Util::diasCalendario($month, $year , $holidays, $url, $lang);
+        $fechaTexto = UtilController::MostratFechaEspanol(date('d-m-Y'));
+        $diasCalendario = UtilController::diasCalendario($month, $year , $holidays, $url, $lang);
         $previousMonth = $month - 1;
         $nextMonth = $month + 1;
         $ret ="<table>

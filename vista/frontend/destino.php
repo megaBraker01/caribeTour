@@ -7,28 +7,25 @@ $producSlug = $_GET['slugProduc'] ?? null;
 $url = explode("/", trim($_SERVER['REDIRECT_URL'], "/"));
 $catPadreSlug = strtolower($url[2]);
 $catSlug = strtolower($url[3]);
-$util = new Util();
+$categoriaC = new CategoriaController;
+$productoC = new ProductoController;
 $productoRelList = [];
 
 // CATEGORIA 
-if ($categoria = $util->getCategoriaBySlug($catSlug)){
+if ($categoria = $categoriaC->getCategoriaBySlug($catSlug)){
 	
     $catPadre = $categoria->getCategoriaPadre();
     $catPadreSlug = $catPadre->getSlug();
     $idProducto = 0;
     
-    if(
-    isset($producSlug) and
-    "" != $producSlug and
-    $producto = $util->getProductoBySlug($producSlug)
-    ){
+    if(!is_null($producSlug) and $producto = $productoC->getProductoBySlug($producSlug)){
         $idProducto = $producto->getIdProducto();
         // IMAGENES DEL PRODUCTO
         $imagenList = $producto->getImagenes();
     }
     
     // CALENDARIO
-    $mesActual = date('m');
+    $mesActual = isset($_GET['fecha']) ? $_GET['fecha'] : date('m');
     $anioActual = date('Y');
     $calendarioFiltro = [
         ['idProducto', $idProducto],
@@ -36,7 +33,7 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
         ['YEAR(fsalida)', $anioActual]
     ];
 
-    $fechaSalidaPrecio = $util->getProductoFechaRefPDO($calendarioFiltro);
+    $fechaSalidaPrecio = $productoC->getProductoFechaRefPDO($calendarioFiltro);
     $fechaPrecio = [];
     foreach($fechaSalidaPrecio as $row){
         $precio = $row->getPrecioProveedor() + ( $row->getPrecioProveedor() * $row->getComision() ) / 100;
@@ -44,10 +41,14 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
         $fechaPrecio[$fecha] = $precio;
     }
     
-    //$showCalendar = Util::generar_calendario($mesActual, $anioActual, $fechaPrecio);
+
+    // PRIMERA SALIDA PARA EL DESTINO
+    $idProductoFechaRef = 1; // TODO: primero hacer que funciones el calendario y luego seguir con los siguientes pasos de la reserva
+
+    //$showCalendar = UtilController::generar_calendario($mesActual, $anioActual, $fechaPrecio);
     //$showCalendar = "<table><tr>" . Util::diasCalendario($mesActual, $anioActual, $fechaPrecio) . "</tr></table>";
     $url = "paises/{$catPadreSlug}/{$catSlug}/{$producSlug}";
-    $showCalendar = Util::calendario($mesActual, $anioActual, $fechaPrecio, $url);
+    $showCalendar = UtilController::calendario($mesActual, $anioActual, $fechaPrecio, $url);
     
     // PRODUCTOS RELACIONADOS
     $productoRelFiltro = [
@@ -60,7 +61,7 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
     }
     
     $limit = [4];
-    $productoRelList = $util->getProductoFechaRefPDO($productoRelFiltro, [], $limit, ['idProducto']);
+    $productoRelList = $productoC->getProductoFechaRefPDO($productoRelFiltro, [], $limit, ['idProducto']);
 }
 ?>
 <!DOCTYPE html>
@@ -193,8 +194,13 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
                         </ul>
                         <p><?= $producto->getDescripcion() ?></p>
                         <footer class="tour-footer"> 
-                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="cliente-datos.php?idproducto=idProducto&amp;idFecha=idFecha" title="Solicitar la reserva de <?= $producto ?>" class="button small"><span>Reservar Ahora</span></a> 
-                            <a href="#question-form" data-id="<?= $producto ?>" data-title="<?= $producto ?>" class="button grey small colorbox inline"><span>Consultar</span></a> 
+                            <!--<a hreflang="es" type="text/html" charset="iso-8859-1" href="reserva-cliente-datos.php?idproducto=idProducto&amp;idFecha=idFecha" title="Solicitar la reserva de <?= $producto ?>" class="button small"><span>Reservar Ahora</span></a>-->
+                            <form method="POST" action="reserva-cliente-datos.php">
+                                <input type="submit" value="Reservar Ahora" title="Solicitar la reserva de <?= $producto ?>" class="button">
+                                <input type="hidden" value="<?= $idProductoFechaRef ?>" name="productoFechaRef"/>
+                                <a href="#question-form" data-id="<?= $producto ?>" data-title="<?= $producto ?>" class="button grey small inline"><span>Consultar</span></a>
+                            </form>
+                             
                         </footer>
                     </div>
                 </div>
@@ -264,7 +270,7 @@ if ($categoria = $util->getCategoriaBySlug($catSlug)){
                         <?php 
                         $i = 1;
                         foreach($productoRelList as $productoRel) { 
-                            $producto = $util->getProductoById($productoRel->getIdProducto());
+                            $producto = $productoC->getProductoById($productoRel->getIdProducto());
                             $last = $i++ % 4 == 0 ? "last" : "";
                         ?>
                         <div class="column threecol <?= $last ?>">

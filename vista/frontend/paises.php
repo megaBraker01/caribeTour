@@ -2,12 +2,13 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
-$util = new Util();
+$productoC = new ProductoController;
+$categoriaC = new CategoriaController;
 $filtros = [['fsalida', date('Y-m-d'), '>=']];
 $ordenados = [];
 $limitar = [];
 $agrupar = ['idCategoriaPadre'];
-$utilPaisesList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
+$paisesList = $productoC->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -79,9 +80,9 @@ $utilPaisesList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, 
                 <div class="row">
                     <?php 
                     $i = 1; 
-                    foreach($utilPaisesList as $utilPais){
-                        $idCategoria = $utilPais->getIdCategoriaPadre();
-                        $categoria = $util->getCategoriaById($idCategoria);
+                    foreach($paisesList as $pais){
+                        $idCategoria = $pais->getIdCategoriaPadre();
+                        $categoria = $categoriaC->getCategoriaById($idCategoria);
                         $precioMasBajo = $categoria->getPrecioMasBajo(true, true);
                         $last = "";
                         $clear = "";
@@ -112,7 +113,7 @@ $utilPaisesList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, 
                     
                     <?php } ?>
                     
-                    <?php if(empty($utilPaisesList)){ ?>
+                    <?php if(empty($paisesList)){ ?>
                     <h3>Sin Resultados...</h3>
                     <h4>Lo sentimos, <strong>NO</strong> tenemos paises de destinos disponibles en estos momentos... Disculpe las molestias.</h4>
                     <img  width="50%" src="<?=PATHFRONTEND ?>images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados...">

@@ -13,23 +13,7 @@ class Producto extends ProductoBase {
         $ImagenList = $ImagenController->select([['idProducto', $idProducto]]);
         return $ImagenList;
     }
-    
-    /**
-     * Obtiene todas las fechas del producto actual
-     * @param array $filtros
-     * @param array $ordenados
-     * @param array $limitar
-     * @param array $agrupar
-     * @return array
-     */
-    public function getProductoFechaRef(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array
-    {
-        $idProducto = $this->getIdproducto();
-        $filtros[] = ['idProducto', $idProducto];
-        $util = new Util();
-        return $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
-    }
-    
+
     /**
      * Obtiene el precion mas bajo disponible del producto actual
      * @param bool $sumaComicion
@@ -45,8 +29,8 @@ class Producto extends ProductoBase {
         ];
         $ordenados = [['precioProveedor']];
         $limitar = [1];
-        $util = new Util();
-        $productoFechaRefs = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar);
+        $productoC = new ProductoController;
+        $productoFechaRefs = $productoC->getProductoFechaRefPDO($filtros, $ordenados, $limitar);
         
         if(!empty($productoFechaRefs)){
             $precio = $productoFechaRefs[0]->getPrecioProveedor();
@@ -64,7 +48,7 @@ class Producto extends ProductoBase {
     public function setSlug($slug = '')
     {
         if('' == $slug){
-            $slug = Util::slugify($this->getNombre());
+            $slug = UtilController::slugify($this->getNombre());
         }
         
         return parent::setSlug($slug);        

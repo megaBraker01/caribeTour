@@ -18,6 +18,46 @@ class ProductoController extends ProductoBaseController {
     }
     
     /**
+     * TODO: pasar este metodo al modelo o al controlador de producto
+     * @param string $slug
+     * @return type
+     * @throws Exception
+     */
+    public function getProductoBySlug(string $slug)
+    {
+        if(!is_string($slug) or "" == $slug){
+            throw new Exception('[ERROR] El slug tiene que ser un string distinto de ""');
+        }
+        $slug = strtolower($slug);
+        $producto = null;
+        $productoC = new ProductoController;
+        $filtros = [['slug', $slug]];
+        $productoList = $productoC->select($filtros);
+        if(isset($productoList[0])){
+            $producto = $productoList[0];
+        }
+        return $producto;
+    }
+    
+    /**
+     * @param array $filtros
+     * @param array $ordenados
+     * @param array $limitar
+     * @param array $agrupar
+     * @return array
+     */
+    public function getProductoFechaRefPDO(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array
+    {
+        $sql = "SELECT * FROM v_producto_fecha_ref";
+        $ret = [];
+        $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
+        foreach($rows as $row){
+            $ret[] = new ProductoFechaDTO($row->idProductoFechaRef, $row->idProducto, $row->idFechaSalida, $row->precioProveedor, $row->comision, $row->producto, $row->idCategoria, $row->categoria, $row->idCategoriaPadre, $row->catPadre, $row->fsalida, $row->terminalSalida, $row->terminalDestino, $row->tasasSalida, $row->tasasDestino, $row->idFechaVuelta, $row->fvuelta, $row->terminalSalidaV, $row->terminalDestinoV, $row->tasasSalidaV, $row->tasasDestinoV);
+        }
+        return $ret;
+    }
+    
+    /**
      * TODO: refactorizar y sacar este metodo a donde se ejecuta la logica
      * Setea los campos del producto con los valores del metodo POST
      * @param Producto $producto
@@ -51,8 +91,8 @@ class ProductoController extends ProductoBaseController {
             $categoriaOptions[$categoria->getIdCategoria()] = $categoria->getNombre();
         }
 
-        $util = new Util;
-        $tipoOptions = $util->getTipos('productos');
+        $utilC = new UtilController();
+        $tipoOptions = $utilC->getTipos('productos');
 
         $estadoC = new EstadoController;
         $estadoOptions = [];

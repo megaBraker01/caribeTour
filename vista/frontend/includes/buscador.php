@@ -7,12 +7,13 @@ $precio_min = filter_input(INPUT_GET, 'precio_min') ?? 200;
 $precio_max = filter_input(INPUT_GET, 'precio_max') ?? 2000;
 
 $agrupar = ['idCategoriaPadre'];
-$util = new Util;
-$productoFechaPDO = $util->getProductoFechaRefPDO([], [], [], $agrupar);
+$productoC = new ProductoController();
+$categoriaC = new CategoriaController;
+$productoFechaPDO = $productoC->getProductoFechaRefPDO([], [], [], $agrupar);
 
 $catPadreLista = [];
 foreach($productoFechaPDO as $pdo){
-    $catPadreLista[] = $util->getCategoriaById($pdo->getIdCategoriaPadre()); 
+    $catPadreLista[] = $categoriaC->getCategoriaById($pdo->getIdCategoriaPadre()); 
 }
 
 $opciones = "";

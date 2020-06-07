@@ -22,6 +22,9 @@
             <input type="hidden" name="producto" id="producto" value="<?php if (isset($_SESSION['producto'])) { echo $_SESSION['producto']; } ?>" class="popup-id"/>
             <input type="hidden" name="volver" value="http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"]; ?>" />
             <input type="submit" value="Enviar" title="Enviar la consulta"/>
+            <br>
+            <br>
+            <div class="g-recaptcha" data-sitekey="your_site_key"></div>
             <!--<a class="submit-button button" href="#">Enviar</a> -->
         </form>
     </div>

@@ -24,19 +24,19 @@ try{
     
     $objC = new $objControllerName;
     $formHandler = new FormHandler($tableName, false, false);
-    $util = new Util();
+    $utilC = new UtilController();
     
     // persistencia de datos (NUEVO O EDITAR)
     /* @var $_POST type */
     if (isset($_POST['Guardar']) and 'Guardar' === $_POST['Guardar']){
         
         if (isset($_POST['isNewRecord'])){
-            $obj = $util->setObjFromPost(new $objName);
+            $obj = $utilC->setObjFromPost(new $objName);
             $id = $objC->insert($obj);
         } else {
-            $id = Util::checkGetIdExist();
+            $id = UtilController::checkGetIdExist();
             $obj = @$objC->select([[$objIdName, $id]])[0];
-            $obj = $util->setObjFromPost($obj);
+            $obj = $utilC->setObjFromPost($obj);
             $objC->update($obj);
         }
         
@@ -48,7 +48,7 @@ try{
     // mostrar datos (VER O EDITAR)
     switch ($action){
         case 'ver':
-            $id = Util::checkGetIdExist();
+            $id = UtilController::checkGetIdExist();
             $obj = @$objC->select([[$objIdName, $id]])[0];            
             $readOnly = true;
             $isNewRecord = false;
@@ -56,7 +56,7 @@ try{
             $fieldValues = $obj->getAllParams(false, false);
             break;
         case 'editar':
-            $id = Util::checkGetIdExist();
+            $id = UtilController::checkGetIdExist();
             $obj = @$objC->select([[$objIdName, $id]])[0];
             $readOnly = false;
             $isNewRecord = false;

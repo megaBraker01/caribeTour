@@ -53,8 +53,8 @@ class Categoria extends CategoriaBase {
         ];
         $ordenados = [['precioProveedor']];
         $limitar = [1];
-        $util = new Util();
-        $productoFechaRefs = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar);
+        $productoC = new ProductoController;
+        $productoFechaRefs = $productoC->getProductoFechaRefPDO($filtros, $ordenados, $limitar);
         
         if(!empty($productoFechaRefs)){
             $precio = $productoFechaRefs[0]->getPrecioProveedor();

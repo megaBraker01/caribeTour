@@ -8,12 +8,13 @@ $catNombre = ucfirst($slugCat);
 $slugCatPadre = $categoria = $catPadre = null;
 $mostrarDesde = $pagActual = $pagTotal = 1;
 $mostrarProductos = [];
-$util = new Util();
+$productoC = new ProductoController;
+$categoriaC = new CategoriaController;
 
 if  (
     isset($slugCat) and 
     $slugCat != "" and
-    $categoria = $util->getCategoriaBySlug($slugCat)
+    $categoria = $categoriaC->getCategoriaBySlug($slugCat)
     ){
     
     $catPadre = $categoria->getCategoriaPadre();
@@ -26,16 +27,16 @@ if  (
     $ordenados = [['idCategoriaPadre'],['precioProveedor']];
     $limitar = [];
     $agrupar = ['idProducto'];
-    $utilCategoriaList = $util->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
+    $categoriaList = $productoC->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
     
     // PAGINACION
-    $productoTotales = count($utilCategoriaList);
+    $productoTotales = count($categoriaList);
     $mostrarItems = 4;
     $pag = $_GET['pag'] ?? 1;
     $pagTotal = ceil($productoTotales / $mostrarItems);
     $pagActual = ($pag < 1 OR $pag > $pagTotal) ? 1 : $pag;
     $mostrarDesde = ($pagActual - 1) * $mostrarItems;
-    $mostrarProductos = array_slice($utilCategoriaList, $mostrarDesde, $mostrarItems);
+    $mostrarProductos = array_slice($categoriaList, $mostrarDesde, $mostrarItems);
 }
 ?>
 <!DOCTYPE html>
@@ -119,7 +120,7 @@ if  (
                             <?php 
                             $i = 1; 
                             foreach ($mostrarProductos as $utilProducto){
-                                $producto = $util->getProductoById($utilProducto->getIdProducto());
+                                $producto = $productoC->getProductoById($utilProducto->getIdProducto());
                                 $precioMasBajo = $producto->getPrecioMasBajo();
                                 $fsalida = new DateTime($utilProducto->getFsalida());
                                 $fvuelta = new DateTime($utilProducto->getFvuelta());
@@ -180,7 +181,7 @@ if  (
                         </div>
                         
                         
-                        <?php if(empty($utilCategoriaList)){ ?>
+                        <?php if(empty($categoriaList)){ ?>
                         <div class="column ninecol">
                             <div class="items-list clearfix">
                                 <h3>Sin Resultados...</h3>
@@ -190,7 +191,7 @@ if  (
                         </div>
 			<?php } ?>
                         
-                        <?php if(!empty($utilCategoriaList)){ ?>
+                        <?php if(!empty($categoriaList)){ ?>
                         <nav class="pagination">
                         <?php 
 			for ($i = 1; $i <= $pagTotal; $i++){

@@ -4,7 +4,7 @@ require_once "../../AutoLoader/autoLoader.php";
 
 $mes = 2;// date('m');
 $anio = date('y');
-$vista = Util::generar_calendario($mes, $anio, "es", [14]);
+$vista = UtilController::generar_calendario($mes, $anio, "es", [14]);
 
 
 ?>

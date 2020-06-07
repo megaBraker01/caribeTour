@@ -10,12 +10,11 @@ $blogList = $blogC->select($filtro);
 
 
 // BLOGS POPULARES
-$util = new Util;
-$blogsPopulares = $util->getBlogsPopulares();
+$blogsPopulares = $blogC->getBlogsPopulares();
 
 
 // GALERIA
-$imagenes = $util->getGaleriaBlog();
+$imagenes = $blogC->getBlogImagenes();
 
 
 // PAGINACION

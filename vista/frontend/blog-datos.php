@@ -2,13 +2,13 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
-$util = new Util;
+$blogC = new BlogController;
 // INSERTAT COMENTARIO
 if(isset($_POST['MM_insert'])){
-    $nombre = $util->sanear($_POST['nombre']);
-    $email = $util->sanear($_POST['email']);
-    $comentarios = $util->sanear($_POST['comentario']);
-    $idBlog = $util->sanear($_POST['idBlog'], Util::_INT);
+    $nombre = UtilController::sanear($_POST['nombre']);
+    $email = UtilController::sanear($_POST['email']);
+    $comentarios = UtilController::sanear($_POST['comentario']);
+    $idBlog = UtilController::sanear($_POST['idBlog'], UtilController::_INT);
     
     $comentarioC = new BlogComentarioController;
     $comentario = new BlogComentario(0, $idBlog, 2, $nombre, $email, $comentarios);
@@ -24,8 +24,7 @@ if(isset($_POST['MM_insert'])){
 $blog = null;
 $blogSlug = $_GET['slugBlog'] ?? null;
 
-if(isset($blogSlug) and $blogSlug != ""){
-    $blogC = new BlogController;
+if(isset($blogSlug) and $blogSlug != ""){    
     $filtro = [['slug', $blogSlug]];
     $blogList = $blogC->select($filtro);
     if(isset($blogList[0])){
@@ -34,10 +33,11 @@ if(isset($blogSlug) and $blogSlug != ""){
 }
 
 // BLOGS POPULARES
-$blogsPopulares = $util->getBlogsPopulares();
+$blogsPopulares = $blogC->getBlogsPopulares();
 
+// TODO: la galería tiene que ser fotos relacionadas con el blog
 // GALERIA
-$imagenes = $util->getGaleriaBlog();
+$imagenes = $blogC->getBlogImagenes();
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">

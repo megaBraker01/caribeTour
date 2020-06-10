@@ -11,57 +11,60 @@ $categoriaC = new CategoriaController;
 $productoC = new ProductoController;
 $productoRelList = [];
 
-// CATEGORIA 
-if ($categoria = $categoriaC->getCategoriaBySlug($catSlug)){
-	
-    $catPadre = $categoria->getCategoriaPadre();
-    $catPadreSlug = $catPadre->getSlug();
-    $idProducto = 0;
-    
-    if(!is_null($producSlug) and $producto = $productoC->getProductoBySlug($producSlug)){
-        $idProducto = $producto->getIdProducto();
-        // IMAGENES DEL PRODUCTO
-        $imagenList = $producto->getImagenes();
+try {    
+    // CATEGORIA 
+    if ($categoria = $categoriaC->getCategoriaBySlug($catSlug)){
+
+        $catPadre = $categoria->getCategoriaPadre();
+        $catPadreSlug = $catPadre->getSlug();
+        $idProducto = 0;
+
+        if(!is_null($producSlug) and $producto = $productoC->getProductoBySlug($producSlug)){
+            $idProducto = $producto->getIdProducto();
+            // IMAGENES DEL PRODUCTO
+            $imagenList = $producto->getImagenes();
+        }
+
+        // CALENDARIO
+        $mesActual = isset($_GET['fecha']) ? $_GET['fecha'] : date('m');
+        $anioActual = date('Y');
+        $calendarioFiltro = [
+            ['idProducto', $idProducto],
+            ['MONTH(fsalida)', $mesActual],
+            ['YEAR(fsalida)', $anioActual]
+        ];
+
+        $fechaSalidaPrecio = $productoC->getProductoFechaRefPDO($calendarioFiltro);
+        $fechaPrecio = [];
+        foreach($fechaSalidaPrecio as $productoFechaDTO){
+            $precio = $productoFechaDTO->getPrecioProveedor() + ( $productoFechaDTO->getPrecioProveedor() * $productoFechaDTO->getComision() ) / 100;
+            $fecha = date('Y-m-d', strtotime( $productoFechaDTO->getFsalida() ));
+            $fechaPrecio[$fecha] = $precio;
+        }
+
+
+        // PRIMERA SALIDA PARA EL DESTINO
+        $idProductoFechaRef = 1; // TODO: primero hacer que funciones el calendario y luego seguir con los siguientes pasos de la reserva
+
+        $url = "paises/{$catPadreSlug}/{$catSlug}/{$producSlug}";
+        $fecha = $_GET['fecha'];
+        $showCalendar = CalendarioCT::showCalendarCT([], $fecha);
+
+        // PRODUCTOS RELACIONADOS
+        $productoRelFiltro = [
+            ['idCategoria', $categoria->getIdCategoria()],
+            ['fsalida', date('Y-m-d'), '>=']
+        ];
+
+        if($producto){
+            $productoRelFiltro[] = ['idProducto', $producto->getIdProducto(), '!='];
+        }
+
+        $limit = [4];
+        $productoRelList = $productoC->getProductoFechaRefPDO($productoRelFiltro, [], $limit, ['idProducto']);
     }
-    
-    // CALENDARIO
-    $mesActual = isset($_GET['fecha']) ? $_GET['fecha'] : date('m');
-    $anioActual = date('Y');
-    $calendarioFiltro = [
-        ['idProducto', $idProducto],
-        ['MONTH(fsalida)', $mesActual],
-        ['YEAR(fsalida)', $anioActual]
-    ];
-
-    $fechaSalidaPrecio = $productoC->getProductoFechaRefPDO($calendarioFiltro);
-    $fechaPrecio = [];
-    foreach($fechaSalidaPrecio as $row){
-        $precio = $row->getPrecioProveedor() + ( $row->getPrecioProveedor() * $row->getComision() ) / 100;
-        $fecha = date('Y-m-d', strtotime( $row->getFsalida() ));
-        $fechaPrecio[$fecha] = $precio;
-    }
-    
-
-    // PRIMERA SALIDA PARA EL DESTINO
-    $idProductoFechaRef = 1; // TODO: primero hacer que funciones el calendario y luego seguir con los siguientes pasos de la reserva
-
-    //$showCalendar = UtilController::generar_calendario($mesActual, $anioActual, $fechaPrecio);
-    //$showCalendar = "<table><tr>" . Util::diasCalendario($mesActual, $anioActual, $fechaPrecio) . "</tr></table>";
-    $url = "paises/{$catPadreSlug}/{$catSlug}/{$producSlug}";
-    $showCalendar = UtilController::calendario($mesActual, $anioActual, $fechaPrecio, $url);
-    
-    // PRODUCTOS RELACIONADOS
-    $productoRelFiltro = [
-        ['idCategoria', $categoria->getIdCategoria()],
-        ['fsalida', date('Y-m-d'), '>=']
-    ];
-
-    if($producto){
-        $productoRelFiltro[] = ['idProducto', $producto->getIdProducto(), '!='];
-    }
-    
-    $limit = [4];
-    $productoRelList = $productoC->getProductoFechaRefPDO($productoRelFiltro, [], $limit, ['idProducto']);
+} catch (Exception $e){
+    $showError = $e->getMessage();
 }
 ?>
 <!DOCTYPE html>
@@ -250,10 +253,20 @@ if ($categoria = $categoriaC->getCategoriaBySlug($catSlug)){
                 <?php } ?>
 		
 		<?php if(is_null($producto)){ ?>
-				
-                <h3>Sin Resultados...</h3>
-                <p>Lo sentimos, el destino elegido <strong>NO</strong> se encuentra disponible en estos momentos, Puedes echar un vistazo a los paises relacionados.. Disculpen las molestias.</p>
-                <img src="<?=PATHFRONTEND ?>images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados...">
+                <div class="column sixcol">
+                    <div class="tour-thumb-container">
+                        <div class="tour-thumb">
+                            <img width="440" height="330" src="<?=PATHFRONTEND ?>images/no-encontrado.gif" class="attachment-preview wp-post-image" alt="Sin Resultados" />
+                            <div class="tour-caption">
+                                <h3 class="tour-title">
+                                       Sin Resultados...
+                                </h3>
+                                <p>Lo sentimos, el destino elegido <strong>NO</strong> se encuentra disponible en estos momentos, Puedes echar un vistazo a los paises relacionados.. Disculpen las molestias.</p>
+                            </div>
+                        </div>
+                        <div class="block-background"></div>
+                    </div>
+                </div>             
                 
                 <?php } ?>
                 

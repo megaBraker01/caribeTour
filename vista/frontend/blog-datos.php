@@ -11,7 +11,7 @@ if(isset($_POST['MM_insert'])){
     $idBlog = UtilController::sanear($_POST['idBlog'], UtilController::_INT);
     
     $comentarioC = new BlogComentarioController;
-    $comentario = new BlogComentario(0, $idBlog, 2, $nombre, $email, $comentarios);
+    $comentario = new BlogComentario(0, $idBlog, Estado::ESTADO_ACTIVO, $nombre, $email, $comentarios);
     $mensaje = 'KO';
     if($comentarioC->insert($comentario)){
         $mensaje = 'OK';

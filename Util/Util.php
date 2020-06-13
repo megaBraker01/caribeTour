@@ -24,7 +24,7 @@ class Util {
                 break;
             case 'd': $symbol = "&dollar;";
                 break;
-            case 'p': $symbol = "&&pound;;";
+            case 'p': $symbol = "&&pound;";
                 break;
             case 'c': $symbol = "&cent;";
                 break;

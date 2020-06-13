@@ -25,7 +25,7 @@ try{
             $producto = $productoC->setProductFromPost(new Producto());
             $idProducto = $productoC->insert($producto);
         } else {
-            $idProducto = Util::checkGetIdExist();
+            $idProducto = UtilController::checkGetIdExist();
             $producto = @$productoC->select([['idProducto', $idProducto]])[0];
             $producto = $productoC->setProductFromPost($producto);
             $productoC->update($producto);
@@ -39,7 +39,7 @@ try{
     // mostrar datos (VER O EDITAR)
     switch ($action){
         case 'ver':
-            $idProducto = Util::checkGetIdExist();
+            $idProducto = UtilController::checkGetIdExist();
             $producto = $productoC->getProductoById($idProducto);
             $readOnly = true;
             $isNewRecord = false;
@@ -51,7 +51,7 @@ try{
             }
             break;
         case 'editar':
-            $idProducto = Util::checkGetIdExist();
+            $idProducto = UtilController::checkGetIdExist();
             $producto = $productoC->getProductoById($idProducto);
             $readOnly = false;
             $isNewRecord = false;

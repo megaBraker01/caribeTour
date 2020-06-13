@@ -3,15 +3,14 @@
 require_once '../../../config.php';
 require_once "../../../AutoLoader/autoLoader.php";
 
-if(!Util::isAjax()){
+$utilC = new UtilController();
+if(!$utilC->isAjax()){
     return;
 }
 
-$proveedorC = new ProveedorController;
-$util = new Util();
-$sql = 'SELECT * FROM v_proveedores';
-$proveedorList = $util->query($sql);
-$data = [$util::LIST_DATA => $proveedorList];
+$sql = 'SELECT idProveedor, Nombre, NIF, Telefono, Email, Web FROM v_proveedores';
+$proveedorList = $utilC->query($sql);
+$data = [$utilC::LIST_DATA => $proveedorList];
 $JsonData = json_encode($data);
 //$JsonData = Util::objListTosonList($proveedorList, $_POST);
 

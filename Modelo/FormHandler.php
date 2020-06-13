@@ -79,7 +79,7 @@ class FormHandler {
         return $this->fieldSetList;
     }
 
-    
+    //TODO: refactorizar nombre a cleanTypeFromDDBB
     public function cleanType($type)
     {
         $find = '(';

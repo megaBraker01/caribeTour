@@ -35,20 +35,20 @@ try {
         ];
 
         $fechaSalidaPrecio = $productoC->getProductoFechaRefPDO($calendarioFiltro);
-        $fechaPrecio = [];
+        $eventos = [];
         foreach($fechaSalidaPrecio as $productoFechaDTO){
             $precio = $productoFechaDTO->getPrecioProveedor() + ( $productoFechaDTO->getPrecioProveedor() * $productoFechaDTO->getComision() ) / 100;
             $fecha = date('Y-m-d', strtotime( $productoFechaDTO->getFsalida() ));
-            $fechaPrecio[$fecha] = $precio;
+            $eventos[$fecha] = $precio;
         }
 
+        $urlNavegation = "paises/{$catPadreSlug}/{$catSlug}/{$producSlug}";
+        $fecha = isset($_GET['fecha']) ? $_GET['fecha'] : date('Y-m-d');
+        $showCalendar = CalendarioCT::showCalendarCT($urlNavegation, $eventos, $fecha);
+        //Util::dev($eventos);
 
         // PRIMERA SALIDA PARA EL DESTINO
         $idProductoFechaRef = 1; // TODO: primero hacer que funciones el calendario y luego seguir con los siguientes pasos de la reserva
-
-        $url = "paises/{$catPadreSlug}/{$catSlug}/{$producSlug}";
-        $fecha = $_GET['fecha'];
-        $showCalendar = CalendarioCT::showCalendarCT([], $fecha);
 
         // PRODUCTOS RELACIONADOS
         $productoRelFiltro = [
@@ -245,10 +245,8 @@ try {
                         </div>
                     </div>
                 </div>
-                <div class="sixcol column last">
-                    <div class="calendario">   
-                        <?= $showCalendar ?>
-                    </div>
+                <div class="sixcol column last">  
+                    <?= $showCalendar ?>
                 </div>
                 <?php } ?>
 		

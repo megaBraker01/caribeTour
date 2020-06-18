@@ -73,6 +73,44 @@ class ProductoController extends ProductoBaseController {
         }        
         return $producto;
     }
+    
+    /**
+     * 
+     * @param int $idProducto
+     * @param string $fecha
+     * @param string $urlNavegation
+     * @return array
+     */
+    public function getDataForCalendar(int $idProducto, string $fecha, string $urlNavegation): array
+    {
+        $fechaToTime = strtotime($fecha);
+        $diaFiltro = date('d');
+        $mesFiltro = date('m', $fechaToTime);
+        $anioFiltro = date('Y', $fechaToTime);
+        $calendarioFiltro = [
+            ['idProducto', $idProducto],
+            ['MONTH(fsalida)', $mesFiltro],
+            ['YEAR(fsalida)', $anioFiltro],
+        ];
+        
+        if(date('m') == $mesFiltro){
+            $calendarioFiltro[] = ['DAY(fsalida)', $diaFiltro, '>='];
+        }
+
+        $fechaSalidaPrecio = $this->getProductoFechaRefPDO($calendarioFiltro);
+        
+        $eventos = [];
+        foreach($fechaSalidaPrecio as $productoFechaDTO){
+            $precioProveedor = $productoFechaDTO->getPrecioProveedor();
+            $comision = $productoFechaDTO->getComision();
+            $precio = $precioProveedor + (($precioProveedor * $comision) / 100);
+            $pvp = Util::moneda($precio);
+            $fechaS = date('Y-m-d', strtotime( $productoFechaDTO->getFsalida() ));
+            $eventos[$fechaS] = "<div class='calendar-price'><a href='{$urlNavegation}/fecha={$fecha}/fechaS={$fechaS}'>{$pvp}</a></div>";
+        }
+        
+        return $eventos;
+    }
 
     /**
      * TODO: pasar el metodo a FormHandler

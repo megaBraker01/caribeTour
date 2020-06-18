@@ -74,7 +74,7 @@ class CalendarioCT {
      * @param array $eventos
      * @return string
      */
-    public static function getCeldasDias(string $fecha = "", array $eventos = [])
+    protected static function getCeldasDias(string $fecha = "", array $eventos = [])
     {
         $diaActual = date("d");
         $mesActual = date("m");
@@ -92,7 +92,6 @@ class CalendarioCT {
         $filasTotal = ceil($diasTotal / 7);
         $celdasTotal = $filasTotal * 7;
         $celdasRestantes = $celdasTotal - $diasTotal;
-        $url ="";
         
         $ret = "<tr>";
         for($i = 1; $i <= $diasTotal; $i++){
@@ -104,7 +103,7 @@ class CalendarioCT {
                 // si el día/mes/año mostrado coincide con alguna fecha de eventos, entonces mostramos dicho evento
                 $fechaEnEvento = date('Y-m-d', mktime(0,0,0,$mes, $mostrarNumeroDia, $anio));
                 $mostrarEvento = (isset($eventos[$fechaEnEvento])) ? 
-                        "<div class='calendar-price'><a href='{$url}/fecha={$fechaEnEvento}'>{$eventos[$fechaEnEvento]}</a></div>" : 
+                        $eventos[$fechaEnEvento] : 
                         "";
                 $classTd = ($mostrarNumeroDia == $diaActual and $mes == $mesActual) ? " class='calendar-current-day'" : "";
                 $ret .= "<td{$classTd}>{$mostrarNumeroDia} {$mostrarEvento}</td>";

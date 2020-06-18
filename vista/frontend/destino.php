@@ -26,27 +26,30 @@ try {
         }
 
         // CALENDARIO
-        $mesActual = isset($_GET['fecha']) ? $_GET['fecha'] : date('m');
-        $anioActual = date('Y');
-        $calendarioFiltro = [
+        $fecha = isset($_GET['fecha']) ? $_GET['fecha'] : date('Y-m-d');
+        $urlNavegation = "paises/{$catPadreSlug}/{$catSlug}/{$producSlug}";
+        $eventos = $productoC->getDataForCalendar($idProducto, $fecha, $urlNavegation);
+        $showCalendar = CalendarioCT::showCalendarCT($urlNavegation, $eventos, $fecha);
+
+        // FECHA SELECCIONADA
+        $fsalidaFiltro = [
             ['idProducto', $idProducto],
-            ['MONTH(fsalida)', $mesActual],
-            ['YEAR(fsalida)', $anioActual]
+            ['fsalida', date('Y-m-d'), ">="],
         ];
 
-        $fechaSalidaPrecio = $productoC->getProductoFechaRefPDO($calendarioFiltro);
-        $eventos = [];
-        foreach($fechaSalidaPrecio as $productoFechaDTO){
-            $precio = $productoFechaDTO->getPrecioProveedor() + ( $productoFechaDTO->getPrecioProveedor() * $productoFechaDTO->getComision() ) / 100;
-            $fecha = date('Y-m-d', strtotime( $productoFechaDTO->getFsalida() ));
-            $eventos[$fecha] = $precio;
+        if(isset($_GET['fechaS']) and "" != $_GET['fechaS']){
+            $fSeleccionada = $_GET['fechaS'];
+            $fsalidaFiltro[] = ['fsalida', $fSeleccionada];
         }
 
-        $urlNavegation = "paises/{$catPadreSlug}/{$catSlug}/{$producSlug}";
-        $fecha = isset($_GET['fecha']) ? $_GET['fecha'] : date('Y-m-d');
-        $showCalendar = CalendarioCT::showCalendarCT($urlNavegation, $eventos, $fecha);
-        //Util::dev($eventos);
-
+        $fSeleccionadaData = @$productoC->getProductoFechaRefPDO($fsalidaFiltro)[0];
+        $fsalida = date('d-m-Y', strtotime($fSeleccionadaData->getFsalida()));
+        $fvuelta = ("" != $fSeleccionadaData->getFvuelta()) ?  date('d-m-Y', strtotime($fSeleccionadaData->getFvuelta())) : "N/A";
+        $pProveedor = $fSeleccionadaData->getPrecioProveedor();
+        $pComision = $fSeleccionadaData->getComision();
+        $precio = $pProveedor + (($pProveedor * $pComision) / 100);   
+        $pvp = Util::moneda($precio);
+        
         // PRIMERA SALIDA PARA EL DESTINO
         $idProductoFechaRef = 1; // TODO: primero hacer que funciones el calendario y luego seguir con los siguientes pasos de la reserva
 
@@ -184,15 +187,15 @@ try {
                             </li>
                             <li>
                                 <div class="colored-icon icon-6"><span></span></div>
-                                <strong>Salida:</strong> 25/01/2020
+                                <strong>Salida:</strong> <?= $fsalida ?>
                             </li>
                             <li>
                                 <div class="colored-icon icon-7"><span></span></div>
-                                <strong>Regreso:</strong> 02/02/2020
+                                <strong>Regreso:</strong> <?= $fvuelta ?>
                             </li>
                             <li style="font-size:1.8em;">
                                 <div class="colored-icon icon-3"><span></span></div>
-                                <strong>Precio:</strong> 965&euro;
+                                <strong>Precio:</strong> <?= $pvp ?>
                             </li>
                         </ul>
                         <p><?= $producto->getDescripcion() ?></p>

@@ -15,6 +15,7 @@ class CalendarioCT {
      * entonces la clave será la fecha (yyyy-mm-dd) a la que corresponde el evento y el valor será
      * lo que se mostrará en dicha fecha. Ej: [["2020-06-05" => "Cita medico"], ["2020-06-29" => "Pagar Telefono"]]
      * En el valor tambien se podrá mandar codigo html. Ej: ["2020-09-02" => "<a href='www.dominio.com'>pagar dominio</a>"]
+     * @param string $urlNavegation
      * @param array $eventos
      * @param string $fecha Se refiere a la fecha que queremos mostrar en el calendario
      * @return string

@@ -10,6 +10,7 @@ $catSlug = strtolower($url[3]);
 $categoriaC = new CategoriaController;
 $productoC = new ProductoController;
 $productoRelList = [];
+$showError = null;
 
 try {    
     // CATEGORIA 
@@ -42,16 +43,16 @@ try {
             $fsalidaFiltro[] = ['fsalida', $fSeleccionada];
         }
 
-        $fSeleccionadaData = @$productoC->getProductoFechaRefPDO($fsalidaFiltro)[0];
-        $fsalida = date('d-m-Y', strtotime($fSeleccionadaData->getFsalida()));
-        $fvuelta = ("" != $fSeleccionadaData->getFvuelta()) ?  date('d-m-Y', strtotime($fSeleccionadaData->getFvuelta())) : "N/A";
-        $pProveedor = $fSeleccionadaData->getPrecioProveedor();
-        $pComision = $fSeleccionadaData->getComision();
-        $precio = $pProveedor + (($pProveedor * $pComision) / 100);   
-        $pvp = Util::moneda($precio);
-        
-        // PRIMERA SALIDA PARA EL DESTINO
-        $idProductoFechaRef = 1; // TODO: primero hacer que funciones el calendario y luego seguir con los siguientes pasos de la reserva
+        $fsalida = $fvuelta = $pvp = "";
+        if($fSeleccionadaData = @$productoC->getProductoFechaRefPDO($fsalidaFiltro)[0]){
+            $idProductoFechaRef = $fSeleccionadaData->getIdProductoFechaRef();
+            $fsalida = date('d-m-Y', strtotime($fSeleccionadaData->getFsalida()));
+            $fvuelta = ("" != $fSeleccionadaData->getFvuelta()) ?  date('d-m-Y', strtotime($fSeleccionadaData->getFvuelta())) : "N/A";
+            $pProveedor = $fSeleccionadaData->getPrecioProveedor();
+            $pComision = $fSeleccionadaData->getComision();
+            $precio = $pProveedor + (($pProveedor * $pComision) / 100);   
+            $pvp = Util::moneda($precio);
+        }
 
         // PRODUCTOS RELACIONADOS
         $productoRelFiltro = [
@@ -144,11 +145,13 @@ try {
             
                 <!-- row -->
                 <div class="row">
-                <?php echo "<h1>Por favor rellene todos los campos del formulario.</h1><br>";?>
-                <?php echo "<h1>Gracias por su consulta, los datos se han enviado correctamente.</h1><br>"; ?>
-                <?php echo "<h1 style='color:red'>Error al enviar los datos del formulario, por favor int&eacute;ntelo de nuevo.</h1><br>";?>
+                <?php 
+                if(!is_null($showError)){
+                    "<h1 style='color:red'>$showError</h1><br>";
+                }
+                ?>
                 
-                <?php if(!is_null($producto)){ ?>
+                <?php if(!is_null($producto) and is_null($showError)){ ?>
                 
                 <div class="full-tour clearfix">
                     <div class="sixcol column">

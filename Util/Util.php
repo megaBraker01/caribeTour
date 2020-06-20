@@ -17,14 +17,21 @@ class Util {
     }
 
 
-    public static function moneda($numberToCombert = 0, $decimal = 2, $sing = "e")
+    /**
+     * 
+     * @param type $numberToCombert
+     * @param int $decimal
+     * @param string $sing
+     * @return string
+     */
+    public static function moneda($numberToCombert = 0, int $decimal = 2, string $sing = "e"): string
     {
         switch(strtolower($sing)){
             case 'e': $symbol = "&euro;";
                 break;
             case 'd': $symbol = "&dollar;";
                 break;
-            case 'p': $symbol = "&&pound;";
+            case 'p': $symbol = "&pound;";
                 break;
             case 'c': $symbol = "&cent;";
                 break;
@@ -51,4 +58,15 @@ class Util {
         return $ret;
     }
     
+    /**
+     * Calcula en días la duracion de un viaje
+     * @param string $fvuelta
+     * @param string $fsalida
+     * @return int
+     */
+    public static  function duracionCalc(string $fvuelta, string $fsalida): int 
+    {
+        $duracion = strtotime($fvuelta) - strtotime($fsalida);
+        return date('d', $duracion) * 1;
+    }    
 }

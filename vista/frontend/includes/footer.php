@@ -5,8 +5,10 @@
                     </div>
                     <br />
                     <div class="copyright">
-                    <?php do { ?>
-                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="legal/slugLegal" target="_blank" title="legalNombre">legalNombre</a> |
+                    <?php 
+                    // TODO: poner los terminos como estan en la pagina publicada
+                    do { ?>
+                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="legal/slugLegal" target="_blank" title="legalNombre">Legal</a> |
                     <?php } while (false); ?>
                     </div>
                     <div class="menu">

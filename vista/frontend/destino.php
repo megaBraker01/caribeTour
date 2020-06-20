@@ -2,7 +2,7 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
-$producto = $categoria = $catPadre = null;
+$producto = $categoria = $catPadre = $idProductoFechaRef = null;
 $producSlug = $_GET['slugProduc'] ?? null;
 $url = explode("/", trim($_SERVER['REDIRECT_URL'], "/"));
 $catPadreSlug = strtolower($url[2]);
@@ -43,11 +43,12 @@ try {
             $fsalidaFiltro[] = ['fsalida', $fSeleccionada];
         }
 
-        $fsalida = $fvuelta = $pvp = "";
+        $fsalida = $fvuelta = $pvp = $duracion = "";
         if($fSeleccionadaData = @$productoC->getProductoFechaRefPDO($fsalidaFiltro)[0]){
             $idProductoFechaRef = $fSeleccionadaData->getIdProductoFechaRef();
             $fsalida = date('d-m-Y', strtotime($fSeleccionadaData->getFsalida()));
             $fvuelta = ("" != $fSeleccionadaData->getFvuelta()) ?  date('d-m-Y', strtotime($fSeleccionadaData->getFvuelta())) : "N/A";
+            $duracion = Util::duracionCalc($fvuelta, $fsalida); 
             $pProveedor = $fSeleccionadaData->getPrecioProveedor();
             $pComision = $fSeleccionadaData->getComision();
             $precio = $pProveedor + (($pProveedor * $pComision) / 100);   
@@ -183,10 +184,7 @@ try {
                             </li>
                             <li>
                                 <div class="colored-icon icon-1"><span></span></div>
-                                <strong>Duracion:</strong> <?php 
-                                // TODO: refactorizar, poner este calculo al principio
-                                 $duracion=strtotime("01/02/2020") - strtotime("25/01/2020"); echo date('d',$duracion)*1; 
-                                 ?> D&iacute;as
+                                <strong>Duracion:</strong> <?= $duracion ?> D&iacute;as
                             </li>
                             <li>
                                 <div class="colored-icon icon-6"><span></span></div>
@@ -201,15 +199,12 @@ try {
                                 <strong>Precio:</strong> <?= $pvp ?>
                             </li>
                         </ul>
-                        <p><?= $producto->getDescripcion() ?></p>
+                        <p>
+                            <?= $producto->getDescripcion() ?>
+                        </p>
                         <footer class="tour-footer"> 
-                            <!--<a hreflang="es" type="text/html" charset="iso-8859-1" href="reserva-cliente-datos.php?idproducto=idProducto&amp;idFecha=idFecha" title="Solicitar la reserva de <?= $producto ?>" class="button small"><span>Reservar Ahora</span></a>-->
-                            <form method="POST" action="reserva-cliente-datos.php">
-                                <input type="submit" value="Reservar Ahora" title="Solicitar la reserva de <?= $producto ?>" class="button">
-                                <input type="hidden" value="<?= $idProductoFechaRef ?>" name="productoFechaRef"/>
-                                <a href="#question-form" data-id="<?= $producto ?>" data-title="<?= $producto ?>" class="button grey small inline"><span>Consultar</span></a>
-                            </form>
-                             
+                            <a hreflang="es" type="text/html" charset="utf-8" href="reserva-cliente-datos.php?idProducto=<?= $idProducto ?>&amp;idProductoFechaRef=<?= $idProductoFechaRef ?>" title="Solicitar la reserva de <?= $producto ?>" class="button small"><span>Reservar Ahora</span></a> 
+                            <a href="#question-form" data-id="<?= $producto ?>" data-title="<?= $producto ?>" class="button grey small colorbox inline"><span>Consultar</span></a> 
                         </footer>
                     </div>
                 </div>
@@ -302,7 +297,7 @@ try {
                                                 <div class="colored-icon icon-2"></div>
                                                 <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>" rel="tag" title="<?= $categoria ?>"><?= $categoria ?></a>
                                             </div>
-                                            <div class="colored-icon icon-3"></div><div class="precio"><?= $producto->getPrecioMasBajo() ?>&euro;</div>
+                                            <div class="colored-icon icon-3"></div><div class="precio"><?= $producto->getPrecioMasBajo()?></div>
                                         </div>
                                     </div>
                                 </div>

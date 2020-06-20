@@ -122,7 +122,7 @@ if  (
                                 <div class="post-content">
                                     <h2 class="post-title">
                                         <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $slugCatPadre ?>/<?= $categoria->getSlug() ?>" title="<?= $categoria->getNombre() ?>">
-                                            <?= $categoria->getNombre() ?> desde <?= $precioMasBajo ?>&euro;
+                                            <?= $categoria->getNombre() ?> desde <?= $precioMasBajo ?>
                                         </a>
                                     </h2>
                                     <p>&nbsp;</p>

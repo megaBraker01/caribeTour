@@ -37,7 +37,7 @@ class Categoria extends CategoriaBase {
      * Obtiene el precio mas bajo disponible de la categoria actual
      * @param bool $sumaComicion
      * @param bool $byCatPadre
-     * @return type
+     * @return string
      */
     public function getPrecioMasBajo(bool $sumaComicion = true, bool $byCatPadre = false)
     {
@@ -65,7 +65,6 @@ class Categoria extends CategoriaBase {
             $ret = $precio;
         }
         
-        // TODO: cambiar el retorno de esta funcion por Util::moneda()
-        return number_format($ret, $decimals = 2, ",", ".");
+        return Util::moneda($ret);
     }
 }

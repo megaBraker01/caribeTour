@@ -102,7 +102,7 @@ $paisesList = $productoC->getProductoFechaRefPDO($filtros, $ordenados, $limitar,
                                 </div>
                                 <div class="post-content">
                                     <h2 class="post-title">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoria->getSlug() ?>" title="<?= $categoria->getNombre() ?>"><?= $categoria->getNombre() ?> desde <?= $precioMasBajo ?>&euro;</a>
+                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoria->getSlug() ?>" title="<?= $categoria->getNombre() ?>"><?= $categoria->getNombre() ?> desde <?= $precioMasBajo ?></a>
                                     </h2>
                                     <p>&nbsp;</p>
                                 </div>

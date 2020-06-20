@@ -41,8 +41,7 @@ class Producto extends ProductoBase {
             $ret = $precio;
         }
         
-        // TODO: cambiar el retorno de esta funcion por Util::moneda()
-        return number_format($ret, $decimals = 2, ",", ".");
+        return Util::moneda($ret);
     }
     
     public function setSlug($slug = '')

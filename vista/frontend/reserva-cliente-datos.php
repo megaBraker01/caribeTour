@@ -12,9 +12,6 @@ try{
     $productoC = new ProductoController;
     $producto = $productoC->getProductoById($idProducto);
     $producSlug = $producto->getSlug();
-    if(!$producto){
-        $showError = "El producto seleccionado ya NO se encuentra disponible";
-    }
     $categoria = $producto->getCategoria();
     $catSlug = $categoria->getSlug();
     $catPadre = $categoria->getCategoriaPadre();
@@ -42,6 +39,43 @@ try{
     }
     
     
+    
+    // EDIT AREA
+    $editFormAction = $_SERVER['PHP_SELF'];
+    if (isset($_SERVER['QUERY_STRING'])) {
+      $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
+    }
+    
+    if(isset($_POST['chx_termsAndConditions']) and "on" == $_POST['chx_termsAndConditions']){
+        
+        $nombreT = $_POST['nombreT'];
+        $apellidosT = $_POST['apellidosT'];
+        $NIFoPasaporteT = $_POST['NIFoPasaporteT'];
+        $telefonoT = $_POST['telefonoT'];
+        $emailT = $_POST['emailT'];
+        $direccionT = $_POST['direccionT'];
+        $ciudadT = $_POST['ciudadT'];
+        $provinciaT = $_POST['provinciaT'];
+        $codigoPostalT = $_POST['codigoPostalT'];
+        $notasT = $_POST['notasT'];
+        $idProductoFechaRef = $_POST['idProductoFechaRef'];
+        
+        $clienteC = new ClienteController;
+        $titular = new Cliente();
+        $titular->setNombre($nombreT)->setApellidos($apellidosT)->setNIFoPasaporte($NIFoPasaporteT)
+                ->setTelefono($telefonoT)->setEmail($emailT)->setDireccion($direccionT)->setCiudad($ciudadT)
+                ->setProvincia($provinciaT)->setCodigoPostal($codigoPostalT);
+        
+        $pasajerosList = [];
+        $reservaC = new ReservaController;
+        $reservaCode = $reservaC->generarReserva($titular, $pasajerosList, $notasT, $idProductoFechaRef);
+        
+    }
+    
+    var_dump($_POST);
+    foreach ($_POST as $p => $item){
+        echo $p . "<br>";
+    }
     
     
 } catch (Exception $e){
@@ -183,35 +217,35 @@ try{
                     
                     
                     <div class="booking-form">
-                        <form action="reserva-add.php" method="POST" class="formatted-form" role="form" name="clientes" lang="es" onSubmit="return validacion();" dir="ltr">
+                        <form action="<?= $editFormAction ?>" method="POST" class="formatted-form" role="form" name="clientes" lang="es" onSubmit="return validacion();" dir="ltr">
                             <div class="section-title">
                                 <h2>Datos del Titular</h2>
                             </div>
                             <fieldset class="column fourcol" name="Titular">
                                 <label for="nombre">Nombre *</label>
-                                <div class="field-container"><input id="nombre" type="text" width="" name="strNombre[]" value="" placeholder="Nombre" title="Introduzca su Nombre" maxlength="20" tabindex="1" required /></div>
+                                <div class="field-container"><input id="nombre" type="text" width="" name="nombreT" value="" placeholder="Nombre" title="Introduzca su Nombre" maxlength="20" equired /></div>
                                 <label for="apelli2">Apellidos *</label>
-                                <div class="field-container"><input id="apelli2" type="text" name="strApellidos[]" value="" placeholder="Apellidos" title="Introduzca sus Apellidos" maxlength="30" tabindex="2" required /></div>
+                                <div class="field-container"><input id="apelli2" type="text" name="apellidosT" value="" placeholder="Apellidos" title="Introduzca sus Apellidos" maxlength="30" required /></div>
                                 <label for="dni">DNI o Pasaporte *</label>
-                                <div class="field-container"><input id="dni" type="text" name="strDNI[]" value="" placeholder="DNI o Pasaporte" title="Introduzca el DNI o Pasaporte sin guiones ni espacios." maxlength="10" tabindex="3" required /></div>
+                                <div class="field-container"><input id="dni" type="text" name="NIFoPasaporteT" value="" placeholder="DNI o Pasaporte" title="Introduzca el DNI o Pasaporte sin guiones ni espacios." maxlength="10" required /></div>
                                 <label for="telefono">Tel&eacute;fono de contacto *</label>
-                                <div class="field-container"><input id="telefono" type="number" name="strTelefono[]" value="" placeholder="Tel&eacute;fono" title="Introduzca su N&uacute;mero Telef&oacute;nico sin guiones ni espacios" maxlength="15" tabindex="4" required /></div>
+                                <div class="field-container"><input id="telefono" type="number" name="telefonoT" value="" placeholder="Tel&eacute;fono" title="Introduzca su N&uacute;mero Telef&oacute;nico sin guiones ni espacios" maxlength="15" required /></div>
                                 <label for="email">Email *</label>
-                                <div class="field-container"><input type="email" name="strEmail[]" id="email" value="" placeholder="Email" title="Introduzca su Correo Eletr&oacute;nico" maxlength="50" tabindex="5" required /></div>
+                                <div class="field-container"><input type="email" name="emailT" id="email" value="" placeholder="Email" title="Introduzca su Correo Eletr&oacute;nico" maxlength="50" required /></div>
                             </fieldset>
                             <fieldset class="column fourcol" name="Direccion">
                                 <label for="direccion">Direcci&oacute;n</label>
-                                <div class="field-container"><input type="text" id="direccion" name="strDireccion" value="" placeholder="Direcci&oacute;n" title="Indique su Direcci&oacute;n" maxlength="30" tabindex="6" required /></div>
+                                <div class="field-container"><input type="text" id="direccion" name="direccionT" value="" placeholder="Direcci&oacute;n" title="Indique su Direcci&oacute;n" maxlength="30" required /></div>
                                 <label for="ciudad">Ciudad o Pueblo</label>
-                                <div class="field-container"><input type="text" id="ciudad" name="strCiudad" value="" placeholder="Ciudad o Pueblo" title="Introduzca su Ciudad" maxlength="30" tabindex="7" required /></div>
+                                <div class="field-container"><input type="text" id="ciudad" name="ciudadT" value="" placeholder="Ciudad o Pueblo" title="Introduzca su Ciudad" maxlength="30" required /></div>
                                 <label for="provincia">Provincia</label>
-                                <div class="field-container"><input type="text" id="provincia" name="strProvincia" value="" placeholder="Provincia" title="Introduzca su Provincia" maxlength="30" tabindex="8" required /></div>
+                                <div class="field-container"><input type="text" id="provincia" name="provinciaT" value="" placeholder="Provincia" title="Introduzca su Provincia" maxlength="30" required /></div>
                                 <label for="cp">C&oacute;digo Postal</label>
-                                <div class="field-container"><input type="number" id="cp" name="intCodigoPostal" value="" placeholder="C&oacute;digo Postal" title="Introduzca el C&oacute;digo Postal sin guiones ni espacios" maxlength="6" tabindex="9" required /></div>
+                                <div class="field-container"><input type="number" id="cp" name="codigoPostalT" value="" placeholder="C&oacute;digo Postal" title="Introduzca el C&oacute;digo Postal sin guiones ni espacios" maxlength="6" required /></div>
                             </fieldset>
                             <fieldset class="column fourcol last" name="notas">
                                 <label for="notas">Notas</label>
-                                <div class="field-container"><textarea name="strNotas" id="notas" title="Agrega cualquier comentario que sea de utilidad..." placeholder="Agrega cualquier comentario que sea de utilidad..." maxlength="500" width="100%" spellcheck="true" tabindex="10" rows="90"></textarea></div>
+                                <div class="field-container"><textarea name="notasT" id="notas" title="Agrega cualquier comentario que sea de utilidad..." placeholder="Agrega cualquier comentario que sea de utilidad..." maxlength="500" width="100%" spellcheck="true" rows="90"></textarea></div>
                             </fieldset>
                             
                             <div class="clear"></div>
@@ -239,20 +273,20 @@ try{
                             <fieldset class="column fourcol" name="Pasajero 1">
                                 <legend><h2>Pasajero 1</h2></legend>
                                 <label for="nombrep">Nombre *</label>
-                                <div class="field-container"><input id="nombrep" type="text" width="" name="strNombre[]" value="" placeholder="Nombre" title="Introduzca su Nombre" maxlength="20" tabindex="12" required /></div>
+                                <div class="field-container"><input id="nombrep" type="text" width="" name="nombreP[]" value="" placeholder="Nombre" title="Introduzca su Nombre" maxlength="20" required /></div>
                                 <label for="apelli2p">Apellidos *</label>
-                                <div class="field-container"><input id="apelli2p" type="text" name="strApellidos[]" value="" placeholder="Apellidos" title="Introduzca sus Apellidos" maxlength="30" tabindex="13" required /></div>
+                                <div class="field-container"><input id="apelli2p" type="text" name="apellidosP[]" value="" placeholder="Apellidos" title="Introduzca sus Apellidos" maxlength="30" required /></div>
                                 <label for="dnip">DNI o Pasaporte *</label>
-                                <div class="field-container"><input id="dnip" type="text" name="strDNI[]" value="" placeholder="DNI o Pasaporte" title="Introduzca el DNI o Pasaporte sin guiones ni espacios." maxlength="10" tabindex="14" required /></div>
+                                <div class="field-container"><input id="dnip" type="text" name="NIFoPasaporteP[]" value="" placeholder="DNI o Pasaporte" title="Introduzca el DNI o Pasaporte sin guiones ni espacios." maxlength="10" required /></div>
                                 <legend>Fecha de Nacimiento *</legend>
                                 <div class="threecol column">
                                     <div class="field-container">
-                                        <input type="number" name="intDia[]" value="" id="dia" placeholder="D&iacute;a" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) strMes[].focus()" maxlength="2" max="31" min="1" title="Introduzca el D&iacute;a de su nacimiento" tabindex="15" required />
+                                        <input type="number" name="diaP[]" value="" id="dia" placeholder="D&iacute;a" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) mesP[].focus()" maxlength="2" max="31" min="1" title="Introduzca el D&iacute;a de su nacimiento" required />
                                     </div>
                                 </div>
                                 <div class="fivecol column">
                                     <div class="field-container">
-                                        <select name="strMes[]" id="mes" title="Seleccione el mes de su nacimiento" tabindex="16" required >
+                                        <select name="mesP[]" id="mes" title="Seleccione el mes de su nacimiento" required >
                                             <option value="" selected="selected">Mes</option>
                                             <option value="01">Enero</option>
                                             <option value="02">Febrero</option>
@@ -271,26 +305,26 @@ try{
                                 </div>
                                 <div class="fourcol column last">
                                 <div class="field-container">
-                                <input type="number" id="anio" name="intAnios[]" value="" maxlength="4" max="2002" min="1930" placeholder="A&ntilde;o" title="Introduzca el a&ntilde;o de su nacimiento" tabindex="17" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) strCiudad[].focus()" required /></div></div>
+                                <input type="number" id="anio" name="anioP[]" value="" maxlength="4" max="2002" min="1930" placeholder="A&ntilde;o" title="Introduzca el a&ntilde;o de su nacimiento" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) strCiudad[].focus()" required /></div></div>
                             </fieldset>
                             
                             <fieldset class="column fourcol" name="Pasajero 1">
                                 <legend><h2>Pasajero 2</h2></legend>
                                 <label for="nombrep">Nombre *</label>
-                                <div class="field-container"><input id="nombrep" type="text" width="" name="strNombre[]" value="" placeholder="Nombre" title="Introduzca su Nombre" maxlength="20" tabindex="12" required /></div>
+                                <div class="field-container"><input id="nombrep" type="text" width="" name="nombreP[]" value="" placeholder="Nombre" title="Introduzca su Nombre" maxlength="20" required /></div>
                                 <label for="apelli2p">Apellidos *</label>
-                                <div class="field-container"><input id="apelli2p" type="text" name="strApellidos[]" value="" placeholder="Apellidos" title="Introduzca sus Apellidos" maxlength="30" tabindex="13" required /></div>
+                                <div class="field-container"><input id="apelli2p" type="text" name="apellidosP[]" value="" placeholder="Apellidos" title="Introduzca sus Apellidos" maxlength="30" required /></div>
                                 <label for="dnip">DNI o Pasaporte *</label>
-                                <div class="field-container"><input id="dnip" type="text" name="strDNI[]" value="" placeholder="DNI o Pasaporte" title="Introduzca el DNI o Pasaporte sin guiones ni espacios." maxlength="10" tabindex="14" required /></div>
+                                <div class="field-container"><input id="dnip" type="text" name="NIFoPasaporteP[]" value="" placeholder="DNI o Pasaporte" title="Introduzca el DNI o Pasaporte sin guiones ni espacios." maxlength="10" required /></div>
                                 <legend>Fecha de Nacimiento *</legend>
                                 <div class="threecol column">
                                     <div class="field-container">
-                                        <input type="number" name="intDia[]" value="" id="dia" placeholder="D&iacute;a" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) strMes[].focus()" maxlength="2" max="31" min="1" title="Introduzca el D&iacute;a de su nacimiento" tabindex="15" required />
+                                        <input type="number" name="diaP[]" value="" id="dia" placeholder="D&iacute;a" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) mesP[].focus()" maxlength="2" max="31" min="1" title="Introduzca el D&iacute;a de su nacimiento" required />
                                     </div>
                                 </div>
                                 <div class="fivecol column">
                                     <div class="field-container">
-                                        <select name="strMes[]" id="mes" title="Seleccione el mes de su nacimiento" tabindex="16" required >
+                                        <select name="mesP[]" id="mes" title="Seleccione el mes de su nacimiento" required >
                                             <option value="" selected="selected">Mes</option>
                                             <option value="01">Enero</option>
                                             <option value="02">Febrero</option>
@@ -309,25 +343,23 @@ try{
                                 </div>
                                 <div class="fourcol column last">
                                 <div class="field-container">
-                                <input type="number" id="anio" name="intAnios[]" value="" maxlength="4" max="2002" min="1930" placeholder="A&ntilde;o" title="Introduzca el a&ntilde;o de su nacimiento" tabindex="17" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) strCiudad[].focus()" required /></div></div>
+                                <input type="number" id="anio" name="anioP[]" value="" maxlength="4" max="2002" min="1930" placeholder="A&ntilde;o" title="Introduzca el a&ntilde;o de su nacimiento" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) strCiudad[].focus()" required /></div></div>
                             </fieldset>
                             
                             
                             <fieldset class="twelvecol column last">
                                 <div class="field-container">
-                                    <input type="checkbox" name="chx_termsAndConditions" id="chx_termsAndConditions" tabindex="24" required /> 
+                                    <input type="checkbox" name="chx_termsAndConditions" id="chx_termsAndConditions" required /> 
                                     <label for="chx_termsAndConditions" title="Aceptar los terminos y condiciones">
                                         He le&iacute;do y acepto las <a href="legal/condiciones-de-uso" title="Ver condiciones generales" target="_blank">Condiciones generales</a> de venta y la <a href="legal/politica-de-privacidad" title="Ver Pol&iacute;tica de Seguridad y Privacidad" target="_blank">Pol&iacute;tica de Seguridad y Privacidad</a>
                                     </label>
                                 </div>
                                 <p>&nbsp;</p>
 
-                                <input type="hidden" name="MM_insert" value="clientes" />
-                                <input type="hidden" name="idproducto" value="7" />
-                                <input type="hidden" name="idFecha" value="322">
-                                <input type="hidden" name="dblPrecio" value="9000" />
-                                <input type="hidden" name="dblTasas" value="65" />
-                                <input type="submit" name="submit" value="Confirmar Datos y Elegir Forma de Pago" title="Confirmar Datos y Elegir Forma de Pago" tabindex="25"/>
+                                <input type="hidden" name="idproducto" value="<?= $idProducto ?>" />
+                                <input type="hidden" name="idProductoFechaRef" value="<?= $idProductoFechaRef ?>">
+                                <input type="hidden" name="pvp" value="<?= $pvp ?>" />
+                                <input type="submit" value="Confirmar Datos y Elegir Forma de Pago" title="Confirmar Datos y Elegir Forma de Pago" tabindex="25"/>
                                 
                             </fieldset>
                             

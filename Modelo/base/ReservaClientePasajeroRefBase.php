@@ -1,6 +1,6 @@
 <?php
 
-abstract class ClientePasajeroReservaRefBase extends ModelBase {
+abstract class ReservaClientePasajeroRefBase extends ModelBase {
 
     protected $idCliente;
     protected $idPasajero;

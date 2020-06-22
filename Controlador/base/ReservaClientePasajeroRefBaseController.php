@@ -1,18 +1,18 @@
 <?php
 
-abstract class ClientePasajeroReservaRefBaseController extends BaseController {
+abstract class ReservaClientePasajeroRefBaseController extends BaseController {
 
 
 
-    public function insert(ClientePasajeroReservaRef $ClientePasajeroReservaRef): int {
+    public function insert(ReservaClientePasajeroRef $ReservaClientePasajeroRef): int {
         try{
-            $sql = "INSERT INTO cliente_pasajero_reserva_ref (idCliente, idPasajero, idReserva) 
+            $sql = "INSERT INTO reserva_cliente_pasajero_ref (idCliente, idPasajero, idReserva) 
             VALUES (:idCliente, :idPasajero, :idReserva);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":idCliente", $ClientePasajeroReservaRef->getIdCliente());
-$statement->bindValue(":idPasajero", $ClientePasajeroReservaRef->getIdPasajero());
-$statement->bindValue(":idReserva", $ClientePasajeroReservaRef->getIdReserva());
+            $statement->bindValue(":idCliente", $ReservaClientePasajeroRef->getIdCliente());
+$statement->bindValue(":idPasajero", $ReservaClientePasajeroRef->getIdPasajero());
+$statement->bindValue(":idReserva", $ReservaClientePasajeroRef->getIdReserva());
 
             $ret = 0;
             if($statement->execute()){
@@ -27,14 +27,14 @@ $statement->bindValue(":idReserva", $ClientePasajeroReservaRef->getIdReserva());
         }
     }
 
-    public function update(ClientePasajeroReservaRef $ClientePasajeroReservaRef): int {
+    public function update(ReservaClientePasajeroRef $ReservaClientePasajeroRef): int {
         try{
-            $sql = "UPDATE cliente_pasajero_reserva_ref SET idCliente = :idCliente, idPasajero = :idPasajero, idReserva = :idReserva WHERE idCliente = :idCliente AND idPasajero = :idPasajero AND idReserva = :idReserva LIMIT 1;";
+            $sql = "UPDATE reserva_cliente_pasajero_ref SET idCliente = :idCliente, idPasajero = :idPasajero, idReserva = :idReserva WHERE idCliente = :idCliente AND idPasajero = :idPasajero AND idReserva = :idReserva LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":idCliente", $ClientePasajeroReservaRef->getIdCliente());
-$statement->bindValue(":idPasajero", $ClientePasajeroReservaRef->getIdPasajero());
-$statement->bindValue(":idReserva", $ClientePasajeroReservaRef->getIdReserva());
+            $statement->bindValue(":idCliente", $ReservaClientePasajeroRef->getIdCliente());
+$statement->bindValue(":idPasajero", $ReservaClientePasajeroRef->getIdPasajero());
+$statement->bindValue(":idReserva", $ReservaClientePasajeroRef->getIdReserva());
 
             $ret = 0;
             if($statement->execute()){
@@ -52,13 +52,13 @@ $statement->bindValue(":idReserva", $ClientePasajeroReservaRef->getIdReserva());
     public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
             $sql = "SELECT idCliente, idPasajero, idReserva 
-            FROM cliente_pasajero_reserva_ref";                        
+            FROM reserva_cliente_pasajero_ref";                        
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(!empty($rows)){
                 foreach($rows as $row){
-                    $ret[] = new ClientePasajeroReservaRef($row->idCliente, $row->idPasajero, $row->idReserva);
+                    $ret[] = new ReservaClientePasajeroRef($row->idCliente, $row->idPasajero, $row->idReserva);
                 }
             }
             
@@ -74,7 +74,7 @@ $statement->bindValue(":idReserva", $ClientePasajeroReservaRef->getIdReserva());
             if(!isset($ids['idCliente']) or !isset($ids['idPasajero']) or !isset($ids['idReserva'])){
                 throw new Exception('Para eliminar un registro, se tiene que especificar sus ids');
             }
-            $sql = "DELETE FROM cliente_pasajero_reserva_ref";
+            $sql = "DELETE FROM reserva_cliente_pasajero_ref";
             $sql .= " WHERE idCliente = :idCliente AND idPasajero = :idPasajero AND idReserva = :idReserva LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);

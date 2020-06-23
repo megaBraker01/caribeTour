@@ -10,17 +10,19 @@ class ProductoController extends ProductoBaseController {
      */
     public function getProductoById(int $idProducto)
     {
-        $producto = @$this->select([['idProducto', $idProducto]])[0];		
-        if(!$producto){
-            throw new Exception('NO hay producto con el id indicado');
+        if(!is_int($idProducto) or $idProducto < 1){
+            throw new Exception('[ERROR] El idProducto tiene que ser un entero mayor a cero (0)');
         }
+
+        $producto = @$this->select([['idProducto', $idProducto]])[0] ?? new Producto;
+
         return $producto;
     }
     
     /**
      * TODO: pasar este metodo al modelo o al controlador de producto
      * @param string $slug
-     * @return type
+     * @return Pruducto $producto
      * @throws Exception
      */
     public function getProductoBySlug(string $slug)
@@ -29,13 +31,8 @@ class ProductoController extends ProductoBaseController {
             throw new Exception('[ERROR] El slug tiene que ser un string distinto de ""');
         }
         $slug = strtolower($slug);
-        $producto = null;
-        $productoC = new ProductoController;
-        $filtros = [['slug', $slug]];
-        $productoList = $productoC->select($filtros);
-        if(isset($productoList[0])){
-            $producto = $productoList[0];
-        }
+        $producto = @$this->select([['slug', $slug]])[0] ?? new Producto;
+        
         return $producto;
     }
     

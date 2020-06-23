@@ -46,7 +46,7 @@ try{
       $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
     }
     
-    if(isset($_POST['chx_termsAndConditions']) and "on" == $_POST['chx_termsAndConditions']){
+    if(isset($_POST['chx_termsAndConditions']) and "on" == $_POST['chx_termsAndConditions']){        
         
         $nombreT = $_POST['nombreT'];
         $apellidosT = $_POST['apellidosT'];
@@ -59,6 +59,7 @@ try{
         $codigoPostalT = $_POST['codigoPostalT'];
         $notasT = $_POST['notasT'];
         $idProductoFechaRef = $_POST['idProductoFechaRef'];
+        $pvp = $_POST['pvp'];
         
         $clienteC = new ClienteController;
         $titular = new Cliente();
@@ -67,16 +68,24 @@ try{
                 ->setProvincia($provinciaT)->setCodigoPostal($codigoPostalT);
         
         $pasajerosList = [];
+        $count = count($_POST['nombreP']);
+        for($i = 0; $i < $count; $i++){
+            $nombreP = $_POST['nombreP'][$i];
+            $apellidosP = $_POST['apellidosP'][$i];
+            $NIFoPasaporteP = $_POST['NIFoPasaporteP'][$i];
+            $nacionalidadP = $_POST['nacionalidadP'][$i];
+            $fechaNacimiento = "{$_POST['anioP'][$i]}-{$_POST['mesP'][$i]}-{$_POST['diaP'][$i]}";
+            $fechaNacimiento = date('Y-m-d', strtotime($fechaNacimiento));
+            $pasajero = new Pasajero();
+            $pasajero->setNombre($nombreP)->setApellidos($apellidosP)->setNIFoPasaporte($NIFoPasaporteP)->setNacionalidad($nacionalidadP)->setFechaNacimiento($fechaNacimiento);
+            $pasajerosList[] = $pasajero;
+        }
+
         $reservaC = new ReservaController;
-        $reservaCode = $reservaC->generarReserva($titular, $pasajerosList, $notasT, $idProductoFechaRef);
+        $reserva = $reservaC->generarReserva($titular, $pasajerosList, $notasT, $idProductoFechaRef, $pvp);
+        var_dump($reserva);
         
     }
-    
-    var_dump($_POST);
-    foreach ($_POST as $p => $item){
-        echo $p . "<br>";
-    }
-    
     
 } catch (Exception $e){
     $showError = $e->getMessage();
@@ -278,6 +287,8 @@ try{
                                 <div class="field-container"><input id="apelli2p" type="text" name="apellidosP[]" value="" placeholder="Apellidos" title="Introduzca sus Apellidos" maxlength="30" required /></div>
                                 <label for="dnip">DNI o Pasaporte *</label>
                                 <div class="field-container"><input id="dnip" type="text" name="NIFoPasaporteP[]" value="" placeholder="DNI o Pasaporte" title="Introduzca el DNI o Pasaporte sin guiones ni espacios." maxlength="10" required /></div>
+                                <label for="nacionalidadp">Nacionalidad *</label>
+                                <div class="field-container"><input id="nacionalidadp" type="text" name="nacionalidadP[]" value="" placeholder="Nacionalidad" title="Introduzca la Nacionalidad." required /></div>
                                 <legend>Fecha de Nacimiento *</legend>
                                 <div class="threecol column">
                                     <div class="field-container">
@@ -316,6 +327,8 @@ try{
                                 <div class="field-container"><input id="apelli2p" type="text" name="apellidosP[]" value="" placeholder="Apellidos" title="Introduzca sus Apellidos" maxlength="30" required /></div>
                                 <label for="dnip">DNI o Pasaporte *</label>
                                 <div class="field-container"><input id="dnip" type="text" name="NIFoPasaporteP[]" value="" placeholder="DNI o Pasaporte" title="Introduzca el DNI o Pasaporte sin guiones ni espacios." maxlength="10" required /></div>
+                                <label for="nacionalidadp">Nacionalidad *</label>
+                                <div class="field-container"><input id="nacionalidadp" type="text" name="nacionalidadP[]" value="" placeholder="Nacionalidad" title="Introduzca la Nacionalidad." required /></div>
                                 <legend>Fecha de Nacimiento *</legend>
                                 <div class="threecol column">
                                     <div class="field-container">

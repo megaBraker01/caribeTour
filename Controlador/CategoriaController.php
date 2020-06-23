@@ -5,7 +5,7 @@ class CategoriaController extends CategoriaBaseController {
     /**
      * 
      * @param int $idCategoria
-     * @return type
+     * @return Categoria $categoria
      * @throws Exception
      */
     public function getCategoriaById(int $idCategoria)
@@ -13,13 +13,9 @@ class CategoriaController extends CategoriaBaseController {
         if(!is_int($idCategoria) or $idCategoria < 1){
             throw new Exception('[ERROR] El idProducto tiene que ser un entero mayor a cero (0)');
         }
-        $categoria = null;
-        $categoriaC = new CategoriaController;
+
         $filtros = [['idCategoria', $idCategoria]];
-        $categoriaList = $categoriaC->select($filtros);
-        if(isset($categoriaList[0])){
-            $categoria = $categoriaList[0];
-        }
+        $categoria = @$this->select($filtros)[0] ?? new Categoria;
         return $categoria;
     }
     
@@ -34,14 +30,10 @@ class CategoriaController extends CategoriaBaseController {
         if(!is_string($slug) or "" == $slug){
             throw new Exception('[ERROR] El slug tiene que ser un string distinto de ""');
         }
+        
         $slug = strtolower($slug);
-        $categoria = null;
-        $categoriaC = new CategoriaController;
         $filtros = [['slug', $slug]];
-        $categoriaList = $categoriaC->select($filtros);
-        if(isset($categoriaList[0])){
-            $categoria = $categoriaList[0];
-        }
+        $categoria = @$this->select($filtros)[0] ?? new Categoria;
         return $categoria;
     }
 }

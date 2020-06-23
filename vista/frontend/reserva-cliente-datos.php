@@ -285,7 +285,7 @@ try{
                             <div class="clear"></div>
                             
                             
-                            <fieldset class="column fourcol" name="Pasajero 1">
+                            <fieldset class="column fourcol" name="Pasajero_1">
                                 <legend><h2>Pasajero 1</h2></legend>
                                 <label for="nombrep">Nombre *</label>
                                 <div class="field-container"><input id="nombrep" type="text" width="" name="nombreP[]" value="" placeholder="Nombre" title="Introduzca su Nombre" maxlength="20" required /></div>
@@ -325,7 +325,7 @@ try{
                                 <input type="number" id="anio" name="anioP[]" value="" maxlength="4" max="2002" min="1930" placeholder="A&ntilde;o" title="Introduzca el a&ntilde;o de su nacimiento" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) strCiudad[].focus()" required /></div></div>
                             </fieldset>
                             
-                            <fieldset class="column fourcol" name="Pasajero 1">
+                            <fieldset class="column fourcol" name="Pasajero_2">
                                 <legend><h2>Pasajero 2</h2></legend>
                                 <label for="nombrep">Nombre *</label>
                                 <div class="field-container"><input id="nombrep" type="text" width="" name="nombreP[]" value="" placeholder="Nombre" title="Introduzca su Nombre" maxlength="20" required /></div>
@@ -370,14 +370,38 @@ try{
                                 <p>&nbsp;</p>
                             </fieldset>
                             <div class="clear"></div>
+                            <!--TODO: meter la seccion seguros en la tabla reserva, ej: un capo que sea tipoSeguro o simplemente seguro, y que guarde el id de la tabla tipo -->
+                            <fieldset class="twelvecol column last" name="Seguros">
+                                <div class="section-title">
+                                    <h2>Seguros</h2>
+                                </div>
+                            </fieldset>
                             
-                            <fieldset class="twelvecol column last" name="pasajeros">
+                            <fieldset class="twelvecol column last">
+                                <div class="field-container">
+                                    <input id="asistencia" type="radio" name="seguro" value="asistencia" checked/><span><label for="asistencia" class="label-input-radio">Asistencia</label></span><br>
+                                    <p>Amplia cobertura médica hasta 10.000 euros, que garantiza un viaje seguro por cualquier parte del mundo de hasta 17 días de duración. 20€ por Pasajero. [<a href="#">Ver condiciones</a>]</p>
+                                    <input id="cancelacion" type="radio" name="seguro" value="cancelacion" /><span><label for="cancelacion" class="label-input-radio">Cancelaci&oacute;n</label></span><br>
+                                    <p>Cobertura cancelación Viaje hasta 1200 euros + interrupción del viaje en destino días no disfrutados (Si desea ampliar su importe de cobertura indíqueselo al agente al confirmar su reserva). 50€ por Pasajero [<a href="#">Ver condiciones</a>]</p>
+                                    <input id="asistenciaCancelacion" type="radio" name="seguro" value="asistenciaCancelacion" /><span><label for="asistenciaCancelacion" class="label-input-radio">Asistencia + Cancelaci&oacute;n</label></span><br>
+                                    <p>Ambos seguros descritos en los puntos anteriores y con una mayor cobertura médica hasta 35.000 euros y de cancelación hasta 1800 euros. (RECOMENDADO) 60€ por Pasajero [<a href="#">Ver condiciones</a>]</p>
+                                    <input id="sinSeguro" type="radio" name="seguro" value="sinSeguro" /><span><label for="sinSeguro" class="label-input-radio">Sin Seguro</label></span><br>
+                                </div>
+                            </fieldset>
+                            
+                            <div class="clear"></div>
+                            <fieldset class="twelvecol column last">
+                                <p>&nbsp;</p>
+                            </fieldset>
+                            <div class="clear"></div>
+                            
+                            <fieldset class="twelvecol column last" name="FomaPago">
                                 <div class="section-title">
                                     <h2>Forma de Pago</h2>
                                 </div>
                             </fieldset>
                             
-                            <fieldset class="twelvecol column last" name="pasajeros">
+                            <fieldset class="twelvecol column last">
                                 <div class="field-container">
                                     <input id="tarjeta" type="radio" name="tipoPago" value="tarjeta" checked /><span><label for="tarjeta" class="label-input-radio">Tarjeta Cr&eacute;dito/D&eacute;vito</label></span><br>
                                     <input id="PayPal" type="radio" name="tipoPago" value="PayPal" /><span><label for="PayPal" class="label-input-radio">PayPal</label></span><br>

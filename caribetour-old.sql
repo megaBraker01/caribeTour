@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 13-06-2020 a las 08:16:59
+-- Tiempo de generación: 22-06-2020 a las 19:48:47
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 7.0.23
 
@@ -187,20 +187,6 @@ INSERT INTO `clientes` (`idCliente`, `idEstado`, `nombre`, `apellidos`, `NIFoPas
 (12, 2, 'Esther', 'Ontana', '13477542b', '276062155', 'Esther05@hotmail.com', 'c/la plana, 4, 1b', '25000', 'barcelona', 'hospitalet', 'españa', '2020-01-13 20:51:14', NULL),
 (13, 2, 'Paula', 'Ramirez', '13477542b', '276062155', 'Paula05@hotmail.com', 'c/la plana, 4, 1b', '26000', 'barcelona', 'hospitalet', 'españa', '2020-01-13 20:51:14', NULL),
 (14, 2, 'Laura', 'Peña', '13477542b', '276062155', 'Laura05@hotmail.com', 'c/la plana, 4, 1b', '27000', 'barcelona', 'hospitalet', 'españa', '2020-01-13 20:51:14', NULL);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `cliente_pasajero_reserva_ref`
---
-
-DROP TABLE IF EXISTS `cliente_pasajero_reserva_ref`;
-CREATE TABLE IF NOT EXISTS `cliente_pasajero_reserva_ref` (
-  `idCliente` int(11) NOT NULL,
-  `idPasajero` int(11) NOT NULL,
-  `idReserva` int(11) NOT NULL,
-  PRIMARY KEY (`idCliente`,`idPasajero`,`idReserva`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -441,15 +427,15 @@ CREATE TABLE IF NOT EXISTS `fechas` (
 --
 
 INSERT INTO `fechas` (`idFecha`, `fecha`, `idPuertoSalida`, `terminalSalida`, `tasasSalida`, `idPuertoDestino`, `terminalDestino`, `tasasDestino`, `idCia`) VALUES
-(1, '2020-06-02 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
-(2, '2020-06-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
-(3, '2020-06-17 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
-(4, '2020-06-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
-(5, '2020-06-25 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
-(6, '2020-06-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
-(7, '2020-06-15 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
-(8, '2020-06-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
-(9, '2020-06-17 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
+(1, '2020-06-22 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
+(2, '2020-06-29 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
+(3, '2020-06-23 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
+(4, '2020-06-30 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
+(5, '2020-07-01 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
+(6, '2020-07-08 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
+(7, '2020-07-06 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
+(8, '2020-07-13 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
+(9, '2020-06-18 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
 (10, '2020-06-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1);
 
 -- --------------------------------------------------------
@@ -767,19 +753,18 @@ CREATE TABLE IF NOT EXISTS `producto_fecha_ref` (
 INSERT INTO `producto_fecha_ref` (`idProductoFechaRef`, `idProducto`, `idFechaSalida`, `idFechaVuelta`, `precioProveedor`, `comision`) VALUES
 (1, 5, 1, 2, 800, 10),
 (2, 3, 7, 8, 850, 9),
-(3, 4, 5, NULL, 700, 10),
 (4, 2, 7, 8, 1000, 10),
-(5, 1, 9, 10, 100, 10),
+(5, 3, 9, 10, 100, 10),
 (6, 6, 1, 2, 865, 10),
-(7, 3, 9, 10, 850, 9),
+(7, 4, 9, 10, 850, 9),
 (8, 2, 7, 8, 1987, 10),
 (9, 1, 9, 10, 123, 10),
-(10, 7, 5, 6, 965, 10),
+(10, 3, 5, 6, 965, 10),
 (11, 8, 5, NULL, 720, 10),
 (12, 9, 7, 8, 1003, 10),
 (13, 10, 9, NULL, 103, 10),
 (14, 11, 1, NULL, 809, 10),
-(15, 12, 3, 4, 850, 9),
+(15, 3, 3, 4, 850, 9),
 (16, 10, 7, 8, 1000, 10),
 (17, 8, 9, 10, 120, 10),
 (18, 6, 5, 6, 708, 10);
@@ -872,6 +857,20 @@ CREATE TABLE IF NOT EXISTS `reservas` (
   `importe` double NOT NULL,
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idReserva`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reserva_cliente_pasajero_ref`
+--
+
+DROP TABLE IF EXISTS `reserva_cliente_pasajero_ref`;
+CREATE TABLE IF NOT EXISTS `reserva_cliente_pasajero_ref` (
+  `idCliente` int(11) NOT NULL,
+  `idPasajero` int(11) NOT NULL,
+  `idReserva` int(11) NOT NULL,
+  PRIMARY KEY (`idCliente`,`idPasajero`,`idReserva`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1041,7 +1040,7 @@ CREATE TABLE IF NOT EXISTS `v_proveedores` (
 --
 DROP TABLE IF EXISTS `v_producto_fecha_ref`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_producto_fecha_ref`  AS  select `pfr`.`idProductoFechaRef` AS `idProductoFechaRef`,`pfr`.`idProducto` AS `idProducto`,`pfr`.`idFechaSalida` AS `idFechaSalida`,`pfr`.`precioProveedor` AS `precioProveedor`,`pfr`.`comision` AS `comision`,`p`.`nombre` AS `producto`,`cat`.`idCategoria` AS `idCategoria`,`cat`.`nombre` AS `categoria`,`catpadre`.`idCategoria` AS `idCategoriaPadre`,`catpadre`.`nombre` AS `catPadre`,`fs`.`fecha` AS `fsalida`,`fs`.`terminalSalida` AS `terminalSalida`,`fs`.`terminalDestino` AS `terminalDestino`,`fs`.`tasasSalida` AS `tasasSalida`,`fs`.`tasasDestino` AS `tasasDestino`,`pfr`.`idFechaVuelta` AS `idFechaVuelta`,`fv`.`fecha` AS `fvuelta`,`fv`.`terminalSalida` AS `terminalSalidaV`,`fv`.`terminalDestino` AS `terminalDestinoV`,`fv`.`tasasSalida` AS `tasasSalidaV`,`fv`.`tasasDestino` AS `tasasDestinoV` from (((((`producto_fecha_ref` `pfr` join `productos` `p` on((`pfr`.`idProducto` = `p`.`idProducto`))) join `categorias` `cat` on((`p`.`idCategoria` = `cat`.`idCategoria`))) join `categorias` `catpadre` on((`cat`.`idCategoriaPadre` = `catpadre`.`idCategoria`))) join `fechas` `fs` on((`pfr`.`idFechaSalida` = `fs`.`idFecha`))) left join `fechas` `fv` on((`pfr`.`idFechaVuelta` = `fv`.`idFecha`))) where ((`p`.`idEstado` = 1) and (`cat`.`idEstado` = 1) and (`catpadre`.`idEstado` = 1)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_producto_fecha_ref`  AS  select `pfr`.`idProductoFechaRef` AS `idProductoFechaRef`,`pfr`.`idProducto` AS `idProducto`,`pfr`.`idFechaSalida` AS `idFechaSalida`,`pfr`.`precioProveedor` AS `precioProveedor`,`pfr`.`comision` AS `comision`,`p`.`nombre` AS `producto`,`cat`.`idCategoria` AS `idCategoria`,`cat`.`nombre` AS `categoria`,`catpadre`.`idCategoria` AS `idCategoriaPadre`,`catpadre`.`nombre` AS `catPadre`,`fs`.`fecha` AS `fsalida`,`fs`.`terminalSalida` AS `terminalSalida`,`fs`.`terminalDestino` AS `terminalDestino`,`fs`.`tasasSalida` AS `tasasSalida`,`fs`.`tasasDestino` AS `tasasDestino`,`pfr`.`idFechaVuelta` AS `idFechaVuelta`,`fv`.`fecha` AS `fvuelta`,`fv`.`terminalSalida` AS `terminalSalidaV`,`fv`.`terminalDestino` AS `terminalDestinoV`,`fv`.`tasasSalida` AS `tasasSalidaV`,`fv`.`tasasDestino` AS `tasasDestinoV` from (((((`producto_fecha_ref` `pfr` join `productos` `p` on((`pfr`.`idProducto` = `p`.`idProducto`))) join `categorias` `cat` on((`p`.`idCategoria` = `cat`.`idCategoria`))) join `categorias` `catpadre` on((`cat`.`idCategoriaPadre` = `catpadre`.`idCategoria`))) join `fechas` `fs` on((`pfr`.`idFechaSalida` = `fs`.`idFecha`))) left join `fechas` `fv` on((`pfr`.`idFechaVuelta` = `fv`.`idFecha`))) where ((`p`.`idEstado` = 1) and (`cat`.`idEstado` = 1) and (`catpadre`.`idEstado` = 1)) order by `fs`.`fecha` ;
 
 -- --------------------------------------------------------
 

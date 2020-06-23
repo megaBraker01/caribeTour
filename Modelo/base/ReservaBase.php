@@ -5,6 +5,7 @@ abstract class ReservaBase extends ModelBase {
     protected $idReserva;
     protected $idProductoFechaRef;
     protected $idEstado;
+    protected $idTipo;
     protected $importe;
     protected $fechaAlta;
 
@@ -12,12 +13,14 @@ abstract class ReservaBase extends ModelBase {
         $idReserva = 0,
         $idProductoFechaRef = 0,
         $idEstado = 0,
+        $idTipo = 12,
         $importe = 0,
         $fechaAlta = ''
     ){
         $this->setIdReserva($idReserva);
         $this->setIdProductoFechaRef($idProductoFechaRef);
         $this->setIdEstado($idEstado);
+        $this->setIdTipo($idTipo);
         $this->setImporte($importe);
         $this->setFechaAlta($fechaAlta);
     }
@@ -27,6 +30,8 @@ abstract class ReservaBase extends ModelBase {
     public function getIdProductoFechaRef(){ return $this->idProductoFechaRef; }
 
     public function getIdEstado(){ return $this->idEstado; }
+
+    public function getIdTipo(){ return $this->idTipo; }
 
     public function getImporte(){ return $this->importe; }
 
@@ -46,6 +51,13 @@ abstract class ReservaBase extends ModelBase {
         return $EstadoList[0];
     }
 
+    public function getTipo(){
+        $TipoController = new TipoController();
+        $idTipo = $this->getIdTipo();
+        $TipoList = $TipoController->select([['idTipo', $idTipo]]);
+        return $TipoList[0];
+    }
+
     public function setIdReserva($idReserva = 0){
         $this->idReserva = (int) $idReserva; return $this;
     }
@@ -56,6 +68,10 @@ abstract class ReservaBase extends ModelBase {
 
     public function setIdEstado($idEstado = 0){
         $this->idEstado = (int) $idEstado; return $this;
+    }
+
+    public function setIdTipo($idTipo = 12){
+        $this->idTipo = (int) $idTipo; return $this;
     }
 
     public function setImporte($importe = 0){

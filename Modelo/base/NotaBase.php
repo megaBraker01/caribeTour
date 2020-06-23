@@ -3,7 +3,7 @@
 abstract class NotaBase extends ModelBase {
 
     protected $idNota;
-    protected $nombreTabla;
+    protected $tabla;
     protected $idTabla;
     protected $nota;
     protected $idUsuario;
@@ -12,15 +12,15 @@ abstract class NotaBase extends ModelBase {
 
     public function __construct(
         $idNota = 0,
-        $nombreTabla = '',
+        $tabla = '',
         $idTabla = 0,
         $nota = '',
-        $idUsuario = 0,
+        $idUsuario = 1,
         $fechaAlta = '',
         $fechaUpdate = ''
     ){
         $this->setIdNota($idNota);
-        $this->setNombreTabla($nombreTabla);
+        $this->setTabla($tabla);
         $this->setIdTabla($idTabla);
         $this->setNota($nota);
         $this->setIdUsuario($idUsuario);
@@ -29,12 +29,12 @@ abstract class NotaBase extends ModelBase {
     }
 
     public function __toString(){
-        return $this->nombreTabla;
+        return $this->nota;
     }
 
     public function getIdNota(){ return $this->idNota; }
 
-    public function getNombreTabla(){ return $this->nombreTabla; }
+    public function getTabla(){ return $this->tabla; }
 
     public function getIdTabla(){ return $this->idTabla; }
 
@@ -45,13 +45,6 @@ abstract class NotaBase extends ModelBase {
     public function getFechaAlta(){ return $this->fechaAlta; }
 
     public function getFechaUpdate(){ return $this->fechaUpdate; }
-
-    public function getTabla(){
-        $TablaController = new TablaController();
-        $idTabla = $this->getIdTabla();
-        $TablaList = $TablaController->select([['idTabla', $idTabla]]);
-        return $TablaList[0];
-    }
 
     public function getUsuario(){
         $UsuarioController = new UsuarioController();
@@ -64,8 +57,8 @@ abstract class NotaBase extends ModelBase {
         $this->idNota = (int) $idNota; return $this;
     }
 
-    public function setNombreTabla($nombreTabla = ''){
-        $this->nombreTabla = (string) $nombreTabla; return $this;
+    public function setTabla($tabla = ''){
+        $this->tabla = (string) $tabla; return $this;
     }
 
     public function setIdTabla($idTabla = 0){
@@ -76,7 +69,7 @@ abstract class NotaBase extends ModelBase {
         $this->nota = (string) $nota; return $this;
     }
 
-    public function setIdUsuario($idUsuario = 0){
+    public function setIdUsuario($idUsuario = 1){
         $this->idUsuario = (int) $idUsuario; return $this;
     }
 

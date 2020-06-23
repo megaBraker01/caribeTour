@@ -29,8 +29,8 @@ try{
     if($fSeleccionadaData = @$productoC->getProductoFechaRefPDO($fsalidaFiltro)[0]){
         
         $idProductoFechaRef = $fSeleccionadaData->getIdProductoFechaRef();
-        $fsalida = date('d-m-Y', strtotime($fSeleccionadaData->getFsalida()));
-        $fvuelta = ("" != $fSeleccionadaData->getFvuelta()) ?  date('d-m-Y', strtotime($fSeleccionadaData->getFvuelta())) : "N/A";
+        $fsalida = Util::dateFormat($fSeleccionadaData->getFsalida());
+        $fvuelta = ("" != $fSeleccionadaData->getFvuelta()) ? Util::dateFormat($fSeleccionadaData->getFvuelta()) : "N/A";
         $duracion = Util::duracionCalc($fvuelta, $fsalida); 
         $pProveedor = $fSeleccionadaData->getPrecioProveedor();
         $pComision = $fSeleccionadaData->getComision();
@@ -57,15 +57,18 @@ try{
         $ciudadT = $_POST['ciudadT'];
         $provinciaT = $_POST['provinciaT'];
         $codigoPostalT = $_POST['codigoPostalT'];
+        $paisT = $_POST['paisT'];
         $notasT = $_POST['notasT'];
         $idProductoFechaRef = $_POST['idProductoFechaRef'];
+        $tipoPago = $_POST['tipoPago'];
         $pvp = $_POST['pvp'];
         
         $clienteC = new ClienteController;
         $titular = new Cliente();
         $titular->setNombre($nombreT)->setApellidos($apellidosT)->setNIFoPasaporte($NIFoPasaporteT)
-                ->setTelefono($telefonoT)->setEmail($emailT)->setDireccion($direccionT)->setCiudad($ciudadT)
-                ->setProvincia($provinciaT)->setCodigoPostal($codigoPostalT);
+                ->setTelefono($telefonoT)->setEmail($emailT)->setDireccion($direccionT)
+                ->setCiudad($ciudadT)->setProvincia($provinciaT)->setCodigoPostal($codigoPostalT)
+                ->setPais($paisT)->setIdEstado(Estado::ESTADO_ACTIVO);
         
         $pasajerosList = [];
         $count = count($_POST['nombreP']);
@@ -75,15 +78,15 @@ try{
             $NIFoPasaporteP = $_POST['NIFoPasaporteP'][$i];
             $nacionalidadP = $_POST['nacionalidadP'][$i];
             $fechaNacimiento = "{$_POST['anioP'][$i]}-{$_POST['mesP'][$i]}-{$_POST['diaP'][$i]}";
-            $fechaNacimiento = date('Y-m-d', strtotime($fechaNacimiento));
+            $fechaNacimiento = Util::dateFormat($fechaNacimiento, "Y-m-d");
             $pasajero = new Pasajero();
-            $pasajero->setNombre($nombreP)->setApellidos($apellidosP)->setNIFoPasaporte($NIFoPasaporteP)->setNacionalidad($nacionalidadP)->setFechaNacimiento($fechaNacimiento);
+            $pasajero->setNombre($nombreP)->setApellidos($apellidosP)->setNIFoPasaporte($NIFoPasaporteP)
+                    ->setNacionalidad($nacionalidadP)->setFechaNacimiento($fechaNacimiento);
             $pasajerosList[] = $pasajero;
         }
 
         $reservaC = new ReservaController;
-        $reserva = $reservaC->generarReserva($titular, $pasajerosList, $notasT, $idProductoFechaRef, $pvp);
-        var_dump($reserva);
+        $reserva = $reservaC->generarReserva($titular, $pasajerosList, $notasT, $idProductoFechaRef, $tipoPago, $pvp);
         
     }
     
@@ -229,10 +232,11 @@ try{
                         <form action="<?= $editFormAction ?>" method="POST" class="formatted-form" role="form" name="clientes" lang="es" onSubmit="return validacion();" dir="ltr">
                             <div class="section-title">
                                 <h2>Datos del Titular</h2>
+                                <p>(*) Campo Obligatorio</p>
                             </div>
                             <fieldset class="column fourcol" name="Titular">
                                 <label for="nombre">Nombre *</label>
-                                <div class="field-container"><input id="nombre" type="text" width="" name="nombreT" value="" placeholder="Nombre" title="Introduzca su Nombre" maxlength="20" equired /></div>
+                                <div class="field-container"><input id="nombre" type="text" width="" name="nombreT" value="" placeholder="Nombre" title="Introduzca su Nombre" maxlength="20" required /></div>
                                 <label for="apelli2">Apellidos *</label>
                                 <div class="field-container"><input id="apelli2" type="text" name="apellidosT" value="" placeholder="Apellidos" title="Introduzca sus Apellidos" maxlength="30" required /></div>
                                 <label for="dni">DNI o Pasaporte *</label>
@@ -244,13 +248,15 @@ try{
                             </fieldset>
                             <fieldset class="column fourcol" name="Direccion">
                                 <label for="direccion">Direcci&oacute;n</label>
-                                <div class="field-container"><input type="text" id="direccion" name="direccionT" value="" placeholder="Direcci&oacute;n" title="Indique su Direcci&oacute;n" maxlength="30" required /></div>
+                                <div class="field-container"><input type="text" id="direccion" name="direccionT" value="" placeholder="Direcci&oacute;n" title="Indique su Direcci&oacute;n" maxlength="30" /></div>
                                 <label for="ciudad">Ciudad o Pueblo</label>
-                                <div class="field-container"><input type="text" id="ciudad" name="ciudadT" value="" placeholder="Ciudad o Pueblo" title="Introduzca su Ciudad" maxlength="30" required /></div>
+                                <div class="field-container"><input type="text" id="ciudad" name="ciudadT" value="" placeholder="Ciudad o Pueblo" title="Introduzca su Ciudad" maxlength="30" /></div>
                                 <label for="provincia">Provincia</label>
-                                <div class="field-container"><input type="text" id="provincia" name="provinciaT" value="" placeholder="Provincia" title="Introduzca su Provincia" maxlength="30" required /></div>
+                                <div class="field-container"><input type="text" id="provincia" name="provinciaT" value="" placeholder="Provincia" title="Introduzca su Provincia" maxlength="30" /></div>
                                 <label for="cp">C&oacute;digo Postal</label>
                                 <div class="field-container"><input type="number" id="cp" name="codigoPostalT" value="" placeholder="C&oacute;digo Postal" title="Introduzca el C&oacute;digo Postal sin guiones ni espacios" maxlength="6" required /></div>
+                                <label for="pais">Pais</label>
+                                <div class="field-container"><input type="text" id="pais" name="paisT" value="" placeholder="Pais" title="Introduzca el Pais" maxlength="50" /></div>
                             </fieldset>
                             <fieldset class="column fourcol last" name="notas">
                                 <label for="notas">Notas</label>
@@ -359,6 +365,32 @@ try{
                                 <input type="number" id="anio" name="anioP[]" value="" maxlength="4" max="2002" min="1930" placeholder="A&ntilde;o" title="Introduzca el a&ntilde;o de su nacimiento" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) strCiudad[].focus()" required /></div></div>
                             </fieldset>
                             
+                            <div class="clear"></div>
+                            <fieldset class="twelvecol column last">
+                                <p>&nbsp;</p>
+                            </fieldset>
+                            <div class="clear"></div>
+                            
+                            <fieldset class="twelvecol column last" name="pasajeros">
+                                <div class="section-title">
+                                    <h2>Forma de Pago</h2>
+                                </div>
+                            </fieldset>
+                            
+                            <fieldset class="twelvecol column last" name="pasajeros">
+                                <div class="field-container">
+                                    <input id="tarjeta" type="radio" name="tipoPago" value="tarjeta" checked /><span><label for="tarjeta" class="label-input-radio">Tarjeta Cr&eacute;dito/D&eacute;vito</label></span><br>
+                                    <input id="PayPal" type="radio" name="tipoPago" value="PayPal" /><span><label for="PayPal" class="label-input-radio">PayPal</label></span><br>
+                                    <input id="transferencia" type="radio" name="tipoPago" value="transferencia" /><span><label for="transferencia" class="label-input-radio">Transferencia</label></span><br>
+                                    
+                                </div>
+                            </fieldset>
+                            
+                            <div class="clear"></div>
+                            <fieldset class="twelvecol column last">
+                                <p>&nbsp;</p>
+                            </fieldset>
+                            <div class="clear"></div>
                             
                             <fieldset class="twelvecol column last">
                                 <div class="field-container">

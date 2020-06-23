@@ -6,12 +6,13 @@ abstract class ReservaBaseController extends BaseController {
 
     public function insert(Reserva $Reserva): int {
         try{
-            $sql = "INSERT INTO reservas (idProductoFechaRef, idEstado, importe) 
-            VALUES (:idProductoFechaRef, :idEstado, :importe);";
+            $sql = "INSERT INTO reservas (idProductoFechaRef, idEstado, idTipo, importe) 
+            VALUES (:idProductoFechaRef, :idEstado, :idTipo, :importe);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idProductoFechaRef", $Reserva->getIdProductoFechaRef());
 $statement->bindValue(":idEstado", $Reserva->getIdEstado());
+$statement->bindValue(":idTipo", $Reserva->getIdTipo());
 $statement->bindValue(":importe", $Reserva->getImporte());
 
             $ret = 0;
@@ -29,12 +30,13 @@ $statement->bindValue(":importe", $Reserva->getImporte());
 
     public function update(Reserva $Reserva): int {
         try{
-            $sql = "UPDATE reservas SET idProductoFechaRef = :idProductoFechaRef, idEstado = :idEstado, importe = :importe WHERE idReserva = :idReserva LIMIT 1;";
+            $sql = "UPDATE reservas SET idProductoFechaRef = :idProductoFechaRef, idEstado = :idEstado, idTipo = :idTipo, importe = :importe WHERE idReserva = :idReserva LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idReserva", $Reserva->getIdReserva());
 $statement->bindValue(":idProductoFechaRef", $Reserva->getIdProductoFechaRef());
 $statement->bindValue(":idEstado", $Reserva->getIdEstado());
+$statement->bindValue(":idTipo", $Reserva->getIdTipo());
 $statement->bindValue(":importe", $Reserva->getImporte());
 
             $ret = 0;
@@ -52,14 +54,14 @@ $statement->bindValue(":importe", $Reserva->getImporte());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
-            $sql = "SELECT idReserva, idProductoFechaRef, idEstado, importe, fechaAlta 
+            $sql = "SELECT idReserva, idProductoFechaRef, idEstado, idTipo, importe, fechaAlta 
             FROM reservas";                        
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(!empty($rows)){
                 foreach($rows as $row){
-                    $ret[] = new Reserva($row->idReserva, $row->idProductoFechaRef, $row->idEstado, $row->importe, $row->fechaAlta);
+                    $ret[] = new Reserva($row->idReserva, $row->idProductoFechaRef, $row->idEstado, $row->idTipo, $row->importe, $row->fechaAlta);
                 }
             }
             

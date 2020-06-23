@@ -6,11 +6,11 @@ abstract class NotaBaseController extends BaseController {
 
     public function insert(Nota $Nota): int {
         try{
-            $sql = "INSERT INTO notas (nombreTabla, idTabla, nota, idUsuario) 
-            VALUES (:nombreTabla, :idTabla, :nota, :idUsuario);";
+            $sql = "INSERT INTO notas (tabla, idTabla, nota, idUsuario) 
+            VALUES (:tabla, :idTabla, :nota, :idUsuario);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":nombreTabla", $Nota->getNombreTabla());
+            $statement->bindValue(":tabla", $Nota->getTabla());
 $statement->bindValue(":idTabla", $Nota->getIdTabla());
 $statement->bindValue(":nota", $Nota->getNota());
 $statement->bindValue(":idUsuario", $Nota->getIdUsuario());
@@ -30,11 +30,11 @@ $statement->bindValue(":idUsuario", $Nota->getIdUsuario());
 
     public function update(Nota $Nota): int {
         try{
-            $sql = "UPDATE notas SET nombreTabla = :nombreTabla, idTabla = :idTabla, nota = :nota, idUsuario = :idUsuario WHERE idNota = :idNota LIMIT 1;";
+            $sql = "UPDATE notas SET tabla = :tabla, idTabla = :idTabla, nota = :nota, idUsuario = :idUsuario WHERE idNota = :idNota LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idNota", $Nota->getIdNota());
-$statement->bindValue(":nombreTabla", $Nota->getNombreTabla());
+$statement->bindValue(":tabla", $Nota->getTabla());
 $statement->bindValue(":idTabla", $Nota->getIdTabla());
 $statement->bindValue(":nota", $Nota->getNota());
 $statement->bindValue(":idUsuario", $Nota->getIdUsuario());
@@ -54,14 +54,14 @@ $statement->bindValue(":idUsuario", $Nota->getIdUsuario());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
-            $sql = "SELECT idNota, nombreTabla, idTabla, nota, idUsuario, fechaAlta, fechaUpdate 
+            $sql = "SELECT idNota, tabla, idTabla, nota, idUsuario, fechaAlta, fechaUpdate 
             FROM notas";                        
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(!empty($rows)){
                 foreach($rows as $row){
-                    $ret[] = new Nota($row->idNota, $row->nombreTabla, $row->idTabla, $row->nota, $row->idUsuario, $row->fechaAlta, $row->fechaUpdate);
+                    $ret[] = new Nota($row->idNota, $row->tabla, $row->idTabla, $row->nota, $row->idUsuario, $row->fechaAlta, $row->fechaUpdate);
                 }
             }
             

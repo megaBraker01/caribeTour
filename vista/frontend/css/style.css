@@ -153,6 +153,26 @@ Tags: travel, trip, tour, journal, nature, ecological, cruise, holiday, booking
 	padding:2em 0;
 	color:#fff;
 }
+
+input[type='radio'] {
+    /*border: 0px;*/
+    width: 1.5em;
+    height: 1.5em;
+    margin: 10px;
+}
+
+input[type='radio']:after {
+	background: #ff9000;
+}
+
+input[type='radio']:checked:after {
+    background-color: #ff9000;
+}
+
+.label-input-radio {
+    font-size: 1.5em;
+}
+
 @media only screen and (max-width: 1139px) and (min-width: 940px) {
 	.miga {
 		width:940px;

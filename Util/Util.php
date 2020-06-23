@@ -68,5 +68,16 @@ class Util {
     {
         $duracion = strtotime($fvuelta) - strtotime($fsalida);
         return date('d', $duracion) * 1;
-    }    
+    }
+    
+    /**
+     * 
+     * @param string $date
+     * @param type $format
+     * @return type
+     */
+    public static function dateFormat(string $date, $format = "d-m-Y")
+    {
+        return date($format, strtotime($date));
+    }
 }

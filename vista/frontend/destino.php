@@ -46,8 +46,8 @@ try {
         $fsalida = $fvuelta = $pvp = $duracion = "";
         if($fSeleccionadaData = @$productoC->getProductoFechaRefPDO($fsalidaFiltro)[0]){
             $idProductoFechaRef = $fSeleccionadaData->getIdProductoFechaRef();
-            $fsalida = date('d-m-Y', strtotime($fSeleccionadaData->getFsalida()));
-            $fvuelta = ("" != $fSeleccionadaData->getFvuelta()) ?  date('d-m-Y', strtotime($fSeleccionadaData->getFvuelta())) : "N/A";
+            $fsalida = Util::dateFormat($fSeleccionadaData->getFsalida());
+            $fvuelta = ("" != $fSeleccionadaData->getFvuelta()) ?  Util::dateFormat($fSeleccionadaData->getFvuelta()) : "N/A";
             $duracion = Util::duracionCalc($fvuelta, $fsalida); 
             $pProveedor = $fSeleccionadaData->getPrecioProveedor();
             $pComision = $fSeleccionadaData->getComision();

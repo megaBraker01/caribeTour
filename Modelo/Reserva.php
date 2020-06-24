@@ -25,16 +25,10 @@ class Reserva extends ReservaBase {
      * ESTADO_CONFIRMADA 4 = cuando el proveedor nos da el OK;
      */
     
-     /**
-      * TODO: crear una tabla llamada reserva_detalles en donde se guarden todos los productos (tour, seguros, hoteles, traslados, etc)
-      *  contratados y con su precio por unidad
-      * los campos sería algo como: 
-      * idReserva, 
-      * idProducto, 
-      * idTipo (como  se va a cobrar, por persona, por trayecto, etc), 
-      * precio (precio bruto por unidad, para guardar un historico de precios)
-      */
-
+    /**
+     * eliminar el campo idProductoFechaRef de la tabla reserva, este campo ya se guarda en reservaDetalles
+     * se elimina el campo pvpTotal porque es un valor calculado
+     */
       /**
        * TODO: Esta funcion se encargará de calcular el pvp final de una reserva
        * para ello tiene que tirar de la tabla reserva_detalles y ver el idTipo para saber cómo se va a calcular el precio,

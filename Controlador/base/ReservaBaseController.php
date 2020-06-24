@@ -6,14 +6,12 @@ abstract class ReservaBaseController extends BaseController {
 
     public function insert(Reserva $Reserva): int {
         try{
-            $sql = "INSERT INTO reservas (idProductoFechaRef, idEstado, idTipo, pvpTotal) 
-            VALUES (:idProductoFechaRef, :idEstado, :idTipo, :pvpTotal);";
+            $sql = "INSERT INTO reservas (idEstado, idTipoPago) 
+            VALUES (:idEstado, :idTipoPago);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":idProductoFechaRef", $Reserva->getIdProductoFechaRef());
-$statement->bindValue(":idEstado", $Reserva->getIdEstado());
-$statement->bindValue(":idTipo", $Reserva->getIdTipo());
-$statement->bindValue(":pvpTotal", $Reserva->getPvpTotal());
+            $statement->bindValue(":idEstado", $Reserva->getIdEstado());
+$statement->bindValue(":idTipoPago", $Reserva->getIdTipoPago());
 
             $ret = 0;
             if($statement->execute()){
@@ -30,14 +28,12 @@ $statement->bindValue(":pvpTotal", $Reserva->getPvpTotal());
 
     public function update(Reserva $Reserva): int {
         try{
-            $sql = "UPDATE reservas SET idProductoFechaRef = :idProductoFechaRef, idEstado = :idEstado, idTipo = :idTipo, pvpTotal = :pvpTotal WHERE idReserva = :idReserva LIMIT 1;";
+            $sql = "UPDATE reservas SET idEstado = :idEstado, idTipoPago = :idTipoPago WHERE idReserva = :idReserva LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idReserva", $Reserva->getIdReserva());
-$statement->bindValue(":idProductoFechaRef", $Reserva->getIdProductoFechaRef());
 $statement->bindValue(":idEstado", $Reserva->getIdEstado());
-$statement->bindValue(":idTipo", $Reserva->getIdTipo());
-$statement->bindValue(":pvpTotal", $Reserva->getPvpTotal());
+$statement->bindValue(":idTipoPago", $Reserva->getIdTipoPago());
 
             $ret = 0;
             if($statement->execute()){
@@ -54,14 +50,14 @@ $statement->bindValue(":pvpTotal", $Reserva->getPvpTotal());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
-            $sql = "SELECT idReserva, idProductoFechaRef, idEstado, idTipo, pvpTotal, fechaAlta 
+            $sql = "SELECT idReserva, idEstado, idTipoPago, fechaAlta 
             FROM reservas";                        
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(!empty($rows)){
                 foreach($rows as $row){
-                    $ret[] = new Reserva($row->idReserva, $row->idProductoFechaRef, $row->idEstado, $row->idTipo, $row->pvpTotal, $row->fechaAlta);
+                    $ret[] = new Reserva($row->idReserva, $row->idEstado, $row->idTipoPago, $row->fechaAlta);
                 }
             }
             

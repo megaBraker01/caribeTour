@@ -1,0 +1,21 @@
+posibles casos de contratacion
+
+productos que se pueden contratar:
+
+seguros
+vuelos
+excursiones
+tour
+
+
+seguros:
+cuando se contrata un seguro se tiene que indicar las fechas de inicio y fin del seguro
+1ro - se genera una linea en tabla fecha para guardar la fecha inicio y fin del seguro
+2do - se genera una linea en  producto_fecha_ref para crear la relacion entre el producto contratado (seguro) y la fecha inicio y fin de contratacion
+3ro - se genera una linea en tabla reserva indicando el estado (por defecto pdte_de_pago), el tipo (tipo de pago). El total se introducirá una vez calculado con la tabla reservaDetalles
+4to - se genera una linea en tabla reservaDetalles indicando el idReserva (punto 3), el idProducto, el idProductoFechaRef (punto 2), el idTipoCobro (por persona, por reserva, por noche, por trayecto, etc..), el precio bruto (con impuestos pero sin comision), y la comision (valor entre 0 y 100)
+5to - se genera una line en la tabla cliente para indicar el titular de la reserva
+6to - se genera una linea por cada pasajero en las tablas pasajeros y reservaClientePasajeroRef
+7mo - la entidad Reserva se encargará de calcular el pvp, para ello verificará la cantidad de productos contratados en reserDetalles, su precio y tipo de cobro( por persona, por reserva, etc), la comision y verificará la cantidad de pasajeros en reservaClientePasajeroRef para hacer el calculo final.
+
+

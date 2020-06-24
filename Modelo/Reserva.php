@@ -20,8 +20,36 @@ class Reserva extends ReservaBase {
     // ESTADO_PDTE_PAGO > ESTADO_PAGADA > ESTADO_PDTE_CONFIMACION_PROVEEROR > ESTADO_CONFIRMADA
     /**
      * ESTADO_PDTE_PAGO 7 = estado por defecto cuando se crea una reserva
-     * ESTADO_PAGADA 8 = cuando recibimos respuesta satisfactoria del tpv
+     * ESTADO_PAGADA 8 = cuando recibimos respuesta satisfactoria del tpv o seteo manual si el pago es transferencia
      * ESTADO_PDTE_CONFIMAR_PROVEEROR 6 = cuando se manda la peticion de reserva del proveedor
      * ESTADO_CONFIRMADA 4 = cuando el proveedor nos da el OK;
      */
+    
+     /**
+      * TODO: crear una tabla llamada reserva_detalles en donde se guarden todos los productos (tour, seguros, hoteles, traslados, etc)
+      *  contratados y con su precio por unidad
+      * los campos sería algo como: 
+      * idReserva, 
+      * idProducto, 
+      * idTipo (como  se va a cobrar, por persona, por trayecto, etc), 
+      * precio (precio bruto por unidad, para guardar un historico de precios)
+      */
+
+      /**
+       * TODO: Esta funcion se encargará de calcular el pvp final de una reserva
+       * para ello tiene que tirar de la tabla reserva_detalles y ver el idTipo para saber cómo se va a calcular el precio,
+       * los tipos pueden ser: por persona, por trayecto, por persona+trayecto, por reserva, etc...
+       * luego obtiene la cantidad de pasajeros, y aplicará el correspondiente calculo
+       */
+      public function calularPvp()
+      {
+          $retPvp = (double) 0.0;
+          // se extraen los reserva_detalles ()
+            // se verifica el tipo de calculo
+            // se cuentan la cantidad de pasajeros y según el tipo se calcula
+            // se suman las tasas (si la hubiese)
+          return $retPvp;
+      }
+
+      // TODO: Cambiar el nombre de la columna importe y poner pvp
 }

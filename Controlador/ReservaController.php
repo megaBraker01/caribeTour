@@ -10,7 +10,7 @@ class ReservaController extends ReservaBaseController {
      * @param int $idProductoFechaRef
      * @return Reserva $reserva
      */
-    public function generarReserva(Cliente $titular, array $pasajerosList, string $notasT, int $idProductoFechaRef, int $tipoPago, $pvp)
+    public function generarReserva(Cliente $titular, array $pasajerosList, string $notasT, int $idProductoFechaRef, string $seguro, int $tipoPago, $pvp)
     {
         // crear reserva
         $reserva = new Reserva(0, $idProductoFechaRef, Reserva::ESTADO_PDTE_PAGO, $tipoPago, $pvp);
@@ -34,6 +34,10 @@ class ReservaController extends ReservaBaseController {
             $notaC = new NotaController;
             $notaC->insert(new Nota(0, 'reservas', $idReserva, $notasT));
         }
+
+        // insertar en la tabla reserva_detalles los productos contratados (seguros, excursiones, tour, etc.) y su tipo de facturacion
+        // para poder calcular el pvp de la reserga
+        // TODO: compara el pvp generado con js con el pvp calculado en php, si hay diferencia poner una nota a la reserva indicandolo
         
         return $reserva;
     }

@@ -48,7 +48,7 @@ try {
             $idProductoFechaRef = $fSeleccionadaData->getIdProductoFechaRef();
             $fsalida = Util::dateFormat($fSeleccionadaData->getFsalida());
             $fvuelta = ("" != $fSeleccionadaData->getFvuelta()) ?  Util::dateFormat($fSeleccionadaData->getFvuelta()) : "N/A";
-            $duracion = Util::duracionCalc($fvuelta, $fsalida); 
+            $duracion = Util::duracionCalc($fsalida, $fvuelta); 
             $pProveedor = $fSeleccionadaData->getPrecioProveedor();
             $pComision = $fSeleccionadaData->getComision();
             $precio = $pProveedor + (($pProveedor * $pComision) / 100);   

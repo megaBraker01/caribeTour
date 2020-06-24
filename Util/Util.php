@@ -60,11 +60,11 @@ class Util {
     
     /**
      * Calcula en días la duracion de un viaje
-     * @param string $fvuelta
      * @param string $fsalida
+     * @param string $fvuelta
      * @return int
      */
-    public static  function duracionCalc(string $fvuelta, string $fsalida): int 
+    public static  function duracionCalc(string $fsalida, string $fvuelta): int 
     {
         $duracion = strtotime($fvuelta) - strtotime($fsalida);
         return date('d', $duracion) * 1;
@@ -73,10 +73,10 @@ class Util {
     /**
      * 
      * @param string $date
-     * @param type $format
-     * @return type
+     * @param string $format
+     * @return string
      */
-    public static function dateFormat(string $date, $format = "d-m-Y")
+    public static function dateFormat(string $date, string $format = "d-m-Y")
     {
         return date($format, strtotime($date));
     }

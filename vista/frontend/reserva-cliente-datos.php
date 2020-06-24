@@ -60,6 +60,7 @@ try{
         $paisT = $_POST['paisT'];
         $notasT = $_POST['notasT'];
         $idProductoFechaRef = $_POST['idProductoFechaRef'];
+        $seguro = $_POST['seguro'];
         $tipoPago = $_POST['tipoPago'];
         $pvp = $_POST['pvp'];
         
@@ -86,7 +87,7 @@ try{
         }
 
         $reservaC = new ReservaController;
-        $reserva = $reservaC->generarReserva($titular, $pasajerosList, $notasT, $idProductoFechaRef, $tipoPago, $pvp);
+        $reserva = $reservaC->generarReserva($titular, $pasajerosList, $notasT, $idProductoFechaRef, $seguro, $tipoPago, $pvp);
         
     }
     
@@ -101,7 +102,7 @@ try{
         <meta property="og:title" content="Caribetour.es | Especialistas en el Caribe" />
         <meta name="title" content="CaribeTour.es: Especialistas en el Caribe" />
         <meta name="DC.title" content="CaribeTour.es: Especialistas en el Caribe" />
-        <title>Plantilla| Especialistas en el Caribe</title>        
+        <title>Resumen de la Reserva | Especialistas en el Caribe</title>        
         <meta name="description" content="CaribeTour.es | Agencia especializada en el Caribe y sus destinos" />
         <meta name="keywords" content="CaribeTour.es | Agencia especializada en el Caribe y sus destinos" />
         <!--[if lt IE 9]>
@@ -370,7 +371,7 @@ try{
                                 <p>&nbsp;</p>
                             </fieldset>
                             <div class="clear"></div>
-                            <!--TODO: meter la seccion seguros en la tabla reserva, ej: un capo que sea tipoSeguro o simplemente seguro, y que guarde el id de la tabla tipo -->
+                            <!--TODO: poner el captcha en este form y deshabilitar el boton sumit despues de haver hecho clic-->
                             <fieldset class="twelvecol column last" name="Seguros">
                                 <div class="section-title">
                                     <h2>Seguros</h2>

@@ -6,7 +6,7 @@ abstract class ReservaBase extends ModelBase {
     protected $idProductoFechaRef;
     protected $idEstado;
     protected $idTipo;
-    protected $importe;
+    protected $pvpTotal;
     protected $fechaAlta;
 
     public function __construct(
@@ -14,14 +14,14 @@ abstract class ReservaBase extends ModelBase {
         $idProductoFechaRef = 0,
         $idEstado = 0,
         $idTipo = 12,
-        $importe = 0,
+        $pvpTotal = 0,
         $fechaAlta = ''
     ){
         $this->setIdReserva($idReserva);
         $this->setIdProductoFechaRef($idProductoFechaRef);
         $this->setIdEstado($idEstado);
         $this->setIdTipo($idTipo);
-        $this->setImporte($importe);
+        $this->setPvpTotal($pvpTotal);
         $this->setFechaAlta($fechaAlta);
     }
 
@@ -33,7 +33,7 @@ abstract class ReservaBase extends ModelBase {
 
     public function getIdTipo(){ return $this->idTipo; }
 
-    public function getImporte(){ return $this->importe; }
+    public function getPvpTotal(){ return $this->pvpTotal; }
 
     public function getFechaAlta(){ return $this->fechaAlta; }
 
@@ -74,8 +74,8 @@ abstract class ReservaBase extends ModelBase {
         $this->idTipo = (int) $idTipo; return $this;
     }
 
-    public function setImporte($importe = 0){
-        $this->importe = (float) $importe; return $this;
+    public function setPvpTotal($pvpTotal = 0){
+        $this->pvpTotal = (float) $pvpTotal; return $this;
     }
 
     public function setFechaAlta($fechaAlta = ''){

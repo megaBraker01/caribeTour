@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 22-06-2020 a las 19:48:47
+-- Tiempo de generación: 23-06-2020 a las 20:15:02
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 7.0.23
 
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idCliente`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `clientes`
@@ -186,7 +186,16 @@ INSERT INTO `clientes` (`idCliente`, `idEstado`, `nombre`, `apellidos`, `NIFoPas
 (11, 2, 'Maria', 'García', '13477542b', '276062155', 'Maria05@hotmail.com', 'c/la plana, 4, 1b', '24000', 'barcelona', 'hospitalet', 'españa', '2020-01-13 20:51:14', NULL),
 (12, 2, 'Esther', 'Ontana', '13477542b', '276062155', 'Esther05@hotmail.com', 'c/la plana, 4, 1b', '25000', 'barcelona', 'hospitalet', 'españa', '2020-01-13 20:51:14', NULL),
 (13, 2, 'Paula', 'Ramirez', '13477542b', '276062155', 'Paula05@hotmail.com', 'c/la plana, 4, 1b', '26000', 'barcelona', 'hospitalet', 'españa', '2020-01-13 20:51:14', NULL),
-(14, 2, 'Laura', 'Peña', '13477542b', '276062155', 'Laura05@hotmail.com', 'c/la plana, 4, 1b', '27000', 'barcelona', 'hospitalet', 'españa', '2020-01-13 20:51:14', NULL);
+(14, 2, 'Laura', 'Peña', '13477542b', '276062155', 'Laura05@hotmail.com', 'c/la plana, 4, 1b', '27000', 'barcelona', 'hospitalet', 'españa', '2020-01-13 20:51:14', NULL),
+(15, 0, 'Laura', 'Avram', 'D98755654', '637929208', 'laura@hotmail.com', 'calle puerto del pozazal 37, p', '28031', 'Vallecas', 'madrid', '', '2020-06-23 18:39:24', NULL),
+(16, 0, 'Laura', 'Avram', 'D98755654', '637929208', 'laura@hotmail.com', 'calle puerto del pozazal 37, p', '28031', 'Vallecas', 'madrid', '', '2020-06-23 18:41:06', NULL),
+(17, 0, 'Laura', 'Avram', 'D98755654', '637929208', 'laura@hotmail.com', 'calle puerto del pozazal 37, p', '28031', 'Vallecas', 'madrid', '', '2020-06-23 18:43:14', NULL),
+(18, 0, 'Laura', 'Avram', 'D98755654', '637929208', 'laura@hotmail.com', 'calle puerto del pozazal 37, p', '28031', 'Vallecas', 'madrid', '', '2020-06-23 19:07:06', NULL),
+(19, 0, 'Laura', 'Avram', 'D98755654', '637929208', 'laura@hotmail.com', 'calle puerto del pozazal 37, p', '28031', 'Vallecas', 'madrid', '', '2020-06-23 19:13:04', NULL),
+(20, 0, 'Laura', 'Avram', 'D98755654', '637929208', 'laura@hotmail.com', 'calle puerto del pozazal 37, p', '28031', 'Vallecas', 'madrid', '', '2020-06-23 19:30:56', NULL),
+(21, 0, 'Laura', 'Avram', 'D98755654', '637929208', 'laura@hotmail.com', 'calle puerto del pozazal 37, p', '28031', 'Vallecas', 'madrid', '', '2020-06-23 19:31:07', NULL),
+(22, 0, 'Laura', 'Avram', 'D98755654', '637929208', 'laura@hotmail.com', 'calle puerto del pozazal 37, p', '28031', 'Vallecas', 'madrid', 'España', '2020-06-23 19:32:23', NULL),
+(23, 0, 'Laura', 'Avram', 'D98755654', '637929208', 'laura@hotmail.com', 'calle puerto del pozazal 37, p', '28031', 'Vallecas', 'madrid', 'España', '2020-06-23 19:34:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -319,7 +328,7 @@ CREATE TABLE IF NOT EXISTS `estados` (
   `usuarios` tinyint(4) NOT NULL DEFAULT '0',
   `legales` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idEstado`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `estados`
@@ -332,8 +341,9 @@ INSERT INTO `estados` (`idEstado`, `nombre`, `productos`, `categorias`, `blogCom
 (4, 'Confirmado', 0, 0, 0, 0, 0, 1, 1, 0, 0, 0),
 (5, 'Cancelado', 0, 0, 0, 0, 0, 1, 1, 0, 0, 0),
 (6, 'Pendiente de Confirmar', 0, 0, 0, 0, 0, 0, 1, 0, 0, 0),
-(7, 'Pendiente de Pago', 0, 0, 0, 0, 0, 1, 0, 0, 0, 0),
-(8, 'Pagado', 0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
+(7, 'Pendiente de Pago', 0, 0, 0, 0, 0, 1, 1, 0, 0, 0),
+(8, 'Pagado', 0, 0, 0, 0, 0, 1, 1, 0, 0, 0),
+(12, 'Pendiente de Confirmar Proveedor', 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -590,7 +600,7 @@ CREATE TABLE IF NOT EXISTS `notas` (
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idNota`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `notas`
@@ -614,7 +624,11 @@ INSERT INTO `notas` (`idNota`, `tabla`, `idTabla`, `nota`, `idUsuario`, `fechaAl
 (15, 'proveedores', 21, 'Usuario 21676062155\ncontraseï¿½a 21676062155999\n \nlas web con acceso son \nlacuartaisla.com, quelonea.com, jolidey.com, vivatours.com, leskionline.com, jotelclick.com, evelop.com y jolidey.pt\n\n\nvamos a un 10%', 1, '2020-01-17 23:05:32', NULL),
 (16, 'proveedores', 22, 'Agencia: 9006220 \nusuario: 909006220 \npassword: 999006220 \n \nurls de acceso \nb2b gowaii  http//b2b.gowaii.com \nb2b mundicolor  http//www.mundicolor.com ', 1, '2020-01-17 23:05:32', NULL),
 (17, 'proveedores', 23, 'C&oacute;digo acceso caribetour\n- password 480846ky', 1, '2020-01-17 23:05:32', NULL),
-(18, 'proveedores', 24, 'codigo cliente:41767110\ncontraseña:Fa411145\n\nclaves de nuestra intranet:\ncodigo cliente:41767110\ncontraseña:Jg6Tv41767110qy1a', 1, '2020-01-17 23:05:32', NULL);
+(18, 'proveedores', 24, 'codigo cliente:41767110\ncontraseña:Fa411145\n\nclaves de nuestra intranet:\ncodigo cliente:41767110\ncontraseña:Jg6Tv41767110qy1a', 1, '2020-01-17 23:05:32', NULL),
+(19, 'reservas', 3, '', 1, '2020-06-23 18:43:14', NULL),
+(20, 'reservas', 1, '', 1, '2020-06-23 19:07:06', NULL),
+(21, 'reservas', 5, 'algo para anotar', 1, '2020-06-23 19:32:23', NULL),
+(22, 'reservas', 6, 'algo para anotar', 1, '2020-06-23 19:34:20', NULL);
 
 -- --------------------------------------------------------
 
@@ -650,7 +664,30 @@ CREATE TABLE IF NOT EXISTS `pasajeros` (
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idPasajero`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `pasajeros`
+--
+
+INSERT INTO `pasajeros` (`idPasajero`, `nombre`, `apellidos`, `NIFoPasaporte`, `nacionalidad`, `fechaNacimiento`, `fechaAlta`, `fechaUpdate`) VALUES
+(1, 'Laura', 'Avram', 'D654564789', 'rumana', '1987-02-06', '2020-06-23 18:39:24', NULL),
+(2, 'Laura', 'Avram', 'D654564789', 'rumana', '1987-02-06', '2020-06-23 18:41:06', NULL),
+(3, 'armando', 'ramirez', 'd65445665', 'dominicado', '1989-03-02', '2020-06-23 18:41:06', NULL),
+(4, 'Laura', 'Avram', 'D654564789', 'rumana', '1987-02-06', '2020-06-23 18:43:14', NULL),
+(5, 'armando', 'ramirez', 'd65445665', 'dominicado', '1989-03-02', '2020-06-23 18:43:14', NULL),
+(6, 'Laura', 'Avram', 'D654564789', 'rumana', '1987-02-06', '2020-06-23 19:07:06', NULL),
+(7, 'armando', 'ramirez', 'd65445665', 'dominicado', '1989-03-02', '2020-06-23 19:07:06', NULL),
+(8, 'Laura', 'Avram', 'D654564789', 'rumana', '1987-02-06', '2020-06-23 19:13:04', NULL),
+(9, 'armando', 'ramirez', 'd65445665', 'dominicado', '1989-03-02', '2020-06-23 19:13:04', NULL),
+(10, 'Laura', 'Avram', 'D654564789', 'rumana', '1987-02-06', '2020-06-23 19:30:56', NULL),
+(11, 'armando', 'ramirez', 'd65445665', 'dominicado', '1989-03-02', '2020-06-23 19:30:56', NULL),
+(12, 'Laura', 'Avram', 'D654564789', 'rumana', '1987-02-06', '2020-06-23 19:31:07', NULL),
+(13, 'armando', 'ramirez', 'd65445665', 'dominicado', '1989-03-02', '2020-06-23 19:31:07', NULL),
+(14, 'Laura', 'Avram', 'D654564789', 'rumana', '1973-02-01', '2020-06-23 19:32:23', NULL),
+(15, 'maria', 'Avram', 'D654564789', 'rumana', '1984-04-01', '2020-06-23 19:32:23', NULL),
+(16, 'Laura', 'Avram', 'D654564789', 'rumana', '1973-02-01', '2020-06-23 19:34:19', NULL),
+(17, 'maria', 'Avram', 'D654564789', 'rumana', '1984-04-01', '2020-06-23 19:34:20', NULL);
 
 -- --------------------------------------------------------
 
@@ -854,10 +891,23 @@ CREATE TABLE IF NOT EXISTS `reservas` (
   `idReserva` int(11) NOT NULL AUTO_INCREMENT,
   `idProductoFechaRef` int(11) NOT NULL,
   `idEstado` int(11) NOT NULL,
+  `idTipo` int(11) NOT NULL DEFAULT '12' COMMENT 'se refiere a la forma de pago',
   `importe` double NOT NULL,
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idReserva`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `reservas`
+--
+
+INSERT INTO `reservas` (`idReserva`, `idProductoFechaRef`, `idEstado`, `idTipo`, `importe`, `fechaAlta`) VALUES
+(1, 2, 6, 926, 0, '2020-06-23 19:07:06'),
+(2, 2, 6, 926, 0, '2020-06-23 19:13:04'),
+(3, 2, 6, 12, 926, '2020-06-23 19:30:56'),
+(4, 2, 6, 12, 926, '2020-06-23 19:31:07'),
+(5, 2, 6, 12, 926, '2020-06-23 19:32:23'),
+(6, 2, 6, 12, 926, '2020-06-23 19:34:19');
 
 -- --------------------------------------------------------
 
@@ -872,6 +922,28 @@ CREATE TABLE IF NOT EXISTS `reserva_cliente_pasajero_ref` (
   `idReserva` int(11) NOT NULL,
   PRIMARY KEY (`idCliente`,`idPasajero`,`idReserva`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `reserva_cliente_pasajero_ref`
+--
+
+INSERT INTO `reserva_cliente_pasajero_ref` (`idCliente`, `idPasajero`, `idReserva`) VALUES
+(16, 2, 2),
+(16, 3, 2),
+(17, 4, 3),
+(17, 5, 3),
+(18, 6, 1),
+(18, 7, 1),
+(19, 8, 2),
+(19, 9, 2),
+(20, 10, 3),
+(20, 11, 3),
+(21, 12, 4),
+(21, 13, 4),
+(22, 14, 5),
+(22, 15, 5),
+(23, 16, 6),
+(23, 17, 6);
 
 -- --------------------------------------------------------
 

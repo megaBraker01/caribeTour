@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 23-06-2020 a las 20:15:02
+-- Tiempo de generación: 24-06-2020 a las 19:43:31
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 7.0.23
 
@@ -892,16 +892,19 @@ CREATE TABLE IF NOT EXISTS `reservas` (
   `idProductoFechaRef` int(11) NOT NULL,
   `idEstado` int(11) NOT NULL,
   `idTipo` int(11) NOT NULL DEFAULT '12' COMMENT 'se refiere a la forma de pago',
-  `importe` double NOT NULL,
+  `pvpTotal` double NOT NULL COMMENT 'total de la reserva, incluido comisiones e impuestos',
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idReserva`)
+  PRIMARY KEY (`idReserva`),
+  KEY `idProductoFechaRef` (`idProductoFechaRef`),
+  KEY `idEstado` (`idEstado`),
+  KEY `idTipo` (`idTipo`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `reservas`
 --
 
-INSERT INTO `reservas` (`idReserva`, `idProductoFechaRef`, `idEstado`, `idTipo`, `importe`, `fechaAlta`) VALUES
+INSERT INTO `reservas` (`idReserva`, `idProductoFechaRef`, `idEstado`, `idTipo`, `pvpTotal`, `fechaAlta`) VALUES
 (1, 2, 6, 926, 0, '2020-06-23 19:07:06'),
 (2, 2, 6, 926, 0, '2020-06-23 19:13:04'),
 (3, 2, 6, 12, 926, '2020-06-23 19:30:56'),
@@ -944,6 +947,27 @@ INSERT INTO `reserva_cliente_pasajero_ref` (`idCliente`, `idPasajero`, `idReserv
 (22, 15, 5),
 (23, 16, 6),
 (23, 17, 6);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reserva_detalles`
+--
+
+DROP TABLE IF EXISTS `reserva_detalles`;
+CREATE TABLE IF NOT EXISTS `reserva_detalles` (
+  `idReserva` int(11) NOT NULL,
+  `idProducto` int(11) NOT NULL,
+  `idProductoFechaRef` int(11) DEFAULT NULL,
+  `idTipoCobro` int(11) NOT NULL COMMENT 'hace referencia el tipo de cobro que se le va a realizar al cliente, si es por reserva, por pasajero, etc',
+  `precioBruto` double NOT NULL DEFAULT '0',
+  `comision` double NOT NULL DEFAULT '0',
+  `fechaAlta` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaUpdate` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idReserva`,`idProducto`),
+  KEY `idProductoFechaRef` (`idProductoFechaRef`),
+  KEY `idTipoCobro` (`idTipoCobro`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 

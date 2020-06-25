@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 24-06-2020 a las 19:43:31
+-- Tiempo de generación: 24-06-2020 a las 20:52:18
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 7.0.23
 
@@ -422,7 +422,7 @@ DROP TABLE IF EXISTS `fechas`;
 CREATE TABLE IF NOT EXISTS `fechas` (
   `idFecha` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` datetime NOT NULL,
-  `idPuertoSalida` int(11) NOT NULL DEFAULT '1',
+  `idPuertoSalida` int(11) DEFAULT '1',
   `terminalSalida` varchar(10) DEFAULT NULL,
   `tasasSalida` double DEFAULT NULL,
   `idPuertoDestino` int(11) DEFAULT '1',
@@ -889,28 +889,25 @@ INSERT INTO `puertos` (`idPuerto`, `nombre`, `codigo`, `idTipo`) VALUES
 DROP TABLE IF EXISTS `reservas`;
 CREATE TABLE IF NOT EXISTS `reservas` (
   `idReserva` int(11) NOT NULL AUTO_INCREMENT,
-  `idProductoFechaRef` int(11) NOT NULL,
   `idEstado` int(11) NOT NULL,
-  `idTipo` int(11) NOT NULL DEFAULT '12' COMMENT 'se refiere a la forma de pago',
-  `pvpTotal` double NOT NULL COMMENT 'total de la reserva, incluido comisiones e impuestos',
+  `idTipoPago` int(11) NOT NULL DEFAULT '12' COMMENT 'se refiere a la forma de pago',
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idReserva`),
-  KEY `idProductoFechaRef` (`idProductoFechaRef`),
   KEY `idEstado` (`idEstado`),
-  KEY `idTipo` (`idTipo`)
+  KEY `idTipo` (`idTipoPago`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `reservas`
 --
 
-INSERT INTO `reservas` (`idReserva`, `idProductoFechaRef`, `idEstado`, `idTipo`, `pvpTotal`, `fechaAlta`) VALUES
-(1, 2, 6, 926, 0, '2020-06-23 19:07:06'),
-(2, 2, 6, 926, 0, '2020-06-23 19:13:04'),
-(3, 2, 6, 12, 926, '2020-06-23 19:30:56'),
-(4, 2, 6, 12, 926, '2020-06-23 19:31:07'),
-(5, 2, 6, 12, 926, '2020-06-23 19:32:23'),
-(6, 2, 6, 12, 926, '2020-06-23 19:34:19');
+INSERT INTO `reservas` (`idReserva`, `idEstado`, `idTipoPago`, `fechaAlta`) VALUES
+(1, 6, 926, '2020-06-23 19:07:06'),
+(2, 6, 926, '2020-06-23 19:13:04'),
+(3, 6, 12, '2020-06-23 19:30:56'),
+(4, 6, 12, '2020-06-23 19:31:07'),
+(5, 6, 12, '2020-06-23 19:32:23'),
+(6, 6, 12, '2020-06-23 19:34:19');
 
 -- --------------------------------------------------------
 
@@ -980,7 +977,7 @@ CREATE TABLE IF NOT EXISTS `tipos` (
   `idTipo` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(20) NOT NULL,
   PRIMARY KEY (`idTipo`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tipos`
@@ -1005,7 +1002,11 @@ INSERT INTO `tipos` (`idTipo`, `nombre`) VALUES
 (16, 'Cheque'),
 (17, 'Terrestre'),
 (18, 'Aereo'),
-(19, 'Maritimo');
+(19, 'Maritimo'),
+(20, 'Por Reserva'),
+(21, 'Por Persona'),
+(22, 'Por Trayecto'),
+(23, 'Por Noche');
 
 -- --------------------------------------------------------
 

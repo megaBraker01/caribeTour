@@ -6,14 +6,14 @@ abstract class ReservaDetalleBaseController extends BaseController {
 
     public function insert(ReservaDetalle $ReservaDetalle): int {
         try{
-            $sql = "INSERT INTO reserva_detalles (idReserva, idProducto, idProductoFechaRef, idTipoCobro, precioBruto, comision, fechaAlta, fechaUpdate) 
-            VALUES (:idReserva, :idProducto, :idProductoFechaRef, :idTipoCobro, :precioBruto, :comision, :fechaAlta, :fechaUpdate);";
+            $sql = "INSERT INTO reserva_detalles (idReserva, idProducto, idProductoFechaRef, idTipoFacturacion, precioBruto, comision, fechaAlta, fechaUpdate) 
+            VALUES (:idReserva, :idProducto, :idProductoFechaRef, :idTipoFacturacion, :precioBruto, :comision, :fechaAlta, :fechaUpdate);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idReserva", $ReservaDetalle->getIdReserva());
 $statement->bindValue(":idProducto", $ReservaDetalle->getIdProducto());
 $statement->bindValue(":idProductoFechaRef", $ReservaDetalle->getIdProductoFechaRef());
-$statement->bindValue(":idTipoCobro", $ReservaDetalle->getIdTipoCobro());
+$statement->bindValue(":idTipoFacturacion", $ReservaDetalle->getIdTipoFacturacion());
 $statement->bindValue(":precioBruto", $ReservaDetalle->getPrecioBruto());
 $statement->bindValue(":comision", $ReservaDetalle->getComision());
 $statement->bindValue(":fechaAlta", $ReservaDetalle->getFechaAlta());
@@ -34,13 +34,13 @@ $statement->bindValue(":fechaUpdate", $ReservaDetalle->getFechaUpdate());
 
     public function update(ReservaDetalle $ReservaDetalle): int {
         try{
-            $sql = "UPDATE reserva_detalles SET idReserva = :idReserva, idProducto = :idProducto, idProductoFechaRef = :idProductoFechaRef, idTipoCobro = :idTipoCobro, precioBruto = :precioBruto, comision = :comision, fechaAlta = :fechaAlta, fechaUpdate = :fechaUpdate WHERE idReserva = :idReserva AND idProducto = :idProducto LIMIT 1;";
+            $sql = "UPDATE reserva_detalles SET idReserva = :idReserva, idProducto = :idProducto, idProductoFechaRef = :idProductoFechaRef, idTipoFacturacion = :idTipoFacturacion, precioBruto = :precioBruto, comision = :comision, fechaAlta = :fechaAlta, fechaUpdate = :fechaUpdate WHERE idReserva = :idReserva AND idProducto = :idProducto LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idReserva", $ReservaDetalle->getIdReserva());
 $statement->bindValue(":idProducto", $ReservaDetalle->getIdProducto());
 $statement->bindValue(":idProductoFechaRef", $ReservaDetalle->getIdProductoFechaRef());
-$statement->bindValue(":idTipoCobro", $ReservaDetalle->getIdTipoCobro());
+$statement->bindValue(":idTipoFacturacion", $ReservaDetalle->getIdTipoFacturacion());
 $statement->bindValue(":precioBruto", $ReservaDetalle->getPrecioBruto());
 $statement->bindValue(":comision", $ReservaDetalle->getComision());
 $statement->bindValue(":fechaAlta", $ReservaDetalle->getFechaAlta());
@@ -61,14 +61,14 @@ $statement->bindValue(":fechaUpdate", $ReservaDetalle->getFechaUpdate());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
-            $sql = "SELECT idReserva, idProducto, idProductoFechaRef, idTipoCobro, precioBruto, comision, fechaAlta, fechaUpdate 
+            $sql = "SELECT idReserva, idProducto, idProductoFechaRef, idTipoFacturacion, precioBruto, comision, fechaAlta, fechaUpdate 
             FROM reserva_detalles";                        
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(!empty($rows)){
                 foreach($rows as $row){
-                    $ret[] = new ReservaDetalle($row->idReserva, $row->idProducto, $row->idProductoFechaRef, $row->idTipoCobro, $row->precioBruto, $row->comision, $row->fechaAlta, $row->fechaUpdate);
+                    $ret[] = new ReservaDetalle($row->idReserva, $row->idProducto, $row->idProductoFechaRef, $row->idTipoFacturacion, $row->precioBruto, $row->comision, $row->fechaAlta, $row->fechaUpdate);
                 }
             }
             

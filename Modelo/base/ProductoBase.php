@@ -9,10 +9,13 @@ abstract class ProductoBase extends ModelBase {
     protected $slug;
     protected $itinerario;
     protected $incluye;
+    protected $precioProveedor;
+    protected $comision;
     protected $metaDescripcion;
     protected $metaKeyWords;
     protected $idCategoria;
     protected $idTipo;
+    protected $idTipoFacturacion;
     protected $idEstado;
     protected $idProveedor;
     protected $stock;
@@ -28,10 +31,13 @@ abstract class ProductoBase extends ModelBase {
         $slug = '',
         $itinerario = '',
         $incluye = '',
+        $precioProveedor = 0,
+        $comision = 0,
         $metaDescripcion = '',
         $metaKeyWords = '',
         $idCategoria = 0,
         $idTipo = 0,
+        $idTipoFacturacion = 1,
         $idEstado = 0,
         $idProveedor = 0,
         $stock = 0,
@@ -46,10 +52,13 @@ abstract class ProductoBase extends ModelBase {
         $this->setSlug($slug);
         $this->setItinerario($itinerario);
         $this->setIncluye($incluye);
+        $this->setPrecioProveedor($precioProveedor);
+        $this->setComision($comision);
         $this->setMetaDescripcion($metaDescripcion);
         $this->setMetaKeyWords($metaKeyWords);
         $this->setIdCategoria($idCategoria);
         $this->setIdTipo($idTipo);
+        $this->setIdTipoFacturacion($idTipoFacturacion);
         $this->setIdEstado($idEstado);
         $this->setIdProveedor($idProveedor);
         $this->setStock($stock);
@@ -76,6 +85,10 @@ abstract class ProductoBase extends ModelBase {
 
     public function getIncluye(){ return $this->incluye; }
 
+    public function getPrecioProveedor(){ return $this->precioProveedor; }
+
+    public function getComision(){ return $this->comision; }
+
     public function getMetaDescripcion(){ return $this->metaDescripcion; }
 
     public function getMetaKeyWords(){ return $this->metaKeyWords; }
@@ -83,6 +96,8 @@ abstract class ProductoBase extends ModelBase {
     public function getIdCategoria(){ return $this->idCategoria; }
 
     public function getIdTipo(){ return $this->idTipo; }
+
+    public function getIdTipoFacturacion(){ return $this->idTipoFacturacion; }
 
     public function getIdEstado(){ return $this->idEstado; }
 
@@ -100,32 +115,35 @@ abstract class ProductoBase extends ModelBase {
         $CategoriaController = new CategoriaController();
         $idCategoria = $this->getIdCategoria();
         $CategoriaList = $CategoriaController->select([['idCategoria', $idCategoria]]);
-        return isset($CategoriaList[0]) ? $CategoriaList[0]: new Categoria;
+        return $CategoriaList[0];
     }
 
     public function getTipo(){
         $TipoController = new TipoController();
         $idTipo = $this->getIdTipo();
         $TipoList = $TipoController->select([['idTipo', $idTipo]]);
-        return isset($TipoList[0]) ? $TipoList[0]: new Tipo;
+        return $TipoList[0];
+    }
+
+    public function getTipoFacturacion(){
+        $TipoFacturacionController = new TipoFacturacionController();
+        $idTipoFacturacion = $this->getIdTipoFacturacion();
+        $TipoFacturacionList = $TipoFacturacionController->select([['idTipoFacturacion', $idTipoFacturacion]]);
+        return $TipoFacturacionList[0];
     }
 
     public function getEstado(){
         $EstadoController = new EstadoController();
         $idEstado = $this->getIdEstado();
         $EstadoList = $EstadoController->select([['idEstado', $idEstado]]);
-        return isset($EstadoList[0]) ? $EstadoList[0]: new Estado;
+        return $EstadoList[0];
     }
 
-    /**
-     * TODO: meter esta refactorizacion en el genereitor
-     * @return type
-     */
     public function getProveedor(){
         $ProveedorController = new ProveedorController();
         $idProveedor = $this->getIdProveedor();
         $ProveedorList = $ProveedorController->select([['idProveedor', $idProveedor]]);
-        return isset($ProveedorList[0]) ? $ProveedorList[0]: new Proveedor;
+        return $ProveedorList[0];
     }
 
     public function setIdProducto($idProducto = 0){
@@ -156,6 +174,14 @@ abstract class ProductoBase extends ModelBase {
         $this->incluye = (string) $incluye; return $this;
     }
 
+    public function setPrecioProveedor($precioProveedor = 0){
+        $this->precioProveedor = (float) $precioProveedor; return $this;
+    }
+
+    public function setComision($comision = 0){
+        $this->comision = (float) $comision; return $this;
+    }
+
     public function setMetaDescripcion($metaDescripcion = ''){
         $this->metaDescripcion = (string) $metaDescripcion; return $this;
     }
@@ -170,6 +196,10 @@ abstract class ProductoBase extends ModelBase {
 
     public function setIdTipo($idTipo = 0){
         $this->idTipo = (int) $idTipo; return $this;
+    }
+
+    public function setIdTipoFacturacion($idTipoFacturacion = 1){
+        $this->idTipoFacturacion = (int) $idTipoFacturacion; return $this;
     }
 
     public function setIdEstado($idEstado = 0){

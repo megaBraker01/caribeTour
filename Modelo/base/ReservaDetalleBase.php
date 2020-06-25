@@ -5,7 +5,7 @@ abstract class ReservaDetalleBase extends ModelBase {
     protected $idReserva;
     protected $idProducto;
     protected $idProductoFechaRef;
-    protected $idTipoCobro;
+    protected $idTipoFacturacion;
     protected $precioBruto;
     protected $comision;
     protected $fechaAlta;
@@ -15,7 +15,7 @@ abstract class ReservaDetalleBase extends ModelBase {
         $idReserva = 0,
         $idProducto = 0,
         $idProductoFechaRef = 0,
-        $idTipoCobro = 0,
+        $idTipoFacturacion = 0,
         $precioBruto = 0,
         $comision = 0,
         $fechaAlta = '',
@@ -24,7 +24,7 @@ abstract class ReservaDetalleBase extends ModelBase {
         $this->setIdReserva($idReserva);
         $this->setIdProducto($idProducto);
         $this->setIdProductoFechaRef($idProductoFechaRef);
-        $this->setIdTipoCobro($idTipoCobro);
+        $this->setIdTipoFacturacion($idTipoFacturacion);
         $this->setPrecioBruto($precioBruto);
         $this->setComision($comision);
         $this->setFechaAlta($fechaAlta);
@@ -37,7 +37,7 @@ abstract class ReservaDetalleBase extends ModelBase {
 
     public function getIdProductoFechaRef(){ return $this->idProductoFechaRef; }
 
-    public function getIdTipoCobro(){ return $this->idTipoCobro; }
+    public function getIdTipoFacturacion(){ return $this->idTipoFacturacion; }
 
     public function getPrecioBruto(){ return $this->precioBruto; }
 
@@ -68,11 +68,11 @@ abstract class ReservaDetalleBase extends ModelBase {
         return $ProductoFechaRefList[0];
     }
 
-    public function getTipoCobro(){
-        $TipoCobroController = new TipoCobroController();
-        $idTipoCobro = $this->getIdTipoCobro();
-        $TipoCobroList = $TipoCobroController->select([['idTipoCobro', $idTipoCobro]]);
-        return $TipoCobroList[0];
+    public function getTipoFacturacion(){
+        $TipoFacturacionController = new TipoFacturacionController();
+        $idTipoFacturacion = $this->getIdTipoFacturacion();
+        $TipoFacturacionList = $TipoFacturacionController->select([['idTipoFacturacion', $idTipoFacturacion]]);
+        return $TipoFacturacionList[0];
     }
 
     public function setIdReserva($idReserva = 0){
@@ -87,8 +87,8 @@ abstract class ReservaDetalleBase extends ModelBase {
         $this->idProductoFechaRef = (int) $idProductoFechaRef; return $this;
     }
 
-    public function setIdTipoCobro($idTipoCobro = 0){
-        $this->idTipoCobro = (int) $idTipoCobro; return $this;
+    public function setIdTipoFacturacion($idTipoFacturacion = 0){
+        $this->idTipoFacturacion = (int) $idTipoFacturacion; return $this;
     }
 
     public function setPrecioBruto($precioBruto = 0){

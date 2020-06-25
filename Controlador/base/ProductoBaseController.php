@@ -6,8 +6,8 @@ abstract class ProductoBaseController extends BaseController {
 
     public function insert(Producto $Producto): int {
         try{
-            $sql = "INSERT INTO productos (nombre, imagen, descripcion, slug, itinerario, incluye, metaDescripcion, metaKeyWords, idCategoria, idTipo, idEstado, idProveedor, stock, esOferta) 
-            VALUES (:nombre, :imagen, :descripcion, :slug, :itinerario, :incluye, :metaDescripcion, :metaKeyWords, :idCategoria, :idTipo, :idEstado, :idProveedor, :stock, :esOferta);";
+            $sql = "INSERT INTO productos (nombre, imagen, descripcion, slug, itinerario, incluye, precioProveedor, comision, metaDescripcion, metaKeyWords, idCategoria, idTipo, idTipoFacturacion, idEstado, idProveedor, stock, esOferta) 
+            VALUES (:nombre, :imagen, :descripcion, :slug, :itinerario, :incluye, :precioProveedor, :comision, :metaDescripcion, :metaKeyWords, :idCategoria, :idTipo, :idTipoFacturacion, :idEstado, :idProveedor, :stock, :esOferta);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":nombre", $Producto->getNombre());
@@ -16,10 +16,13 @@ $statement->bindValue(":descripcion", $Producto->getDescripcion());
 $statement->bindValue(":slug", $Producto->getSlug());
 $statement->bindValue(":itinerario", $Producto->getItinerario());
 $statement->bindValue(":incluye", $Producto->getIncluye());
+$statement->bindValue(":precioProveedor", $Producto->getPrecioProveedor());
+$statement->bindValue(":comision", $Producto->getComision());
 $statement->bindValue(":metaDescripcion", $Producto->getMetaDescripcion());
 $statement->bindValue(":metaKeyWords", $Producto->getMetaKeyWords());
 $statement->bindValue(":idCategoria", $Producto->getIdCategoria());
 $statement->bindValue(":idTipo", $Producto->getIdTipo());
+$statement->bindValue(":idTipoFacturacion", $Producto->getIdTipoFacturacion());
 $statement->bindValue(":idEstado", $Producto->getIdEstado());
 $statement->bindValue(":idProveedor", $Producto->getIdProveedor());
 $statement->bindValue(":stock", $Producto->getStock());
@@ -40,7 +43,7 @@ $statement->bindValue(":esOferta", $Producto->getEsOferta());
 
     public function update(Producto $Producto): int {
         try{
-            $sql = "UPDATE productos SET nombre = :nombre, imagen = :imagen, descripcion = :descripcion, slug = :slug, itinerario = :itinerario, incluye = :incluye, metaDescripcion = :metaDescripcion, metaKeyWords = :metaKeyWords, idCategoria = :idCategoria, idTipo = :idTipo, idEstado = :idEstado, idProveedor = :idProveedor, stock = :stock, esOferta = :esOferta WHERE idProducto = :idProducto LIMIT 1;";
+            $sql = "UPDATE productos SET nombre = :nombre, imagen = :imagen, descripcion = :descripcion, slug = :slug, itinerario = :itinerario, incluye = :incluye, precioProveedor = :precioProveedor, comision = :comision, metaDescripcion = :metaDescripcion, metaKeyWords = :metaKeyWords, idCategoria = :idCategoria, idTipo = :idTipo, idTipoFacturacion = :idTipoFacturacion, idEstado = :idEstado, idProveedor = :idProveedor, stock = :stock, esOferta = :esOferta WHERE idProducto = :idProducto LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idProducto", $Producto->getIdProducto());
@@ -50,10 +53,13 @@ $statement->bindValue(":descripcion", $Producto->getDescripcion());
 $statement->bindValue(":slug", $Producto->getSlug());
 $statement->bindValue(":itinerario", $Producto->getItinerario());
 $statement->bindValue(":incluye", $Producto->getIncluye());
+$statement->bindValue(":precioProveedor", $Producto->getPrecioProveedor());
+$statement->bindValue(":comision", $Producto->getComision());
 $statement->bindValue(":metaDescripcion", $Producto->getMetaDescripcion());
 $statement->bindValue(":metaKeyWords", $Producto->getMetaKeyWords());
 $statement->bindValue(":idCategoria", $Producto->getIdCategoria());
 $statement->bindValue(":idTipo", $Producto->getIdTipo());
+$statement->bindValue(":idTipoFacturacion", $Producto->getIdTipoFacturacion());
 $statement->bindValue(":idEstado", $Producto->getIdEstado());
 $statement->bindValue(":idProveedor", $Producto->getIdProveedor());
 $statement->bindValue(":stock", $Producto->getStock());
@@ -74,14 +80,14 @@ $statement->bindValue(":esOferta", $Producto->getEsOferta());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
-            $sql = "SELECT idProducto, nombre, imagen, descripcion, slug, itinerario, incluye, metaDescripcion, metaKeyWords, idCategoria, idTipo, idEstado, idProveedor, stock, esOferta, fechaAlta, fechaUpdate 
+            $sql = "SELECT idProducto, nombre, imagen, descripcion, slug, itinerario, incluye, precioProveedor, comision, metaDescripcion, metaKeyWords, idCategoria, idTipo, idTipoFacturacion, idEstado, idProveedor, stock, esOferta, fechaAlta, fechaUpdate 
             FROM productos";                        
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(!empty($rows)){
                 foreach($rows as $row){
-                    $ret[] = new Producto($row->idProducto, $row->nombre, $row->imagen, $row->descripcion, $row->slug, $row->itinerario, $row->incluye, $row->metaDescripcion, $row->metaKeyWords, $row->idCategoria, $row->idTipo, $row->idEstado, $row->idProveedor, $row->stock, $row->esOferta, $row->fechaAlta, $row->fechaUpdate);
+                    $ret[] = new Producto($row->idProducto, $row->nombre, $row->imagen, $row->descripcion, $row->slug, $row->itinerario, $row->incluye, $row->precioProveedor, $row->comision, $row->metaDescripcion, $row->metaKeyWords, $row->idCategoria, $row->idTipo, $row->idTipoFacturacion, $row->idEstado, $row->idProveedor, $row->stock, $row->esOferta, $row->fechaAlta, $row->fechaUpdate);
                 }
             }
             

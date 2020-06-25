@@ -7,15 +7,24 @@ class ReservaController extends ReservaBaseController {
      * @param Cliente $titular
      * @param array $pasajerosList
      * @param string $notasT
-     * @param int $idProductoFechaRef
+     * @param array $productoFechaList [['producto' => $producto, 'idProductoFechaRef' => $idProductoFechaRef]]
      * @return Reserva $reserva
      */
-    public function generarReserva(Cliente $titular, array $pasajerosList, string $notasT, array $productosList, int $tipoPago, $pvp)
+    public function generarReserva(Cliente $titular, array $pasajerosList, string $notasT, array $productoFechaList, int $tipoPago, $pvp)
     {
         // crear reserva
-        $reserva = new Reserva(0, $idProductoFechaRef, Reserva::ESTADO_PDTE_PAGO, $tipoPago, $pvp);
+        $reserva = new Reserva(0, Reserva::ESTADO_PDTE_PAGO, $tipoPago);
         $idReserva = $this->insert($reserva);
         $reserva = $this->getReservaById($idReserva);
+
+        // introducir los productos contratados en reservaDetalle para saber cómo se van a calcular
+        $reservaDetalle = new ReservaDetalleController;
+        foreach ($productoFechaList as $row){
+            $producto = $row['producto'];
+            $idTipoFacturacion = $producto->getidTipoFacturacion();
+            $idProductoFechaRef = $row['idProductoFechaRef'];
+            $reservaDetalle->insert(new ReservaDetalle($idReserva, $producto->getIdProducto(), $idProductoFechaRef, $idTipoFacturacion, $precioBruto, $comision));
+        }
         
         /**
          * si se contrata un seguro, se introduce una linea en producto_fecha_ref para indicar las fechas de contratacion
@@ -24,11 +33,7 @@ class ReservaController extends ReservaBaseController {
         // 
         
         
-        // introducir los productos contratados en reservaDetalle para saber cómo se van a calcular
-        $reservaDetalle = new ReservaDetalleController;
-        foreach ($productosList as $producto){
-            $reservaDetalle->insert(new ReservaDetalle($idReserva, $idProducto, $idProductoFechaRef, $idTipoCobro, $precioBruto, $comision));
-        }
+        
         
         
 

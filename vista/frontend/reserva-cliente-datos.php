@@ -11,11 +11,6 @@ try{
             : 0;    
     $productoC = new ProductoController;
     $producto = $productoC->getProductoById($idProducto);
-    $producSlug = $producto->getSlug();
-    $categoria = $producto->getCategoria();
-    $catSlug = $categoria->getSlug();
-    $catPadre = $categoria->getCategoriaPadre();
-    $catPadreSlug = $catPadre->getSlug();
     
     // FECHA SELECCIONADA
     $idProductoFechaRef = (isset($_GET['idProductoFechaRef']) and "" != $_GET['idProductoFechaRef']) 
@@ -37,15 +32,13 @@ try{
         $precio = $pProveedor + (($pProveedor * $pComision) / 100);   
         $pvp = Util::moneda($precio);
     }
-    
-    
-    
+
     // EDIT AREA
     $editFormAction = $_SERVER['PHP_SELF'];
     if (isset($_SERVER['QUERY_STRING'])) {
-      $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
+    $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
     }
-    
+
     if(isset($_POST['chx_termsAndConditions']) and "on" == $_POST['chx_termsAndConditions']){        
         
         $nombreT = $_POST['nombreT'];
@@ -60,7 +53,7 @@ try{
         $paisT = $_POST['paisT'];
         $notasT = $_POST['notasT'];
         $idProductoFechaRef = $_POST['idProductoFechaRef'];
-        $seguro = $_POST['seguro'];
+        $idSeguro = $_POST['seguro'];
         $tipoPago = $_POST['tipoPago'];
         $pvp = $_POST['pvp'];
         
@@ -86,10 +79,36 @@ try{
             $pasajerosList[] = $pasajero;
         }
 
+
+        $productoFechaList = [['producto' => $producto, 'idProductoFechaRef' => $idProductoFechaRef]];
+        $seguro =  @$productoC->getProductoById($idSeguro);
+        if(!is_null($seguro)); {
+            $idProductoFechaRef = $seguro->creaFechaSeguro($fsalida, $fvuelta);
+            $productoFechaList[] = ['producto' => $seguro, 'idProductoFechaRef' => $idProductoFechaRef];
+        }
+
         $reservaC = new ReservaController;
-        $reserva = $reservaC->generarReserva($titular, $pasajerosList, $notasT, $idProductoFechaRef, $seguro, $tipoPago, $pvp);
+        $reserva = $reservaC->generarReserva($titular, $pasajerosList, $notasT, $productoFechaList, $tipoPago, $pvp);
         
     }
+    // FIN EDIT AREA
+
+
+    // BREADCRUMB AREA    
+    $producSlug = $producto->getSlug();
+    $categoria = $producto->getCategoria();
+    $catSlug = $categoria->getSlug();
+    $catPadre = $categoria->getCategoriaPadre();
+    $catPadreSlug = $catPadre->getSlug();    
+    
+
+    // SEGUROS
+    $filtro = [
+        ['idTipo', Tipo::SEGURO],
+        ['idEstado', Estado::ESTADO_ACTIVO],
+    ];
+    $seguros = $productoC->select($filtro);
+    //Util::dev($seguros);
     
 } catch (Exception $e){
     $showError = $e->getMessage();
@@ -372,6 +391,9 @@ try{
                             </fieldset>
                             <div class="clear"></div>
                             <!--TODO: poner el captcha en este form y deshabilitar el boton sumit despues de haver hecho clic-->
+
+                            <?php if(!empty($seguros)) { ?>
+
                             <fieldset class="twelvecol column last" name="Seguros">
                                 <div class="section-title">
                                     <h2>Seguros</h2>
@@ -380,13 +402,12 @@ try{
                             
                             <fieldset class="twelvecol column last">
                                 <div class="field-container">
-                                    <input id="asistencia" type="radio" name="seguro" value="asistencia" checked/><span><label for="asistencia" class="label-input-radio">Asistencia</label></span><br>
-                                    <p>Amplia cobertura médica hasta 10.000 euros, que garantiza un viaje seguro por cualquier parte del mundo de hasta 17 días de duración. 20€ por Pasajero. [<a href="#">Ver condiciones</a>]</p>
-                                    <input id="cancelacion" type="radio" name="seguro" value="cancelacion" /><span><label for="cancelacion" class="label-input-radio">Cancelaci&oacute;n</label></span><br>
-                                    <p>Cobertura cancelación Viaje hasta 1200 euros + interrupción del viaje en destino días no disfrutados (Si desea ampliar su importe de cobertura indíqueselo al agente al confirmar su reserva). 50€ por Pasajero [<a href="#">Ver condiciones</a>]</p>
-                                    <input id="asistenciaCancelacion" type="radio" name="seguro" value="asistenciaCancelacion" /><span><label for="asistenciaCancelacion" class="label-input-radio">Asistencia + Cancelaci&oacute;n</label></span><br>
-                                    <p>Ambos seguros descritos en los puntos anteriores y con una mayor cobertura médica hasta 35.000 euros y de cancelación hasta 1800 euros. (RECOMENDADO) 60€ por Pasajero [<a href="#">Ver condiciones</a>]</p>
-                                    <input id="sinSeguro" type="radio" name="seguro" value="sinSeguro" /><span><label for="sinSeguro" class="label-input-radio">Sin Seguro</label></span><br>
+                                    <?php foreach($seguros as $seguro) { ?>
+                                    <input id="<?= $seguro->getSlug() ?>" type="radio" name="seguro" value="<?= $seguro->getIdProducto() ?>" checked/>
+                                    <span><label for=<?= $seguro->getSlug() ?> class="label-input-radio"><?= $seguro->getNombre() ?></label></span><br>
+                                    <p><?= $seguro->getDescripcion() ?>. <?= Util::moneda(20) // poner el precioProveedor+comision?> <?= $seguro->getTipo() //TODO: poner un campo nuevo en la tabla producto para poner el tipoFacturacion ?>. [<a href="#">Ver condiciones</a>]</p>                            
+                                    <?php } ?>
+                                    <input id="sinSeguro" type="radio" name="seguro" value="0" /><span><label for="sinSeguro" class="label-input-radio">Sin Seguro</label></span><br>
                                 </div>
                             </fieldset>
                             
@@ -395,6 +416,8 @@ try{
                                 <p>&nbsp;</p>
                             </fieldset>
                             <div class="clear"></div>
+
+                            <?php } ?>
                             
                             <fieldset class="twelvecol column last" name="FomaPago">
                                 <div class="section-title">

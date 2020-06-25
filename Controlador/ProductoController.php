@@ -14,7 +14,7 @@ class ProductoController extends ProductoBaseController {
             throw new Exception('[ERROR] El idProducto tiene que ser un entero mayor a cero (0)');
         }
 
-        $producto = @$this->select([['idProducto', $idProducto]])[0] ?? new Producto;
+        $producto = @$this->select([['idProducto', $idProducto]])[0];
 
         return $producto;
     }
@@ -31,7 +31,7 @@ class ProductoController extends ProductoBaseController {
             throw new Exception('[ERROR] El slug tiene que ser un string distinto de ""');
         }
         $slug = strtolower($slug);
-        $producto = @$this->select([['slug', $slug]])[0] ?? new Producto;
+        $producto = @$this->select([['slug', $slug]])[0];
         
         return $producto;
     }

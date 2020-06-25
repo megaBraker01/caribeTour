@@ -53,4 +53,10 @@ class Producto extends ProductoBase {
         return parent::setSlug($slug);        
     }
     
+
+    public function creaFechaSeguro($fsalida, $fvuelta)
+    {
+        $sql = sprintf('INSERT INTO productoFechaRef idProducto = %s, fsalida = %s, fvuelta =%s', $this->getIdProducto, $fsalida, $fvuelta);
+        //TODO: pendiente de hacer un generate de productoFechaRef o meterlo con un insert a pelo¿?
+    }
 }

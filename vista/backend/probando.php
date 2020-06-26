@@ -2,16 +2,11 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
-
-$productoC = new ProductoController;
-$productoList = $productoC->select();
-$widget = ['type' => 'lister'];
-$widget['data'] = [];
-foreach ($productoList as $producto){
-    $widget['data'][] = $producto->getAllParams(false, false);
-}
-
-$show = json_encode($widget);
+$reservaC = new ReservaController;
+$reserva = $reservaC->select([['idReserva', 11]])[0];
+$total = $reserva->calularPvp();
+//Util::dev($total);
+$show = ($total);
 // TODO: La idea es mandar en formato json un objeto que tenga, el tipo de dato, que puede ser nulo, valor por defecto, validacion de tipo, valores maximos y minimos, etc
 
 

@@ -6,6 +6,7 @@ abstract class BaseController {
    protected $parameters = [];
 
     /**
+     * TODO: refactorizar con clausula guarda y verificar $filters sea un array de arrays
      * pasamos los parametros para condicionar el WHERE de la consulta
      * el aparametro debe de ser un array de arrays, cada array elemento tiene que ser de la forma:
      * ['campo_a_comparar', 'sigo_comparacion', 'valor_a_comparar', (opcional 'and | or')]

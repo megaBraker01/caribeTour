@@ -15,6 +15,8 @@ class Reserva extends ReservaBase {
     const TIPO_PAGO_PAYPAL = 14;
     const TIPO_PAGO_EFECTIVO = 15;
     const TIPO_PAGO_CHEQUE = 16;
+
+    // TIPO DE FACTURACION
     
     // WORKFLOW ESTADOS
     // ESTADO_PDTE_PAGO > ESTADO_PAGADA > ESTADO_PDTE_CONFIMACION_PROVEEROR > ESTADO_CONFIRMADA
@@ -37,13 +39,66 @@ class Reserva extends ReservaBase {
        */
       public function calularPvp()
       {
-          $retPvp = (double) 0.0;
+          $retPvp = 0;
           // se extraen los reserva_detalles ()
-            // se verifica el tipo de calculo
-            // se cuentan la cantidad de pasajeros y según el tipo se calcula
-            // se suman las tasas (si la hubiese)
-          return $retPvp;
+          // se verifica el tipo de calculo
+          // se cuentan la cantidad de pasajeros y según el tipo se calcula
+          // se suman las tasas (si la hubiese)
+
+
+          $reservaDetalles = $this->getDetalles();
+          foreach($reservaDetalles as $detalle){
+
+            switch($detalle->getIdTipoFacturacion()){
+
+              case Tipo::FACTURAR_POR_RESERVA: 
+                $precioP = $detalle->getPrecioProveedor();
+                $comision = $detalle->getComision();
+                $precioComision = Util::precioComisionCalc($precioP, $comision);
+                $retPvp += $precioComision;
+              break;
+
+              case Tipo::FACTURAR_POR_PERSONA:
+                $pasajerosCount = count($this->getPasajeros());
+                Util::dev($this->getPasajeros());
+                $precioP = $detalle->getPrecioProveedor();
+                $comision = $detalle->getComision();
+                $precioComision = Util::precioComisionCalc($precioP, $comision);
+                $retPvp += $precioComision * $pasajerosCount;
+              break;
+
+              // por defecto se cobra por reserva
+              default:
+                $precioP = $detalle->getPrecioProveedor();
+                $comision = $detalle->getComision();
+                $precioComision = Util::precioComisionCalc($precioP, $comision);
+                $retPvp += $precioComision;
+              break;
+
+            }
+
+          }
+
+          return (double) $retPvp;
       }
 
-      // TODO: Cambiar el nombre de la columna importe y poner pvp
+
+      public function getDetalles()
+      {
+          $detallesC = new ReservaDetalleController;
+          return $detallesC->select([['idReserva', $this->getIdReserva()]]) ?? [];
+      }
+
+      public function getPasajeros()
+      {
+          $pasajeros = [];
+          $reservaCP = new ReservaClientePasajeroRefController;
+          $pasajeroC = new PasajeroController;
+          foreach($reservaCP->select([['idReserva', $this->getIdReserva()]]) as $rcp){
+              $pasajero = $pasajeroC->select([['idPasajero', $rcp->getIdPasajero()]])[0];
+              $pasajeros[] = $pasajero;
+          }
+
+          return $pasajeros;
+      }
 }

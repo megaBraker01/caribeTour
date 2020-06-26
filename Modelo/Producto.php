@@ -90,4 +90,11 @@ class Producto extends ProductoBase {
         $pfechaRefC = new ProductoFechaRefController;
         return @$pfechaRefC->select([['idProductoFechaRef', $idProductoFechaRefById]])[0];
     }
+    
+    public function getTipoFacturacion(){
+        $TipoFacturacionController = new TipoController();
+        $idTipoFacturacion = $this->getIdTipoFacturacion();
+        $TipoFacturacionList = $TipoFacturacionController->select([['idTipo', $idTipoFacturacion]]);
+        return $TipoFacturacionList[0];
+    }
 }

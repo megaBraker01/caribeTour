@@ -194,11 +194,15 @@ try {
                                 <div class="colored-icon icon-7"><span></span></div>
                                 <strong>Regreso:</strong> <?= $fvuelta ?>
                             </li>
-                            <li style="font-size:1.8em;">
+                            <li>
                                 <div class="colored-icon icon-3"><span></span></div>
-                                <strong>Precio:</strong> <?= $pvp ?>
-                            </li>
+                                <strong>Facturación:</strong> <?= $producto->getTipoFacturacion() ?>
+                            </li>                            
                         </ul>
+                        <div style="font-size:1.8em;">
+                            <strong>Precio:</strong> <span id="pvp"><?= $pvp ?></span>
+                        </div>
+                        <br>
                         <p>
                             <?= $producto->getDescripcion() ?>
                         </p>

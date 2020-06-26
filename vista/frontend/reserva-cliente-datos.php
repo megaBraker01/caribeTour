@@ -29,7 +29,8 @@ try{
         $duracion = Util::duracionCalc($fsalida, $fvuelta); 
         $pProveedor = $fSeleccionadaData->getPrecioProveedor();
         $pComision = $fSeleccionadaData->getComision();
-        $precio = $pProveedor + (($pProveedor * $pComision) / 100);   
+        $precio = $pProveedor + (($pProveedor * $pComision) / 100);  
+        $pvpFinal = $precio * 2;
         $pvp = Util::moneda($precio);
     }
 
@@ -226,11 +227,14 @@ try{
                                 <div class="colored-icon icon-7"><span></span></div>
                                 <strong>Regreso:</strong> <?= $fvuelta ?>
                             </li>
-                            <li style="font-size:1.8em;">
+                            <li>
                                 <div class="colored-icon icon-3"><span></span></div>
-                                <strong>Precio:</strong> <?= $pvp ?>
-                            </li>
+                                <strong>Facturación:</strong> <?= $producto->getTipoFacturacion() ?>
+                            </li>                            
                         </ul>
+                        <div style="font-size:1.8em;">
+                            <strong>Precio:</strong> <span id="pvp"><?= $pvp ?></span>
+                        </div>
                     </div>
                     <!-- /datos del producto -->
                     
@@ -284,9 +288,7 @@ try{
                             </fieldset>
                             
                             <div class="clear"></div>
-                            <fieldset class="twelvecol column last">
-                                <p>&nbsp;</p>
-                            </fieldset>
+                            <p>&nbsp;</p>
                             <div class="clear"></div>
                             
                             <fieldset class="twelvecol column last" name="pasajeros">
@@ -318,12 +320,12 @@ try{
                                 <legend>Fecha de Nacimiento *</legend>
                                 <div class="threecol column">
                                     <div class="field-container">
-                                        <input type="number" name="diaP[]" value="" id="dia" placeholder="D&iacute;a" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) mesP[].focus()" maxlength="2" max="31" min="1" title="Introduzca el D&iacute;a de su nacimiento" required />
+                                        <input type="number" name="diaP[]" value="" id="diap1" placeholder="D&iacute;a" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) mesP[].focus()" maxlength="2" max="31" min="1" title="Introduzca el D&iacute;a de su nacimiento" required />
                                     </div>
                                 </div>
                                 <div class="fivecol column">
                                     <div class="field-container">
-                                        <select name="mesP[]" id="mes" title="Seleccione el mes de su nacimiento" required >
+                                        <select name="mesP[]" id="mesp1" title="Seleccione el mes de su nacimiento" required >
                                             <option value="" selected="selected">Mes</option>
                                             <option value="01">Enero</option>
                                             <option value="02">Febrero</option>
@@ -342,28 +344,28 @@ try{
                                 </div>
                                 <div class="fourcol column last">
                                 <div class="field-container">
-                                <input type="number" id="anio" name="anioP[]" value="" maxlength="4" max="2002" min="1930" placeholder="A&ntilde;o" title="Introduzca el a&ntilde;o de su nacimiento" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) strCiudad[].focus()" required /></div></div>
+                                <input type="number" id="aniop1" name="anioP[]" value="" maxlength="4" max="2002" min="1930" placeholder="A&ntilde;o" title="Introduzca el a&ntilde;o de su nacimiento" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) strCiudad[].focus()" required /></div></div>
                             </fieldset>
                             
-                            <fieldset class="column fourcol" name="Pasajero_2">
+                            <fieldset class="column fourcol last" name="Pasajero_2">
                                 <legend><h2>Pasajero 2</h2></legend>
-                                <label for="nombrep">Nombre *</label>
-                                <div class="field-container"><input id="nombrep" type="text" width="" name="nombreP[]" value="" placeholder="Nombre" title="Introduzca su Nombre" maxlength="20" required /></div>
-                                <label for="apelli2p">Apellidos *</label>
-                                <div class="field-container"><input id="apelli2p" type="text" name="apellidosP[]" value="" placeholder="Apellidos" title="Introduzca sus Apellidos" maxlength="30" required /></div>
-                                <label for="dnip">DNI o Pasaporte *</label>
-                                <div class="field-container"><input id="dnip" type="text" name="NIFoPasaporteP[]" value="" placeholder="DNI o Pasaporte" title="Introduzca el DNI o Pasaporte sin guiones ni espacios." maxlength="10" required /></div>
-                                <label for="nacionalidadp">Nacionalidad *</label>
-                                <div class="field-container"><input id="nacionalidadp" type="text" name="nacionalidadP[]" value="" placeholder="Nacionalidad" title="Introduzca la Nacionalidad." required /></div>
+                                <label for="nombrep2">Nombre *</label>
+                                <div class="field-container"><input id="nombrep2" type="text" width="" name="nombreP[]" value="" placeholder="Nombre" title="Introduzca su Nombre" maxlength="20" required /></div>
+                                <label for="apelli2p2">Apellidos *</label>
+                                <div class="field-container"><input id="apelli2p2" type="text" name="apellidosP[]" value="" placeholder="Apellidos" title="Introduzca sus Apellidos" maxlength="30" required /></div>
+                                <label for="dnip2">DNI o Pasaporte *</label>
+                                <div class="field-container"><input id="dnip2" type="text" name="NIFoPasaporteP[]" value="" placeholder="DNI o Pasaporte" title="Introduzca el DNI o Pasaporte sin guiones ni espacios." maxlength="10" required /></div>
+                                <label for="nacionalidadp2">Nacionalidad *</label>
+                                <div class="field-container"><input id="nacionalidadp2" type="text" name="nacionalidadP[]" value="" placeholder="Nacionalidad" title="Introduzca la Nacionalidad." required /></div>
                                 <legend>Fecha de Nacimiento *</legend>
                                 <div class="threecol column">
                                     <div class="field-container">
-                                        <input type="number" name="diaP[]" value="" id="dia" placeholder="D&iacute;a" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) mesP[].focus()" maxlength="2" max="31" min="1" title="Introduzca el D&iacute;a de su nacimiento" required />
+                                        <input type="number" name="diaP[]" value="" id="diap2" placeholder="D&iacute;a" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) mesP[].focus()" maxlength="2" max="31" min="1" title="Introduzca el D&iacute;a de su nacimiento" required />
                                     </div>
                                 </div>
                                 <div class="fivecol column">
                                     <div class="field-container">
-                                        <select name="mesP[]" id="mes" title="Seleccione el mes de su nacimiento" required >
+                                        <select name="mesP[]" id="mesp2" title="Seleccione el mes de su nacimiento" required >
                                             <option value="" selected="selected">Mes</option>
                                             <option value="01">Enero</option>
                                             <option value="02">Febrero</option>
@@ -382,13 +384,11 @@ try{
                                 </div>
                                 <div class="fourcol column last">
                                 <div class="field-container">
-                                <input type="number" id="anio" name="anioP[]" value="" maxlength="4" max="2002" min="1930" placeholder="A&ntilde;o" title="Introduzca el a&ntilde;o de su nacimiento" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) strCiudad[].focus()" required /></div></div>
+                                <input type="number" id="aniop2" name="anioP[]" value="" maxlength="4" max="2002" min="1930" placeholder="A&ntilde;o" title="Introduzca el a&ntilde;o de su nacimiento" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) strCiudad[].focus()" required /></div></div>
                             </fieldset>
                             
                             <div class="clear"></div>
-                            <fieldset class="twelvecol column last">
-                                <p>&nbsp;</p>
-                            </fieldset>
+                            <p>&nbsp;</p>
                             <div class="clear"></div>
                             <!--TODO: poner el captcha en este form y deshabilitar el boton sumit despues de haver hecho clic-->
 
@@ -402,19 +402,18 @@ try{
                             
                             <fieldset class="twelvecol column last">
                                 <div class="field-container">
-                                    <input id="sinSeguro" type="radio" name="seguro" value="0" checked /><span><label for="sinSeguro" class="label-input-radio">Sin Seguro</label></span><br>
+                                    <input id="sinSeguro" type="radio" name="seguro" value="0" title="0" checked /><span><label for="sinSeguro" class="label-input-radio">Sin Seguro</label></span><br>
                                     <?php foreach($seguros as $seguro) { ?>
-                                    <input id="<?= $seguro->getSlug() ?>" type="radio" name="seguro" value="<?= $seguro->getIdProducto() ?>"/>
+                                    <?php $precioSeguro = $seguro->getPrecioProveedor(); ?>
+                                    <input id="<?= $seguro->getSlug() ?>" type="radio" name="seguro" value="<?= $seguro->getIdProducto() ?>" title="<?= $precioSeguro ?>"/>
                                     <span><label for=<?= $seguro->getSlug() ?> class="label-input-radio"><?= $seguro->getNombre() ?></label></span><br>
-                                    <p><?= $seguro->getDescripcion() ?>. <?= Util::moneda(20) // poner el precioProveedor+comision?> <?= $seguro->getTipo() //TODO: poner un campo nuevo en la tabla producto para poner el tipoFacturacion ?>. [<a href="#">Ver condiciones</a>]</p>                            
+                                    <p><?= $seguro->getDescripcion() ?>. <?= Util::moneda($precioSeguro) ?> <?= $seguro->getTipo() ?>. [<a href="#">Ver condiciones</a>]</p>                            
                                     <?php } ?>
                                 </div>
                             </fieldset>
                             
                             <div class="clear"></div>
-                            <fieldset class="twelvecol column last">
-                                <p>&nbsp;</p>
-                            </fieldset>
+                            <p>&nbsp;</p>
                             <div class="clear"></div>
 
                             <?php } ?>
@@ -435,9 +434,7 @@ try{
                             </fieldset>
                             
                             <div class="clear"></div>
-                            <fieldset class="twelvecol column last">
-                                <p>&nbsp;</p>
-                            </fieldset>
+                            <p>&nbsp;</p>
                             <div class="clear"></div>
                             
                             <fieldset class="twelvecol column last">
@@ -448,11 +445,22 @@ try{
                                     </label>
                                 </div>
                                 <p>&nbsp;</p>
+                                
+                                <div class="clear"></div>
+                                <fieldset class="twelvecol column last">
+                                    <h2>
+                                        Total a Pagar: <span class="calendar-price" id="pvpFinal"><?= Util::moneda($pvpFinal) ?></span>
+                                    </h2>
+                                </fieldset>
+                                <div class="clear"></div>
+                                <p>&nbsp;</p>
+                                <p>&nbsp;</p>
 
                                 <input type="hidden" name="idproducto" value="<?= $idProducto ?>" />
                                 <input type="hidden" name="idProductoFechaRef" value="<?= $idProductoFechaRef ?>">
-                                <input type="hidden" name="pvp" value="<?= $pvp ?>" />
-                                <input type="submit" value="Confirmar Datos y Elegir Forma de Pago" title="Confirmar Datos y Elegir Forma de Pago" tabindex="25"/>
+                                <input type="hidden" id="tourPrecio" name="tourPrecio" value="<?= $precio ?>" />
+                                <input type="hidden" id="hiddenPvp" name="pvp" value="<?= $pvpFinal ?>" />
+                                <input type="submit" value="Confirmar Datos y Pagar la Reserva" title="Confirmar Datos y Pagar" tabindex="25"/>
                                 
                             </fieldset>
                             
@@ -479,7 +487,54 @@ try{
         </div>
         <!-- /container -->
 	    <?php include_once('includes/jsFoot.php'); ?>
-  
+        <script type='text/javascript'>
+            window.onload = function(){
+                
+                function echo($var){
+                    console.log($var);
+                }
+
+                function getElement($target, $by = 'id')
+                {
+                    let $ret = null;
+                    switch($by.toLowerCase()){
+                        case 'id':
+                            $ret = document.getElementById($target);
+                            break;
+                        case 'name':
+                            $ret = document.getElementsByName($target);
+                            break;
+                        case 'class':
+                            $ret = document.getElementsByName($target);
+                            break;
+                    }
+
+                    return $ret;
+                }
+                
+                function contarPasajeros(){
+                    let $contarPasajeros = 0;
+                    let $pasajeros = getElement('nombreP[]', 'name');
+                    $pasajeros.forEach(function($pasajero){
+                       $contarPasajeros += 1;
+                    });
+                    return $contarPasajeros;
+                }
+                
+                let $seguros = getElement('seguro', 'name');
+                $seguros.forEach(function($seguro){
+                    //$precioSeguro = $seguro.title;
+                    $seguro.addEventListener('click', function($disparador){
+                        let $tourPrecio = parseFloat(getElement('tourPrecio').value);
+                        let $seguroPrecio = parseFloat( $disparador.target.title );
+                        let $pvp = parseFloat( contarPasajeros() * ($tourPrecio + $seguroPrecio) ).toFixed(2);
+                        getElement('pvpFinal').innerHTML = $pvp + "€";
+                        getElement('hiddenPvp').value = $pvp;
+                    });
+                });
+            }        
+        
+        </script>  
         
     </body>
 </html>

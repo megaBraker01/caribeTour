@@ -54,9 +54,40 @@ class Producto extends ProductoBase {
     }
     
 
-    public function creaFechaSeguro($fsalida, $fvuelta)
+    /**
+     * crear las fechas de covertura del seguro
+     * @param string $fsalida
+     * @param string $fvuelta
+     * @return int
+     */
+    public function creaFechasSeguro(string $fsalida, string $fvuelta): int
     {
-        $sql = sprintf('INSERT INTO productoFechaRef idProducto = %s, fsalida = %s, fvuelta =%s', $this->getIdProducto, $fsalida, $fvuelta);
-        //TODO: pendiente de hacer un generate de productoFechaRef o meterlo con un insert a pelo¿?
+        try {
+            $fechaList = [$fsalida, $fvuelta];
+            $fechaC = new FechaController;
+            $idFechas = [];
+            foreach ($fechaList as $fecha){
+                $fechaFormateada = Util::dateFormat($fecha, 'Y-m-d');
+                $idFechas[] = $fechaC->insert(new Fecha(0, $fechaFormateada));
+            }
+
+            $pfechaRefC = new ProductoFechaRefController;
+            $idProductoFechaRef = $pfechaRefC->insert(new ProductoFechaRef(0, $this->getIdProducto(), $idFechas[0], $idFechas[1], $this->getPrecioProveedor(), $this->getComision()));
+            
+            return $idProductoFechaRef;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    
+    /**
+     * 
+     * @param int $idProductoFechaRefById
+     * @return \ProductoFechaRef
+     */
+    public function getProductoFechaRefById(int $idProductoFechaRefById): ProductoFechaRef
+    {
+        $pfechaRefC = new ProductoFechaRefController;
+        return @$pfechaRefC->select([['idProductoFechaRef', $idProductoFechaRefById]])[0];
     }
 }

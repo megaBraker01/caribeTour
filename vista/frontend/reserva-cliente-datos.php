@@ -36,7 +36,7 @@ try{
     // EDIT AREA
     $editFormAction = $_SERVER['PHP_SELF'];
     if (isset($_SERVER['QUERY_STRING'])) {
-    $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
+        $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
     }
 
     if(isset($_POST['chx_termsAndConditions']) and "on" == $_POST['chx_termsAndConditions']){        
@@ -54,7 +54,7 @@ try{
         $notasT = $_POST['notasT'];
         $idProductoFechaRef = $_POST['idProductoFechaRef'];
         $idSeguro = $_POST['seguro'];
-        $tipoPago = $_POST['tipoPago'];
+        $tipoPago = (int) $_POST['tipoPago'];
         $pvp = $_POST['pvp'];
         
         $clienteC = new ClienteController;
@@ -81,9 +81,9 @@ try{
 
 
         $productoFechaList = [['producto' => $producto, 'idProductoFechaRef' => $idProductoFechaRef]];
-        $seguro =  @$productoC->getProductoById($idSeguro);
+        $seguro = @$productoC->getProductoById($idSeguro);
         if(!is_null($seguro)); {
-            $idProductoFechaRef = $seguro->creaFechaSeguro($fsalida, $fvuelta);
+            $idProductoFechaRef = $seguro->creaFechasSeguro($fsalida, $fvuelta);
             $productoFechaList[] = ['producto' => $seguro, 'idProductoFechaRef' => $idProductoFechaRef];
         }
 
@@ -402,12 +402,12 @@ try{
                             
                             <fieldset class="twelvecol column last">
                                 <div class="field-container">
+                                    <input id="sinSeguro" type="radio" name="seguro" value="0" checked /><span><label for="sinSeguro" class="label-input-radio">Sin Seguro</label></span><br>
                                     <?php foreach($seguros as $seguro) { ?>
-                                    <input id="<?= $seguro->getSlug() ?>" type="radio" name="seguro" value="<?= $seguro->getIdProducto() ?>" checked/>
+                                    <input id="<?= $seguro->getSlug() ?>" type="radio" name="seguro" value="<?= $seguro->getIdProducto() ?>"/>
                                     <span><label for=<?= $seguro->getSlug() ?> class="label-input-radio"><?= $seguro->getNombre() ?></label></span><br>
                                     <p><?= $seguro->getDescripcion() ?>. <?= Util::moneda(20) // poner el precioProveedor+comision?> <?= $seguro->getTipo() //TODO: poner un campo nuevo en la tabla producto para poner el tipoFacturacion ?>. [<a href="#">Ver condiciones</a>]</p>                            
                                     <?php } ?>
-                                    <input id="sinSeguro" type="radio" name="seguro" value="0" /><span><label for="sinSeguro" class="label-input-radio">Sin Seguro</label></span><br>
                                 </div>
                             </fieldset>
                             
@@ -427,9 +427,9 @@ try{
                             
                             <fieldset class="twelvecol column last">
                                 <div class="field-container">
-                                    <input id="tarjeta" type="radio" name="tipoPago" value="tarjeta" checked /><span><label for="tarjeta" class="label-input-radio">Tarjeta Cr&eacute;dito/D&eacute;vito</label></span><br>
-                                    <input id="PayPal" type="radio" name="tipoPago" value="PayPal" /><span><label for="PayPal" class="label-input-radio">PayPal</label></span><br>
-                                    <input id="transferencia" type="radio" name="tipoPago" value="transferencia" /><span><label for="transferencia" class="label-input-radio">Transferencia</label></span><br>
+                                    <input id="tarjeta" type="radio" name="tipoPago" value="12" checked /><span><label for="tarjeta" class="label-input-radio">Tarjeta Cr&eacute;dito/D&eacute;vito</label></span><br>
+                                    <input id="PayPal" type="radio" name="tipoPago" value="14" /><span><label for="PayPal" class="label-input-radio">PayPal</label></span><br>
+                                    <input id="transferencia" type="radio" name="tipoPago" value="13" /><span><label for="transferencia" class="label-input-radio">Transferencia</label></span><br>
                                     
                                 </div>
                             </fieldset>

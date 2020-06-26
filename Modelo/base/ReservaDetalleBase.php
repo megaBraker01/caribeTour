@@ -6,7 +6,7 @@ abstract class ReservaDetalleBase extends ModelBase {
     protected $idProducto;
     protected $idProductoFechaRef;
     protected $idTipoFacturacion;
-    protected $precioBruto;
+    protected $precioProveedor;
     protected $comision;
     protected $fechaAlta;
     protected $fechaUpdate;
@@ -16,7 +16,7 @@ abstract class ReservaDetalleBase extends ModelBase {
         $idProducto = 0,
         $idProductoFechaRef = 0,
         $idTipoFacturacion = 0,
-        $precioBruto = 0,
+        $precioProveedor = 0,
         $comision = 0,
         $fechaAlta = '',
         $fechaUpdate = ''
@@ -25,7 +25,7 @@ abstract class ReservaDetalleBase extends ModelBase {
         $this->setIdProducto($idProducto);
         $this->setIdProductoFechaRef($idProductoFechaRef);
         $this->setIdTipoFacturacion($idTipoFacturacion);
-        $this->setPrecioBruto($precioBruto);
+        $this->setPrecioProveedor($precioProveedor);
         $this->setComision($comision);
         $this->setFechaAlta($fechaAlta);
         $this->setFechaUpdate($fechaUpdate);
@@ -39,7 +39,7 @@ abstract class ReservaDetalleBase extends ModelBase {
 
     public function getIdTipoFacturacion(){ return $this->idTipoFacturacion; }
 
-    public function getPrecioBruto(){ return $this->precioBruto; }
+    public function getPrecioProveedor(){ return $this->precioProveedor; }
 
     public function getComision(){ return $this->comision; }
 
@@ -91,8 +91,8 @@ abstract class ReservaDetalleBase extends ModelBase {
         $this->idTipoFacturacion = (int) $idTipoFacturacion; return $this;
     }
 
-    public function setPrecioBruto($precioBruto = 0){
-        $this->precioBruto = (float) $precioBruto; return $this;
+    public function setPrecioProveedor($precioProveedor = 0){
+        $this->precioProveedor = (float) $precioProveedor; return $this;
     }
 
     public function setComision($comision = 0){

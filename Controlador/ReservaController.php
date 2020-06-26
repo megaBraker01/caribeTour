@@ -12,54 +12,55 @@ class ReservaController extends ReservaBaseController {
      */
     public function generarReserva(Cliente $titular, array $pasajerosList, string $notasT, array $productoFechaList, int $tipoPago, $pvp)
     {
-        // crear reserva
-        $reserva = new Reserva(0, Reserva::ESTADO_PDTE_PAGO, $tipoPago);
-        $idReserva = $this->insert($reserva);
-        $reserva = $this->getReservaById($idReserva);
+        try {
+            // crear reserva
+            $reserva = new Reserva(0, Reserva::ESTADO_PDTE_PAGO, $tipoPago);
+            $idReserva = $this->insert($reserva);
+            $reservaRet = $this->getReservaById($idReserva);
 
-        // introducir los productos contratados en reservaDetalle para saber cómo se van a calcular
-        $reservaDetalle = new ReservaDetalleController;
-        foreach ($productoFechaList as $row){
-            $producto = $row['producto'];
-            $idTipoFacturacion = $producto->getidTipoFacturacion();
-            $idProductoFechaRef = $row['idProductoFechaRef'];
-            $reservaDetalle->insert(new ReservaDetalle($idReserva, $producto->getIdProducto(), $idProductoFechaRef, $idTipoFacturacion, $precioBruto, $comision));
-        }
-        
-        /**
-         * si se contrata un seguro, se introduce una linea en producto_fecha_ref para indicar las fechas de contratacion
-         * para ello se toma las fechas del producto principal (eso sacarlo de esta funcion, porque se puede contratar un seguro sin "producto principal"
-         */
-        // 
-        
-        
-        
-        
-        
+            // introduce los productos contratados en reservaDetalle para saber cómo se van a calcular
+            $reservaDetalle = new ReservaDetalleController;
+            foreach ($productoFechaList as $row){
+                $producto = $row['producto'];
+                $idTipoFacturacion = $producto->getidTipoFacturacion();
+                $idProductoFechaRef = $row['idProductoFechaRef'];
+                $pFechaRef = $producto->getProductoFechaRefById($idProductoFechaRef);
+                $precioProveedor = $pFechaRef->getPrecioProveedor();
+                $comision = $pFechaRef->getComision();
+                $reservaDetalle->insert(new ReservaDetalle($idReserva, $producto->getIdProducto(), $idProductoFechaRef, $idTipoFacturacion, $precioProveedor, $comision));
+            }  
 
-        // crear cliente
-        $clienteC = new ClienteController;
-        $clienteId = $clienteC->insert($titular);
-        
-        // crear pasajeros y la relacion reserva-cliente-pasajero
-        $reservaClientePasajeroRefController = new ReservaClientePasajeroRefController;
-        $pasajeroC = new PasajeroController;
-        foreach($pasajerosList as $pasajero){
-            $idPasajero = $pasajeroC->insert($pasajero);
-            $reservaClientePasajeroRefController->insert(new ReservaClientePasajeroRef($clienteId, $idPasajero, $idReserva));
-        }
+            // crea el cliente
+            $clienteC = new ClienteController;
+            $clienteId = $clienteC->insert($titular);
 
-        // crear nota
-        if("" != $notasT){
+            // crea los pasajeros y la relacion reserva-cliente-pasajero
+            $reservaClientePasajeroRefController = new ReservaClientePasajeroRefController;
+            $pasajeroC = new PasajeroController;
+            foreach($pasajerosList as $pasajero){
+                $idPasajero = $pasajeroC->insert($pasajero);
+                $reservaClientePasajeroRefController->insert(new ReservaClientePasajeroRef($clienteId, $idPasajero, $idReserva));
+            }
+
+            // crear nota
+            // TODO: se van hacer pruebas guardando el pvp en una nota para poder compararlo con el pvp calculado entre php y js
+            // luego que haya suficiente pruebas, descomentar este codigo
+            /*
+            if("" != $notasT){
+                $notaC = new NotaController;
+                $notaC->insert(new Nota(0, 'reservas', $idReserva, $notasT));
+            }
+             * 
+             */
             $notaC = new NotaController;
+            $notasT = "Pvp mostrado al cliente: $pvp\n $notasT";
             $notaC->insert(new Nota(0, 'reservas', $idReserva, $notasT));
+            
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
         }
-
-        // insertar en la tabla reserva_detalles los productos contratados (seguros, excursiones, tour, etc.) y su tipo de facturacion
-        // para poder calcular el pvp de la reserga
-        // TODO: compara el pvp generado con js con el pvp calculado en php, si hay diferencia poner una nota a la reserva indicandolo
         
-        return $reserva;
+        return $reservaRet;
     }
 
     /**

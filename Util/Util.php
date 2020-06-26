@@ -80,4 +80,10 @@ class Util {
     {
         return date($format, strtotime($date));
     }
+
+    
+    public function precioComisionCalc($precio, $comision)
+    {
+        return $precio + (($precio * $comision) / 100);
+    }
 }

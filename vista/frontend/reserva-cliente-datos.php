@@ -90,6 +90,8 @@ try{
 
         $reservaC = new ReservaController;
         $reserva = $reservaC->generarReserva($titular, $pasajerosList, $notasT, $productoFechaList, $tipoPago, $pvp);
+        $pvpPagar = $reserva->calularPvp();
+        Util::dev($pvpPagar);
         
     }
     // FIN EDIT AREA

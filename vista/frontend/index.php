@@ -104,13 +104,13 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                                     $producto = $productoC->getProductoById($utilCProducto->getIdProducto());
                                     $categoria = $producto->getCategoria();
                                     $categoriaPadre = $categoria->getCategoriaPadre();
-                                    $precio = $categoria->getPrecioMasBajo();
+                                    $precio = Util::moneda($categoria->getPrecioMasBajo());
                                 ?>
                                 <li>
                                     <div class="featured-image">
                                         <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoriaPadre->getSlug() ?>/<?= $categoria->getSlug() ?>">
                                             <div class="etiqueta-categoria" id="etiqueta">
-                                                <?= $categoria ?> desde <?= $precio ?>&euro;
+                                                <?= $categoria ?> desde <?= $precio ?>
                                             </div>
                                             <img width="824" height="370" src="<?=PATHFRONTEND ?>img/<?= $categoria->getSrcImagen() ?>" class="attachment-large wp-post-image" alt="<?= $categoria ?>" title="Ver Todos Los destinos de <?= $categoria ?>"/>
                                         </a>
@@ -209,7 +209,7 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                         $producto = $productoC->getProductoById($productoFecha->getIdProducto());
                         $categoria = $producto->getCategoria();
                         $categoriPadre = $categoria->getCategoriaPadre();
-                        $precio = $producto->getPrecioMasBajo();
+                        $precio = Util::moneda($producto->getPrecioMasBajo());
                         $last = "";
                         $clear = "";
                         if($i++ % 4 == 0){
@@ -233,7 +233,7 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                                             <div class="colored-icon icon-2"></div>
                                             <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoriPadre->getSlug() ?>/<?= $categoria->getSlug() ?>" rel="tag" title="Ver todos los destinos de <?= $categoria ?>"><?= $categoria ?></a>
                                         </div>
-                                        <div class="colored-icon icon-3"></div><div class="precio"><?= $precio ?>&euro;</div>
+                                        <div class="colored-icon icon-3"></div><div class="precio"><?= $precio ?></div>
                                     </div>
                                 </div>
                             </div>

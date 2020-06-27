@@ -161,7 +161,7 @@ if  (
                                         </li>
                                         <li style="font-size:1.8em;">
                                             <div class="colored-icon icon-3"><span></span></div>
-                                            <strong>Desde:</strong> <?= $precioMasBajo ?>
+                                            <strong>Desde:</strong> <?= Util::moneda($precioMasBajo) ?>
                                         </li>
                                     </ul>
                                     <p><?= substr($producto->getDescripcion(),0,261); ?>.[...]</p>

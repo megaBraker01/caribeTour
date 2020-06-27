@@ -101,7 +101,7 @@ if  (
                     foreach($categoriaList as $utilCategoria){
                         $idCategoria = $utilCategoria->getIdCategoria();
                         $categoria = $categoriaC->getCategoriaById($idCategoria);
-                        $precioMasBajo = $categoria->getPrecioMasBajo();
+                        $precioMasBajo = Util::moneda($categoria->getPrecioMasBajo());
                         $last = "";
                         $clear = "";
                         if($i++ % 3 == 0){

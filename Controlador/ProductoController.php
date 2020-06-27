@@ -100,7 +100,8 @@ class ProductoController extends ProductoBaseController {
         foreach($fechaSalidaPrecio as $productoFechaDTO){
             $precioProveedor = $productoFechaDTO->getPrecioProveedor();
             $comision = $productoFechaDTO->getComision();
-            $precio = $precioProveedor + (($precioProveedor * $comision) / 100);
+            $tasasTotal = $productoFechaDTO->getTasasTotal();
+            $precio = Util::precioComisionCalc($precioProveedor, $comision) + $tasasTotal;
             $pvp = Util::moneda($precio);
             $fechaS = date('Y-m-d', strtotime( $productoFechaDTO->getFsalida() ));
             $eventos[$fechaS] = "<div class='calendar-price'><a href='{$urlNavegation}/fecha={$fecha}/fechaS={$fechaS}'>{$pvp}</a></div>";

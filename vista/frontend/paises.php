@@ -83,7 +83,7 @@ $paisesList = $productoC->getProductoFechaRefPDO($filtros, $ordenados, $limitar,
                     foreach($paisesList as $pais){
                         $idCategoria = $pais->getIdCategoriaPadre();
                         $categoria = $categoriaC->getCategoriaById($idCategoria);
-                        $precioMasBajo = $categoria->getPrecioMasBajo(true, true);
+                        $precioMasBajo = Util::moneda($categoria->getPrecioMasBajo(true, true));
                         $last = "";
                         $clear = "";
                         if($i++ % 3 == 0){

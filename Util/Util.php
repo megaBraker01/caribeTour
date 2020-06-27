@@ -81,9 +81,25 @@ class Util {
         return date($format, strtotime($date));
     }
 
-    
-    public function precioComisionCalc($precio, $comision)
+    /**
+     * Calcula el precio sumandole el porsentaje de la comision
+     * @param type $precio
+     * @param type $comision
+     * @return float
+     */
+    public static function precioComisionCalc($precio, $comision): float
     {
-        return $precio + (($precio * $comision) / 100);
+        return $precio + self::comisionCalc($precio, $comision);
+    }
+    
+    /**
+     * 
+     * @param type $precio
+     * @param type $comision
+     * @return float
+     */
+    public static function comisionCalc($precio, $comision): float
+    {
+        return (($precio * $comision) / 100);
     }
 }

@@ -29,7 +29,8 @@ try{
         $duracion = Util::duracionCalc($fsalida, $fvuelta); 
         $pProveedor = $fSeleccionadaData->getPrecioProveedor();
         $pComision = $fSeleccionadaData->getComision();
-        $precio = $pProveedor + (($pProveedor * $pComision) / 100);  
+        $tasasTotal = $fSeleccionadaData->getTasasTotal();
+        $precio = Util::precioComisionCalc($pProveedor, $pComision) + $tasasTotal;
         $pvpFinal = $precio * 2;
         $pvp = Util::moneda($precio);
     }

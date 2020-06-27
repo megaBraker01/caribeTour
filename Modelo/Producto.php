@@ -36,12 +36,13 @@ class Producto extends ProductoBase {
             $precio = $productoFechaRefs[0]->getPrecioProveedor();
             if($sumaComicion){
                 $comision = $productoFechaRefs[0]->getComision();
-                $precio += ($precio * $comision) / 100;
+                $precio += Util::comisionCalc($precio, $comision);
             }
+            $precio += $productoFechaRefs[0]->getTasasTotal();
             $ret = $precio;
         }
         
-        return Util::moneda($ret);
+        return $ret;
     }
     
     public function setSlug($slug = '')

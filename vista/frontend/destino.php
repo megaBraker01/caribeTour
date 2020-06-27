@@ -48,10 +48,8 @@ try {
             $idProductoFechaRef = $fSeleccionadaData->getIdProductoFechaRef();
             $fsalida = Util::dateFormat($fSeleccionadaData->getFsalida());
             $fvuelta = ("" != $fSeleccionadaData->getFvuelta()) ?  Util::dateFormat($fSeleccionadaData->getFvuelta()) : "N/A";
-            $duracion = Util::duracionCalc($fsalida, $fvuelta); 
-            $pProveedor = $fSeleccionadaData->getPrecioProveedor();
-            $pComision = $fSeleccionadaData->getComision();
-            $precio = $pProveedor + (($pProveedor * $pComision) / 100);   
+            $duracion = Util::duracionCalc($fsalida, $fvuelta);
+            $precio = $fSeleccionadaData->getPrecioTotal();
             $pvp = Util::moneda($precio);
         }
 
@@ -301,7 +299,7 @@ try {
                                                 <div class="colored-icon icon-2"></div>
                                                 <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>" rel="tag" title="<?= $categoria ?>"><?= $categoria ?></a>
                                             </div>
-                                            <div class="colored-icon icon-3"></div><div class="precio"><?= $producto->getPrecioMasBajo()?></div>
+                                            <div class="colored-icon icon-3"></div><div class="precio"><?= Util::moneda($producto->getPrecioMasBajo()) ?></div>
                                         </div>
                                     </div>
                                 </div>

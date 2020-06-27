@@ -131,7 +131,20 @@ class ProductoFechaDTO {
     function getTasasDestinoV() {
         return $this->tasasDestinoV;
     }
-
+    
+    function getTasasTotal(){
+        $tasasSalida = $this->getTasasSalida() + $this->getTasasDestino();
+        $tasasVuelta = $this->getTasasSalidaV() + $this->getTasasDestinoV();
+        return $tasasSalida + $tasasVuelta;
+    }
+    
+    function getPrecioTotal(){
+        $precio = $this->getPrecioProveedor();
+        $comision = $this->getComision();
+        $total = Util::precioComisionCalc($precio, $comision);
+        return $total + $this->getTasasTotal();
+    }
+            
     function setIdProductoFechaRef($idProductoFechaRef) {
         $this->idProductoFechaRef = (int) $idProductoFechaRef;
     }

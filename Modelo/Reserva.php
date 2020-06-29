@@ -48,38 +48,29 @@ class Reserva extends ReservaBase {
 
           $reservaDetalles = $this->getDetalles();
           foreach($reservaDetalles as $detalle){
+            $precioP = $detalle->getPrecioProveedor();
+            $comision = $detalle->getComision();
+            $tasasTotal = $detalle->getTasasTotal();
+            $precioComision = Util::precioComisionCalc($precioP, $comision);
 
             switch($detalle->getIdTipoFacturacion()){
 
-              case Tipo::FACTURAR_POR_RESERVA: 
-                $precioP = $detalle->getPrecioProveedor();
-                $comision = $detalle->getComision();
-                $precioComision = Util::precioComisionCalc($precioP, $comision);
-                $retPvp += $precioComision;
+              case Tipo::FACTURAR_POR_RESERVA:
+                $retPvp += $precioComision + $tasasTotal;
               break;
 
+              // por defecto se cobra por persona
               case Tipo::FACTURAR_POR_PERSONA:
-                $pasajerosCount = count($this->getPasajeros());
-                Util::dev($this->getPasajeros());
-                $precioP = $detalle->getPrecioProveedor();
-                $comision = $detalle->getComision();
-                $precioComision = Util::precioComisionCalc($precioP, $comision);
-                $retPvp += $precioComision * $pasajerosCount;
-              break;
-
-              // por defecto se cobra por reserva
               default:
-                $precioP = $detalle->getPrecioProveedor();
-                $comision = $detalle->getComision();
-                $precioComision = Util::precioComisionCalc($precioP, $comision);
-                $retPvp += $precioComision;
+                $pasajerosCount = count($this->getPasajeros());
+                $retPvp += ($precioComision + $tasasTotal) * $pasajerosCount;
               break;
 
             }
 
           }
 
-          return (double) $retPvp;
+          return (float) $retPvp;
       }
 
 

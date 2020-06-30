@@ -84,7 +84,7 @@ try{
 
         $productoFechaList = [['producto' => $producto, 'idProductoFechaRef' => $idProductoFechaRef]];
         $seguro = @$productoC->getProductoById($idSeguro);
-        if(!is_null($seguro)); {
+        if(!is_null($seguro)) {
             $idProductoFechaRef = $seguro->creaFechasSeguro($fsalida, $fvuelta);
             $productoFechaList[] = ['producto' => $seguro, 'idProductoFechaRef' => $idProductoFechaRef];
         }

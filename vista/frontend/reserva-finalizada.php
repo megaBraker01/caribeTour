@@ -115,95 +115,92 @@ try {
             
             
                 <div class="row">
-
-                    <div class="section-title">
-                        <h1>Resumen de la Reserva</h1>
-                    </div>
                     
-                    <!-- foto portada -->
-                    <div class="column fourcol ">
-                        <div class="tour-thumb-container">
-                            <div class="tour-thumb">
-                                <img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $tour->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $tour ?>" title="<?= $tour ?>" />
+                    <div class="twelvecol column last">
+                        
+                        <div class="section-title">
+                            <h1>Resumen de la Reserva</h1>
+                        </div>
+
+                        <!-- foto portada -->
+                        <div class="column fourcol ">
+                            <div class="tour-thumb-container">
+                                <div class="tour-thumb">
+                                    <img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $tour->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $tour ?>" title="<?= $tour ?>" />
+                                </div>
+                                <div class="block-background"></div>
                             </div>
-                            <div class="block-background"></div>
                         </div>
-                    </div>
-                    <!-- /foto portada -->
-                    
-                    <!-- datos del producto -->
-                    <div class="fourcol column">
-                        <h3><?= $producto ?></h3>
-                        <ul class="tour-meta">
-                            <li>
-                                <div class="colored-icon icon-2"></div>
-                                <strong>Destino:</strong> <?= $categoria ?>
-                            </li>
-                            <li>
-                                <div class="colored-icon icon-1"><span></span></div>
-                                <strong>Duracion:</strong> <?= $duracion ?> D&iacute;as
-                            </li>
-                            <li>
-                                <div class="colored-icon icon-6"><span></span></div>
-                                <strong>Salida:</strong> <?= $fsalida ?>
-                            </li>
-                            <li>
-                                <div class="colored-icon icon-7"><span></span></div>
-                                <strong>Regreso:</strong> <?= $fvuelta ?>
-                            </li>
-                            <li>
-                                <div class="colored-icon icon-3"><span></span></div>
-                                <strong>Facturación:</strong> <?= $tour->getTipoFacturacion() ?>
-                            </li>                            
-                        </ul>
-                        <div style="font-size:1.8em;">
-                            <strong>Precio:</strong> <span id="pvp"><?= $pvp ?></span>
+                        <!-- /foto portada -->
+
+                        <!-- datos del producto -->
+                        <div class="fourcol column">
+                            <h3><?= $producto ?></h3>
+                            <ul class="tour-meta">
+                                <li>
+                                    <div class="colored-icon icon-2"></div>
+                                    <strong>Destino:</strong> <?= $categoria ?>
+                                </li>
+                                <li>
+                                    <div class="colored-icon icon-1"><span></span></div>
+                                    <strong>Duracion:</strong> <?= $duracion ?> D&iacute;as
+                                </li>
+                                <li>
+                                    <div class="colored-icon icon-6"><span></span></div>
+                                    <strong>Salida:</strong> <?= $fsalida ?>
+                                </li>
+                                <li>
+                                    <div class="colored-icon icon-7"><span></span></div>
+                                    <strong>Regreso:</strong> <?= $fvuelta ?>
+                                </li>
+                                <li>
+                                    <div class="colored-icon icon-3"><span></span></div>
+                                    <strong>Facturación:</strong> <?= $tour->getTipoFacturacion() ?>
+                                </li>                            
+                            </ul>
+                            <div style="font-size:1.8em;">
+                                <strong>Precio:</strong> <span id="pvp"><?= $pvp ?></span>
+                            </div>
                         </div>
+                        <!-- /datos del producto -->
+
+                        <!-- itinerario -->
+
+                        <div class="column fourcol last">
+                            <h3>Itinerario</h3>
+                            <p><?= $tour->getItinerario() ?></p>
+                        </div>
+
+                        <!-- /itinerario -->
+                        
                     </div>
-                    <!-- /datos del producto -->
                     
-                    <!-- itinerario -->
+                    <div class="twelvecol column last">
+                        <?php 
                     
-                    <div class="column fourcol last">
-                        <h3>Itinerario</h3>
-                        <p><?= $tour->getItinerario() ?></p>
+                        $show = "";
+
+                        switch($reserva->getIdTipoPago()){
+                            case (Reserva::TIPO_PAGO_TRANSFERENCIA):
+                                $show = '<h5 class="tour-title">Has elegido  la forma de pago por TRANSFERENCIA.</h5>
+                                <p>Ahora deber&aacute;s efectuar la transferencia o el ingreso al siguiente n&uacute;mero de cuenta:</p>
+                                <p><strong>TITULAR: CaribeTour.es</strong></p>
+                                <p><strong>BANCO: ING Direct</strong></p>
+                                <p><strong>IBAN: ES55 1465 0100 99 1709163771</strong></p>
+                                <p><strong>Concepto: Reserva W-0'. $reserva->getIdReserva() .'</strong></p>
+                                <p><strong>Por un importe total de '. Util::moneda($totalPvp) .' </strong></p>
+                                <p>Una vez hayas realizado la transferencia o el ingreso, deber&aacute;s remitirnos un email con el comprobante del pago a <i>pagos@caribetour.es</i>.<br>
+                                Recuerda que la reserva s&oacute;lo se har&aacute; efectiva despu&eacute;s que hayamos recibido dicho comprobanter.</p>
+                                <p>Hemos remitido el resumen de esta reserva a la cuenta de correo <em>'. $titularEmail .'.</em></p>';
+                            break;
+                        }
+
+                        ?>
+                        <p><?= $show ?></p>
+                        
                     </div>
+
                     
-                    <!-- /itinerario -->
-
-
-
-
-
-
-
-                    <div class="section-title">
-                        <h1>Reserva Finaliza</h1>
-                    </div>
-
-                    <?php 
-                    
-                    $show = "";
-
-                    switch($reserva->getIdTipoPago()){
-                        case (Reserva::TIPO_PAGO_TRANSFERENCIA):
-                            $show = '<h5 class="tour-title">Has elegido  la forma de pago por TRANSFERENCIA.</h5>
-                            <p>Ahora deber&aacute;s efectuar la transferencia o el ingreso al siguiente n&uacute;mero de cuenta:</p>
-                            <p><strong>TITULAR: CaribeTour.es</strong></p>
-                            <p><strong>BANCO: ING Direct</strong></p>
-                            <p><strong>IBAN: ES55 1465 0100 99 1709163771</strong></p>
-                            <p><strong>Concepto: Reserva W-0'. $reserva->getIdReserva() .'</strong></p>
-                            <p><strong>Por un importe total de '. Util::moneda($totalPvp) .' </strong></p>
-                            <p>Una vez hayas realizado la transferencia o el ingreso, deber&aacute;s remitirnos un email con el comprobante del pago a <i>pagos@caribetour.es</i>.<br>
-                            Recuerda que la reserva s&oacute;lo se har&aacute; efectiva despu&eacute;s que hayamos recibido dicho comprobanter.</p>
-                            <p>Hemos remitido el resumen de esta reserva a la cuenta de correo <em>'. $titularEmail .'.</em></p>';
-                        break;
-                    }
-
-
-                    echo $show;
-                    
-                    ?>
 
                 </div>
                 

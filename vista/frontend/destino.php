@@ -44,6 +44,8 @@ try {
         }
 
         $fsalida = $fvuelta = $pvp = $duracion = "";
+        Util::dev($productoC->getProductoFechaRefPDO($fsalidaFiltro));
+        // TODO: para el producto 7, a fecha 27/06/2020 se muestra en la lista pero no aparece fecha de salida
         if($fSeleccionadaData = @$productoC->getProductoFechaRefPDO($fsalidaFiltro)[0]){
             $idProductoFechaRef = $fSeleccionadaData->getIdProductoFechaRef();
             $fsalida = Util::dateFormat($fSeleccionadaData->getFsalida());

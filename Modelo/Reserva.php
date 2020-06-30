@@ -92,4 +92,18 @@ class Reserva extends ReservaBase {
 
           return $pasajeros;
       }
+
+      public function getTipoPago(){
+          $TipoPagoController = new TipoController();
+          $idTipoPago = $this->getIdTipoPago();
+          $TipoPagoList = $TipoPagoController->select([['idTipo', $idTipoPago]]);
+          return $TipoPagoList[0];
+      }
+
+      public function getTitular()
+      {
+          $rcpRefC = new ReservaClientePasajeroRefController;
+          $rcpRef = $rcpRefC->select([['idReserva', $this->getIdReserva()]])[0];
+          return $rcpRef->getCliente();
+      }
 }

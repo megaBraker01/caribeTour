@@ -91,8 +91,8 @@ try{
 
         $reservaC = new ReservaController;
         $reserva = $reservaC->generarReserva($titular, $pasajerosList, $notasT, $productoFechaList, $tipoPago, $pvp);
-        $pvpPagar = $reserva->calularPvp();
-        Util::dev($pvpPagar);
+        $location .= "reserva-finalizada.php?idReserva=" . $reserva->getIdReserva();
+        header(sprintf("Location: %s", $location));
         
     }
     // FIN EDIT AREA

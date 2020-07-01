@@ -16,8 +16,8 @@ try {
         // PRODUCTOS
         $productoC = new ProductoController;
         $productoList = [];
-        $seguro = null;
-        $tour = null;
+        $seguro = $tour = $fsalida = $fvuelta = $duracion = null;
+        $pvpSeguro = $pvpTour = 0;
         
         foreach($reserva->getDetalles() as $detalleR){
             $producto = $productoC->select([['idProducto', $detalleR->getIdProducto()]])[0];
@@ -26,20 +26,21 @@ try {
 
                 case (Tipo::TIPO_SEGURO):
                     $seguro = $producto;
+                    $pvpSeguro = Util::moneda($detalleR->getPrecioComisionTasas());
                 break;
 
                 case (Tipo::TIPO_TOUR):
                 default:
                     $tour = $producto;
+                    $categoria = $tour->getCategoria();
+                    $pfr = $detalleR->getProductoFechaRef();
+                    $fsalida = Util::dateFormat($pfr->getFechaSalida());
+                    $fvuelta = Util::dateFormat($pfr->getFechaVuelta());
+                    $duracion = Util::duracionCalc($fsalida, $fvuelta);
+                    $pvpTour = Util::moneda($detalleR->getPrecioComisionTasas());
                 break;
             }
         }
-
-        $categoria = $tour->getCategoria();
-        $fsalida = 2;
-        $fvuelta = 3;
-        $duracion = 4;
-        $pvp = $tour->getPrecioProveedor();
 
 
         //Util::dev($productoList);
@@ -115,6 +116,34 @@ try {
             
             
                 <div class="row">
+                    <div class="twelvecol column last">
+                        <?php 
+                    
+                        $show = "";
+
+                        switch($reserva->getIdTipoPago()){
+                            case (Reserva::TIPO_PAGO_TRANSFERENCIA):
+                                $show = '<h5 class="tour-title">Has elegido  la forma de pago por TRANSFERENCIA.</h5>
+                                <p>Ahora deber&aacute;s efectuar la transferencia o el ingreso al siguiente n&uacute;mero de cuenta:</p>
+                                <p><strong>TITULAR: CaribeTour.es</strong></p>
+                                <p><strong>BANCO: ING Direct</strong></p>
+                                <p><strong>IBAN: ES55 1465 0100 99 1709163771</strong></p>
+                                <p><strong>Concepto: Reserva '. $reserva->getReservaFormat() .'</strong></p>
+                                <p><strong>Por un importe total de '. Util::moneda($totalPvp) .' </strong></p>
+                                <p>Una vez hayas realizado la transferencia o el ingreso, deber&aacute;s remitirnos un email con el comprobante del pago a <a href="mailto:pagos@caribetour.es"><i>pagos@caribetour.es</i></a>.<br>
+                                Recuerda que la reserva s&oacute;lo se har&aacute; efectiva despu&eacute;s que hayamos recibido dicho comprobanter.</p>
+                                <p>Hemos remitido el resumen de esta reserva a la cuenta de correo <em>'. $titularEmail .'.</em></p>';
+                            break;
+                        }
+
+                        ?>
+                        <p><?= $show ?></p>
+                        
+                    </div>                   
+
+                </div>
+
+                <div class="row">
                     
                     <div class="twelvecol column last">
                         
@@ -135,7 +164,7 @@ try {
 
                         <!-- datos del producto -->
                         <div class="fourcol column">
-                            <h3><?= $producto ?></h3>
+                            <h3><?= $tour ?></h3>
                             <ul class="tour-meta">
                                 <li>
                                     <div class="colored-icon icon-2"></div>
@@ -159,7 +188,7 @@ try {
                                 </li>                            
                             </ul>
                             <div style="font-size:1.8em;">
-                                <strong>Precio:</strong> <span id="pvp"><?= $pvp ?></span>
+                                <strong>Precio:</strong> <span id="pvp"><?= $pvpTour ?></span>
                             </div>
                         </div>
                         <!-- /datos del producto -->
@@ -174,34 +203,6 @@ try {
                         <!-- /itinerario -->
                         
                     </div>
-                    
-                    <div class="twelvecol column last">
-                        <?php 
-                    
-                        $show = "";
-
-                        switch($reserva->getIdTipoPago()){
-                            case (Reserva::TIPO_PAGO_TRANSFERENCIA):
-                                $show = '<h5 class="tour-title">Has elegido  la forma de pago por TRANSFERENCIA.</h5>
-                                <p>Ahora deber&aacute;s efectuar la transferencia o el ingreso al siguiente n&uacute;mero de cuenta:</p>
-                                <p><strong>TITULAR: CaribeTour.es</strong></p>
-                                <p><strong>BANCO: ING Direct</strong></p>
-                                <p><strong>IBAN: ES55 1465 0100 99 1709163771</strong></p>
-                                <p><strong>Concepto: Reserva W-0'. $reserva->getIdReserva() .'</strong></p>
-                                <p><strong>Por un importe total de '. Util::moneda($totalPvp) .' </strong></p>
-                                <p>Una vez hayas realizado la transferencia o el ingreso, deber&aacute;s remitirnos un email con el comprobante del pago a <i>pagos@caribetour.es</i>.<br>
-                                Recuerda que la reserva s&oacute;lo se har&aacute; efectiva despu&eacute;s que hayamos recibido dicho comprobanter.</p>
-                                <p>Hemos remitido el resumen de esta reserva a la cuenta de correo <em>'. $titularEmail .'.</em></p>';
-                            break;
-                        }
-
-                        ?>
-                        <p><?= $show ?></p>
-                        
-                    </div>
-
-                    
-
                 </div>
                 
             </section>

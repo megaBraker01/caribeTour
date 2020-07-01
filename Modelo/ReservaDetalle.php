@@ -21,4 +21,13 @@ class ReservaDetalle extends ReservaDetalleBase {
     public function getTasasTotal(){
         return $this->getTasasSalidaTotal() + $this->getTasasVueltaTotal();
     }
+
+    public function getPrecioComision(){
+        return Util::precioComisionCalc($this->getPrecioProveedor(), $this->getComision());
+    }
+
+
+    public function getPrecioComisionTasas(){
+        return $this->getPrecioComision() + $this->getTasasTotal();
+    }
 }

@@ -25,6 +25,8 @@ $pagTotal = ceil($blogTotales / $mostrarItems);
 $pagActual = ($pag < 1 OR $pag > $pagTotal) ? 1 : $pag;
 $mostrarDesde = ($pagActual - 1) * $mostrarItems;
 $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
+
+// TODO: Poner un ranking de estrellas en los glogs y en los tours, para que los users lo puedan valorar
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">

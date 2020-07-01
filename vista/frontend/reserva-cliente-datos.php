@@ -491,7 +491,7 @@ try{
         <!-- /container -->
 	    <?php include_once('includes/jsFoot.php'); ?>
         <script type='text/javascript'>
-            window.onload = function(){
+            (window.onload = function(){
                 
                 function echo($var){
                     console.log($var);
@@ -535,7 +535,7 @@ try{
                         getElement('hiddenPvp').value = $pvp;
                     });
                 });
-            }        
+            })()
         
         </script>  
         

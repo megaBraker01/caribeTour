@@ -106,4 +106,12 @@ class Reserva extends ReservaBase {
           $rcpRef = $rcpRefC->select([['idReserva', $this->getIdReserva()]])[0];
           return $rcpRef->getCliente();
       }
+
+      public function getReservaFormat()
+      {
+          $anioAlta = date('y', strtotime($this->getFechaAlta()));
+          $mesAlta = date('m', strtotime($this->getFechaAlta()));
+          $num = str_pad($this->getIdReserva(), 4, "0", STR_PAD_LEFT);
+          return "{$anioAlta}{$mesAlta}" . str_pad($this->getIdReserva(), 4, "0", STR_PAD_LEFT);
+      }
 }

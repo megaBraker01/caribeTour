@@ -92,6 +92,10 @@ class Producto extends ProductoBase {
         return @$pfechaRefC->select([['idProductoFechaRef', $idProductoFechaRefById]])[0];
     }
     
+    /**
+     * Obtiene el objeto tipo correspondiente al tipo de Facturacion
+     * @return Tipo
+     */
     public function getTipoFacturacion(){
         $TipoFacturacionController = new TipoController();
         $idTipoFacturacion = $this->getIdTipoFacturacion();

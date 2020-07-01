@@ -98,7 +98,8 @@ try{
     // FIN EDIT AREA
 
 
-    // BREADCRUMB AREA    
+    // BREADCRUMB AREA 
+    // TODO: Solucionar el problema de cuando el idProducto no coincide con ninguno de la base
     $producSlug = $producto->getSlug();
     $categoria = $producto->getCategoria();
     $catSlug = $categoria->getSlug();
@@ -269,7 +270,7 @@ try{
                                 <label for="dni">DNI o Pasaporte *</label>
                                 <div class="field-container"><input id="dni" type="text" name="NIFoPasaporteT" value="" placeholder="DNI o Pasaporte" title="Introduzca el DNI o Pasaporte sin guiones ni espacios." maxlength="10" required /></div>
                                 <label for="telefono">Tel&eacute;fono de contacto *</label>
-                                <div class="field-container"><input id="telefono" type="number" name="telefonoT" value="" placeholder="Tel&eacute;fono" title="Introduzca su N&uacute;mero Telef&oacute;nico sin guiones ni espacios" maxlength="15" required /></div>
+                                <div class="field-container"><input id="telefono" type="number" name="telefonoT" value="" placeholder="Tel&eacute;fono" title="Introduzca su N&uacute;mero Telef&oacute;nico sin guiones ni espacios" maxlength="15" min="600000000" required /></div>
                                 <label for="email">Email *</label>
                                 <div class="field-container"><input type="email" name="emailT" id="email" value="" placeholder="Email" title="Introduzca su Correo Eletr&oacute;nico" maxlength="50" required /></div>
                             </fieldset>
@@ -281,7 +282,7 @@ try{
                                 <label for="provincia">Provincia</label>
                                 <div class="field-container"><input type="text" id="provincia" name="provinciaT" value="" placeholder="Provincia" title="Introduzca su Provincia" maxlength="30" /></div>
                                 <label for="cp">C&oacute;digo Postal</label>
-                                <div class="field-container"><input type="number" id="cp" name="codigoPostalT" value="" placeholder="C&oacute;digo Postal" title="Introduzca el C&oacute;digo Postal sin guiones ni espacios" maxlength="6" required /></div>
+                                <div class="field-container"><input type="number" id="cp" name="codigoPostalT" value="" placeholder="C&oacute;digo Postal" title="Introduzca el C&oacute;digo Postal sin guiones ni espacios" maxlength="6" min="0" required /></div>
                                 <label for="pais">Pais</label>
                                 <div class="field-container"><input type="text" id="pais" name="paisT" value="" placeholder="Pais" title="Introduzca el Pais" maxlength="50" /></div>
                             </fieldset>

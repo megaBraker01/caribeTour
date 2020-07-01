@@ -74,12 +74,20 @@ class Reserva extends ReservaBase {
       }
 
 
+      /**
+       * Obtiene la lista de objetos ReservaDetalle que pertenecen a la reserva
+       * @return array
+       */
       public function getDetalles()
       {
           $detallesC = new ReservaDetalleController;
           return $detallesC->select([['idReserva', $this->getIdReserva()]]) ?? [];
       }
 
+      /**
+       * Obtiene la lista de Pasajeros que pertenecen a la reserva
+       * @return array
+       */
       public function getPasajeros()
       {
           $pasajeros = [];
@@ -93,6 +101,10 @@ class Reserva extends ReservaBase {
           return $pasajeros;
       }
 
+      /**
+       * Obtiene el objeto Tipo para el tipo de pago
+       * @return type
+       */
       public function getTipoPago(){
           $TipoPagoController = new TipoController();
           $idTipoPago = $this->getIdTipoPago();
@@ -100,6 +112,10 @@ class Reserva extends ReservaBase {
           return $TipoPagoList[0];
       }
 
+      /**
+       * Obtiene el titula de la reserva
+       * @return Cliente
+       */
       public function getTitular()
       {
           $rcpRefC = new ReservaClientePasajeroRefController;
@@ -107,11 +123,23 @@ class Reserva extends ReservaBase {
           return $rcpRef->getCliente();
       }
 
+      /**
+       * Obtiene el numero de reserva formateado
+       * Los dos primeros digitos corresponden al año en el que se creo la reserva
+       * Los dos segundos digitos son el mes de en el que se creo
+       * Los cuatro ultimos difitos corresponden al idReserva en la tabla Reservas
+       * @return string
+       */
       public function getReservaFormat()
       {
           $anioAlta = date('y', strtotime($this->getFechaAlta()));
           $mesAlta = date('m', strtotime($this->getFechaAlta()));
           $num = str_pad($this->getIdReserva(), 4, "0", STR_PAD_LEFT);
           return "{$anioAlta}{$mesAlta}" . str_pad($this->getIdReserva(), 4, "0", STR_PAD_LEFT);
+      }
+      
+      public function __toString()
+      {
+          return $this->getReservaFormat();
       }
 }

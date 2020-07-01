@@ -4,20 +4,29 @@ require_once "../../AutoLoader/autoLoader.php";
 
 try {
 
+    $show = $tbody = "";
+    $reserva = $tour = $categoria = $showError = null;
+    $catSlug = $catPadre = $catPadreSlug = $producSlug = null;
+    
     if(isset($_GET['idReserva']) and "" != $_GET['idReserva']){
         $idReserva = (int) $_GET['idReserva'];
         $reservaC = new ReservaController;
         $reserva = @$reservaC->select([['idReserva', $idReserva]])[0];
+        if(is_null($reserva)){
+            throw new Exception("No se ha encontrado reserva con el id '{$idReserva}'");
+        }
         $totalPvp = $reserva->calularPvp();
         $titutar = $reserva->getTitular();
         $titularNombre = $titutar->getNombre() . " " . $titutar->getApellidos();
         $titularEmail = $titutar->getEmail();
+        
+        $pasajeros = $reserva->getPasajeros();
+        $pasajerosCatidad = count($pasajeros);
 
         // PRODUCTOS
         $productoC = new ProductoController;
         $productoList = [];
-        $seguro = $tour = $fsalida = $fvuelta = $duracion = null;
-        $pvpSeguro = $pvpTour = 0;
+        
         
         foreach($reserva->getDetalles() as $detalleR){
             $producto = $productoC->select([['idProducto', $detalleR->getIdProducto()]])[0];
@@ -37,9 +46,49 @@ try {
                     $fsalida = Util::dateFormat($pfr->getFechaSalida());
                     $fvuelta = Util::dateFormat($pfr->getFechaVuelta());
                     $duracion = Util::duracionCalc($fsalida, $fvuelta);
+                    $tourTipoFacturacion = $detalleR->getTipoFacturacion();
                     $pvpTour = Util::moneda($detalleR->getPrecioComisionTasas());
+                    $tourImagen = $tour->getImagen();
                 break;
             }
+            
+            $shoPrecioComision = Util::moneda($detalleR->getPrecioComision());
+            $showTasasTotal = Util::moneda($detalleR->getTasasTotal());
+            $pvpProducto = $detalleR->getPrecioComisionTasas();
+            $pvpProductoPorPasajeros = Util::moneda($pasajerosCatidad * $pvpProducto);
+            $showPvpProducto = Util::moneda($pvpProducto);
+            
+            // CREAMOS LAS FILAS DE LOS PRODUCTOS PARA MOSTRAR EN LA TABLA
+            $tbody .= "<tr>
+                    <td>{$producto->getTipo()} {$producto}</td>
+                    <td>{$shoPrecioComision}</td>
+                    <td>{$showTasasTotal}</td>
+                    <td>{$showPvpProducto} {$detalleR->getTipoFacturacion()}</td>
+                    <td>{$pvpProductoPorPasajeros}</td>
+                </tr>";
+                    
+            
+        }
+        
+        // BREADCRUMB AREA    
+        $producSlug = $tour->getSlug();
+        $categoria = $tour->getCategoria();
+        $catSlug = $categoria->getSlug();
+        $catPadre = $categoria->getCategoriaPadre();
+        $catPadreSlug = $catPadre->getSlug();
+        
+        switch($reserva->getIdTipoPago()){
+            case (Reserva::TIPO_PAGO_TRANSFERENCIA):
+                $show = '
+                <p>Ahora deber&aacute;s efectuar la transferencia o el ingreso al siguiente n&uacute;mero de cuenta:</p>
+                <p><strong>TITULAR: CaribeTour.es</strong></p>
+                <p><strong>BANCO: ING Direct</strong></p>
+                <p><strong>IBAN: ES55 1465 0100 99 1709163771</strong></p>
+                <p><strong>Concepto: Reserva '. $reserva->getReservaFormat() .'</strong></p>
+                <p><strong>Por un importe total de '. Util::moneda($totalPvp) .' </strong></p>
+                <p>Una vez hayas realizado la transferencia o el ingreso, deber&aacute;s enviarnos un email con el comprobante del pago a <a href="mailto:pagos@caribetour.es" title="Enviar el comprobante del pago"><i>pagos@caribetour.es</i></a>. Recuerda que la reserva s&oacute;lo se har&aacute; efectiva despu&eacute;s que hayamos recibido dicho comprobanter.</p>
+                <p>Hemos enviado el resumen de esta reserva a la cuenta de correo <em>'. $titularEmail .'.</em></p>';
+            break;
         }
 
 
@@ -109,53 +158,107 @@ try {
                         <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
-                        paginaActual
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises" rel="tag" title="Paises">Paises</a>
+                    </div>
+                    <div class="breadcrumb">
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>"  rel="tag" title="<?= $catPadre ?>"><?= $catPadre ?></a>
+                    </div>
+                    <div class="breadcrumb">
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>" rel="tag" title="<?= $categoria ?>"><?= $categoria ?></a>
+                    </div>
+                    <div class="breadcrumb">
+                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>/<?= $producSlug?>" rel="tag" title="<?= $tour ?>"><?= $tour ?></a>
+                    </div>
+                    <div class="breadcrumb">
+                        Resumen de la Reserva
+                    </div>
+                    <div class="breadcrumb">
+                        Reserva Finalizada
                     </div>
                 </div>
                 <!-- /breadcrumb-->            
             
             
+               
+                
+                    
+                <?php if (is_null($reserva)) { ?>
                 <div class="row">
                     <div class="twelvecol column last">
-                        <?php 
-                    
-                        $show = "";
-
-                        switch($reserva->getIdTipoPago()){
-                            case (Reserva::TIPO_PAGO_TRANSFERENCIA):
-                                $show = '<h5 class="tour-title">Has elegido  la forma de pago por TRANSFERENCIA.</h5>
-                                <p>Ahora deber&aacute;s efectuar la transferencia o el ingreso al siguiente n&uacute;mero de cuenta:</p>
-                                <p><strong>TITULAR: CaribeTour.es</strong></p>
-                                <p><strong>BANCO: ING Direct</strong></p>
-                                <p><strong>IBAN: ES55 1465 0100 99 1709163771</strong></p>
-                                <p><strong>Concepto: Reserva '. $reserva->getReservaFormat() .'</strong></p>
-                                <p><strong>Por un importe total de '. Util::moneda($totalPvp) .' </strong></p>
-                                <p>Una vez hayas realizado la transferencia o el ingreso, deber&aacute;s remitirnos un email con el comprobante del pago a <a href="mailto:pagos@caribetour.es"><i>pagos@caribetour.es</i></a>.<br>
-                                Recuerda que la reserva s&oacute;lo se har&aacute; efectiva despu&eacute;s que hayamos recibido dicho comprobanter.</p>
-                                <p>Hemos remitido el resumen de esta reserva a la cuenta de correo <em>'. $titularEmail .'.</em></p>';
-                            break;
-                        }
-
-                        ?>
-                        <p><?= $show ?></p>
-                        
-                    </div>                   
-
+                        <h4>Lo sentimos :(</h4>
+                        <p>No hemos encontrado reserva con el identificador indicado</p>
+                    </div>
                 </div>
+                <?php } ?>
 
+                <?php if (!is_null($reserva)) { ?>
+                <!-- resumen de la reserva -->
                 <div class="row">
-                    
                     <div class="twelvecol column last">
-                        
                         <div class="section-title">
                             <h1>Resumen de la Reserva</h1>
                         </div>
-
+                        
+                        <h3>Localizador: <?= $reserva ?></h3>
+                        <h3>Estado de la Reserva: <?= $reserva->getEstado() ?></h3>
+                        <h3>Forma de Pago: <?= $reserva->getTipoPago() ?></h3>
+                        <h3>Titular: <?= $reserva->getTitular() ?></h3>
+                        <?php 
+                            $i = 1;
+                            foreach ($pasajeros as $pasajero){
+                                echo "<h3>Pasajero " . $i++ . ": $pasajero</h3>\n";
+                            }
+                        ?>
+                    </div>
+                </div>
+                
+                <!-- informacion adicional -->
+                <div class="row">
+                    <div class="twelvecol column last">
+                        <div style="font-size:1.2em;">
+                            <?= $show ?>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- detalles de la reserva -->
+                <div class="row">
+                    <div class="twelvecol column last">
+                        <div class="calendario" style="font-size:1.2em;">
+                            <table>
+                                <caption><h4>Detalles de la Reserva</h4></caption>
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th><th>Precio</th><th>Tasas</th><th>Precio Total</th><th>TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?= $tbody ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="4" scope="row">
+                                            TOTAL (IVA Incluído)<br>
+                                            R&eacute;gimen Especial de Agencia de Viajes (REAV)
+                                        </th>
+                                        <th>
+                                            <h3><?= Util::moneda($totalPvp) ?></h3>
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- resumen del tour elegido -->
+                <div class="row">
+                    <div class="twelvecol column last">
                         <!-- foto portada -->
                         <div class="column fourcol ">
                             <div class="tour-thumb-container">
                                 <div class="tour-thumb">
-                                    <img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $tour->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $tour ?>" title="<?= $tour ?>" />
+                                    <img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $tourImagen ?>" class="attachment-preview wp-post-image" alt="<?= $tour ?>" title="<?= $tour ?>" />
                                 </div>
                                 <div class="block-background"></div>
                             </div>
@@ -184,7 +287,7 @@ try {
                                 </li>
                                 <li>
                                     <div class="colored-icon icon-3"><span></span></div>
-                                    <strong>Facturación:</strong> <?= $tour->getTipoFacturacion() ?>
+                                    <strong>Facturación:</strong> <?= $tourTipoFacturacion ?>
                                 </li>                            
                             </ul>
                             <div style="font-size:1.8em;">
@@ -204,6 +307,8 @@ try {
                         
                     </div>
                 </div>
+                <?php } ?>
+
                 
             </section>
       

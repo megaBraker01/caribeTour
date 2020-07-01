@@ -102,4 +102,14 @@ class Util {
     {
         return (($precio * $comision) / 100);
     }
+    
+    /**
+     * Convierte a mayúsculas el primer caracter de cada palabra de una cadena
+     * @param string $str
+     * @return string
+     */
+    public static function capitalizar(string $str)
+    {
+        return ucwords($str);
+    }
 }

@@ -109,11 +109,10 @@ try{
 
     // SEGUROS
     $filtro = [
-        ['idTipo', Tipo::SEGURO],
+        ['idTipo', Tipo::TIPO_SEGURO],
         ['idEstado', Estado::ESTADO_ACTIVO],
     ];
     $seguros = $productoC->select($filtro);
-    //Util::dev($seguros);
     
 } catch (Exception $e){
     $showError = $e->getMessage();

@@ -135,9 +135,20 @@ if  (
                     <?php } ?>
                 
                     <?php if(empty($categoriaList)){ ?>
-                    <h3>Sin Resultados...</h3>
-                    <h4><p>Lo sentimos, esta categor&iacute;a <strong>NO</strong> se encuentra disponible en estos momentos. </p><p>Puedes echar un vistazo a los productos relacionados... Disculpe las molestias.</p></h4>
-                    <img  width="50%" src="<?=PATHFRONTEND ?>images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados...">
+                    <div class="column sixcol">
+                        <div class="tour-thumb-container">
+                            <div class="tour-thumb">
+                                <img width="440" height="330" src="<?=PATHFRONTEND ?>images/no-encontrado.gif" class="attachment-preview wp-post-image" alt="Sin Resultados" />
+                                <div class="tour-caption">
+                                    <h3 class="tour-title">
+                                           Sin Resultados...
+                                    </h3>
+                                    <p>Lo sentimos, el destino elegido <strong>NO</strong> se encuentra disponible en estos momentos, Puedes echar un vistazo a los paises relacionados.. Disculpen las molestias.</p>
+                                </div>
+                            </div>
+                            <div class="block-background"></div>
+                        </div>
+                    </div>
                     <?php } ?>                
                 
                 </div>

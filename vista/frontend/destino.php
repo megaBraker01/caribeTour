@@ -52,6 +52,9 @@ try {
             $duracion = Util::duracionCalc($fsalida, $fvuelta);
             $precio = $fSeleccionadaData->getPrecioTotal();
             $pvp = Util::moneda($precio);
+        } else {
+            // si no encontramos fechas disponible, entonces ponemos el producto a null para que no salga
+            $producto = null;
         }
 
         // PRODUCTOS RELACIONADOS

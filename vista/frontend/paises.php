@@ -21,10 +21,10 @@ $paisesList = $productoC->getProductoFechaRefPDO($filtros, $ordenados, $limitar,
         <meta name="description" content="CaribeTour.es | Agencia especializada en el Caribe y sus paises" />
         <meta name="keywords" content="CaribeTour.es | Agencia especializada en el Caribe y sus paises" />
         <!--[if lt IE 9]>
-            <script type="text/javascript" src="http://www.caribetour.es/js/jquery/html5.js"></script>
+            <script type="text/javascript" src="https://www.caribetour.es/js/jquery/html5.js"></script>
         <![endif]-->
         <?php include_once("includes/baselink.php"); ?>
-        <link rel="canonical" href="http://www.caribetour.es/" />
+        <link rel="canonical" href="https://www.caribetour.es/" />
 	    <?php include_once("includes/icons.php"); ?>
         <link rel='stylesheet' id='colorbox-css'  href='<?=PATHFRONTEND ?>css/colorbox.css?ver=3.7.1' type='text/css' media='all' />
         <link rel='stylesheet' id='jquery-ui-datepicker-css'  href='<?=PATHFRONTEND ?>css/datepicker.css?ver=3.7.1' type='text/css' media='all' />
@@ -114,9 +114,20 @@ $paisesList = $productoC->getProductoFechaRefPDO($filtros, $ordenados, $limitar,
                     <?php } ?>
                     
                     <?php if(empty($paisesList)){ ?>
-                    <h3>Sin Resultados...</h3>
-                    <h4>Lo sentimos, <strong>NO</strong> tenemos paises de destinos disponibles en estos momentos... Disculpe las molestias.</h4>
-                    <img  width="50%" src="<?=PATHFRONTEND ?>images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados...">
+                    <div class="column sixcol">
+                        <div class="tour-thumb-container">
+                            <div class="tour-thumb">
+                                <img width="440" height="330" src="<?=PATHFRONTEND ?>images/no-encontrado.gif" class="attachment-preview wp-post-image" alt="Sin Resultados" />
+                                <div class="tour-caption">
+                                    <h3 class="tour-title">
+                                           Sin Resultados...
+                                    </h3>
+                                    <p>Lo sentimos, el destino elegido <strong>NO</strong> se encuentra disponible en estos momentos, Puedes echar un vistazo a los paises relacionados.. Disculpen las molestias.</p>
+                                </div>
+                            </div>
+                            <div class="block-background"></div>
+                        </div>
+                    </div>
                     <?php } ?>
                     
                 </div>

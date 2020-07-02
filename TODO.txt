@@ -11,3 +11,6 @@ GRUPOS DE COMPONENTES:
 Controladores => BaseController, <-> Otros Controladores, <-> Modelos, 
 Modelos => BaseModelo, <-> otros Modelos, <-> Controladores
 Util => BaseController // cambiar el nombre a UtilController y crear un unevo Util que haga sólo cosas generiacas
+
+
+poner todas las referencias internas de http a https

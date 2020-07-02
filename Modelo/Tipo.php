@@ -1,8 +1,6 @@
 <?php
 
 class Tipo extends TipoBase {
-    // averiguar donde se usa esta constante y refactorizar el nombre para ver de qué se trata
-    const SEGURO = 5;
 
     // tipos de productos
     const TIPO_TOUR = 3;

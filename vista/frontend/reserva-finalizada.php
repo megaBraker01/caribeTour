@@ -78,7 +78,7 @@ try {
         $catPadreSlug = $catPadre->getSlug();
         
         switch($reserva->getIdTipoPago()){
-            case (Reserva::TIPO_PAGO_TRANSFERENCIA):
+            case (Tipo::PAGO_TRANSFERENCIA):
                 $show = '
                 <p>Ahora deber&aacute;s efectuar la transferencia o el ingreso al siguiente n&uacute;mero de cuenta:</p>
                 <p><strong>TITULAR: CaribeTour.es</strong></p>

@@ -67,8 +67,8 @@ try{
                 ->setPais($paisT)->setIdEstado(Estado::ESTADO_ACTIVO);
         
         $pasajerosList = [];
-        $count = count($_POST['nombreP']);
-        for($i = 0; $i < $count; $i++){
+        $cantidadPasajeros = count($_POST['nombreP']);
+        for($i = 0; $i < $cantidadPasajeros; $i++){
             $nombreP = $_POST['nombreP'][$i];
             $apellidosP = $_POST['apellidosP'][$i];
             $NIFoPasaporteP = $_POST['NIFoPasaporteP'][$i];
@@ -91,8 +91,26 @@ try{
 
         $reservaC = new ReservaController;
         $reserva = $reservaC->generarReserva($titular, $pasajerosList, $notasT, $productoFechaList, $tipoPago, $pvp);
-        $location .= "reserva-finalizada.php?idReserva=" . $reserva->getIdReserva();
-        header(sprintf("Location: %s", $location));
+        
+        switch ($tipoPago){
+            case Tipo::PAGO_PAYPAL:
+                $idReserva = $reserva->getIdReserva();
+                $pvpTotal = $reserva->calularPvp();
+                $concepto = "{$producto->getNombre()} x $cantidadPasajeros";
+                $referencia = $reserva;
+                $idPagador = $titular->getNIFoPasaporte();
+                $emailPagador = $titular->getEmail();
+                Util::pagarConPaypal($idReserva, $pvpTotal, $producto->getNombre(), $concepto, $referencia, $idPagador, $emailPagador);
+            break;
+        
+            case Tipo::PAGO_TRANSFERENCIA:
+            default:
+                $location .= "reserva-finalizada.php?idReserva=" . $reserva->getIdReserva();
+                header(sprintf("Location: %s", $location));
+            break;
+            
+        }
+        
         
     }
     // FIN EDIT AREA

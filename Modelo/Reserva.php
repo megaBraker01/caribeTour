@@ -9,13 +9,6 @@ class Reserva extends ReservaBase {
     const ESTADO_PDTE_PAGO = 7;
     const ESTADO_PAGADA = 8;
 
-    // TIPOS DE PAGO
-    const TIPO_PAGO_TARJETA = 12;
-    const TIPO_PAGO_TRANSFERENCIA = 13;
-    const TIPO_PAGO_PAYPAL = 14;
-    const TIPO_PAGO_EFECTIVO = 15;
-    const TIPO_PAGO_CHEQUE = 16;
-
     // TIPO DE FACTURACION
     
     // WORKFLOW ESTADOS

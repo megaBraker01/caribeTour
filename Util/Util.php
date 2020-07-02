@@ -112,4 +112,64 @@ class Util {
     {
         return ucwords($str);
     }
+    
+    public static function pagarConPaypal($idReserva, $pvpTotal, $nombreProducto, $concepto, $referencia, $idPagador, $emailPagador)
+    {
+        $urlPaypal = "https://www.paypal.com/cgi-bin/webscr";
+        $urlRet = "http://localhost/caribetour/reserva-finalizada.php?idReserva={$idReserva}";
+        $urlRetOk = $urlRet . "&pago=ok";
+        $urlRetCancel = $urlRet . "&pago=Nok";
+        $fields = [
+            'upload' => '1',
+            'amount' => $pvpTotal,
+            'business' => 'rperez@caribetour.es',
+            'receiver_email' => 'rperez@caribetour.es',
+            'item_name' => $nombreProducto,
+            'concept' => $concepto,
+            'reference' => $referencia,
+            'cmd' => '_xclick',
+            'currency_code' => 'EUR',
+            'payer_id' => $idPagador,
+            'payer_email' => $emailPagador,
+            'return' => $urlRetOk,
+            'cancel_return' => $urlRetCancel,
+            'cbt' => 'Volver a inicio',
+            'hosted_button_id' => 'GX4V7KN7EPGNL',
+        ];
+        
+        $fields_string = http_build_query($fields);
+        //open connection
+        $ch = curl_init();
+
+        //set the url, number of POST vars, POST data
+        curl_setopt($ch,CURLOPT_URL, $urlPaypal);
+        curl_setopt($ch,CURLOPT_POST, true);
+        curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+
+        //So that curl_exec returns the contents of the cURL; rather than echoing it
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true); 
+
+        //execute post
+        $result = curl_exec($ch);
+        
+        
+        // use key 'http' even if you send the request to https://...
+        /*
+        $options = array(
+            'http' => array(
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($data)
+            )
+        );
+        $context  = stream_context_create($options);
+        $result = file_get_contents($urlPaypal, false, $context);
+        if ($result === FALSE) { 
+          // Handle error 
+        }
+         */
+
+        echo($result);
+        
+    }
 }

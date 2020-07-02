@@ -15,4 +15,11 @@ class Tipo extends TipoBase {
     const FACTURAR_POR_TRAYECTO = 22;
     const FACTURAR_POR_NOCHE = 23;
     const FACTURAR_POR_NOCHEYPERSONA = 24;
+    
+    // tipos de pago
+    const PAGO_TARJETA = 12;
+    const PAGO_TRANSFERENCIA = 13;
+    const PAGO_PAYPAL = 14;
+    const PAGO_EFECTIVO = 15;
+    const PAGO_CHEQUE = 16;
 }

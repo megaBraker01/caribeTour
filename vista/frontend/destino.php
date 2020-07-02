@@ -45,10 +45,12 @@ try {
 
         $fsalida = $fvuelta = $pvp = $duracion = "";
         // TODO: para el producto 7, a fecha 27/06/2020 se muestra en la lista pero no aparece fecha de salida
+        // esto es un problema de bbdd, poner que el slug sea un campo unico para que no se repita
+        // o poner que la categoria y el slug sean unicos
         if($fSeleccionadaData = @$productoC->getProductoFechaRefPDO($fsalidaFiltro)[0]){
             $idProductoFechaRef = $fSeleccionadaData->getIdProductoFechaRef();
             $fsalida = Util::dateFormat($fSeleccionadaData->getFsalida());
-            $fvuelta = ("" != $fSeleccionadaData->getFvuelta()) ?  Util::dateFormat($fSeleccionadaData->getFvuelta()) : "N/A";
+            $fvuelta = ("" != $fSeleccionadaData->getFvuelta()) ? Util::dateFormat($fSeleccionadaData->getFvuelta()) : "N/A";
             $duracion = Util::duracionCalc($fsalida, $fvuelta);
             $precio = $fSeleccionadaData->getPrecioTotal();
             $pvp = Util::moneda($precio);

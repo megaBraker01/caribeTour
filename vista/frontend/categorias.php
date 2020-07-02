@@ -9,23 +9,27 @@ $productoC = new ProductoController;
 $categoriaC = new CategoriaController;
 $categoriaList = [];
 
-if  (
-    isset($slugCatPadre) and 
-    $slugCatPadre != "" and 
-    $categoriaPadre = $categoriaC->getCategoriaBySlug($slugCatPadre)
-    ){    
-    
-    $catPadreNombre = $categoriaPadre->getNombre();
-    $idCategoriaPadre = $categoriaPadre->getIdCategoria();
-    $filtros = [
-        ['idCategoriaPadre', $idCategoriaPadre],
-        ['fsalida', date('Y-m-d'), '>=']
-    ];
-    $ordenados = [['idCategoriaPadre'], ['precioProveedor']];
-    $limitar = [];
-    $agrupar = ['idCategoria'];
-    $categoriaList = $productoC->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
-    
+try {
+    if  (
+        isset($slugCatPadre) and 
+        $slugCatPadre != "" and 
+        $categoriaPadre = $categoriaC->getCategoriaBySlug($slugCatPadre)
+        ){    
+
+        $catPadreNombre = $categoriaPadre->getNombre();
+        $idCategoriaPadre = $categoriaPadre->getIdCategoria();
+        $filtros = [
+            ['idCategoriaPadre', $idCategoriaPadre],
+            ['fsalida', date('Y-m-d'), '>=']
+        ];
+        $ordenados = [['idCategoriaPadre'], ['precioProveedor']];
+        $limitar = [];
+        $agrupar = ['idCategoria'];
+        $categoriaList = $productoC->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
+
+    }
+} catch (Exception $e){
+    $showError = $e->getMessage();
 }
 ?>
 <!DOCTYPE html>

@@ -11,32 +11,36 @@ $mostrarProductos = [];
 $productoC = new ProductoController;
 $categoriaC = new CategoriaController;
 
-if  (
-    isset($slugCat) and 
-    $slugCat != "" and
-    $categoria = $categoriaC->getCategoriaBySlug($slugCat)
-    ){
-    
-    $catPadre = $categoria->getCategoriaPadre();
-    $slugCatPadre = $catPadre->getSlug(); 
-    $idCategoria = $categoria->getIdCategoria();
-    $filtros = [
-        ['idCategoria', $idCategoria],
-        ['fsalida', date('Y-m-d'), '>=']
-    ];
-    $ordenados = [['idCategoriaPadre'],['precioProveedor']];
-    $limitar = [];
-    $agrupar = ['idProducto'];
-    $categoriaList = $productoC->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
-    
-    // PAGINACION
-    $productoTotales = count($categoriaList);
-    $mostrarItems = 4;
-    $pag = $_GET['pag'] ?? 1;
-    $pagTotal = ceil($productoTotales / $mostrarItems);
-    $pagActual = ($pag < 1 OR $pag > $pagTotal) ? 1 : $pag;
-    $mostrarDesde = ($pagActual - 1) * $mostrarItems;
-    $mostrarProductos = array_slice($categoriaList, $mostrarDesde, $mostrarItems);
+try {
+    if  (
+        isset($slugCat) and 
+        $slugCat != "" and
+        $categoria = $categoriaC->getCategoriaBySlug($slugCat)
+        ){
+
+        $catPadre = $categoria->getCategoriaPadre();
+        $slugCatPadre = $catPadre->getSlug(); 
+        $idCategoria = $categoria->getIdCategoria();
+        $filtros = [
+            ['idCategoria', $idCategoria],
+            ['fsalida', date('Y-m-d'), '>=']
+        ];
+        $ordenados = [['idCategoriaPadre'],['precioProveedor']];
+        $limitar = [];
+        $agrupar = ['idProducto'];
+        $categoriaList = $productoC->getProductoFechaRefPDO($filtros, $ordenados, $limitar, $agrupar);
+
+        // PAGINACION
+        $productoTotales = count($categoriaList);
+        $mostrarItems = 4;
+        $pag = $_GET['pag'] ?? 1;
+        $pagTotal = ceil($productoTotales / $mostrarItems);
+        $pagActual = ($pag < 1 OR $pag > $pagTotal) ? 1 : $pag;
+        $mostrarDesde = ($pagActual - 1) * $mostrarItems;
+        $mostrarProductos = array_slice($categoriaList, $mostrarDesde, $mostrarItems);
+    }
+} catch (Exception $e){
+    $showError = $e->getMessage();
 }
 ?>
 <!DOCTYPE html>

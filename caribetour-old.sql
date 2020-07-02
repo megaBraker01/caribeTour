@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 25-06-2020 a las 22:44:50
+-- Tiempo de generación: 25-06-2020 a las 23:51:11
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 7.0.23
 
@@ -430,7 +430,7 @@ CREATE TABLE IF NOT EXISTS `fechas` (
   `tasasDestino` double DEFAULT NULL,
   `idCia` int(11) DEFAULT '1',
   PRIMARY KEY (`idFecha`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `fechas`
@@ -446,7 +446,17 @@ INSERT INTO `fechas` (`idFecha`, `fecha`, `idPuertoSalida`, `terminalSalida`, `t
 (7, '2020-07-06 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
 (8, '2020-07-13 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
 (9, '2020-06-18 00:00:00', 2, 'T2', 60, 3, 'T1', 0, 1),
-(10, '2020-06-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1);
+(10, '2020-06-23 00:00:00', 3, 'T1', 20, 2, 'T2', 0, 1),
+(11, '2020-07-06 00:00:00', 1, '', 0, 1, '', 0, 1),
+(12, '2020-07-13 00:00:00', 1, '', 0, 1, '', 0, 1),
+(13, '2020-07-06 00:00:00', 1, '', 0, 1, '', 0, 1),
+(14, '2020-07-13 00:00:00', 1, '', 0, 1, '', 0, 1),
+(15, '2020-07-06 00:00:00', 1, '', 0, 1, '', 0, 1),
+(16, '2020-07-13 00:00:00', 1, '', 0, 1, '', 0, 1),
+(17, '2020-07-06 00:00:00', 1, '', 0, 1, '', 0, 1),
+(18, '2020-07-13 00:00:00', 1, '', 0, 1, '', 0, 1),
+(19, '2020-07-06 00:00:00', 1, '', 0, 1, '', 0, 1),
+(20, '2020-07-13 00:00:00', 1, '', 0, 1, '', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -731,7 +741,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idProducto`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `productos`
@@ -767,7 +777,9 @@ INSERT INTO `productos` (`idProducto`, `nombre`, `imagen`, `descripcion`, `slug`
 INSERT INTO `productos` (`idProducto`, `nombre`, `imagen`, `descripcion`, `slug`, `itinerario`, `incluye`, `precioProveedor`, `comision`, `metaDescripcion`, `metaKeyWords`, `idCategoria`, `idTipo`, `idTipoFacturacion`, `idEstado`, `idProveedor`, `stock`, `esOferta`, `fechaAlta`, `fechaUpdate`) VALUES
 (27, 'otro pruducto de prueba & pruebas', 'otro-pruducto-de-prueba.png', 'estamos viendo si la calefactorización con las imágenes ha dado resultado', 'otro-pruducto-de-prueba', '', '', 0, 0, '', '', 0, 0, 1, 0, 0, 0, 0, '2020-06-01 17:44:50', '2020-06-01 17:45:32'),
 (28, 'ultimo producto hecho', 'ultimo-producto-hecho.jpeg', 'este producto se crea para ver si no hay ningún problema con la inserción de los datos', 'ultimo-producto-hecho', '', '', 0, 0, '', '', 17, 2, 1, 2, 3, 0, 0, '2020-06-02 21:17:55', '2020-06-02 21:18:39'),
-(29, 'ver si el slugfy sigue funcionando', '', '', 'ver-si-el-slugfy-sigue-funcionando', '', '', 0, 0, '', '', 0, 0, 1, 0, 0, 0, 0, '2020-06-07 08:14:38', NULL);
+(29, 'ver si el slugfy sigue funcionando', '', '', 'ver-si-el-slugfy-sigue-funcionando', '', '', 0, 0, '', '', 0, 0, 1, 0, 0, 0, 0, '2020-06-07 08:14:38', NULL),
+(30, 'Asistencia', '', 'Amplia la cobertura de salud en 20000€ adicional', 'asistencia', '', '', 20, 5, '', '', 14, 5, 21, 2, 13, 0, 0, '2020-06-25 23:13:06', NULL),
+(31, 'Cancelación', '', 'Cancela el viaje por cualquier motivo y sin dar excusas,', 'cancelacion', '', '', 50, 5, '', '', 14, 5, 21, 2, 13, 0, 0, '2020-06-25 23:16:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -784,7 +796,7 @@ CREATE TABLE IF NOT EXISTS `producto_fecha_ref` (
   `precioProveedor` double DEFAULT NULL,
   `comision` int(11) DEFAULT NULL,
   PRIMARY KEY (`idProductoFechaRef`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `producto_fecha_ref`
@@ -793,6 +805,7 @@ CREATE TABLE IF NOT EXISTS `producto_fecha_ref` (
 INSERT INTO `producto_fecha_ref` (`idProductoFechaRef`, `idProducto`, `idFechaSalida`, `idFechaVuelta`, `precioProveedor`, `comision`) VALUES
 (1, 5, 1, 2, 800, 10),
 (2, 3, 7, 8, 850, 9),
+(19, 30, 11, 12, 20, 5),
 (4, 2, 7, 8, 1000, 10),
 (5, 3, 9, 10, 100, 10),
 (6, 6, 1, 2, 865, 10),
@@ -807,7 +820,11 @@ INSERT INTO `producto_fecha_ref` (`idProductoFechaRef`, `idProducto`, `idFechaSa
 (15, 3, 3, 4, 850, 9),
 (16, 10, 7, 8, 1000, 10),
 (17, 8, 9, 10, 120, 10),
-(18, 6, 5, 6, 708, 10);
+(18, 6, 5, 6, 708, 10),
+(20, 30, 13, 14, 20, 5),
+(21, 30, 15, 16, 20, 5),
+(22, 30, 17, 18, 20, 5),
+(23, 30, 19, 20, 20, 5);
 
 -- --------------------------------------------------------
 
@@ -898,7 +915,7 @@ CREATE TABLE IF NOT EXISTS `reservas` (
   PRIMARY KEY (`idReserva`),
   KEY `idEstado` (`idEstado`),
   KEY `idTipo` (`idTipoPago`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `reservas`
@@ -910,7 +927,11 @@ INSERT INTO `reservas` (`idReserva`, `idEstado`, `idTipoPago`, `fechaAlta`) VALU
 (3, 6, 12, '2020-06-23 19:30:56'),
 (4, 6, 12, '2020-06-23 19:31:07'),
 (5, 6, 12, '2020-06-23 19:32:23'),
-(6, 6, 12, '2020-06-23 19:34:19');
+(6, 6, 12, '2020-06-23 19:34:19'),
+(7, 7, 0, '2020-06-25 23:31:14'),
+(8, 7, 0, '2020-06-25 23:32:24'),
+(9, 7, 0, '2020-06-25 23:40:49'),
+(10, 7, 0, '2020-06-25 23:41:03');
 
 -- --------------------------------------------------------
 
@@ -962,8 +983,8 @@ CREATE TABLE IF NOT EXISTS `reserva_detalles` (
   `idTipoFacturacion` int(11) NOT NULL COMMENT 'hace referencia el tipo de cobro que se le va a realizar al cliente, si es por reserva, por pasajero, etc',
   `precioProveedor` double NOT NULL DEFAULT '0',
   `comision` double NOT NULL DEFAULT '0',
-  `fechaAlta` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `fechaUpdate` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaUpdate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idReserva`,`idProducto`),
   KEY `idProductoFechaRef` (`idProductoFechaRef`),
   KEY `idTipoCobro` (`idTipoFacturacion`)

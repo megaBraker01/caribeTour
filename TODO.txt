@@ -14,3 +14,7 @@ Util => BaseController // cambiar el nombre a UtilController y crear un unevo Ut
 
 
 poner todas las referencias internas de http a https
+
+poner el valor por defecto a 1 en los campos de idCategoria, idEstado, idProveedor, idTipo, de la tabla producto 
+
+cambien el nombre de json-data-list a dataSource y los nomre quitarle lo de -lista eje: tour-lista => tourDs

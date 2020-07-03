@@ -117,22 +117,22 @@ class Reserva extends ReservaBase {
       }
 
       /**
-       * Obtiene el numero de reserva formateado
+       * Obtiene el localizador de la reserva
        * Los dos primeros digitos corresponden al año en el que se creo la reserva
        * Los dos segundos digitos son el mes de en el que se creo
        * Los cuatro ultimos difitos corresponden al idReserva en la tabla Reservas
        * @return string
        */
-      public function getReservaFormat()
+      public function getLocalizador()
       {
           $anioAlta = date('y', strtotime($this->getFechaAlta()));
           $mesAlta = date('m', strtotime($this->getFechaAlta()));
           $num = str_pad($this->getIdReserva(), 4, "0", STR_PAD_LEFT);
-          return "{$anioAlta}{$mesAlta}" . str_pad($this->getIdReserva(), 4, "0", STR_PAD_LEFT);
+          return "{$anioAlta}{$mesAlta}{$num}";
       }
       
       public function __toString()
       {
-          return $this->getReservaFormat();
+          return $this->getLocalizador();
       }
 }

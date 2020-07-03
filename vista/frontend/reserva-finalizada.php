@@ -84,7 +84,7 @@ try {
                 <p><strong>TITULAR: CaribeTour.es</strong></p>
                 <p><strong>BANCO: ING Direct</strong></p>
                 <p><strong>IBAN: ES55 1465 0100 99 1709163771</strong></p>
-                <p><strong>Concepto: Reserva '. $reserva->getReservaFormat() .'</strong></p>
+                <p><strong>Concepto: Reserva '. $reserva->getLocalizador() .'</strong></p>
                 <p><strong>Por un importe total de '. Util::moneda($totalPvp) .' </strong></p>
                 <p>Una vez hayas realizado la transferencia o el ingreso, deber&aacute;s enviarnos un email con el comprobante del pago a <a href="mailto:pagos@caribetour.es" title="Enviar el comprobante del pago"><i>pagos@caribetour.es</i></a>. Recuerda que la reserva s&oacute;lo se har&aacute; efectiva despu&eacute;s que hayamos recibido dicho comprobanter.</p>
                 <p>Hemos enviado el resumen de esta reserva a la cuenta de correo <em>'. $titularEmail .'.</em></p>';

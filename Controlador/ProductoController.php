@@ -129,12 +129,7 @@ class ProductoController extends ProductoBaseController {
 
         $utilC = new UtilController();
         $tipoOptions = $utilC->getTipos('productos');
-
-        $estadoC = new EstadoController;
-        $estadoOptions = [];
-        foreach($estadoC->select([['productos', 1], ['idEstado', 1, '>']]) as $estado){
-            $estadoOptions[$estado->getIdEstado()] = $estado->getNombre();
-        }
+        $estadoOptions = $utilC->getEstados('productos');
 
         $proveedorC = new ProveedorController;
         $proveedorOptions = [];

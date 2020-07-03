@@ -90,6 +90,22 @@ class UtilController extends BaseController {
         return $tiposList;
     }
     
+    public function getEstados(string $tableName)
+    {
+        if(!is_string($tableName) or "" == $tableName){
+            throw new Exception('[ERROR] El nombre de la tabla tiene que ser un string distinto de ""');
+        }
+        $sql = "SELECT estados.idEstado, estados.nombre FROM estado_tabla_ref INNER JOIN estados USING(idEstado)";
+        $filtros = [['tabla', $tableName], ['idEstado', 1, '>']];
+        $estadoList = [];
+        foreach($this->query($sql, $filtros) as $estado){
+            $estadoList[] = new Estado($estado->idEstado, $estado->nombre);
+        }
+
+        return $estadoList;
+        
+    }
+
     public static function generar_calendario($month, $year, $holidays = null, $lang = "es")
     { 
         $calendar = '<table cellpadding="0" cellspacing="0" class="calendar">';

@@ -1,16 +1,17 @@
 <?php
 
-abstract class EstadoBaseController extends BaseController {
+abstract class EstadoTablaRefBaseController extends BaseController {
 
 
 
-    public function insert(Estado $Estado): int {
+    public function insert(EstadoTablaRef $EstadoTablaRef): int {
         try{
-            $sql = "INSERT INTO estados (nombre) 
-            VALUES (:nombre);";
+            $sql = "INSERT INTO estado_tabla_ref (idEstado, tabla) 
+            VALUES (:idEstado, :tabla);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":nombre", $Estado->getNombre());
+            $statement->bindValue(":idEstado", $EstadoTablaRef->getIdEstado());
+$statement->bindValue(":tabla", $EstadoTablaRef->getTabla());
 
             $ret = 0;
             if($statement->execute()){
@@ -25,13 +26,13 @@ abstract class EstadoBaseController extends BaseController {
         }
     }
 
-    public function update(Estado $Estado): int {
+    public function update(EstadoTablaRef $EstadoTablaRef): int {
         try{
-            $sql = "UPDATE estados SET nombre = :nombre WHERE idEstado = :idEstado LIMIT 1;";
+            $sql = "UPDATE estado_tabla_ref SET idEstado = :idEstado, tabla = :tabla WHERE idEstado = :idEstado AND tabla = :tabla LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":idEstado", $Estado->getIdEstado());
-$statement->bindValue(":nombre", $Estado->getNombre());
+            $statement->bindValue(":idEstado", $EstadoTablaRef->getIdEstado());
+$statement->bindValue(":tabla", $EstadoTablaRef->getTabla());
 
             $ret = 0;
             if($statement->execute()){
@@ -48,14 +49,14 @@ $statement->bindValue(":nombre", $Estado->getNombre());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
-            $sql = "SELECT idEstado, nombre 
-            FROM estados";                        
+            $sql = "SELECT idEstado, tabla 
+            FROM estado_tabla_ref";                        
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(!empty($rows)){
                 foreach($rows as $row){
-                    $ret[] = new Estado($row->idEstado, $row->nombre);
+                    $ret[] = new EstadoTablaRef($row->idEstado, $row->tabla);
                 }
             }
             
@@ -68,11 +69,11 @@ $statement->bindValue(":nombre", $Estado->getNombre());
 
     public function deleteByIds(array $ids = []): int {
         try{
-            if(!isset($ids['idEstado'])){
+            if(!isset($ids['idEstado']) or !isset($ids['tabla'])){
                 throw new Exception('Para eliminar un registro, se tiene que especificar sus ids');
             }
-            $sql = "DELETE FROM estados";
-            $sql .= " WHERE idEstado = :idEstado LIMIT 1;";
+            $sql = "DELETE FROM estado_tabla_ref";
+            $sql .= " WHERE idEstado = :idEstado AND tabla = :tabla LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             

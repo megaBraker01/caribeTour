@@ -12,7 +12,6 @@ abstract class UsuarioBase extends ModelBase {
     protected $perfil;
     protected $imagen;
     protected $idEstado;
-    protected $idPermiso;
     protected $fechaAlta;
     protected $fechaUpdate;
 
@@ -26,8 +25,7 @@ abstract class UsuarioBase extends ModelBase {
         $telefono = '',
         $perfil = '',
         $imagen = '',
-        $idEstado = 0,
-        $idPermiso = 0,
+        $idEstado = 1,
         $fechaAlta = '',
         $fechaUpdate = ''
     ){
@@ -41,7 +39,6 @@ abstract class UsuarioBase extends ModelBase {
         $this->setPerfil($perfil);
         $this->setImagen($imagen);
         $this->setIdEstado($idEstado);
-        $this->setIdPermiso($idPermiso);
         $this->setFechaAlta($fechaAlta);
         $this->setFechaUpdate($fechaUpdate);
     }
@@ -70,8 +67,6 @@ abstract class UsuarioBase extends ModelBase {
 
     public function getIdEstado(){ return $this->idEstado; }
 
-    public function getIdPermiso(){ return $this->idPermiso; }
-
     public function getFechaAlta(){ return $this->fechaAlta; }
 
     public function getFechaUpdate(){ return $this->fechaUpdate; }
@@ -81,13 +76,6 @@ abstract class UsuarioBase extends ModelBase {
         $idEstado = $this->getIdEstado();
         $EstadoList = $EstadoController->select([['idEstado', $idEstado]]);
         return $EstadoList[0];
-    }
-
-    public function getPermiso(){
-        $PermisoController = new PermisoController();
-        $idPermiso = $this->getIdPermiso();
-        $PermisoList = $PermisoController->select([['idPermiso', $idPermiso]]);
-        return $PermisoList[0];
     }
 
     public function setIdUsuario($idUsuario = 0){
@@ -126,12 +114,8 @@ abstract class UsuarioBase extends ModelBase {
         $this->imagen = (string) $imagen; return $this;
     }
 
-    public function setIdEstado($idEstado = 0){
+    public function setIdEstado($idEstado = 1){
         $this->idEstado = (int) $idEstado; return $this;
-    }
-
-    public function setIdPermiso($idPermiso = 0){
-        $this->idPermiso = (int) $idPermiso; return $this;
     }
 
     public function setFechaAlta($fechaAlta = ''){

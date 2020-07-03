@@ -90,7 +90,7 @@ $mostrarproductos = array_slice($productoList, $mostrarDesde, $mostrarItems);
                                     <img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $producto ?>" />
                                 </a>                                
                                 <?php foreach ($producto->getImagenes() as $imagen) { ?>
-                                <a href="<?=PATHFRONTEND ?>img/<?= $imagen ?>" class="colorbox " data-group="gallery-<?= $imagen->getIdProducto() ?>" title="<?= $producto ?>"></a>
+                                <a href="<?=PATHFRONTEND ?>img/<?= $imagen ?>" class="colorbox " data-group="gallery-<?= $imagen->getIdTabla() ?>" title="<?= $producto ?>"></a>
                                 <?php } ?>
                                 <a class="featured-image-caption visible-caption" href="#"><h6><?= $producto ?></h6></a>
                             </div>

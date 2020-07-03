@@ -37,7 +37,11 @@ $blogsPopulares = $blogC->getBlogsPopulares();
 
 // TODO: la galería tiene que ser fotos relacionadas con el blog
 // GALERIA
-$imagenes = $blogC->getBlogImagenes();
+$productoC = new ProductoController;
+$filtroP = [['idTipo', Tipo::TIPO_TOUR], ['idEstado', Estado::ESTADO_ACTIVO]];
+$ordenados = [['RAND()']];
+$limitar = [8];
+$productos = $productoC->select($filtroP, $ordenados, $limitar);
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">
@@ -260,7 +264,7 @@ $imagenes = $blogC->getBlogImagenes();
                                     
                                     <?php 
                                     $i=1;
-                                    foreach ($imagenes as $imagen){ 
+                                    foreach ($productos as $producto){ 
                                         $last = "";
                                         $clear = "";
                                         if($i++ % 2 == 0){
@@ -270,9 +274,9 @@ $imagenes = $blogC->getBlogImagenes();
                                     ?>
                                     <div class="column gallery-item sixcol <?= $last ?>">
                                         <div class="featured-image">
-                                            <a href="<?=PATHFRONTEND ?>img/<?= $imagen->srcImagen ?>" class="colorbox " data-group="gallery-111" title="<?= $imagen->nombre ?>"><img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $imagen->srcImagen ?>" class="attachment-preview wp-post-image" alt="<?= $imagen->nombre ?>" title="<?= $imagen->nombre ?>" /></a>
+                                            <a href="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="colorbox " data-group="gallery-111" title="<?= $producto ?>"><img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $producto ?>" title="<?= $producto ?>" /></a>
                                             <a class="featured-image-caption none-caption" href="#">
-                                                <h6><?= $imagen->nombre ?></h6>
+                                                <h6><?= $producto ?></h6>
                                             </a>
                                         </div>
                                         <div class="block-background"></div>

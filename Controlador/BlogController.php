@@ -21,19 +21,4 @@ class BlogController extends BlogBaseController {
         return $blogList;
     }
     
-    /**
-     * TODO: buscar y sustituir getGaleriaBlog por getBlogImagenes
-     * @param array $filtros
-     * @param array $ordenados
-     * @param array $limitar
-     * @param array $agrupar
-     * @return array
-     */
-    public function getBlogImagenes(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array
-    {
-        $ordenados[] = ['RAND()'];
-        $limitar[] = 8;
-        $sql = "SELECT i.idImagen, i.srcImagen, i.idProducto, p.nombre, p.slug FROM imagenes i INNER JOIN productos p ON i.idProducto = p.idproducto";
-        return $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);        
-    }
 }

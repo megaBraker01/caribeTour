@@ -2,9 +2,7 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
-$filtro = [
-        ['idEstado', 1]
-];
+$filtro = [['idEstado', 1]];
 $blogC = new BlogController;
 $blogList = $blogC->select($filtro);
 
@@ -14,7 +12,11 @@ $blogsPopulares = $blogC->getBlogsPopulares();
 
 
 // GALERIA
-$imagenes = $blogC->getBlogImagenes();
+$productoC = new ProductoController;
+$filtroP = [['idTipo', Tipo::TIPO_TOUR], ['idEstado', Estado::ESTADO_ACTIVO]];
+$ordenados = [['RAND()']];
+$limitar = [8];
+$productos = $productoC->select($filtroP, $ordenados, $limitar);
 
 
 // PAGINACION
@@ -195,7 +197,7 @@ $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
                                     
                                     <?php 
                                     $i=1;
-                                    foreach ($imagenes as $imagen){ 
+                                    foreach ($productos as $producto){ 
                                         $last = "";
                                         $clear = "";
                                         if($i++ % 2 == 0){
@@ -205,9 +207,9 @@ $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
                                     ?>
                                     <div class="column gallery-item sixcol <?= $last ?>">
                                         <div class="featured-image">
-                                            <a href="<?=PATHFRONTEND ?>img/<?= $imagen->srcImagen ?>" class="colorbox " data-group="gallery-111" title="<?= $imagen->nombre ?>"><img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $imagen->srcImagen ?>" class="attachment-preview wp-post-image" alt="<?= $imagen->nombre ?>" title="<?= $imagen->nombre ?>" /></a>
+                                            <a href="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="colorbox " data-group="gallery-111" title="<?= $producto ?>"><img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $producto ?>" title="<?= $producto ?>" /></a>
                                             <a class="featured-image-caption none-caption" href="#">
-                                                <h6><?= $imagen->nombre ?></h6>
+                                                <h6><?= $producto ?></h6>
                                             </a>
                                         </div>
                                         <div class="block-background"></div>

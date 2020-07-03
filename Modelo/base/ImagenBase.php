@@ -41,13 +41,6 @@ abstract class ImagenBase extends ModelBase {
 
     public function getFehaUpdate(){ return $this->fehaUpdate; }
 
-    public function getTabla(){
-        $TablaController = new TablaController();
-        $idTabla = $this->getIdTabla();
-        $TablaList = $TablaController->select([['idTabla', $idTabla]]);
-        return $TablaList[0];
-    }
-
     public function setIdImagen($idImagen = 0){
         $this->idImagen = (int) $idImagen; return $this;
     }

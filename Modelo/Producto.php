@@ -10,7 +10,7 @@ class Producto extends ProductoBase {
     {
         $ImagenController = new ImagenController();
         $idProducto = $this->getIdproducto();
-        $ImagenList = $ImagenController->select([['idProducto', $idProducto]]);
+        $ImagenList = $ImagenController->select([['idTabla', $idProducto], ['tabla', 'productos']]);
         return $ImagenList;
     }
 

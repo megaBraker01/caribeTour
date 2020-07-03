@@ -35,12 +35,12 @@ abstract class ProductoBase extends ModelBase {
         $comision = 0,
         $metaDescripcion = '',
         $metaKeyWords = '',
-        $idCategoria = 0,
-        $idTipo = 0,
+        $idCategoria = 1,
+        $idTipo = 1,
         $idTipoFacturacion = 1,
-        $idEstado = 0,
-        $idProveedor = 0,
-        $stock = 0,
+        $idEstado = 1,
+        $idProveedor = 1,
+        $stock = 1,
         $esOferta = 0,
         $fechaAlta = '',
         $fechaUpdate = ''
@@ -190,11 +190,11 @@ abstract class ProductoBase extends ModelBase {
         $this->metaKeyWords = (string) $metaKeyWords; return $this;
     }
 
-    public function setIdCategoria($idCategoria = 0){
+    public function setIdCategoria($idCategoria = 1){
         $this->idCategoria = (int) $idCategoria; return $this;
     }
 
-    public function setIdTipo($idTipo = 0){
+    public function setIdTipo($idTipo = 1){
         $this->idTipo = (int) $idTipo; return $this;
     }
 
@@ -202,15 +202,15 @@ abstract class ProductoBase extends ModelBase {
         $this->idTipoFacturacion = (int) $idTipoFacturacion; return $this;
     }
 
-    public function setIdEstado($idEstado = 0){
+    public function setIdEstado($idEstado = 1){
         $this->idEstado = (int) $idEstado; return $this;
     }
 
-    public function setIdProveedor($idProveedor = 0){
+    public function setIdProveedor($idProveedor = 1){
         $this->idProveedor = (int) $idProveedor; return $this;
     }
 
-    public function setStock($stock = 0){
+    public function setStock($stock = 1){
         $this->stock = (int) $stock; return $this;
     }
 

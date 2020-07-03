@@ -11,7 +11,7 @@ abstract class PuertoBase extends ModelBase {
         $idPuerto = 0,
         $nombre = '',
         $codigo = '',
-        $idTipo = 0
+        $idTipo = 1
     ){
         $this->setIdPuerto($idPuerto);
         $this->setNombre($nombre);
@@ -50,7 +50,7 @@ abstract class PuertoBase extends ModelBase {
         $this->codigo = (string) $codigo; return $this;
     }
 
-    public function setIdTipo($idTipo = 0){
+    public function setIdTipo($idTipo = 1){
         $this->idTipo = (int) $idTipo; return $this;
     }
 

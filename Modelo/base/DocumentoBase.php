@@ -5,7 +5,7 @@ abstract class DocumentoBase extends ModelBase {
     protected $idDocumento;
     protected $nombre;
     protected $path;
-    protected $nombreTabla;
+    protected $tabla;
     protected $idTabla;
     protected $idUsuario;
     protected $fechaAlta;
@@ -14,22 +14,22 @@ abstract class DocumentoBase extends ModelBase {
         $idDocumento = 0,
         $nombre = '',
         $path = '',
-        $nombreTabla = '',
+        $tabla = '',
         $idTabla = 0,
-        $idUsuario = 0,
+        $idUsuario = 1,
         $fechaAlta = ''
     ){
         $this->setIdDocumento($idDocumento);
         $this->setNombre($nombre);
         $this->setPath($path);
-        $this->setNombreTabla($nombreTabla);
+        $this->setTabla($tabla);
         $this->setIdTabla($idTabla);
         $this->setIdUsuario($idUsuario);
         $this->setFechaAlta($fechaAlta);
     }
 
     public function __toString(){
-        return $this->nombreTabla;
+        return $this->nombre;
     }
 
     public function getIdDocumento(){ return $this->idDocumento; }
@@ -38,7 +38,7 @@ abstract class DocumentoBase extends ModelBase {
 
     public function getPath(){ return $this->path; }
 
-    public function getNombreTabla(){ return $this->nombreTabla; }
+    public function getTabla(){ return $this->tabla; }
 
     public function getIdTabla(){ return $this->idTabla; }
 
@@ -72,15 +72,15 @@ abstract class DocumentoBase extends ModelBase {
         $this->path = (string) $path; return $this;
     }
 
-    public function setNombreTabla($nombreTabla = ''){
-        $this->nombreTabla = (string) $nombreTabla; return $this;
+    public function setTabla($tabla = ''){
+        $this->tabla = (string) $tabla; return $this;
     }
 
     public function setIdTabla($idTabla = 0){
         $this->idTabla = (int) $idTabla; return $this;
     }
 
-    public function setIdUsuario($idUsuario = 0){
+    public function setIdUsuario($idUsuario = 1){
         $this->idUsuario = (int) $idUsuario; return $this;
     }
 

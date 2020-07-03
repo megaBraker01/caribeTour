@@ -9,7 +9,7 @@ abstract class ReservaBase extends ModelBase {
 
     public function __construct(
         $idReserva = 0,
-        $idEstado = 0,
+        $idEstado = 1,
         $idTipoPago = 12,
         $fechaAlta = ''
     ){
@@ -45,7 +45,7 @@ abstract class ReservaBase extends ModelBase {
         $this->idReserva = (int) $idReserva; return $this;
     }
 
-    public function setIdEstado($idEstado = 0){
+    public function setIdEstado($idEstado = 1){
         $this->idEstado = (int) $idEstado; return $this;
     }
 

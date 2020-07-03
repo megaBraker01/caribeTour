@@ -22,7 +22,7 @@ abstract class BlogBase extends ModelBase {
         $metaKeyWords = '',
         $descripcion = '',
         $srcImagen = '',
-        $idUsuario = 0,
+        $idUsuario = 1,
         $idEstado = 1,
         $fechaAlta = '',
         $fechaUpdate = ''
@@ -108,7 +108,7 @@ abstract class BlogBase extends ModelBase {
         $this->srcImagen = (string) $srcImagen; return $this;
     }
 
-    public function setIdUsuario($idUsuario = 0){
+    public function setIdUsuario($idUsuario = 1){
         $this->idUsuario = (int) $idUsuario; return $this;
     }
 

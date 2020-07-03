@@ -6,14 +6,14 @@ abstract class ContactoBaseController extends BaseController {
 
     public function insert(Contacto $Contacto): int {
         try{
-            $sql = "INSERT INTO contactos (idTipo, contacto, personaContacto, srcTabla, idTabla) 
-            VALUES (:idTipo, :contacto, :personaContacto, :srcTabla, :idTabla);";
+            $sql = "INSERT INTO contactos (idTipo, contacto, personaContacto, tabla, idTabla) 
+            VALUES (:idTipo, :contacto, :personaContacto, :tabla, :idTabla);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idTipo", $Contacto->getIdTipo());
 $statement->bindValue(":contacto", $Contacto->getContacto());
 $statement->bindValue(":personaContacto", $Contacto->getPersonaContacto());
-$statement->bindValue(":srcTabla", $Contacto->getSrcTabla());
+$statement->bindValue(":tabla", $Contacto->getTabla());
 $statement->bindValue(":idTabla", $Contacto->getIdTabla());
 
             $ret = 0;
@@ -31,14 +31,14 @@ $statement->bindValue(":idTabla", $Contacto->getIdTabla());
 
     public function update(Contacto $Contacto): int {
         try{
-            $sql = "UPDATE contactos SET idTipo = :idTipo, contacto = :contacto, personaContacto = :personaContacto, srcTabla = :srcTabla, idTabla = :idTabla WHERE idContacto = :idContacto LIMIT 1;";
+            $sql = "UPDATE contactos SET idTipo = :idTipo, contacto = :contacto, personaContacto = :personaContacto, tabla = :tabla, idTabla = :idTabla WHERE idContacto = :idContacto LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idContacto", $Contacto->getIdContacto());
 $statement->bindValue(":idTipo", $Contacto->getIdTipo());
 $statement->bindValue(":contacto", $Contacto->getContacto());
 $statement->bindValue(":personaContacto", $Contacto->getPersonaContacto());
-$statement->bindValue(":srcTabla", $Contacto->getSrcTabla());
+$statement->bindValue(":tabla", $Contacto->getTabla());
 $statement->bindValue(":idTabla", $Contacto->getIdTabla());
 
             $ret = 0;
@@ -56,14 +56,14 @@ $statement->bindValue(":idTabla", $Contacto->getIdTabla());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
-            $sql = "SELECT idContacto, idTipo, contacto, personaContacto, srcTabla, idTabla, fechaAlta, fechaUpdate 
+            $sql = "SELECT idContacto, idTipo, contacto, personaContacto, tabla, idTabla, fechaAlta, fechaUpdate 
             FROM contactos";                        
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(!empty($rows)){
                 foreach($rows as $row){
-                    $ret[] = new Contacto($row->idContacto, $row->idTipo, $row->contacto, $row->personaContacto, $row->srcTabla, $row->idTabla, $row->fechaAlta, $row->fechaUpdate);
+                    $ret[] = new Contacto($row->idContacto, $row->idTipo, $row->contacto, $row->personaContacto, $row->tabla, $row->idTabla, $row->fechaAlta, $row->fechaUpdate);
                 }
             }
             

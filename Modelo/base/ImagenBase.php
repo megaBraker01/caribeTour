@@ -3,20 +3,23 @@
 abstract class ImagenBase extends ModelBase {
 
     protected $idImagen;
-    protected $idProducto;
+    protected $tabla;
+    protected $idTabla;
     protected $srcImagen;
     protected $fechaAlta;
     protected $fehaUpdate;
 
     public function __construct(
         $idImagen = 0,
-        $idProducto = 0,
+        $tabla = '',
+        $idTabla = 0,
         $srcImagen = '',
         $fechaAlta = '',
         $fehaUpdate = ''
     ){
         $this->setIdImagen($idImagen);
-        $this->setIdProducto($idProducto);
+        $this->setTabla($tabla);
+        $this->setIdTabla($idTabla);
         $this->setSrcImagen($srcImagen);
         $this->setFechaAlta($fechaAlta);
         $this->setFehaUpdate($fehaUpdate);
@@ -28,7 +31,9 @@ abstract class ImagenBase extends ModelBase {
 
     public function getIdImagen(){ return $this->idImagen; }
 
-    public function getIdProducto(){ return $this->idProducto; }
+    public function getTabla(){ return $this->tabla; }
+
+    public function getIdTabla(){ return $this->idTabla; }
 
     public function getSrcImagen(){ return $this->srcImagen; }
 
@@ -36,19 +41,23 @@ abstract class ImagenBase extends ModelBase {
 
     public function getFehaUpdate(){ return $this->fehaUpdate; }
 
-    public function getProducto(){
-        $ProductoController = new ProductoController();
-        $idProducto = $this->getIdProducto();
-        $ProductoList = $ProductoController->select([['idProducto', $idProducto]]);
-        return $ProductoList[0];
+    public function getTabla(){
+        $TablaController = new TablaController();
+        $idTabla = $this->getIdTabla();
+        $TablaList = $TablaController->select([['idTabla', $idTabla]]);
+        return $TablaList[0];
     }
 
     public function setIdImagen($idImagen = 0){
         $this->idImagen = (int) $idImagen; return $this;
     }
 
-    public function setIdProducto($idProducto = 0){
-        $this->idProducto = (int) $idProducto; return $this;
+    public function setTabla($tabla = ''){
+        $this->tabla = (string) $tabla; return $this;
+    }
+
+    public function setIdTabla($idTabla = 0){
+        $this->idTabla = (int) $idTabla; return $this;
     }
 
     public function setSrcImagen($srcImagen = ''){

@@ -16,7 +16,7 @@ abstract class CategoriaBase extends ModelBase {
         $nombre = '',
         $slug = '',
         $descripcion = '',
-        $idEstado = 0,
+        $idEstado = 1,
         $srcImagen = ''
     ){
         $this->setIdCategoria($idCategoria);
@@ -80,7 +80,7 @@ abstract class CategoriaBase extends ModelBase {
         $this->descripcion = (string) $descripcion; return $this;
     }
 
-    public function setIdEstado($idEstado = 0){
+    public function setIdEstado($idEstado = 1){
         $this->idEstado = (int) $idEstado; return $this;
     }
 

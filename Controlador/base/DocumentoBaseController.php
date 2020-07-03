@@ -6,13 +6,13 @@ abstract class DocumentoBaseController extends BaseController {
 
     public function insert(Documento $Documento): int {
         try{
-            $sql = "INSERT INTO documentos (nombre, path, nombreTabla, idTabla, idUsuario) 
-            VALUES (:nombre, :path, :nombreTabla, :idTabla, :idUsuario);";
+            $sql = "INSERT INTO documentos (nombre, path, tabla, idTabla, idUsuario) 
+            VALUES (:nombre, :path, :tabla, :idTabla, :idUsuario);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":nombre", $Documento->getNombre());
 $statement->bindValue(":path", $Documento->getPath());
-$statement->bindValue(":nombreTabla", $Documento->getNombreTabla());
+$statement->bindValue(":tabla", $Documento->getTabla());
 $statement->bindValue(":idTabla", $Documento->getIdTabla());
 $statement->bindValue(":idUsuario", $Documento->getIdUsuario());
 
@@ -31,13 +31,13 @@ $statement->bindValue(":idUsuario", $Documento->getIdUsuario());
 
     public function update(Documento $Documento): int {
         try{
-            $sql = "UPDATE documentos SET nombre = :nombre, path = :path, nombreTabla = :nombreTabla, idTabla = :idTabla, idUsuario = :idUsuario WHERE idDocumento = :idDocumento LIMIT 1;";
+            $sql = "UPDATE documentos SET nombre = :nombre, path = :path, tabla = :tabla, idTabla = :idTabla, idUsuario = :idUsuario WHERE idDocumento = :idDocumento LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             $statement->bindValue(":idDocumento", $Documento->getIdDocumento());
 $statement->bindValue(":nombre", $Documento->getNombre());
 $statement->bindValue(":path", $Documento->getPath());
-$statement->bindValue(":nombreTabla", $Documento->getNombreTabla());
+$statement->bindValue(":tabla", $Documento->getTabla());
 $statement->bindValue(":idTabla", $Documento->getIdTabla());
 $statement->bindValue(":idUsuario", $Documento->getIdUsuario());
 
@@ -56,14 +56,14 @@ $statement->bindValue(":idUsuario", $Documento->getIdUsuario());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
-            $sql = "SELECT idDocumento, nombre, path, nombreTabla, idTabla, idUsuario, fechaAlta 
+            $sql = "SELECT idDocumento, nombre, path, tabla, idTabla, idUsuario, fechaAlta 
             FROM documentos";                        
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(!empty($rows)){
                 foreach($rows as $row){
-                    $ret[] = new Documento($row->idDocumento, $row->nombre, $row->path, $row->nombreTabla, $row->idTabla, $row->idUsuario, $row->fechaAlta);
+                    $ret[] = new Documento($row->idDocumento, $row->nombre, $row->path, $row->tabla, $row->idTabla, $row->idUsuario, $row->fechaAlta);
                 }
             }
             

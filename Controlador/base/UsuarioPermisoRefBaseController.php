@@ -1,18 +1,17 @@
 <?php
 
-abstract class ImagenBaseController extends BaseController {
+abstract class UsuarioPermisoRefBaseController extends BaseController {
 
 
 
-    public function insert(Imagen $Imagen): int {
+    public function insert(UsuarioPermisoRef $UsuarioPermisoRef): int {
         try{
-            $sql = "INSERT INTO imagenes (tabla, idTabla, srcImagen) 
-            VALUES (:tabla, :idTabla, :srcImagen);";
+            $sql = "INSERT INTO usuario_permiso_ref (idUsuario, idPermiso) 
+            VALUES (:idUsuario, :idPermiso);";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":tabla", $Imagen->getTabla());
-$statement->bindValue(":idTabla", $Imagen->getIdTabla());
-$statement->bindValue(":srcImagen", $Imagen->getSrcImagen());
+            $statement->bindValue(":idUsuario", $UsuarioPermisoRef->getIdUsuario());
+$statement->bindValue(":idPermiso", $UsuarioPermisoRef->getIdPermiso());
 
             $ret = 0;
             if($statement->execute()){
@@ -27,15 +26,13 @@ $statement->bindValue(":srcImagen", $Imagen->getSrcImagen());
         }
     }
 
-    public function update(Imagen $Imagen): int {
+    public function update(UsuarioPermisoRef $UsuarioPermisoRef): int {
         try{
-            $sql = "UPDATE imagenes SET tabla = :tabla, idTabla = :idTabla, srcImagen = :srcImagen WHERE idImagen = :idImagen LIMIT 1;";
+            $sql = "UPDATE usuario_permiso_ref SET idUsuario = :idUsuario, idPermiso = :idPermiso WHERE idUsuario = :idUsuario AND idPermiso = :idPermiso LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
-            $statement->bindValue(":idImagen", $Imagen->getIdImagen());
-$statement->bindValue(":tabla", $Imagen->getTabla());
-$statement->bindValue(":idTabla", $Imagen->getIdTabla());
-$statement->bindValue(":srcImagen", $Imagen->getSrcImagen());
+            $statement->bindValue(":idUsuario", $UsuarioPermisoRef->getIdUsuario());
+$statement->bindValue(":idPermiso", $UsuarioPermisoRef->getIdPermiso());
 
             $ret = 0;
             if($statement->execute()){
@@ -52,14 +49,14 @@ $statement->bindValue(":srcImagen", $Imagen->getSrcImagen());
 
     public function select(array $filtros = [], array $ordenados = [], array $limitar = [], array $agrupar = []): array {
         try{
-            $sql = "SELECT idImagen, tabla, idTabla, srcImagen, fechaAlta, fehaUpdate 
-            FROM imagenes";                        
+            $sql = "SELECT idUsuario, idPermiso 
+            FROM usuario_permiso_ref";                        
             $ret = [];
             $rows = $this->query($sql, $filtros, $ordenados, $limitar, $agrupar);
             
             if(!empty($rows)){
                 foreach($rows as $row){
-                    $ret[] = new Imagen($row->idImagen, $row->tabla, $row->idTabla, $row->srcImagen, $row->fechaAlta, $row->fehaUpdate);
+                    $ret[] = new UsuarioPermisoRef($row->idUsuario, $row->idPermiso);
                 }
             }
             
@@ -72,11 +69,11 @@ $statement->bindValue(":srcImagen", $Imagen->getSrcImagen());
 
     public function deleteByIds(array $ids = []): int {
         try{
-            if(!isset($ids['idImagen'])){
+            if(!isset($ids['idUsuario']) or !isset($ids['idPermiso'])){
                 throw new Exception('Para eliminar un registro, se tiene que especificar sus ids');
             }
-            $sql = "DELETE FROM imagenes";
-            $sql .= " WHERE idImagen = :idImagen LIMIT 1;";
+            $sql = "DELETE FROM usuario_permiso_ref";
+            $sql .= " WHERE idUsuario = :idUsuario AND idPermiso = :idPermiso LIMIT 1;";
             $conexion = new Conexion();
             $statement = $conexion->pdo()->prepare($sql);
             

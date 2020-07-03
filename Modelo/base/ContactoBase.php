@@ -6,17 +6,17 @@ abstract class ContactoBase extends ModelBase {
     protected $idTipo;
     protected $contacto;
     protected $personaContacto;
-    protected $srcTabla;
+    protected $tabla;
     protected $idTabla;
     protected $fechaAlta;
     protected $fechaUpdate;
 
     public function __construct(
         $idContacto = 0,
-        $idTipo = 0,
+        $idTipo = 1,
         $contacto = '',
         $personaContacto = '',
-        $srcTabla = '',
+        $tabla = '',
         $idTabla = 0,
         $fechaAlta = '',
         $fechaUpdate = ''
@@ -25,7 +25,7 @@ abstract class ContactoBase extends ModelBase {
         $this->setIdTipo($idTipo);
         $this->setContacto($contacto);
         $this->setPersonaContacto($personaContacto);
-        $this->setSrcTabla($srcTabla);
+        $this->setTabla($tabla);
         $this->setIdTabla($idTabla);
         $this->setFechaAlta($fechaAlta);
         $this->setFechaUpdate($fechaUpdate);
@@ -43,7 +43,7 @@ abstract class ContactoBase extends ModelBase {
 
     public function getPersonaContacto(){ return $this->personaContacto; }
 
-    public function getSrcTabla(){ return $this->srcTabla; }
+    public function getTabla(){ return $this->tabla; }
 
     public function getIdTabla(){ return $this->idTabla; }
 
@@ -69,7 +69,7 @@ abstract class ContactoBase extends ModelBase {
         $this->idContacto = (int) $idContacto; return $this;
     }
 
-    public function setIdTipo($idTipo = 0){
+    public function setIdTipo($idTipo = 1){
         $this->idTipo = (int) $idTipo; return $this;
     }
 
@@ -81,8 +81,8 @@ abstract class ContactoBase extends ModelBase {
         $this->personaContacto = (string) $personaContacto; return $this;
     }
 
-    public function setSrcTabla($srcTabla = ''){
-        $this->srcTabla = (string) $srcTabla; return $this;
+    public function setTabla($tabla = ''){
+        $this->tabla = (string) $tabla; return $this;
     }
 
     public function setIdTabla($idTabla = 0){

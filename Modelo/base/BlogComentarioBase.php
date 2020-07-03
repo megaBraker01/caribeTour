@@ -13,7 +13,7 @@ abstract class BlogComentarioBase extends ModelBase {
     public function __construct(
         $idBlogComentario = 0,
         $idBlog = 0,
-        $idEstado = 0,
+        $idEstado = 1,
         $nombre = '',
         $email = '',
         $comentario = '',
@@ -68,7 +68,7 @@ abstract class BlogComentarioBase extends ModelBase {
         $this->idBlog = (int) $idBlog; return $this;
     }
 
-    public function setIdEstado($idEstado = 0){
+    public function setIdEstado($idEstado = 1){
         $this->idEstado = (int) $idEstado; return $this;
     }
 

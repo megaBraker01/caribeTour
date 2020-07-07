@@ -5,10 +5,10 @@ require_once "../../AutoLoader/autoLoader.php";
 $blogC = new BlogController;
 // INSERTAT COMENTARIO
 if(isset($_POST['MM_insert'])){
-    $nombre = UtilController::sanear($_POST['nombre']);
-    $email = UtilController::sanear($_POST['email']);
-    $comentarios = UtilController::sanear($_POST['comentario']);
-    $idBlog = UtilController::sanear($_POST['idBlog'], UtilController::_INT);
+    $nombre = Util::sanear($_POST['nombre']);
+    $email = Util::sanear($_POST['email']);
+    $comentarios = Util::sanear($_POST['comentario']);
+    $idBlog = Util::sanear($_POST['idBlog'], UtilController::_INT);
     
     $comentarioC = new BlogComentarioController;
     $comentario = new BlogComentario(0, $idBlog, Estado::ESTADO_ACTIVO, $nombre, $email, $comentarios);

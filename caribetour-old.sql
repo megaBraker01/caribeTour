@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 03-07-2020 a las 21:49:38
+-- Tiempo de generación: 03-07-2020 a las 21:58:41
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 7.0.23
 
@@ -1268,6 +1268,12 @@ CREATE TABLE IF NOT EXISTS `v_producto_fecha_ref` (
 --
 DROP VIEW IF EXISTS `v_proveedores`;
 CREATE TABLE IF NOT EXISTS `v_proveedores` (
+`idProveedor` int(11)
+,`Nombre` varchar(100)
+,`NIF` varchar(20)
+,`Telefono` text
+,`Email` text
+,`Web` text
 );
 
 -- --------------------------------------------------------
@@ -1286,7 +1292,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_proveedores`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_proveedores`  AS  select `p`.`idProveedor` AS `idProveedor`,`p`.`nombre` AS `Nombre`,`p`.`NIF` AS `NIF`,group_concat((case when (`t`.`nombre` = 'Telefono') then `c`.`contacto` end) separator ', ') AS `Telefono`,group_concat((case when (`t`.`nombre` = 'Email') then `c`.`contacto` end) separator ', ') AS `Email`,group_concat((case when (`t`.`nombre` = 'Web') then `c`.`contacto` end) separator ', ') AS `Web` from ((`proveedores` `p` join `contactos` `c` on(((`c`.`srcTabla` = 'proveedores') and (`c`.`idTabla` = `p`.`idProveedor`)))) join `tipos` `t` on((`c`.`idTipo` = `t`.`idTipo`))) group by `p`.`idProveedor` order by `p`.`idProveedor` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_proveedores`  AS  select `p`.`idProveedor` AS `idProveedor`,`p`.`nombre` AS `Nombre`,`p`.`NIF` AS `NIF`,group_concat((case when (`t`.`nombre` = 'Telefono') then `c`.`contacto` end) separator ', ') AS `Telefono`,group_concat((case when (`t`.`nombre` = 'Email') then `c`.`contacto` end) separator ', ') AS `Email`,group_concat((case when (`t`.`nombre` = 'Web') then `c`.`contacto` end) separator ', ') AS `Web` from ((`proveedores` `p` join `contactos` `c` on(((`c`.`tabla` = 'proveedores') and (`c`.`idTabla` = `p`.`idProveedor`)))) join `tipos` `t` on((`c`.`idTipo` = `t`.`idTipo`))) group by `p`.`idProveedor` order by `p`.`idProveedor` ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

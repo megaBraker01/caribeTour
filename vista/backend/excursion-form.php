@@ -39,7 +39,7 @@ try{
     // mostrar datos (VER O EDITAR)
     switch ($action){
         case 'ver':
-            $idProducto = UtilController::checkGetIdExist();
+            $idProducto = $productoC->checkGetIdExist();
             $producto = $productoC->getProductoById($idProducto);
             $readOnly = true;
             $isNewRecord = false;
@@ -51,7 +51,7 @@ try{
             }
             break;
         case 'editar':
-            $idProducto = UtilController::checkGetIdExist();
+            $idProducto = $productoC->checkGetIdExist();
             $producto = $productoC->getProductoById($idProducto);
             $readOnly = false;
             $isNewRecord = false;

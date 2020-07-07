@@ -3,9 +3,28 @@
 abstract class ModelBase {
 
     /*
-    * @return array indexado con los nombre de todas las propiedades de la clase
-    */
-    public function getAllParams($excludeFK = false, $justKeys = true): array {
+     * @return int pk de la tabla
+     */
+    public function getId(){
+        $params = $this->getAllParams();
+        return $params[0];
+    }   
+
+    /*
+     * Obtiene todos los meltodos publicos de la clase actual   
+     * @return array 
+     */
+    public function getAllMethods(){
+        return get_class_methods($this);
+    }
+
+    /**
+     * Obtiene un array indexado con los nombre de todas las propiedades de la clase
+     * @param bool $excludeFK
+     * @param bool $justKeys
+     * @return array
+     */
+    public function getAllParams(bool $excludeFK = false, bool $justKeys = true): array {
         $ret = get_object_vars($this);        
         if($justKeys){ $ret = array_keys($ret); }
         
@@ -14,16 +33,32 @@ abstract class ModelBase {
         return $ret;
     }
 
-    /*
-    * Retorna un objeto en formato json de la clase   
-    * @return string 
-    */
+    /**
+     * Retorna un objeto en formato json de la clase   
+     * @return string 
+     */
     public function toJson(): string {
         return json_encode($this->getAllParams(false, false));
     }
 
     /**
-     * TODO: Pasar al generator
+     *   
+     * @param type $cadena
+     * @param type $separador
+     * @return string
+     */
+    public function slugify($cadena, $separador = '-')
+    {
+        setlocale(LC_ALL, 'en_US.UTF8');
+        $slug = iconv('UTF-8', 'ASCII//TRANSLIT', $cadena);
+        $slug = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $slug);
+        $slug = preg_replace("/[\/_|+ -]+/", $separador, $slug);
+        $slug = strtolower(trim($slug, $separador));
+
+        return !empty($slug) ? $slug : "n{$separador}a";
+    }
+
+    /**
      * Setea los parametros de una clase mediante sus metodos setters
      * ej: ['nombre' => 'juan', 'telefono' => 987987987]
      * @param array $paramList
@@ -42,15 +77,6 @@ abstract class ModelBase {
             }
         }
         return $this;
-    }
-    
-    /**
-     * TODO: meter este metodo en el generator
-     * Obtiene todos los meltodos publicos de la clase actual
-     * @return array
-     */
-    public function getAllMethods(){
-        return get_class_methods($this);
     }
 
 }

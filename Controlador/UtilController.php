@@ -1,5 +1,9 @@
 <?php
 
+
+/**
+ * pasar todos estos metodos a Util o a su correspondiente controller
+ */
 class UtilController extends BaseController {
     
     const _TEXT = 'text';
@@ -11,7 +15,7 @@ class UtilController extends BaseController {
 
 
     /**
-     * TODO: pasar esta funcion a BaseModelo
+     * TODO: pasar esta funcion a BaseModelo (HECHO)
      * @param type $cadena
      * @param type $separador
      * @return type
@@ -27,6 +31,7 @@ class UtilController extends BaseController {
         return !empty($slug) ? $slug : "n{$separador}a";
     }
     
+    // TODO: ya esta pasado a Util
     public static function sanear($value, $type = self::_TEXT): string
     {
         $remplazar = array("\n\r");
@@ -35,9 +40,6 @@ class UtilController extends BaseController {
         $pattern = "/[^A-Za-z0-9-=+_@,;&.\/\s\ ]/";
         
         switch (strtolower($type)){
-            case self::_TEXT :
-                $ret = preg_replace($pattern, $por, $ret);
-                break;
             case self::_INT :
                 $pattern = "/[^0-9-]/";
                 $ret = preg_replace($pattern, $por, $ret);
@@ -46,6 +48,7 @@ class UtilController extends BaseController {
                 $pattern = "/[^0-9-,.]/";
                 $ret = preg_replace($pattern, $por, $ret);
                 break;
+            case self::_TEXT :
             default :
                 $ret = preg_replace($pattern, $por, $ret);
                 break;
@@ -55,7 +58,7 @@ class UtilController extends BaseController {
     }
     
     /**
-     * TODO: hacer una clase UtilController para pasar este y otros metodos
+     * 
      * @param string $sql
      * @param array $filtros
      * @param array $ordenados
@@ -70,6 +73,7 @@ class UtilController extends BaseController {
 
  
     /**
+     * TODO: Pasar este metodo a TipoController
      * Obtiene los tipos disponibles dependiendo el nombre de la tabla
      * @param string $tableName
      * @return \Tipo
@@ -90,6 +94,28 @@ class UtilController extends BaseController {
         return $tiposList;
     }
     
+    /**
+     * TODO: cambiar a la clase formHandler
+     * @param string $tableName
+     * @return type
+     */
+    public function getTiposForForm(string $tableName)
+    {
+        $tipoList = $this->getTipos($tableName);
+        $tipoOptions = [];
+        foreach ($tipoList as $tipoObj){
+            $tipoOptions[$tipoObj->getIdTipo()] = $tipoObj->getNombre();
+        }
+        
+        return $tipoOptions;
+    }
+
+    /**
+     * TODO: Pasar este metodo a EstadoController
+     * @param string $tableName
+     * @return \Estado
+     * @throws Exception
+     */
     public function getEstados(string $tableName)
     {
         if(!is_string($tableName) or "" == $tableName){
@@ -104,6 +130,38 @@ class UtilController extends BaseController {
 
         return $estadoList;
         
+    }
+    
+    /**
+     * TODO: cambiar a la clase formHandler
+     * @param string $tableName
+     * @return type
+     */
+    public function getEstadosForForm(string $tableName)
+    {
+        $estadosList = $this->getEstados($tableName);
+        $estadoOptions = [];
+        foreach ($estadosList as $estadoObj){
+            $estadoOptions[$estadoObj->getIdEstado()] = $estadoObj->getNombre();
+        }
+        
+        return $estadoOptions;
+    }
+    
+    /**
+     * TODO: cambiar a la clase formHandler
+     * @return type
+     */
+    public function getTipoFacturacionForForm()
+    {
+        $tipoFacturacionC = new TipoFacturacionController;
+        $tipos = $tipoFacturacionC->select();
+        $tiposOptions = [];
+        foreach ($tipos as $tipo){
+            $tiposOptions[$tipo->getIdTipoFacturacion()] = $tipo->getNombre();
+        }
+        
+        return $tiposOptions;
     }
 
     public static function generar_calendario($month, $year, $holidays = null, $lang = "es")
@@ -293,18 +351,6 @@ class UtilController extends BaseController {
         return $isAjax;
     }
     
-    /**
-     * Verifica si el parametro idProducto ha sido mandado por el metodo GET
-     * @return int
-     * @throws Exception
-     */
-    public static function checkGetIdExist()
-    {
-        if(!isset($_GET['id']) or '' == $_GET['id']){
-            throw new Exception('El id NO está definido');
-        }
-        return $_GET['id'];
-    }
     
     /**
      * TODO: crear clase Modelo/Lister que contenga esta logica
@@ -329,7 +375,7 @@ class UtilController extends BaseController {
      * @param array $paramList
      * @return string json
      */
-    public static function objListTosonList($objList = [], $paramList = [])
+    public static function objListToJsonList($objList = [], $paramList = [])
     {
         $data = [];
         foreach ($objList as $obj){
@@ -346,7 +392,7 @@ class UtilController extends BaseController {
     }
     
     /**
-     * TODO: meter en Modelo/Form
+     * TODO: meter en Modelo/Form y quitar el acoplamiento con ImgHandler
      * @param ModelBase $obj
      * @return \ModelBase
      */

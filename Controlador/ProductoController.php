@@ -128,8 +128,9 @@ class ProductoController extends ProductoBaseController {
         }
 
         $utilC = new UtilController();
-        $tipoOptions = $utilC->getTipos('productos');
-        $estadoOptions = $utilC->getEstados('productos');
+        $tipoOptions = $utilC->getTiposForForm('productos');
+        $estadoOptions = $utilC->getEstadosForForm('productos');
+        $facturacionOptions = $utilC->getTipoFacturacionForForm();
 
         $proveedorC = new ProveedorController;
         $proveedorOptions = [];
@@ -143,6 +144,7 @@ class ProductoController extends ProductoBaseController {
         $formHandler->setFieldOptions('idTipo', $tipoOptions);
         $formHandler->setFieldOptions('idEstado', $estadoOptions);
         $formHandler->setFieldOptions('idProveedor', $proveedorOptions);
+        $formHandler->setFieldOptions('idTipoFacturacion', $facturacionOptions);
         $formHandler->setFieldOptions('esOferta', ['No', 'Si']);
         $formHandler->setFieldsTypeImgFile(['imagen']);
         $formHandler->setFieldIntoFieldset();
@@ -152,5 +154,19 @@ class ProductoController extends ProductoBaseController {
 
         return $formHandler->renderForm();
 
+    }
+    
+    /**
+     * TODO: puede esto esté mejor en una clase FormBase
+     * Verifica si el parametro idProducto ha sido mandado por el metodo GET
+     * @return type
+     * @throws Exception
+     */
+    public static function checkGetIdExist()
+    {
+        if(!isset($_GET['id']) or '' == $_GET['id']){
+            throw new Exception('El id NO está definido');
+        }
+        return $_GET['id'];
     }
 }

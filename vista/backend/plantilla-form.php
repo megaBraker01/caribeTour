@@ -25,6 +25,7 @@ try{
     $objC = new $objControllerName;
     $formHandler = new FormHandler($tableName, false, false);
     $utilC = new UtilController();
+    $productoC = new ProductoController;
     
     // persistencia de datos (NUEVO O EDITAR)
     /* @var $_POST type */
@@ -34,7 +35,7 @@ try{
             $obj = $utilC->setObjFromPost(new $objName);
             $id = $objC->insert($obj);
         } else {
-            $id = UtilController::checkGetIdExist();
+            $id = $productoC->checkGetIdExist();
             $obj = @$objC->select([[$objIdName, $id]])[0];
             $obj = $utilC->setObjFromPost($obj);
             $objC->update($obj);
@@ -48,7 +49,7 @@ try{
     // mostrar datos (VER O EDITAR)
     switch ($action){
         case 'ver':
-            $id = UtilController::checkGetIdExist();
+            $id = $productoC->checkGetIdExist();
             $obj = @$objC->select([[$objIdName, $id]])[0];            
             $readOnly = true;
             $isNewRecord = false;
@@ -56,7 +57,7 @@ try{
             $fieldValues = $obj->getAllParams(false, false);
             break;
         case 'editar':
-            $id = UtilController::checkGetIdExist();
+            $id = $productoC->checkGetIdExist();
             $obj = @$objC->select([[$objIdName, $id]])[0];
             $readOnly = false;
             $isNewRecord = false;

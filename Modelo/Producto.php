@@ -48,7 +48,7 @@ class Producto extends ProductoBase {
     public function setSlug($slug = '')
     {
         if('' == $slug){
-            $slug = UtilController::slugify($this->getNombre());
+            $slug = $this->slugify($this->getNombre());
         }
         
         return parent::setSlug($slug);        

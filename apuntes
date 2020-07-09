@@ -8,6 +8,16 @@
 nota mySql:
 se tiene que cambiar la variable sql_mode y quitar el valor ONLY_FULL_GROUP_BY, esto es para que permita agrupar sin la necesidad de meter todos los campos del select en el group by
 
+consulta para sumar meses a las fechas
+UPDATE fechas SET fecha = DATE_ADD(fecha,INTERVAL 2 MONTH)
+
+consulta para restar meses a las fechas
+SELECT *
+FROM fechas
+WHERE fecha <= CURDATE() 
+AND fecha >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK)
+
+
 consulta para el objeto DTO de fechas 
 
 

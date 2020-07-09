@@ -35,7 +35,7 @@ try{
             $obj = $utilC->setObjFromPost(new $objName);
             $id = $objC->insert($obj);
         } else {
-            $id = $productoC->checkGetIdExist();
+            $id = FormHandler::checkGetIdExist();
             $obj = @$objC->select([[$objIdName, $id]])[0];
             $obj = $utilC->setObjFromPost($obj);
             $objC->update($obj);
@@ -49,7 +49,7 @@ try{
     // mostrar datos (VER O EDITAR)
     switch ($action){
         case 'ver':
-            $id = $productoC->checkGetIdExist();
+            $id = FormHandler::checkGetIdExist();
             $obj = @$objC->select([[$objIdName, $id]])[0];            
             $readOnly = true;
             $isNewRecord = false;
@@ -57,7 +57,7 @@ try{
             $fieldValues = $obj->getAllParams(false, false);
             break;
         case 'editar':
-            $id = $productoC->checkGetIdExist();
+            $id = FormHandler::checkGetIdExist();
             $obj = @$objC->select([[$objIdName, $id]])[0];
             $readOnly = false;
             $isNewRecord = false;

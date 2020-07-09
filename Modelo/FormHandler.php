@@ -363,5 +363,82 @@ class FormHandler {
 
         return $form->render();
     }
+    
+    /**
+     * @param string $tableName
+     * @return array
+     */
+    public function getTiposForForm(string $tableName)
+    {
+        $tipoC = new TipoController;
+        $tipoList = $tipoC->getTiposByTableName($tableName);
+        $tipoOptions = [];
+        foreach ($tipoList as $tipoObj){
+            $tipoOptions[$tipoObj->getIdTipo()] = $tipoObj->getNombre();
+        }
+        
+        return $tipoOptions;
+    }
 
+    
+    /**
+     * 
+     * @param string $tableName
+     * @return array
+     */
+    public function getEstadosForForm(string $tableName)
+    {
+        $estadoC = new EstadoController;
+        $estadosList = $estadoC->getEstadosByTableName($tableName);
+        $estadoOptions = [];
+        foreach ($estadosList as $estadoObj){
+            $estadoOptions[$estadoObj->getIdEstado()] = $estadoObj->getNombre();
+        }
+        
+        return $estadoOptions;
+    }
+    
+    /**
+     * 
+     * @return array 
+     */
+    public function getTipoFacturacionForForm()
+    {
+        $tipoFacturacionC = new TipoFacturacionController;
+        $tipos = $tipoFacturacionC->select();
+        $tiposOptions = [];
+        foreach ($tipos as $tipo){
+            $tiposOptions[$tipo->getIdTipoFacturacion()] = $tipo->getNombre();
+        }
+        
+        return $tiposOptions;
+    }
+    
+    /**
+     * 
+     * @return array
+     */
+    public function getCategoriaForForm()
+    {
+        $categoriaC = new CategoriaController;
+        $categoriaOptions = [];
+        foreach($categoriaC->select([], [['idCategoriaPadre']]) as $categoria){
+            $categoriaOptions[$categoria->getIdCategoria()] = $categoria->getNombre();
+        }
+        
+        return $categoriaOptions;
+    }
+    
+    /**
+     * 
+     * @return type
+     * @throws Exception
+     */
+    public static function checkGetIdExist()
+    {
+        if(!isset($_GET['id']) or '' == $_GET['id']){
+            throw new Exception('El id NO está definido');
+        }
+        return $_GET['id'];
+    }
 }

@@ -8,13 +8,20 @@ $lister = "proveedor-lister.php";
 $tableName = "proveedores";
 $readOnlyFieldList = ['idProveedor', 'fechaAlta', 'fechaUpdate'];
 $estadoC = new EstadoController;
+$estadosList = $estadoC->getEstadosByTableName('proveedores');
 $estadoOptions = [];
+foreach ($estadosList as $estadoObj){
+    $estadoOptions[$estadoObj->getIdEstado()] = $estadoObj->getNombre();
+}
+
+//Util::dev($estadoOptions);
+/*
 foreach($estadoC->select([['proveedores', 1], ['idEstado', 1, '>']]) as $estado){
     $estadoOptions[$estado->getIdEstado()] = $estado->getNombre();
 }
+*/
 
-
-
+// TODO: Solucionar problema con los indices (valores) de los campos seleccionable, que no obtiene el valor real
 
 
 $objName = ucfirst($formName);
@@ -41,7 +48,7 @@ try{
             $obj = $utilC->setObjFromPost(new $objName);
             $id = $objC->insert($obj);
         } else {
-            $id = $utilC->checkGetIdExist();
+            $id = FormHandler::checkGetIdExist();
             $obj = @$objC->select([[$objIdName, $id]])[0];
             $obj = $utilC->setObjFromPost($obj);
             $objC->update($obj);
@@ -55,7 +62,7 @@ try{
     // mostrar datos (VER O EDITAR)
     switch ($action){
         case 'ver':
-            $id = $utilC->checkGetIdExist();
+            $id = FormHandler::checkGetIdExist();
             $obj = @$objC->select([[$objIdName, $id]])[0];            
             $readOnly = true;
             $isNewRecord = false;
@@ -63,7 +70,7 @@ try{
             $fieldValues = $obj->getAllParams(false, false);
             break;
         case 'editar':
-            $id = $utilC->checkGetIdExist();
+            $id = FormHandler::checkGetIdExist();
             $obj = @$objC->select([[$objIdName, $id]])[0];
             $readOnly = false;
             $isNewRecord = false;

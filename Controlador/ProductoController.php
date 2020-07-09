@@ -120,17 +120,11 @@ class ProductoController extends ProductoBaseController {
      */
     public function renderProductoForm($fieldValues = [], $readOnly = true, $isNewRecord = true)
     {
-        $categoriaC = new CategoriaController;
         $formHandler = new FormHandler('productos', $readOnly, $isNewRecord);
-        $categoriaOptions = [];
-        foreach($categoriaC->select([], [['idCategoriaPadre']]) as $categoria){
-            $categoriaOptions[$categoria->getIdCategoria()] = $categoria->getNombre();
-        }
-
-        $utilC = new UtilController();
-        $tipoOptions = $utilC->getTiposForForm('productos');
-        $estadoOptions = $utilC->getEstadosForForm('productos');
-        $facturacionOptions = $utilC->getTipoFacturacionForForm();
+        $categoriaOptions = $formHandler->getCategoriaForForm();
+        $tipoOptions = $formHandler->getTiposForForm('productos');
+        $estadoOptions = $formHandler->getEstadosForForm('productos');
+        $facturacionOptions = $formHandler->getTipoFacturacionForForm();
 
         $proveedorC = new ProveedorController;
         $proveedorOptions = [];
@@ -156,17 +150,4 @@ class ProductoController extends ProductoBaseController {
 
     }
     
-    /**
-     * TODO: puede esto esté mejor en una clase FormBase
-     * Verifica si el parametro idProducto ha sido mandado por el metodo GET
-     * @return type
-     * @throws Exception
-     */
-    public static function checkGetIdExist()
-    {
-        if(!isset($_GET['id']) or '' == $_GET['id']){
-            throw new Exception('El id NO está definido');
-        }
-        return $_GET['id'];
-    }
 }

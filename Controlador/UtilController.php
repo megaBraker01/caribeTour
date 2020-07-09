@@ -12,26 +12,7 @@ class UtilController extends BaseController {
     const LIST_DATA = "data";
     const AJAX_PATH = "json-data-list/";
 
-
-
-    /**
-     * TODO: pasar esta funcion a BaseModelo (HECHO)
-     * @param type $cadena
-     * @param type $separador
-     * @return type
-     */
-    public static function slugify($cadena, $separador = '-')
-    {
-        setlocale(LC_ALL, 'en_US.UTF8');
-        $slug = iconv('UTF-8', 'ASCII//TRANSLIT', $cadena);
-        $slug = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $slug);
-        $slug = preg_replace("/[\/_|+ -]+/", $separador, $slug);
-        $slug = strtolower(trim($slug, $separador));
-
-        return !empty($slug) ? $slug : "n{$separador}a";
-    }
-    
-    
+ 
     /**
      * 
      * @param string $sql
@@ -46,83 +27,7 @@ class UtilController extends BaseController {
         return parent::query($sql, $filtros, $ordenados, $limitar, $agrupar);
     }
 
- 
-    /**
-     * TODO: Pasar este metodo a TipoController
-     * Obtiene los tipos disponibles dependiendo el nombre de la tabla
-     * @param string $tableName
-     * @return \Tipo
-     * @throws Exception
-     */
-    public function getTipos(string $tableName)
-    {
-        if(!is_string($tableName) or "" == $tableName){
-            throw new Exception('[ERROR] El nombre de la tabla tiene que ser un string distinto de ""');
-        }
-        $sql = "SELECT tipos.idTipo, tipos.nombre FROM tipo_tabla_ref INNER JOIN tipos USING(idTipo)";
-        $filtros = [['tabla', $tableName], ['idTipo', 1, '>']];
-        $tiposList = [];
-        foreach($this->query($sql, $filtros) as $tipo){
-            $tiposList[] = new Tipo($tipo->idTipo, $tipo->nombre);
-        }
 
-        return $tiposList;
-    }
-    
-    /**
-     * TODO: cambiar a la clase formHandler
-     * @param string $tableName
-     * @return type
-     */
-    public function getTiposForForm(string $tableName)
-    {
-        $tipoList = $this->getTipos($tableName);
-        $tipoOptions = [];
-        foreach ($tipoList as $tipoObj){
-            $tipoOptions[$tipoObj->getIdTipo()] = $tipoObj->getNombre();
-        }
-        
-        return $tipoOptions;
-    }
-
-    /**
-     * TODO: Pasar este metodo a EstadoController
-     * @param string $tableName
-     * @return \Estado
-     * @throws Exception
-     */
-    public function getEstados(string $tableName)
-    {
-        if(!is_string($tableName) or "" == $tableName){
-            throw new Exception('[ERROR] El nombre de la tabla tiene que ser un string distinto de ""');
-        }
-        $sql = "SELECT estados.idEstado, estados.nombre FROM estado_tabla_ref INNER JOIN estados USING(idEstado)";
-        $filtros = [['tabla', $tableName], ['idEstado', 1, '>']];
-        $estadoList = [];
-        foreach($this->query($sql, $filtros) as $estado){
-            $estadoList[] = new Estado($estado->idEstado, $estado->nombre);
-        }
-
-        return $estadoList;
-        
-    }
-    
-    /**
-     * TODO: cambiar a la clase formHandler
-     * @param string $tableName
-     * @return type
-     */
-    public function getEstadosForForm(string $tableName)
-    {
-        $estadosList = $this->getEstados($tableName);
-        $estadoOptions = [];
-        foreach ($estadosList as $estadoObj){
-            $estadoOptions[$estadoObj->getIdEstado()] = $estadoObj->getNombre();
-        }
-        
-        return $estadoOptions;
-    }
-    
     /**
      * TODO: cambiar a la clase formHandler
      * @return type

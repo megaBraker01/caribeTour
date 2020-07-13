@@ -97,9 +97,9 @@ class Producto extends ProductoBase {
      * @return Tipo
      */
     public function getTipoFacturacion(){
-        $TipoFacturacionController = new TipoController();
+        $TipoFacturacionController = new TipoFacturacionController();
         $idTipoFacturacion = $this->getIdTipoFacturacion();
-        $TipoFacturacionList = $TipoFacturacionController->select([['idTipo', $idTipoFacturacion]]);
+        $TipoFacturacionList = $TipoFacturacionController->select([['idTipoFacturacion', $idTipoFacturacion]]);
         return $TipoFacturacionList[0];
     }
 }

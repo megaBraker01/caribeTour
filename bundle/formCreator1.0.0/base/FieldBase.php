@@ -788,7 +788,7 @@ abstract class FieldBase {
     
 
     public function renderOptions(){
-        $ret = "\t\t\t<option> - </option>\n";
+        $ret = "";
         $selectedCompare = $this->getOptionSelected() ?? $this->getValue();
 
         foreach($this->selectOptions as $key => $value){

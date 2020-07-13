@@ -16,6 +16,18 @@ class Util {
         exit();
     }
     
+    /**
+     * Verifica si la peticion request se ha hecho a travez de ajax
+     * @return boolean
+     */
+    public static function isAjax()
+    {
+        $isAjax = false;
+        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+            $isAjax = true;
+        }
+        return $isAjax;
+    }
     
     /**
      * Quita los caracteres especiales de una cadena
@@ -76,7 +88,7 @@ class Util {
     }
     
     /**
-     * 
+     * TODO: pasar a una clase listerCT por ejemplo
      * @param array $thList
      * @return string
      */

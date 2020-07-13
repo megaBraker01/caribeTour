@@ -26,21 +26,7 @@ class UtilController extends BaseController {
     {
         return parent::query($sql, $filtros, $ordenados, $limitar, $agrupar);
     }
-
-    
-    /**
-     * Verifica si la peticion request se ha hecho a travez de ajax
-     * @return boolean
-     */
-    public static function isAjax()
-    {
-        $isAjax = false;
-        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
-            $isAjax = true;
-        }
-        return $isAjax;
-    }
-    
+  
     
     /**
      * TODO: crear clase Modelo/Lister que contenga esta logica

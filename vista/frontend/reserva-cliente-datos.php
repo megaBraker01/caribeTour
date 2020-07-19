@@ -1,6 +1,7 @@
 <?php
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
+include '../../configPayPal.php';
 
 
 $producto = $categoria = $idProductoFechaRef = $showError = null;
@@ -94,13 +95,8 @@ try{
         
         switch ($tipoPago){
             case Tipo::PAGO_PAYPAL:
-                $idReserva = $reserva->getIdReserva();
-                $pvpTotal = $reserva->calularPvp();
-                $concepto = "{$producto->getNombre()} x $cantidadPasajeros";
-                $referencia = $reserva;
-                $idPagador = $titular->getNIFoPasaporte();
-                $emailPagador = $titular->getEmail();
-                Util::pagarConPaypal($idReserva, $pvpTotal, $producto->getNombre(), $concepto, $referencia, $idPagador, $emailPagador);
+                $location .= "reserva-pago-paypal.php?idReserva=" . $reserva->getIdReserva();
+                header(sprintf("Location: %s", $location));
             break;
         
             case Tipo::PAGO_TRANSFERENCIA:
@@ -534,17 +530,12 @@ try{
                 }
                 
                 function contarPasajeros(){
-                    let $contarPasajeros = 0;
                     let $pasajeros = getElement('nombreP[]', 'name');
-                    $pasajeros.forEach(function($pasajero){
-                       $contarPasajeros += 1;
-                    });
-                    return $contarPasajeros;
+                    return $pasajeros.length;
                 }
                 
                 let $seguros = getElement('seguro', 'name');
                 $seguros.forEach(function($seguro){
-                    //$precioSeguro = $seguro.title;
                     $seguro.addEventListener('click', function($disparador){
                         let $tourPrecio = parseFloat(getElement('tourPrecio').value);
                         let $seguroPrecio = parseFloat( $disparador.target.title );

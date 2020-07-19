@@ -76,6 +76,19 @@ class Reserva extends ReservaBase {
           $detallesC = new ReservaDetalleController;
           return $detallesC->select([['idReserva', $this->getIdReserva()]]) ?? [];
       }
+      
+      public function getProductos()
+      {
+          $detalles = $this->getDetalles();
+          $productoC = new ProductoController;
+          $productoList = [];
+          foreach ($detalles as $detalle){
+              $idProducto = $detalle->getIdProducto();
+              $productoList[] = $productoC->select([['idProducto', $idProducto]])[0];
+          }
+          
+          return $productoList;
+      }
 
       /**
        * Obtiene la lista de Pasajeros que pertenecen a la reserva

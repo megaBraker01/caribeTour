@@ -74,8 +74,13 @@ class ReservaController extends ReservaBaseController {
         if(!is_int($idReserva) or $idReserva < 1){
             throw new Exception('[ERROR] El idReserva tiene que ser un entero mayor a cero (0)');
         }
+        
+        $reservaList = $this->select([['idReserva', $idReserva]]);
+        if(!isset($reservaList[0])){
+            throw new Exception("[ERROR] No se ha encontrado reserva con id {$idReserva}");
+        }
 
-        $reserva = @$this->select([['idReserva', $idReserva]])[0] ?? new Reserva;
+        $reserva = $reservaList[0];
         return $reserva;
     }
 }

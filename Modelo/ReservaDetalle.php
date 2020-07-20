@@ -16,12 +16,17 @@ class ReservaDetalle extends ReservaDetalleBase {
 
     /**
      * Obtiene la suma de las tasas de la vuelta
+     * NOTA: No siempre existe una fechaVuelta
      * @return type
      */
     public function getTasasVueltaTotal(){
         $productoFechaRef = $this->getProductoFechaRef();
         $fechaVuelta = $productoFechaRef->getFechaVuelta();
-        $tasasTotal = $fechaVuelta->getTasasSalida() + $fechaVuelta->getTasasDestino();
+        $tasasTotal = 0;
+        if(!is_null($fechaVuelta)){
+            $tasasTotal = $fechaVuelta->getTasasSalida() + $fechaVuelta->getTasasDestino();
+        }
+        
         return $tasasTotal;        
     }
 

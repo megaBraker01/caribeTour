@@ -22,32 +22,32 @@ if(ProPayPal){
 
 // configuracion para el formulario
 // PAYPAL CONFIG
-if(!denined('PAYPALENTORNO'))
+if(!defined('PAYPALENTORNO'))
     define('PAYPALENTORNO', 0); // 1 para produccion, 0 para desarrollo (test, pruebas)
 
 if(PAYPALENTORNO){
-    define('FORMACTION', 'https://www.paypal.com/cgi-bin/webscr');
+    define('FORM_ACTION', 'https://www.paypal.com/cgi-bin/webscr');
 } else {
-    define('FORMACTION', 'https://www.sandbox.paypal.com/cgi-bin/webscr');
+    define('FORM_ACTION', 'https://www.sandbox.paypal.com/cgi-bin/webscr');
 }
 
-if(!denined('BUSINESS'))
+if(!defined('BUSINESS'))
     define('BUSINESS', 'rperez@caribetour.es');
 
-if(!denined('RECEIBER_EMAIL'))
-    define('RECEIBER_EMAIL', 'rperez@caribetour.es');
+if(!defined('RECEIVER_EMAIL'))
+    define('RECEIVER_EMAIL', 'rperez@caribetour.es');
 
-if(!denined('UPLOAD'))
+if(!defined('UPLOAD'))
     define('UPLOAD', 1);
 
-if(!denined('CMD'))
-    define('CMD', '_cart'); // valor anterior _xclick
+if(!defined('CMD'))
+    define('CMD', '_xclick');
 
-if(!denined('CURRENCY_CODE'))
+if(!defined('CURRENCY_CODE'))
     define('CURRENCY_CODE', 'EUR');
 
-if(!denined('CBT'))
+if(!defined('CBT'))
     define('CBT', 'Volver al inicio');
 
-if(!denined('HOSTED_BUTTON_ID'))
+if(!defined('HOSTED_BUTTON_ID'))
     define('HOSTED_BUTTON_ID', 'GX4V7KN7EPGNL');

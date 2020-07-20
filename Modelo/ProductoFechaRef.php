@@ -13,6 +13,10 @@ class ProductoFechaRef extends ProductoFechaRefBase {
         $FechaVueltaController = new FechaController();
         $idFechaVuelta = $this->getIdFechaVuelta();
         $FechaVueltaList = $FechaVueltaController->select([['idFecha', $idFechaVuelta]]);
-        return $FechaVueltaList[0];
+        $ret = null;
+        if(isset($FechaVueltaList[0])){
+            $ret = $FechaVueltaList[0];
+        }
+        return $ret;
     }
 }

@@ -38,3 +38,4 @@ RewriteRule ^resultado.php$ vista/frontend/resultado.php
 RewriteRule ^plantilla/?$ vista/frontend/plantilla.php
 RewriteRule ^reserva-cliente-datos.php$ vista/frontend/reserva-cliente-datos.php
 RewriteRule ^reserva-finalizada.php$ vista/frontend/reserva-finalizada.php
+RewriteRule ^probando.php$ vista/frontend/probando.php

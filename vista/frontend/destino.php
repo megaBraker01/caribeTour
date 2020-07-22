@@ -48,7 +48,9 @@ try {
         // TODO: solucionar error que en el calendario aparecen fechas anteriores al mes actual
         // esto es un problema de bbdd, poner que el slug sea un campo unico para que no se repita
         // o poner que la categoria y el slug sean unicos
-        if($fSeleccionadaData = @$productoC->getProductoFechaRefPDO($fsalidaFiltro)[0]){
+        $fSeleccionadaDataList = $productoC->getProductoFechaRefPDO($fsalidaFiltro);
+        if(isset($fSeleccionadaDataList[0])){
+            $fSeleccionadaData = $fSeleccionadaDataList[0];
             $idProductoFechaRef = $fSeleccionadaData->getIdProductoFechaRef();
             $fsalida = Util::dateFormat($fSeleccionadaData->getFsalida());
             $fvuelta = ("" != $fSeleccionadaData->getFvuelta()) ? Util::dateFormat($fSeleccionadaData->getFvuelta()) : "N/A";

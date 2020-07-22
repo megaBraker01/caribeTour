@@ -7,6 +7,8 @@ class Util {
     const _DOUBLE = 'double';
     const LIST_DATA = "data";
     const AJAX_PATH = "json-data-list/";
+    const PAGO_OK = 'ok';
+    const PAGO_NOK = 'Nok';
 
     /**
      * Depura el parametro de entrada

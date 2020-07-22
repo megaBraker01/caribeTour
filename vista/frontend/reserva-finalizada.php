@@ -12,12 +12,30 @@ try {
         $idReserva = (int) $_GET['idReserva'];
         $reservaC = new ReservaController;
         $reserva = @$reservaC->select([['idReserva', $idReserva]])[0];
+        
         if(is_null($reserva)){
             throw new Exception("No se ha encontrado reserva con el id '{$idReserva}'");
         }
+        
+        $localizador = $reserva->getLocalizador();
+        
+        if(isset($_GET['pago']) and "" != $_GET['pago']){
+            switch ($_GET['pago']){
+                case Util::PAGO_OK:
+                    $show .= "Pago efectuado correctamente</h2>\n";
+                break;
+                case Util::PAGO_NOK:
+                    $show .= "<h2>Error en el pago</h2>\n"
+                        . "<p>Por favor, p&oacute;ngase en <a href='contactos'>contacto</a> con sonotros indicando su n&uacute;mero de Reserva/Localizador {$localizador}";
+                default:
+                break;
+            }
+        }
+        
+        
         $totalPvp = $reserva->calularPvp();
         $titutar = $reserva->getTitular();
-        $titularNombre = $titutar->getNombre() . " " . $titutar->getApellidos();
+        $titularNombre = $titutar->getNombreCompleto();
         $titularEmail = $titutar->getEmail();
         
         $pasajeros = $reserva->getPasajeros();
@@ -79,16 +97,25 @@ try {
         
         switch($reserva->getIdTipoPago()){
             case (Tipo::PAGO_TRANSFERENCIA):
-                $show = '
+                $show .= '
                 <p>Ahora deber&aacute;s efectuar la transferencia o el ingreso al siguiente n&uacute;mero de cuenta:</p>
                 <p><strong>TITULAR: CaribeTour.es</strong></p>
                 <p><strong>BANCO: ING Direct</strong></p>
                 <p><strong>IBAN: ES55 1465 0100 99 1709163771</strong></p>
-                <p><strong>Concepto: Reserva '. $reserva->getLocalizador() .'</strong></p>
+                <p><strong>Concepto: Reserva '. $localizador .'</strong></p>
                 <p><strong>Por un importe total de '. Util::moneda($totalPvp) .' </strong></p>
                 <p>Una vez hayas realizado la transferencia o el ingreso, deber&aacute;s enviarnos un email con el comprobante del pago a <a href="mailto:pagos@caribetour.es" title="Enviar el comprobante del pago"><i>pagos@caribetour.es</i></a>. Recuerda que la reserva s&oacute;lo se har&aacute; efectiva despu&eacute;s que hayamos recibido dicho comprobanter.</p>
                 <p>Hemos enviado el resumen de esta reserva a la cuenta de correo <em>'. $titularEmail .'.</em></p>';
             break;
+        
+            case Tipo::PAGO_PAYPAL:
+                // de momento no hacemos nah
+            break;
+        
+            case Tipo::PAGO_TARJETA:
+                // de momento no hacemos nah
+            break;
+        
         }
 
 

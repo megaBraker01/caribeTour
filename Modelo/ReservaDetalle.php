@@ -57,9 +57,13 @@ class ReservaDetalle extends ReservaDetalleBase {
     }
     
     public function getTipoFacturacion(){
-        $TipoFacturacionController = new TipoController();
+        $TipoFacturacionController = new TipoFacturacionController();
         $idTipoFacturacion = $this->getIdTipoFacturacion();
-        $TipoFacturacionList = $TipoFacturacionController->select([['idTipo', $idTipoFacturacion]]);
+        $TipoFacturacionList = $TipoFacturacionController->select([['idTipoFacturacion', $idTipoFacturacion]]);
+        if(!isset($TipoFacturacionList[0])){
+            throw new Exception('No se ha encontrado un tipoFacturacion con el id {$idTipoFacturacion}');
+        }
+        
         return $TipoFacturacionList[0];
     }
 }

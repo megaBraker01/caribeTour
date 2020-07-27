@@ -35,7 +35,7 @@ if(!isset($_GET['idReserva']) or "" == $_GET['idReserva']){
         'amount' => $reserva->calularPvp(),
         'payer_email' => $titular->getEmail(),
         'payer_id' => $titular->getNIFoPasaporte(),
-        'item_name' => $nombreProducto,
+        'item_name' => $producto->getNombre(),
         'concept' => $concepto,
         'reference' => $reserva->getLocalizador(),
         'return' => $urlRetOk,
@@ -45,7 +45,7 @@ if(!isset($_GET['idReserva']) or "" == $_GET['idReserva']){
     
     $renderFields = "";
     foreach($fields as $name => $value){
-        $renderFields .= "<input type='hidden' name='{$name}' value='{$value}'/>\n";
+        $renderFields .= "<input type='hidden' name='{$name}' value='{$value}' required/>\n";
     }
 }
 ?>
@@ -107,7 +107,7 @@ if(!isset($_GET['idReserva']) or "" == $_GET['idReserva']){
                         <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
-                        paginaActual
+                        Pago por PayPal
                     </div>
                 </div>
                 <!-- /breadcrumb-->            
@@ -141,7 +141,7 @@ if(!isset($_GET['idReserva']) or "" == $_GET['idReserva']){
         <script type='text/javascript'>
             (window.onload = function(){
                 let form = document.getElementById('paypalForm');
-                form.submit();
+                //form.submit();
             })();
         </script>
         

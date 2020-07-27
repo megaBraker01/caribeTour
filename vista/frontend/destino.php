@@ -44,10 +44,6 @@ try {
         }
 
         $fsalida = $fvuelta = $pvp = $duracion = "";
-        // TODO: para el producto 7, a fecha 27/06/2020 se muestra en la lista pero no aparece fecha de salida
-        // TODO: solucionar error que en el calendario aparecen fechas anteriores al mes actual
-        // esto es un problema de bbdd, poner que el slug sea un campo unico para que no se repita
-        // o poner que la categoria y el slug sean unicos
         $fSeleccionadaDataList = $productoC->getProductoFechaRefPDO($fsalidaFiltro);
         if(isset($fSeleccionadaDataList[0])){
             $fSeleccionadaData = $fSeleccionadaDataList[0];

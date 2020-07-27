@@ -100,6 +100,10 @@ class Producto extends ProductoBase {
         $TipoFacturacionController = new TipoFacturacionController();
         $idTipoFacturacion = $this->getIdTipoFacturacion();
         $TipoFacturacionList = $TipoFacturacionController->select([['idTipoFacturacion', $idTipoFacturacion]]);
+        if(!isset($TipoFacturacionList[0])){
+            throw new Exception("No se ha encontrado el tipo de facturacion con el id {$idTipoFacturacion}");
+        }
+        
         return $TipoFacturacionList[0];
     }
 }

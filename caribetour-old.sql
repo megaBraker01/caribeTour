@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 03-07-2020 a las 21:58:41
+-- Tiempo de generación: 07-07-2020 a las 19:10:18
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 7.0.23
 
@@ -837,8 +837,8 @@ INSERT INTO `productos` (`idProducto`, `nombre`, `imagen`, `descripcion`, `slug`
 (25, 'nuevo tour', '', 'esto es un producto de prueba, editado', '', '', '', 0, 0, '', '', 1, 3, 21, 1, 1, 0, 0, '2020-05-30 15:22:03', '2020-07-03 21:44:33'),
 (26, 'producto de prueba', 'producto-de-prueba.png', 'esto es un nuevo producto de prueba, vamos a ver que hace esto ahora\r\n\r\nahora se editan los datos??', 'producto-de-prueba', 'itinerario', '', 0, 0, '', '', 12, 3, 21, 1, 19, 0, 0, '2020-05-30 18:06:20', '2020-07-03 21:44:33'),
 (27, 'otro pruducto de prueba & pruebas', 'otro-pruducto-de-prueba.png', 'estamos viendo si la calefactorización con las imágenes ha dado resultado', 'otro-pruducto-de-prueba', '', '', 0, 0, '', '', 1, 3, 21, 1, 1, 0, 0, '2020-06-01 17:44:50', '2020-07-03 21:44:33'),
-(28, 'ultimo producto hecho', 'ultimo-producto-hecho.jpeg', 'este producto se crea para ver si no hay ningún problema con la inserción de los datos', 'ultimo-producto-hecho', '', '', 0, 0, '', '', 17, 3, 21, 2, 3, 0, 0, '2020-06-02 21:17:55', '2020-07-01 18:44:46'),
-(29, 'ver si el slugfy sigue funcionando', '', '', 'ver-si-el-slugfy-sigue-funcionando', '', '', 0, 0, '', '', 1, 3, 21, 1, 1, 0, 0, '2020-06-07 08:14:38', '2020-07-03 21:44:33'),
+(28, 'ultimo producto hecho', 'ultimo-producto-hecho.jpeg', 'este producto se crea para ver si no hay ningún problema con la inserción de los datos', 'ultimo-producto-hecho', '', '', 0, 0, '', '', 17, 4, 21, 2, 3, 0, 0, '2020-06-02 21:17:55', '2020-07-04 11:05:48'),
+(29, 'ver si el slugfy sigue funcionando', '', '', 'ver-si-el-slugfy-sigue-funcionando', '', '', 0, 0, '', '', 1, 2, 21, 2, 1, 0, 0, '2020-06-07 08:14:38', '2020-07-04 11:02:45'),
 (30, 'Asistencia', '', 'Amplia la cobertura de salud en 20000€ adicional', 'asistencia', '', '', 20, 5, '', '', 14, 7, 21, 2, 13, 0, 0, '2020-06-25 23:13:06', '2020-07-01 18:46:37'),
 (31, 'Cancelación', '', 'Cancela el viaje por cualquier motivo y sin dar excusas,', 'cancelacion', '', '', 50, 5, '', '', 14, 7, 21, 2, 13, 0, 0, '2020-06-25 23:16:02', '2020-07-01 18:46:40');
 
@@ -941,7 +941,7 @@ INSERT INTO `proveedores` (`idProveedor`, `nombre`, `NIF`, `direccion`, `idEstad
 (21, 'Travelsens S.l.', 'B-57727901', 'C/ Albasanz, 16 - 4ï¿½ Pta Of. B1 28037 Madrid', 1, '2020-01-17 23:05:32', NULL),
 (22, 'Gowaii', '', '', 1, '2020-01-17 23:05:32', NULL),
 (23, 'Keytel Hoteles', '', 'C/Mallorca, 351 08013 Barcelona', 1, '2020-01-17 23:05:32', NULL),
-(24, 'Flexible Autos', '', 'Plaza Gala Placidia, 8, 1º-2ª 08006 - Barcelona', 1, '2020-01-17 23:05:32', '2020-06-06 16:58:50'),
+(24, 'Flexible Autos', '', 'Plaza Gala Placidia, 8, 1º-2ª 08006 - Barcelona', 2, '2020-01-17 23:05:32', '2020-07-04 10:48:51'),
 (25, 'probando un proveedor', 'aaasdf6549', 'no tiene dirección de nada', 1, '2020-06-06 15:18:35', '2020-06-06 20:18:03'),
 (26, '', '', '', 0, '2020-06-06 21:04:12', NULL);
 
@@ -1133,14 +1133,34 @@ INSERT INTO `tipos` (`idTipo`, `nombre`) VALUES
 (16, 'Cheque'),
 (17, 'Terrestre'),
 (18, 'Aereo'),
-(19, 'Maritimo'),
-(20, 'Por Reserva'),
-(21, 'Por Persona'),
-(22, 'Por Trayecto'),
-(23, 'Por Noche'),
-(24, 'Por Noche y Persona'),
-(25, 'Por Día'),
-(26, 'Por Día y Persona');
+(19, 'Maritimo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_facturacion`
+--
+
+DROP TABLE IF EXISTS `tipo_facturacion`;
+CREATE TABLE IF NOT EXISTS `tipo_facturacion` (
+  `idTipoFacturacion` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(20) NOT NULL,
+  PRIMARY KEY (`idTipoFacturacion`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COMMENT='indica el tipo de facturación de un producto';
+
+--
+-- Volcado de datos para la tabla `tipo_facturacion`
+--
+
+INSERT INTO `tipo_facturacion` (`idTipoFacturacion`, `nombre`) VALUES
+(1, '-'),
+(2, 'Por Reserva'),
+(3, 'Por Persona'),
+(4, 'Por Trayecto'),
+(5, 'Por Noche'),
+(6, 'Por Noche y Persona'),
+(7, 'Por Día'),
+(8, 'Por Día y Persona');
 
 -- --------------------------------------------------------
 

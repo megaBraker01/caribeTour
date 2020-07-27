@@ -2,11 +2,11 @@
 require_once '../../config.php';
 require_once "../../AutoLoader/autoLoader.php";
 
-$mes = 2;// date('m');
-$anio = date('y');
-$vista = UtilController::generar_calendario($mes, $anio, "es", [14]);
+$idProducto = 4;
+$cantidadFechas = 10;
+$productoFechaRefIdList = Util::addFechasToProducto($idProducto, $cantidadFechas, "20-12-2020");
 
-
+$vista = $productoFechaRefIdList;
 ?>
 <!DOCTYPE html>
 <html lang="es-ES">

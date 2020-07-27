@@ -167,28 +167,28 @@ require_once '../../config.php';
                     <div class="section-title">
                         <h4>Por Qu&eacute; Elegirnos</h4>
                     </div>
-                    <div class="toggle"><div class="toggle-title">Precio Econ�nico</div>
-                        <div class="toggle-content">En CaribeTour.es hacemos siempre una exhaustiva comparaci�n entre los mejores productos y servicios tur�sticos para que nuestros clientes siempre puedan obtener la mejor calidad y al mejor precio.</div>
+                    <div class="toggle"><div class="toggle-title">Precio Econ&oacute;nico</div>
+                        <div class="toggle-content">En CaribeTour.es hacemos siempre una exhaustiva comparación entre los mejores productos y servicios turísticos para que nuestros clientes siempre puedan obtener la mejor calidad y al mejor precio.</div>
                     </div>
                     <div class="toggle">
                     		<div class="toggle-title">
                     			Servicio Postventa
                     		</div>
                         <div class="toggle-content">
-	                        En CaribeTour.es les damos un seguimiento a nuestros clientes para estar al tanto de su satisfacci�n con los servicios ofrecidos, as� garantizamos una mejora constante de cara al futuro.
+	                        En CaribeTour.es les damos un seguimiento a nuestros clientes para estar al tanto de su satisfacción con los servicios ofrecidos, así garantizamos una mejora constante de cara al futuro.
                         </div>
                     </div>
                     <div class="toggle">
                     		<div class="toggle-title">Gran Experiencia</div>
-                        <div class="toggle-content">Hemos recorrido medio mundo, hemos estado en todos y cada unos de los rincones m�s paradisiacos del Caribe para que nuestros clientes sepan de primera mano la buena vida que les espera.</div>
+                        <div class="toggle-content">Hemos recorrido medio mundo, hemos estado en todos y cada unos de los rincones más paradisiacos del Caribe para que nuestros clientes sepan de primera mano la buena vida que les espera.</div>
                     </div>
                     <div class="toggle">
-                    		<div class="toggle-title">Filosof�a y forma de trabajar</div>
+                    		<div class="toggle-title">Filosofía y forma de trabajar</div>
                         <div class="toggle-content">En CaribeTour.es siempre planificamos nuestros paquetes vacacionales de manera artesanal, nos destacamos por elegir los destinos siempre cumpliendo las exigencias de nuestros clientes.</div>
                     </div>
                     <div class="toggle">
-                    		<div class="toggle-title">Tecnolog�a, infraestructura y log�stica.</div>
-                        <div class="toggle-content">Contamos con las mejores herramientas disponibles en materia de tur�smo para estar a la vanguardia en estos tiempos modernos.</div>
+                    		<div class="toggle-title">Tecnología, infraestructura y logística.</div>
+                        <div class="toggle-content">Contamos con las mejores herramientas disponibles en materia de turísmo para estar a la vanguardia en estos tiempos modernos.</div>
                     </div>
                 </div>
 

@@ -220,4 +220,50 @@ class Util {
         echo($result);
         
     }
+    
+    /**
+     * 
+     * @param type $idProducto
+     * @param int $cantidadFechas
+     * @param string $iniciarEn
+     * @return array
+     * @throws ErrorException
+     */
+    public static function addFechasToProducto($idProducto, int $cantidadFechas, string $iniciarEn = null): array
+    {
+        $dateFormat = 'Y-m-d';
+        $fechaInicio = date($dateFormat);
+        if(!is_null($iniciarEn)){
+            $fechaInicio = date($dateFormat, strtotime($iniciarEn));
+        }
+        
+        $productoC = new ProductoController;
+        $producto = $productoC->getProductoById($cantidadFechas);
+        if(is_null($producto)){
+            throw new ErrorException("No se ha encontrado el producto con el id {$idProducto}");
+        }
+        
+        $fechaC = new FechaController();
+        $productoFechaRefC = new ProductoFechaRefController;
+        $productoFechaRefIdList = [];
+        for($i = 0; $i <= $cantidadFechas; $i++){
+            $fSalida = $fechaInicio;
+            $fVuelta = date($dateFormat, strtotime($fSalida."+ 7 days"));
+            
+            $objFecha = new Fecha();
+            $objFecha->setFecha($fSalida);
+            $idFSalida = $fechaC->insert($objFecha);
+            
+            $objFecha->setFecha($fVuelta);
+            $idFVuelta = $fechaC->insert($objFecha);
+            
+            $productoFechaRef = new ProductoFechaRef(0, $idProducto, $idFSalida, $idFVuelta, 500);
+            
+            $productoFechaRefIdList[] = $productoFechaRefC->insert($productoFechaRef);
+            
+            $fechaInicio = date($dateFormat, strtotime($fechaInicio."+ 1 days"));
+        }
+        
+        return $productoFechaRefIdList;
+    }
 }

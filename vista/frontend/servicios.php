@@ -56,7 +56,7 @@ require_once '../../config.php';
             	<!--inicio breadcrumb-->
 	        <div class="miga" id="breadcrumb">
 	                <div class="breadcrumb">
-		                <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="Inicio">Inicio</a>
+		                <a hreflang="es" type="text/html" charset="utf-8" href="inicio" rel="tag" title="Inicio">Inicio</a>
 	                </div>
 	                <div class="breadcrumb">
 		                Servicios
@@ -81,7 +81,7 @@ require_once '../../config.php';
                                 <h1>Reserva tus Vuelos con Nosotros</h1>
                                 <p><strong>Viaja desde todo el mundo al Caribe con las mejores compa&ntilde;&iacute;as a&eacute;reas internacionales.</strong></p>
                                 <p>En CaribeTour.es te ofrecemos un buscador de vuelos muy sencillo que te permitir&aacute; reservar los mejores billetes a&eacute;reos desde la comodidad de tu hogar en pocos clics.</p>
-                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="css/prueba.html" target="_self" class="button medium primary">Reservar Billetes</a>
+                                <a hreflang="es" type="text/html" charset="utf-8" href="css/prueba.html" target="_self" class="button medium primary">Reservar Billetes</a>
                             </div>
                             <div class="fivecol column last">
 	                            <img class="aligncenter" alt="Billetes de avion" title="Billetes de avi&oacute;n" src="<?=PATHFRONTEND ?>images/ticket_aereo.jpg" />
@@ -93,7 +93,7 @@ require_once '../../config.php';
                                 <h3>Excursiones</h3>
                                 <p><strong>Quisque id augue erat, suscipit ultricies est. Maecenas feugiat justo ac massa porttitor mollis auctor nulla ullamcorper. Sed blandit interdum consequat. Mauris eget felis leo. Sed fermentum sollicitudin sagittis.</strong></p>
                                 <p>Suspendisse luctus, felis at fringilla dictum, erat massa vehicula velit, id venenatis eros libero et lectus. Proin ullamcorper molestie lectus, sit amet condimentum dui tincidunt ut. In tempor faucibus eros, sed auctor orci ultricies non. Suspen lacinia enim vel nibh tincidunt vel consectetur est ullamcorper. Suspen orce.</p>
-                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="contactos" target="_self" class="button medium primary">Ver Escursiones Disponibles</a>
+                                <a hreflang="es" type="text/html" charset="utf-8" href="contactos" target="_self" class="button medium primary">Ver Escursiones Disponibles</a>
                             </div>
                             <div class="fivecol column last"><img class="aligncenter" alt="Excursiones en el Caribe" title="Excursiones en el Caribe" src="<?=PATHFRONTEND ?>images/excursiones.jpg" /></div>
                             <div class="clear"></div>
@@ -103,7 +103,7 @@ require_once '../../config.php';
                                 <h3>Los Mejores Hoteles</h3>
                                 <p><strong>Nulla in orci justo. In elit elit, tempus sit amet pellentesque ut, tempus ac risus. Suspendisse imperdiet, mi in bibendum scelerisque, massa leo mollis eros, vel congue enim leo eu arcu. Suspendisse a nibh odio.</strong></p>
                                 <p>Quisque volutpat nunc ligula. Praesent nec massa in tortor malesuada  conse scelerisque. Sed lobortis interdum pulvinar. Maecenas et est vel nunc imperdiet blandit at sed turpis. Mauris non libero ut nulla tempus gravida nec vel mi. Praesent et egestas ipsum. Ut vitae sapien elit. Aliquam erat volutpat.</p>
-                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="contactos" target="_self" class="button medium primary">Reservar Hotel</a>
+                                <a hreflang="es" type="text/html" charset="utf-8" href="contactos" target="_self" class="button medium primary">Reservar Hotel</a>
                             </div>
                             <div class="fivecol column last">
                             	<img class="aligncenter" alt="Los Mejores Hoteles" title="Los Mejores Hoteles" src="<?=PATHFRONTEND ?>images/hoteles.jpg" />
@@ -115,7 +115,7 @@ require_once '../../config.php';
                                 <h3>Arquiler de Coches</h3>
                                 <p><strong>Fusce hendrerit hendrerit lacus id euismod. Aliquam erat volutpat. In in sem tortor. Vestibulum facilisis consequat purus, vel adipiscing velit sollicitudin quis. Vestibulum nec urna in lorem imperdiet iaculis.</strong></p>
                                 <p>Etiam quam est, malesuada ut fringilla eu, auctor vel odio. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer fringilla magna ut risus sagittis ultrices. Nam eget varius sem. Nam mattis consectetur suscipit. Vivamus quis ante enim. Cras id sodales metus.</p>
-                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="contactos" target="_self" class="button medium primary">Reservar</a>
+                                <a hreflang="es" type="text/html" charset="utf-8" href="contactos" target="_self" class="button medium primary">Reservar</a>
                             </div>
                             <div class="fivecol column last">
 	                            <img class="aligncenter" alt="Arquiler de Coches" title="Arquiler de Coches" src="<?=PATHFRONTEND ?>images/rent_a_car.jpg" />
@@ -158,7 +158,7 @@ require_once '../../config.php';
                         <div class="eightcol column last">
                             <h5>Equipo de CaribeTour.es</h5>
                             <p>Contamos con el mejor equipo humano el cual est&aacute; siempre a tu disposici&oacute;n. puedes contactar con nosotros en cualquier momento. siempre estaremos dispuestos a ayudarte ante cualquier duda o inquietud.</p>
-                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="contactos" target="_self" class="button  grey" title="Contactar con caribetour.es">Contactar</a>
+                            <a hreflang="es" type="text/html" charset="utf-8" href="contactos" target="_self" class="button  grey" title="Contactar con caribetour.es">Contactar</a>
                         </div>
                         <div class="clear"></div>&nbsp;<br />
                     </div>

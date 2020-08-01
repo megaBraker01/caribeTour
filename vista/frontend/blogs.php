@@ -85,7 +85,7 @@ $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
                 <!-- breadcrumb-->
                 <div class="miga" id="breadcrumb">
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="Inicio">Inicio</a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="inicio" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
                         Blogs
@@ -106,19 +106,19 @@ $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
                             <article class="post type-post status-publish format-standard hentry category-guides post clearfix">
                                 <div class="column fivecol post-featured-image">
                                     <div class="featured-image">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" alt="<?= $blog ?>" title="<?= $blog ?>" /></a>
+                                        <a hreflang="es" type="text/html" charset="utf-8" href="blogs/<?= $blog->getSlug() ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" alt="<?= $blog ?>" title="<?= $blog ?>" /></a>
                                     </div>
                                 </div>
                                 <div class="column sevencol last">
                                     <div class="post-content">
                                         <div class="section-title">
                                             <h1>
-                                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><?= $blog ?></a>
+                                                <a hreflang="es" type="text/html" charset="utf-8" href="blogs/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><?= $blog ?></a>
                                             </h1>
                                         </div>
                                         <p><?php echo substr($blog->getDescripcion(), 0, 400); ?>.[...]</p>
                                         <footer class="post-footer clearfix">
-                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>" class="button small"><span>Leer M&aacute;s</span></a>
+                                            <a hreflang="es" type="text/html" charset="utf-8" href="blogs/<?= $blog->getSlug() ?>" class="button small"><span>Leer M&aacute;s</span></a>
                                             <div class="post-comment-count" title="Comentarios"><?= count($blog->getComentarios()); ?></div>
                                             <div class="post-info"><time datetime="<?= $fechaAlta ?>" title="Fecha de Publicaci&oacute;n"><?= $fechaAlta ?></time></div>
                                         </footer>
@@ -135,7 +135,7 @@ $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
                             if ($i == $pagActual)
                                 echo "<span class='page-numbers current'>".$i."</span>";
                             else
-				echo "<a hreflang='es' type='text/html' charset='iso-8859-1' href='blogs/pag=$i' class='page-numbers' title='Pasar a la p&aacute;gina $i'>$i</a>";
+				echo "<a hreflang='es' type='text/html' charset='utf-8' href='blogs/pag=$i' class='page-numbers' title='Pasar a la p&aacute;gina $i'>$i</a>";
 			} 
 			?>
                         </nav>
@@ -157,11 +157,11 @@ $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
                             <article class="post clearfix">
                                 <div class="post-featured-image">
                                     <div class="featured-image">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" class="attachment-normal wp-post-image" alt="<?= $blog ?>" title="<?= $blog ?>" /></a>
+                                        <a hreflang="es" type="text/html" charset="utf-8" href="blogs/<?= $blog->getSlug() ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" class="attachment-normal wp-post-image" alt="<?= $blog ?>" title="<?= $blog ?>" /></a>
                                     </div>
                                 </div>
                                 <div class="post-content">
-                                    <h6 class="post-title"><a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><?= $blog ?></a></h6>
+                                    <h6 class="post-title"><a hreflang="es" type="text/html" charset="utf-8" href="blogs/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><?= $blog ?></a></h6>
                                     <footer class="post-footer clearfix">
                                         <div class="post-comment-count" title="Comentarios"><?= count($blog->getComentarios()); ?></div>
                                         <div class="post-info">
@@ -180,7 +180,7 @@ $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
                             <ul id="recentcomments">
                                 <?php do { ?>
                                 <li class="recentcomments">
-                                    <?php echo 'nombre'; ?> en <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?php echo 'seo'; ?>#comment-<?php echo 'idcoment'; ?>">
+                                    <?php echo 'nombre'; ?> en <a hreflang="es" type="text/html" charset="utf-8" href="blogs/<?php echo 'seo'; ?>#comment-<?php echo 'idcoment'; ?>">
                                         <?php echo ucwords('blog'); ?>
                                     </a>
                                 </li>
@@ -191,7 +191,7 @@ $mostrarBlogs = array_slice($blogList, $mostrarDesde, $mostrarItems);
                         
                         <!-- galeria -->
                         <div class="widget widget_text">
-                            <div class="section-title"><a hreflang="es" type="text/html" charset="iso-8859-1" href="galeria" title="Ver la Galer&iacute;a Completa"><h4>Galer&iacute;a</h4></a></div>
+                            <div class="section-title"><a hreflang="es" type="text/html" charset="utf-8" href="galeria" title="Ver la Galer&iacute;a Completa"><h4>Galer&iacute;a</h4></a></div>
                             <div class="textwidget">
                                 <div class="items-grid">
                                     

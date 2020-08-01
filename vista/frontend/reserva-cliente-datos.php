@@ -191,19 +191,19 @@ try{
                 <!-- breadcrumb-->
                 <div class="miga" id="breadcrumb">
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="Inicio">Inicio</a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="inicio" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises" rel="tag" title="Paises">Paises</a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="paises" rel="tag" title="Paises">Paises</a>
                     </div>
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>"  rel="tag" title="<?= $catPadre ?>"><?= $catPadre ?></a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?= $catPadreSlug ?>"  rel="tag" title="<?= $catPadre ?>"><?= $catPadre ?></a>
                     </div>
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>" rel="tag" title="<?= $categoria ?>"><?= $categoria ?></a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>" rel="tag" title="<?= $categoria ?>"><?= $categoria ?></a>
                     </div>
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>/<?= $producSlug?>" rel="tag" title="<?= $producto ?>"><?= $producto ?></a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>/<?= $producSlug?>" rel="tag" title="<?= $producto ?>"><?= $producto ?></a>
                     </div>
                     <div class="breadcrumb">
                         Resumen de la Reserva

@@ -39,7 +39,7 @@ class Util {
     {
         $remplazar = array("\n\r");
         $por = " ";
-        $ret = htmlentities($value, ENT_COMPAT, 'iso-8859-1');
+        $ret = htmlentities($value, ENT_COMPAT, 'utf-8');
         $pattern = "/[^A-Za-z0-9-=+_@,;&.\/\s\ ]/";
         
         switch (strtolower($type)){

@@ -108,7 +108,7 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                                 ?>
                                 <li>
                                     <div class="featured-image">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoriaPadre->getSlug() ?>/<?= $categoria->getSlug() ?>">
+                                        <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?= $categoriaPadre->getSlug() ?>/<?= $categoria->getSlug() ?>">
                                             <div class="etiqueta-categoria" id="etiqueta">
                                                 <?= $categoria ?> desde <?= $precio ?>
                                             </div>
@@ -221,17 +221,17 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                     <div class="column threecol <?= $last ?>">
                         <div class="tour-thumb-container">
                             <div class="tour-thumb">
-                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoriPadre->getSlug() ?>/<?= $categoria->getSlug() ?>/<?= $producto->getSlug() ?>">
+                                <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?= $categoriPadre->getSlug() ?>/<?= $categoria->getSlug() ?>/<?= $producto->getSlug() ?>">
                                     <img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $producto ?>" title="<?= $producto ?>" />
                                 </a>
                                 <div class="tour-caption">
                                     <h5 class="tour-title">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoriPadre->getSlug() ?>/<?= $categoria->getSlug() ?>/<?= $producto->getSlug() ?>" title="<?= $producto ?>"><?= $producto ?></a>
+                                        <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?= $categoriPadre->getSlug() ?>/<?= $categoria->getSlug() ?>/<?= $producto->getSlug() ?>" title="<?= $producto ?>"><?= $producto ?></a>
                                     </h5>
                                     <div class="tour-meta">
                                         <div class="tour-destination">
                                             <div class="colored-icon icon-2"></div>
-                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $categoriPadre->getSlug() ?>/<?= $categoria->getSlug() ?>" rel="tag" title="Ver todos los destinos de <?= $categoria ?>"><?= $categoria ?></a>
+                                            <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?= $categoriPadre->getSlug() ?>/<?= $categoria->getSlug() ?>" rel="tag" title="Ver todos los destinos de <?= $categoria ?>"><?= $categoria ?></a>
                                         </div>
                                         <div class="colored-icon icon-3"></div><div class="precio"><?= $precio ?></div>
                                     </div>
@@ -257,7 +257,7 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                 <!-- blog -->
                 <div class="threecol column">
                     <div class="section-title">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs" title="Blogs de Viajes"><h2>Blogs de Viajes</h2></a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="blogs" title="Blogs de Viajes"><h2>Blogs de Viajes</h2></a>
                     </div>
                     
                     <div class="featured-blog">
@@ -268,16 +268,16 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                         ?>
                         <article class="post type-post status-publish format-standard hentry category-guides post">
                             <div class="featured-image">
-                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" class="attachment-normal wp-post-image" alt="Imagen de <?= $blog ?>" title="<?= $blog ?>" /></a>
+                                <a hreflang="es" type="text/html" charset="utf-8" href="blogs/<?= $blog->getSlug() ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" class="attachment-normal wp-post-image" alt="Imagen de <?= $blog ?>" title="<?= $blog ?>" /></a>
                             </div>
                             <div class="post-content">
                                 <h5 class="post-title">
-                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><?= $blog ?></a>
+                                    <a hreflang="es" type="text/html" charset="utf-8" href="blogs/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><?= $blog ?></a>
                                 </h5>
                                 <p><?php echo substr(nl2br($blog->getDescripcion()), 0, 400); ?>.[...]</p>
                             </div>
                             <footer class="post-footer clearfix">
-                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>" class="button small" title="Leer m&aacute;s">Leer M&aacute;s</a>
+                                <a hreflang="es" type="text/html" charset="utf-8" href="blogs/<?= $blog->getSlug() ?>" class="button small" title="Leer m&aacute;s">Leer M&aacute;s</a>
                                 <div class="post-comment-count" title="Comentarios"><?= $comentarios ?></div>
                                 <div class="post-info">
                                     <time datetime="<?= $fechaAlta ?>" title="Fecha de Publicaci&oacute;n"><?= $fechaAlta ?></time>
@@ -296,7 +296,7 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                 <!-- galeria -->
                 <div class="sixcol column">
                     <div class="section-title">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="galeria" title="Ver la Galer&iacute;a Completa"><h2>Galer&iacute;a</h2></a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="galeria" title="Ver la Galer&iacute;a Completa"><h2>Galer&iacute;a</h2></a>
                     </div>
                     <div class="items-grid">
                         
@@ -312,7 +312,7 @@ $productoGaleriaList = $productoC->select([],[],[6]);
                             ?>
                         <div class="column gallery-item fourcol <?= $last ?>">
                             <div class="featured-image">
-                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="colorbox " data-group="gallery-<?= $producto->getIdProducto() ?>" title="<?= $producto ?>">
+                                <a hreflang="es" type="text/html" charset="utf-8" href="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="colorbox " data-group="gallery-<?= $producto->getIdProducto() ?>" title="<?= $producto ?>">
                                     <img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $producto ?>" />
                                 </a>                                
                                 <?php foreach ($producto->getImagenes() as $imagen) { ?>

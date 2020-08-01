@@ -125,7 +125,7 @@ $totalRows_legales = mysql_num_rows($legales);
                           <h1>Area Legal</h1>
                           <ul>
                           	<?php do { ?>
-                       	    <li><a hreflang="es" type="text/html" charset="iso-8859-1" href="legal/<?php echo $row_legales['strSEO']; ?>" title="<?php echo $row_legales['strNombre']; ?>"><?php echo $row_legales['strNombre']; ?></a></li>
+                       	    <li><a hreflang="es" type="text/html" charset="utf-8" href="legal/<?php echo $row_legales['strSEO']; ?>" title="<?php echo $row_legales['strNombre']; ?>"><?php echo $row_legales['strNombre']; ?></a></li>
                           	  <?php } while ($row_legales = mysql_fetch_assoc($legales)); ?></ul>
                           <p></p>
                         </div>

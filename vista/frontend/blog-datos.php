@@ -98,10 +98,10 @@ $productos = $productoC->select($filtroP, $ordenados, $limitar);
                 <!-- breadcrumb-->
                 <div class="miga" id="breadcrumb">
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="Inicio">Inicio</a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="inicio" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs" rel="tag" title="Blogs">Blogs</a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="blogs" rel="tag" title="Blogs">Blogs</a>
                     </div>
                     <div class="breadcrumb">
                         <?= $blog ?>
@@ -121,12 +121,12 @@ $productos = $productoC->select($filtroP, $ordenados, $limitar);
                         <article class="post type-post status-publish format-standard full-post">
                             <div class="post-featured-image">
                                 <div class="featured-image">
-                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><img width="768" height="522" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" class="attachment-wide wp-post-image" alt="<?= $blog ?>" /></a>
+                                    <a hreflang="es" type="text/html" charset="utf-8" href="blogs/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><img width="768" height="522" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" class="attachment-wide wp-post-image" alt="<?= $blog ?>" /></a>
                                 </div>
                             </div>
                             <div class="post-content">
                                 <div class="section-title">
-                                    <h1><a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>"><?= $blog ?></a></h1>
+                                    <h1><a hreflang="es" type="text/html" charset="utf-8" href="blogs/<?= $blog->getSlug() ?>"><?= $blog ?></a></h1>
                                 </div>
                                 <?= nl2br($blog->getDescripcion()) ?>			
                             </div>
@@ -223,11 +223,11 @@ $productos = $productoC->select($filtroP, $ordenados, $limitar);
                             <article class="post clearfix">
                                 <div class="post-featured-image">
                                     <div class="featured-image">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" class="attachment-normal wp-post-image" alt="<?= $blog ?>" title="<?= $blog ?>" /></a>
+                                        <a hreflang="es" type="text/html" charset="utf-8" href="blogs/<?= $blog->getSlug() ?>"><img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $blog->getSrcImagen() ?>" class="attachment-normal wp-post-image" alt="<?= $blog ?>" title="<?= $blog ?>" /></a>
                                     </div>
                                 </div>
                                 <div class="post-content">
-                                    <h6 class="post-title"><a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><?= $blog ?></a></h6>
+                                    <h6 class="post-title"><a hreflang="es" type="text/html" charset="utf-8" href="blogs/<?= $blog->getSlug() ?>" title="<?= $blog ?>"><?= $blog ?></a></h6>
                                     <footer class="post-footer clearfix">
                                         <div class="post-comment-count" title="Comentarios"><?= count($blog->getComentarios()); ?></div>
                                         <div class="post-info">
@@ -246,7 +246,7 @@ $productos = $productoC->select($filtroP, $ordenados, $limitar);
                             <ul id="recentcomments">
                                 <?php do { ?>
                                 <li class="recentcomments">
-                                    <?php echo 'nombre'; ?> en <a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs/<?php echo 'seo'; ?>#comment-<?php echo 'idcoment'; ?>">
+                                    <?php echo 'nombre'; ?> en <a hreflang="es" type="text/html" charset="utf-8" href="blogs/<?php echo 'seo'; ?>#comment-<?php echo 'idcoment'; ?>">
                                         <?php echo ucwords('blog'); ?>
                                     </a>
                                 </li>
@@ -258,7 +258,7 @@ $productos = $productoC->select($filtroP, $ordenados, $limitar);
                         
                         <!-- galeria -->
                         <div class="widget widget_text">
-                            <div class="section-title"><a hreflang="es" type="text/html" charset="iso-8859-1" href="galeria" title="Ver la Galer&iacute;a Completa"><h4>Galer&iacute;a</h4></a></div>
+                            <div class="section-title"><a hreflang="es" type="text/html" charset="utf-8" href="galeria" title="Ver la Galer&iacute;a Completa"><h4>Galer&iacute;a</h4></a></div>
                             <div class="textwidget">
                                 <div class="items-grid">
                                     

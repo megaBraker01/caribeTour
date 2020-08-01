@@ -1,7 +1,7 @@
 <div class="row supheader">
                 <!-- logo -->
                 <div class="logo">
-                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="home">
+                    <a hreflang="es" type="text/html" charset="utf-8" href="inicio" rel="home">
                         <img src="vista/frontend/images/logo.png" alt="Logo CaribeTour.es" title="CaribeTour.es" />
                     </a>
                 </div>
@@ -15,12 +15,12 @@
                 <nav class="header-menu">
                     <div class="menu">
                         <ul id="menu-main-menu" class="menu">
-                            <li id="menu-item-97" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" title="Inicio">INICIO</a></li>
-                            <li id="menu-item-306" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="servicios" title="Nuestros Servicios">SERVICIOS</a></li>
-                            <li id="menu-item-122" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="paises" title="Todos los Paises">PAISES</a></li>
-                            <li id="menu-item-120" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="blogs" title="Nuestros Blogs">BLOGS</a></li>
-                            <li id="menu-item-121" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-121"><a hreflang="es" type="text/html" charset="iso-8859-1" href="galeria" title="Galer&iacute;a de Imagenes">GALERIA</a></li>
-                            <li id="menu-item-100" class="menu-item"><a hreflang="es" type="text/html" charset="iso-8859-1" href="contactos" title="Contacta con Nosotros">CONTACTOS</a></li>
+                            <li id="menu-item-97" class="menu-item"><a hreflang="es" type="text/html" charset="utf-8" href="inicio" title="Inicio">INICIO</a></li>
+                            <li id="menu-item-306" class="menu-item"><a hreflang="es" type="text/html" charset="utf-8" href="servicios" title="Nuestros Servicios">SERVICIOS</a></li>
+                            <li id="menu-item-122" class="menu-item"><a hreflang="es" type="text/html" charset="utf-8" href="paises" title="Todos los Paises">PAISES</a></li>
+                            <li id="menu-item-120" class="menu-item"><a hreflang="es" type="text/html" charset="utf-8" href="blogs" title="Nuestros Blogs">BLOGS</a></li>
+                            <li id="menu-item-121" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-121"><a hreflang="es" type="text/html" charset="utf-8" href="galeria" title="Galer&iacute;a de Imagenes">GALERIA</a></li>
+                            <li id="menu-item-100" class="menu-item"><a hreflang="es" type="text/html" charset="utf-8" href="contactos" title="Contacta con Nosotros">CONTACTOS</a></li>
                         </ul>
                     </div>
                 </nav>

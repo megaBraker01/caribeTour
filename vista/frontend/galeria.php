@@ -69,7 +69,7 @@ $mostrarproductos = array_slice($productoList, $mostrarDesde, $mostrarItems);
                 <!-- breadcrumb-->
                 <div class="miga" id="breadcrumb">
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="Inicio">Inicio</a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="inicio" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
                         Galeria
@@ -110,7 +110,7 @@ $mostrarproductos = array_slice($productoList, $mostrarDesde, $mostrarItems);
                             if ($i == $pagActual)
                                 echo "<span class='page-numbers current'>".$i."</span>";
                             else
-				echo "<a hreflang='es' type='text/html' charset='iso-8859-1' href='galeria/pag=$i' class='page-numbers' title='Pasar a la p&aacute;gina $i'>$i</a>";
+				echo "<a hreflang='es' type='text/html' charset='utf-8' href='galeria/pag=$i' class='page-numbers' title='Pasar a la p&aacute;gina $i'>$i</a>";
 			} 
 			?>
                     </nav>

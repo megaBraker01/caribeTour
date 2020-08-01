@@ -98,13 +98,13 @@ try {
                 <!-- breadcrumb-->
                 <div class="miga" id="breadcrumb">
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="Inicio">Inicio</a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="inicio" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises" rel="tag" title="Paises">Paises</a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="paises" rel="tag" title="Paises">Paises</a>
                     </div>
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $slugCatPadre ?>" rel="tag" title="<?= $catPadre ?>"><?= $catPadre ?></a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?= $slugCatPadre ?>" rel="tag" title="<?= $catPadre ?>"><?= $catPadre ?></a>
                     </div>
                     <div class="breadcrumb">
                         <?= $categoria ?>
@@ -135,7 +135,7 @@ try {
                                 <div class="fivecol column">
                                     <div class="content-slider-container tour-slider-container">
                                         <div class="featured-image">
-                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>/<?=$producto->getSlug() ?>">
+                                            <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>/<?=$producto->getSlug() ?>">
                                                 <img width="550" height="413" src="<?php echo PATHFRONTEND."img/{$producto->getImagen()}"; ?>" class="attachment-extended wp-post-image" alt="<?=$producto->getNombre() ?>" title="<?=$producto->getNombre() ?>" />
                                             </a>
                                         </div>
@@ -146,14 +146,14 @@ try {
                                 <div class="sevencol column last">
                                     <div class="section-title">
                                         <h1>
-                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>/<?=$producto->getSlug() ?>" title="<?=$producto->getNombre() ?>"><?=$producto->getNombre() ?></a>
+                                            <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>/<?=$producto->getSlug() ?>" title="<?=$producto->getNombre() ?>"><?=$producto->getNombre() ?></a>
                                         </h1>
                                     </div>
                                     <ul class="tour-meta">
                                         <li>
                                             <div class="colored-icon icon-2"></div>
                                             <strong>Destino:</strong>
-                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>" title="Ver todos los destinos de <?=$catPadre ?>" rel="tag">
+                                            <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>" title="Ver todos los destinos de <?=$catPadre ?>" rel="tag">
                                                 <?=$categoria->getNombre() ?>
                                             </a>
                                         </li>
@@ -170,7 +170,7 @@ try {
                                     </ul>
                                     <p><?= substr($producto->getDescripcion(),0,261); ?>.[...]</p>
                                     <footer class="tour-footer">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>/<?=$producto->getSlug() ?>" class="button small" title="Saber m&aacute;s sobre <?=$producto->getNombre() ?>">
+                                        <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>/<?=$producto->getSlug() ?>" class="button small" title="Saber m&aacute;s sobre <?=$producto->getNombre() ?>">
                                             <span>Saber M&aacute;s</span>
                                         </a>
                                         <a href="#question-form" data-id="<?=$producto->getNombre() ?>" data-title="<?=$producto->getNombre() ?>" class="button grey small colorbox inline" title="Hacer una consulta">
@@ -209,7 +209,7 @@ try {
                             if ($i == $pagActual)
                                 echo "<span class='page-numbers current'>".$i."</span>";
                             else
-				echo "<a hreflang='es' type='text/html' charset='iso-8859-1' href='paises/{$catPadre->getSlug()}/{$categoria->getSlug()}/pag=$i' class='page-numbers' title='Pasar a la p&aacute;gina $i'>$i</a>";
+				echo "<a hreflang='es' type='text/html' charset='utf-8' href='paises/{$catPadre->getSlug()}/{$categoria->getSlug()}/pag=$i' class='page-numbers' title='Pasar a la p&aacute;gina $i'>$i</a>";
 			} 
 			?>
                         </nav>
@@ -230,7 +230,7 @@ try {
                         <div class="widget widget_text">
                             <div class="textwidget">
                                 <div class="featured-image">
-                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="">
+                                    <a hreflang="es" type="text/html" charset="utf-8" href="">
                                         <img src="<?php echo PATHFRONTEND ?>images/image_18.jpg" alt="" />
                                     </a>
                                 </div>

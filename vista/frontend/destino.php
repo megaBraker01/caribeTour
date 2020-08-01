@@ -130,16 +130,16 @@ try {
                 <!-- breadcrumb-->
                 <div class="miga" id="breadcrumb">
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="Inicio">Inicio</a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="inicio" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises" rel="tag" title="Paises">Paises</a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="paises" rel="tag" title="Paises">Paises</a>
                     </div>
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>"  rel="tag" title="<?= $catPadre ?>"><?= $catPadre ?></a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?= $catPadreSlug ?>"  rel="tag" title="<?= $catPadre ?>"><?= $catPadre ?></a>
                     </div>
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>" rel="tag" title="<?= $categoria ?>"><?= $categoria ?></a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>" rel="tag" title="<?= $categoria ?>"><?= $categoria ?></a>
                     </div>
                     <div class="breadcrumb">
                         <?= $producto ?>
@@ -183,7 +183,7 @@ try {
                         <ul class="tour-meta">
                             <li>
                                 <div class="colored-icon icon-2"></div>
-                                <strong>Destino:</strong> <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>" rel="tag" title="Ver paises en subCategoria"><?= $categoria ?></a>
+                                <strong>Destino:</strong> <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>" rel="tag" title="Ver paises en subCategoria"><?= $categoria ?></a>
                             </li>
                             <li>
                                 <div class="colored-icon icon-1"><span></span></div>
@@ -294,15 +294,15 @@ try {
                         ?>
                         <div class="column threecol <?= $last ?>">
                             <div class="tour-thumb-container">
-                                <div class="tour-thumb"> <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadre->getSlug() ?>/<?= $categoria->getSlug() ?>/<?= $producto->getSlug() ?>" title="<?= $producto ?>"><img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $producto ?>" /></a>
+                                <div class="tour-thumb"> <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?= $catPadre->getSlug() ?>/<?= $categoria->getSlug() ?>/<?= $producto->getSlug() ?>" title="<?= $producto ?>"><img width="440" height="330" src="<?=PATHFRONTEND ?>img/<?= $producto->getImagen() ?>" class="attachment-preview wp-post-image" alt="<?= $producto ?>" /></a>
                                     <div class="tour-caption">
                                         <h5 class="tour-title">
-                                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>/<?= $producto->getSlug() ?>" title="<?= $producto ?>"> <?= $producto ?> </a>
+                                                <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>/<?= $producto->getSlug() ?>" title="<?= $producto ?>"> <?= $producto ?> </a>
                                         </h5>
                                         <div class="tour-meta">
                                             <div class="tour-destination">
                                                 <div class="colored-icon icon-2"></div>
-                                                <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>" rel="tag" title="<?= $categoria ?>"><?= $categoria ?></a>
+                                                <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?= $catPadreSlug ?>/<?= $catSlug ?>" rel="tag" title="<?= $categoria ?>"><?= $categoria ?></a>
                                             </div>
                                             <div class="colored-icon icon-3"></div><div class="precio"><?= Util::moneda($producto->getPrecioMasBajo()) ?></div>
                                         </div>

@@ -87,10 +87,10 @@ try {
 		<!-- breadcrumb-->
                 <div class="miga" id="breadcrumb">
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="Inicio">Inicio</a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="inicio" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
-                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises" rel="tag" title="Paises">Paises</a>
+                            <a hreflang="es" type="text/html" charset="utf-8" href="paises" rel="tag" title="Paises">Paises</a>
                     </div>
                     <div class="breadcrumb">
                         <?= $catPadreNombre ?>
@@ -119,13 +119,13 @@ try {
                         <div class="featured-blog">
                             <article class="post type-post status-publish format-standard category-<?= $categoria->getSlug() ?> tag-<?= $categoria->getSlug() ?> tag-caribe">
                                 <div class="featured-image">
-                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $slugCatPadre ?>/<?= $categoria->getSlug() ?>">
+                                    <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?= $slugCatPadre ?>/<?= $categoria->getSlug() ?>">
                                         <img width="440" height="299" src="<?=PATHFRONTEND ?>img/<?= $categoria->getSrcImagen() ?>" class="attachment-normal wp-post-image" alt="<?= $categoria->getNombre() ?>" title="<?= $categoria->getNombre() ?>" />
                                     </a>
                                 </div>
                                 <div class="post-content">
                                     <h2 class="post-title">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?= $slugCatPadre ?>/<?= $categoria->getSlug() ?>" title="<?= $categoria->getNombre() ?>">
+                                        <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?= $slugCatPadre ?>/<?= $categoria->getSlug() ?>" title="<?= $categoria->getNombre() ?>">
                                             <?= $categoria->getNombre() ?> desde <?= $precioMasBajo ?>
                                         </a>
                                     </h2>

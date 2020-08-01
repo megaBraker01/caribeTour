@@ -102,7 +102,7 @@ $urlPaginacion = "resultado.php?cat={$cat}&fechaI={$fechaI}&fechaR={$fechaR}&pre
                 <!-- breadcrumb-->
                 <div class="miga" id="breadcrumb">
                     <div class="breadcrumb">
-                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="inicio" rel="tag" title="Inicio">Inicio</a>
+                        <a hreflang="es" type="text/html" charset="utf-8" href="inicio" rel="tag" title="Inicio">Inicio</a>
                     </div>
                     <div class="breadcrumb">
                         Resultado
@@ -135,7 +135,7 @@ $urlPaginacion = "resultado.php?cat={$cat}&fechaI={$fechaI}&fechaR={$fechaR}&pre
                                 <div class="fivecol column">
                                     <div class="content-slider-container tour-slider-container">
                                         <div class="featured-image">
-                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>/<?=$producto->getSlug() ?>">
+                                            <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>/<?=$producto->getSlug() ?>">
                                                 <img width="550" height="413" src="<?php echo PATHFRONTEND."img/{$producto->getImagen()}"; ?>" class="attachment-extended wp-post-image" alt="<?=$producto->getNombre() ?>" title="<?=$producto->getNombre() ?>" />
                                             </a>
                                         </div>
@@ -146,14 +146,14 @@ $urlPaginacion = "resultado.php?cat={$cat}&fechaI={$fechaI}&fechaR={$fechaR}&pre
                                 <div class="sevencol column last">
                                     <div class="section-title">
                                         <h1>
-                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>/<?=$producto->getSlug() ?>" title="<?=$producto->getNombre() ?>"><?=$producto->getNombre() ?></a>
+                                            <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>/<?=$producto->getSlug() ?>" title="<?=$producto->getNombre() ?>"><?=$producto->getNombre() ?></a>
                                         </h1>
                                     </div>
                                     <ul class="tour-meta">
                                         <li>
                                             <div class="colored-icon icon-2"></div>
                                             <strong>Destino:</strong>
-                                            <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>" title="Ver todos los destinos de <?=$catPadre ?>" rel="tag">
+                                            <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>" title="Ver todos los destinos de <?=$catPadre ?>" rel="tag">
                                                 <?=$categoria->getNombre() ?>
                                             </a>
                                         </li>
@@ -170,7 +170,7 @@ $urlPaginacion = "resultado.php?cat={$cat}&fechaI={$fechaI}&fechaR={$fechaR}&pre
                                     </ul>
                                     <p><?= substr($producto->getDescripcion(),0,261); ?>.[...]</p>
                                     <footer class="tour-footer">
-                                        <a hreflang="es" type="text/html" charset="iso-8859-1" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>/<?=$producto->getSlug() ?>" class="button small" title="Saber m&aacute;s sobre <?=$producto->getNombre() ?>">
+                                        <a hreflang="es" type="text/html" charset="utf-8" href="paises/<?=$catPadre->getSlug() ?>/<?=$categoria->getSlug() ?>/<?=$producto->getSlug() ?>" class="button small" title="Saber m&aacute;s sobre <?=$producto->getNombre() ?>">
                                             <span>Saber M&aacute;s</span>
                                         </a>
                                         <a href="#question-form" data-id="<?=$producto->getNombre() ?>" data-title="<?=$producto->getNombre() ?>" class="button grey small colorbox inline" title="Hacer una consulta">
@@ -189,7 +189,7 @@ $urlPaginacion = "resultado.php?cat={$cat}&fechaI={$fechaI}&fechaR={$fechaR}&pre
                         <div class="column ninecol">
                             <div class="items-list clearfix">
                                 <h3>Sin Resultados...</h3>
-                                <p>Lo sentimos, no hemos encontrado Destinos con estas caracter&iacute;sticas, puedes intentar buscando en el men&uacute; superior<a hreflang="es" type="text/html" charset="iso-8859-1" href="paises"> Paises</a> o trata cambiando los parametros de b&uacute;squeda.</p>
+                                <p>Lo sentimos, no hemos encontrado Destinos con estas caracter&iacute;sticas, puedes intentar buscando en el men&uacute; superior<a hreflang="es" type="text/html" charset="utf-8" href="paises"> Paises</a> o trata cambiando los parametros de b&uacute;squeda.</p>
                                 <!--<img src="<?php echo PATHFRONTEND ?>/images/no-encontrado.gif" title="Ehhhhh..... No lo encuentro." alt="Sin Resultados..."><br>-->
                             </div>
                         </div>
@@ -202,7 +202,7 @@ $urlPaginacion = "resultado.php?cat={$cat}&fechaI={$fechaI}&fechaR={$fechaR}&pre
                             if ($i == $pagActual)
                                 echo "<span class='page-numbers current'>{$i}</span>";
                             else
-				echo "<a hreflang='es' type='text/html' charset='iso-8859-1' href='{$urlPaginacion}&pag={$i}' class='page-numbers' title='Pasar a la p&aacute;gina {$i}'>{$i}</a>";
+				echo "<a hreflang='es' type='text/html' charset='utf-8' href='{$urlPaginacion}&pag={$i}' class='page-numbers' title='Pasar a la p&aacute;gina {$i}'>{$i}</a>";
 			} 
 			?>
                         </nav>
@@ -223,7 +223,7 @@ $urlPaginacion = "resultado.php?cat={$cat}&fechaI={$fechaI}&fechaR={$fechaR}&pre
                         <div class="widget widget_text">
                             <div class="textwidget">
                                 <div class="featured-image">
-                                    <a hreflang="es" type="text/html" charset="iso-8859-1" href="">
+                                    <a hreflang="es" type="text/html" charset="utf-8" href="">
                                         <img src="<?php echo PATHFRONTEND ?>images/image_18.jpg" alt="" />
                                     </a>
                                 </div>

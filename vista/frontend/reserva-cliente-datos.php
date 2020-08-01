@@ -321,7 +321,7 @@ try{
 
                             <fieldset class="twelvecol column last">
                                 <legend>
-                                    <input type="button" name="copyTitular" title="Copiar los datos del titular al pasajero 1" value="Copiar datos del Titular" onClick="javascript:copiar();"/>
+                                    <input type="button" name="copyTitular" title="Copiar los datos del titular al pasajero 1" value="Copiar datos del Titular" id="copiarDatos"/>
                                 </legend>
                                 <p>&nbsp;</p>
                             </fieldset>
@@ -341,7 +341,7 @@ try{
                                 <legend>Fecha de Nacimiento *</legend>
                                 <div class="threecol column">
                                     <div class="field-container">
-                                        <input type="number" name="diaP[]" value="" id="diap1" placeholder="D&iacute;a" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) mesP[].focus()" maxlength="2" max="31" min="1" title="Introduzca el D&iacute;a de su nacimiento" required />
+                                        <input type="number" name="diaP[]" value="" id="diap1" placeholder="D&iacute;a" onKeyUp="if (this.value.length >= this.getAttribute('maxlength')){ document.getElementById('mesp1').focus();}" maxlength="2" max="31" min="1" title="Introduzca el D&iacute;a de su nacimiento" required pattern="[0-9]{2}"/>
                                     </div>
                                 </div>
                                 <div class="fivecol column">
@@ -381,7 +381,7 @@ try{
                                 <legend>Fecha de Nacimiento *</legend>
                                 <div class="threecol column">
                                     <div class="field-container">
-                                        <input type="number" name="diaP[]" value="" id="diap2" placeholder="D&iacute;a" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) mesP[].focus()" maxlength="2" max="31" min="1" title="Introduzca el D&iacute;a de su nacimiento" required pattern="[0-9]{2}" />
+                                        <input type="number" name="diaP[]" value="" id="diap2" placeholder="D&iacute;a" onKeyUp="if (this.value.length >= this.getAttribute('maxlength')){ document.getElementById('mesp2').focus();}"  maxlength="2" max="31" min="1" title="Introduzca el D&iacute;a de su nacimiento" required pattern="[0-9]{2}" />
                                     </div>
                                 </div>
                                 <div class="fivecol column">
@@ -405,7 +405,7 @@ try{
                                 </div>
                                 <div class="fourcol column last">
                                 <div class="field-container">
-                                <input type="number" id="aniop2" name="anioP[]" value="" maxlength="4" max="2002" min="1930" placeholder="A&ntilde;o" title="Introduzca el a&ntilde;o de su nacimiento" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) strCiudad[].focus()" required  pattern="[0-9]{4}" /></div></div>
+                                    <input type="number" id="aniop2" name="anioP[]" value="" maxlength="4" max="2002" min="1930" placeholder="A&ntilde;o" title="Introduzca el a&ntilde;o de su nacimiento" required  pattern="[0-9]{4}" /></div></div>
                             </fieldset>
                             
                             <div class="clear"></div>
@@ -508,9 +508,26 @@ try{
         </div>
         <!-- /container -->
 	    <?php include_once('includes/jsFoot.php'); ?>
+        
         <script type='text/javascript'>
             (window.onload = function(){
-                
+                // COPAIR LOS DATOS DEL TITULAR AL PASAJERO
+                let $botonCopiar = document.getElementById('copiarDatos');
+                $botonCopiar.addEventListener('click', function(){
+                    let $titularNombre = document.getElementById('nombre').value;
+                    let $titularApellidos = document.getElementById('apelli2').value;
+                    let $titularDNI = document.getElementById('dni').value;
+
+                    document.getElementById('nombrep').value = $titularNombre;
+                    document.getElementById('apelli2p').value = $titularApellidos;
+                    document.getElementById('dnip').value = $titularDNI;
+                    document.getElementById('nacionalidadp').focus();
+                });                
+            })()
+        </script>
+        <script type='text/javascript'>
+            (window.onload = function(){
+                // CALCULAR LOS SEGUROS
                 function echo($var){
                     console.log($var);
                 }

@@ -6,6 +6,9 @@ include '../../configPayPal.php';
 
 $producto = $categoria = $idProductoFechaRef = $showError = null;
 $catSlug =  $catPadre = $catPadreSlug = $producSlug = null;
+$anioActual = date('Y');
+$anioMax = $anioActual - 17;
+$anioMin = $anioActual - 80;
 try{
     $idProducto = (isset($_GET['idProducto']) and "" != $_GET['idProducto']) 
             ? (int) $_GET['idProducto'] 
@@ -270,7 +273,7 @@ try{
                     
                     
                     <div class="booking-form">
-                        <form action="<?= $editFormAction ?>" method="POST" class="formatted-form" role="form" name="clientes" lang="es" onSubmit="return validacion();" dir="ltr">
+                        <form action="<?= $editFormAction ?>" method="POST" class="formatted-form" role="form" name="clientes" lang="es" dir="ltr">
                             <div class="section-title">
                                 <h2>Datos del Titular</h2>
                                 <p>(*) Campo Obligatorio</p>
@@ -281,21 +284,21 @@ try{
                                 <label for="apelli2">Apellidos *</label>
                                 <div class="field-container"><input id="apelli2" type="text" name="apellidosT" value="" placeholder="Apellidos" title="Introduzca sus Apellidos" maxlength="30" required /></div>
                                 <label for="dni">DNI o Pasaporte *</label>
-                                <div class="field-container"><input id="dni" type="text" name="NIFoPasaporteT" value="" placeholder="DNI o Pasaporte" title="Introduzca el DNI o Pasaporte sin guiones ni espacios." maxlength="10" required /></div>
+                                <div class="field-container"><input id="dni" type="text" name="NIFoPasaporteT" value="" placeholder="DNI o Pasaporte" title="Introduzca el DNI o Pasaporte sin guiones ni espacios" maxlength="10" required /></div>
                                 <label for="telefono">Tel&eacute;fono de contacto *</label>
                                 <div class="field-container"><input id="telefono" type="number" name="telefonoT" value="" placeholder="Tel&eacute;fono" title="Introduzca su N&uacute;mero Telef&oacute;nico sin guiones ni espacios" maxlength="15" min="600000000" required /></div>
                                 <label for="email">Email *</label>
-                                <div class="field-container"><input type="email" name="emailT" id="email" value="" placeholder="Email" title="Introduzca su Correo Eletr&oacute;nico" maxlength="50" required /></div>
+                                <div class="field-container"><input type="email" name="emailT" id="email" value="" placeholder="Email" title="Introduzca su Correo Eletr&oacute;nico" maxlength="100" required /></div>
                             </fieldset>
                             <fieldset class="column fourcol" name="Direccion">
                                 <label for="direccion">Direcci&oacute;n</label>
-                                <div class="field-container"><input type="text" id="direccion" name="direccionT" value="" placeholder="Direcci&oacute;n" title="Indique su Direcci&oacute;n" maxlength="30" /></div>
+                                <div class="field-container"><input type="text" id="direccion" name="direccionT" value="" placeholder="Direcci&oacute;n" title="Indique su Direcci&oacute;n" maxlength="50" /></div>
                                 <label for="ciudad">Ciudad o Pueblo</label>
                                 <div class="field-container"><input type="text" id="ciudad" name="ciudadT" value="" placeholder="Ciudad o Pueblo" title="Introduzca su Ciudad" maxlength="30" /></div>
                                 <label for="provincia">Provincia</label>
                                 <div class="field-container"><input type="text" id="provincia" name="provinciaT" value="" placeholder="Provincia" title="Introduzca su Provincia" maxlength="30" /></div>
                                 <label for="cp">C&oacute;digo Postal</label>
-                                <div class="field-container"><input type="number" id="cp" name="codigoPostalT" value="" placeholder="C&oacute;digo Postal" title="Introduzca el C&oacute;digo Postal sin guiones ni espacios" maxlength="6" min="0" required /></div>
+                                <div class="field-container"><input type="number" id="cp" name="codigoPostalT" value="" placeholder="C&oacute;digo Postal" title="Introduzca el C&oacute;digo Postal sin guiones ni espacios" maxlength="6" min="0"/></div>
                                 <label for="pais">Pais</label>
                                 <div class="field-container"><input type="text" id="pais" name="paisT" value="" placeholder="Pais" title="Introduzca el Pais" maxlength="50" /></div>
                             </fieldset>
@@ -337,7 +340,7 @@ try{
                                 <legend>Fecha de Nacimiento *</legend>
                                 <div class="threecol column">
                                     <div class="field-container">
-                                        <input type="number" name="diaP[]" value="" id="diap1" placeholder="D&iacute;a" onKeyUp="if (this.value.length >= this.getAttribute('maxlength')){ document.getElementById('mesp1').focus();}" maxlength="2" max="31" min="1" title="Introduzca el D&iacute;a de su nacimiento" required pattern="[0-9]{2}"/>
+                                        <input type="number" name="diaP[]" value="" id="diap1" placeholder="D&iacute;a" maxlength="2" max="31" min="1" title="Introduzca el D&iacute;a de su nacimiento" required pattern="[0-9]{2}"/>
                                     </div>
                                 </div>
                                 <div class="fivecol column">
@@ -361,7 +364,7 @@ try{
                                 </div>
                                 <div class="fourcol column last">
                                 <div class="field-container">
-                                <input type="number" id="aniop1" name="anioP[]" value="" maxlength="4" max="2002" min="1930" placeholder="A&ntilde;o" title="Introduzca el a&ntilde;o de su nacimiento" onKeyUp="if (this.value.length == this.getAttribute('maxlength')) strCiudad[].focus()" required /></div></div>
+                                <input type="number" id="aniop1" name="anioP[]" value="" maxlength="4" max="<?= $anioMax ?>" min="<?= $anioMin ?>" placeholder="A&ntilde;o" title="Introduzca el a&ntilde;o de su nacimiento" required /></div></div>
                             </fieldset>
                             
                             <fieldset class="column fourcol last" name="Pasajero_2">
@@ -377,7 +380,7 @@ try{
                                 <legend>Fecha de Nacimiento *</legend>
                                 <div class="threecol column">
                                     <div class="field-container">
-                                        <input type="number" name="diaP[]" value="" id="diap2" placeholder="D&iacute;a" onKeyUp="if (this.value.length >= this.getAttribute('maxlength')){ document.getElementById('mesp2').focus();}"  maxlength="2" max="31" min="1" title="Introduzca el D&iacute;a de su nacimiento" required pattern="[0-9]{2}" />
+                                        <input type="number" name="diaP[]" value="" id="diap2" placeholder="D&iacute;a" maxlength="2" max="31" min="1" title="Introduzca el D&iacute;a de su nacimiento" required pattern="[0-9]{2}" />
                                     </div>
                                 </div>
                                 <div class="fivecol column">
@@ -401,7 +404,7 @@ try{
                                 </div>
                                 <div class="fourcol column last">
                                 <div class="field-container">
-                                    <input type="number" id="aniop2" name="anioP[]" value="" maxlength="4" max="2002" min="1930" placeholder="A&ntilde;o" title="Introduzca el a&ntilde;o de su nacimiento" required  pattern="[0-9]{4}" /></div></div>
+                                    <input type="number" id="aniop2" name="anioP[]" value="" maxlength="4" max="<?= $anioActual ?>" min="<?= $anioMin ?>" placeholder="A&ntilde;o" title="Introduzca el a&ntilde;o de su nacimiento" required  pattern="[0-9]{4}" /></div></div>
                             </fieldset>
                             
                             <div class="clear"></div>
@@ -458,7 +461,7 @@ try{
                                 <div class="field-container">
                                     <input type="checkbox" name="chx_termsAndConditions" id="chx_termsAndConditions" required /> 
                                     <label for="chx_termsAndConditions" title="Aceptar los terminos y condiciones">
-                                        He le&iacute;do y acepto las <a href="legal/condiciones-de-uso" title="Ver condiciones generales" target="_blank">Condiciones generales</a> de venta y la <a href="legal/politica-de-privacidad" title="Ver Pol&iacute;tica de Seguridad y Privacidad" target="_blank">Pol&iacute;tica de Seguridad y Privacidad</a>
+                                        He le&iacute;do y acepto las <a href="legal/condiciones-de-uso" title="Ver condiciones generales" target="_blank">Condiciones generales</a> de venta y las <a href="legal/politica-de-privacidad" title="Ver Pol&iacute;ticas de Seguridad y Privacidad" target="_blank">Pol&iacute;ticas de Seguridad y Privacidad</a>
                                     </label>
                                 </div>
                                 <p>&nbsp;</p>
@@ -519,7 +522,7 @@ try{
                     document.getElementById('dnip').value = $titularDNI;
                     document.getElementById('nacionalidadp').focus();
                 });                
-            })()
+            })();
         </script>
         <script type='text/javascript'>
             (window.onload = function(){
@@ -561,8 +564,7 @@ try{
                         getElement('hiddenPvp').value = $pvp;
                     });
                 });
-            })()
-        
+            })();
         </script>  
         
     </body>
